@@ -1,75 +1,43 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="email" class="col-sm-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
-
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
+    <div class="row m-t-100">
+        <div class="col s4 offset-s4">
+            <div class="row">
+                <div class="card hoverable indigo">
+                    <div class="card-content white-text">
+                        <div class="row m-b-0">
+                            {!! Form::open(['route' => 'login', 'method' => 'POST']) !!}
+                            <span class="card-title center">Sign in</span>
+                            <div class="input-field col s12 m-b-0">
+                                <i class="material-icons prefix">email</i>
+                                {!! Form::email('email', null, ['class' => 'validate', 'id' => 'email', 'required']) !!}
+                                {!! Form::label('email', 'Enter Your Email') !!}
+                                <span class="helper-text" data-error="Email not correct" data-success="All is OK"></span>
                             </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
+                            <div class="input-field col s12 m-b-0">
+                                <i class="material-icons prefix">vpn_key</i>
+                                {!! Form::password('password', ['class' => 'validate', 'id' => 'password', 'pattern' => '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])\S{6,}$', 'required']) !!}
+                                {!! Form::label('password', 'Enter Your Password') !!}
+                                <span class="helper-text" data-error="Minimum 6 chars at least 1 number and 1 capital letter" data-success="All is OK"></span>
                             </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
+                            <div class="input-field col s12 m-b-30">
+                                <div class="g-recaptcha" data-sitekey="6Lc_w2UUAAAAABDMaDvisV-3Wg1IT09Kgr0qg4fW"></div>
                             </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
+                            <div class="col s12">
+                                <label>
+                                    <input type="checkbox" />
+                                    <span>Remember Me?</span>
+                                </label>
+                                <button class="btn waves-effect waves-light grey right" type="submit" name="action">Sign in
+                                    <i class="material-icons right">send</i>
                                 </button>
-
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    {{ __('Forgot Your Password?') }}
-                                </a>
                             </div>
+                            {!! Form::close() !!}
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-@endsection
-
-@section('scripts')
-
 @endsection
