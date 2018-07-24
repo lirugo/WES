@@ -11,18 +11,18 @@
                             <span class="card-title center">Sign in</span>
                             <div class="input-field col s12 m-b-0">
                                 <i class="material-icons prefix">email</i>
-                                {!! Form::email('email', null, ['class' => 'validate', 'id' => 'email', 'required']) !!}
-                                {!! Form::label('email', 'Enter Your Email') !!}
+                                {!! Form::email('email', null, ['class' => 'validate', 'id' => 'email', 'required', 'autofocus']) !!}
+                                {!! Form::label('email', 'Enter Your Email', ['class' => 'active']) !!}
                                 <span class="helper-text" data-error="Email not correct" data-success="All is OK"></span>
                             </div>
                             <div class="input-field col s12 m-b-0">
                                 <i class="material-icons prefix">vpn_key</i>
-                                {!! Form::password('password', ['class' => 'validate', 'id' => 'password', 'pattern' => '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])\S{6,}$', 'required']) !!}
+                                {!! Form::password('password', ['id' => 'password', 'required']) !!}
                                 {!! Form::label('password', 'Enter Your Password') !!}
                                 <span class="helper-text" data-error="Minimum 6 chars at least 1 number and 1 capital letter" data-success="All is OK"></span>
                             </div>
                             <div class="input-field col s12 m-b-30">
-                                <div class="g-recaptcha" data-sitekey="6Lc_w2UUAAAAABDMaDvisV-3Wg1IT09Kgr0qg4fW"></div>
+                                <div class="g-recaptcha right" data-sitekey="6Lc_w2UUAAAAABDMaDvisV-3Wg1IT09Kgr0qg4fW"></div>
                             </div>
                             <div class="col s12">
                                 <label>
