@@ -967,7 +967,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(10);
-module.exports = __webpack_require__(38);
+module.exports = __webpack_require__(39);
 
 
 /***/ }),
@@ -980,7 +980,7 @@ window.Vue = __webpack_require__(35);
 
 // Custom scripts
 // Materialize Options
-__webpack_require__(48);
+__webpack_require__(38);
 
 /***/ }),
 /* 11 */
@@ -45193,21 +45193,6 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* 38 */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 39 */,
-/* 40 */,
-/* 41 */,
-/* 42 */,
-/* 43 */,
-/* 44 */,
-/* 45 */,
-/* 46 */,
-/* 47 */,
-/* 48 */
-/***/ (function(module, exports) {
-
 // Init Left navigation
 document.addEventListener('DOMContentLoaded', function () {
     var elems = document.querySelectorAll('.sidenav');
@@ -45218,6 +45203,12 @@ document.addEventListener('DOMContentLoaded', function () {
     var elems = document.querySelectorAll('.collapsible');
     var instances = M.Collapsible.init(elems, []);
 });
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);
