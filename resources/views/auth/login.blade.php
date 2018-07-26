@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.welcome')
 
 @section('content')
     <div class="row m-t-100">
@@ -29,7 +29,7 @@
                                     <input type="checkbox" />
                                     <span>Remember Me?</span>
                                 </label>
-                                <button class="btn waves-effect waves-light grey right" type="submit" name="action">Sign in
+                                <button class="btn waves-effect waves-light grey lighten-5 indigo-text right" type="submit" name="action">Sign in
                                     <i class="material-icons right">send</i>
                                 </button>
                             </div>

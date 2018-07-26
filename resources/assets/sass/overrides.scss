@@ -1,3 +1,6 @@
 input, select, textarea{
   @extend .grey-text;
 }
+body {
+  @extend .grey, .lighten-3;
+}

@@ -27,13 +27,9 @@
 
     <!-- Application -->
     <div id="app">
-        <div id="content">
-            @include('_includes.nav.top')
+        @include('_includes.nav.top')
 
-            @include('_includes.nav.left')
-
-            @yield('content')
-        </div>
+        @yield('content')
     </div>
 
     <!-- Scripts -->

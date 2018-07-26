@@ -5,11 +5,19 @@
 | Auth Route
 |--------------------------------------------------------------------------
 */
-Route::get('/', 'Auth\LoginController@showLoginForm');
-Route::post('/login', 'Auth\LoginController@login')->name('login');
-Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
-Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('register');
-Route::post('/register', 'Auth\RegisterController@register')->name('register');
+Route::group(['middleware' => ['guest'], 'namespace' => 'Auth'], function () {
+    Route::get('/login', 'LoginController@showLoginForm');
+    Route::post('/login', 'LoginController@login')->name('login');
+});
+Route::group(['middleware' => ['auth'], 'namespace' => 'Auth'], function () {
+    Route::post('/logout', 'LoginController@logout')->name('logout');
+});
 
 
-Route::get('/home', 'HomeController@index')->name('home');
+/*
+|--------------------------------------------------------------------------
+| Manage panel route
+|--------------------------------------------------------------------------
+*/
+    Route::get('/', 'Manage\ManageController@index');
+    Route::get('/manage', 'Manage\ManageController@index')->name('manage');
