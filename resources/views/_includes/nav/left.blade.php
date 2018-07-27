@@ -26,7 +26,7 @@
                         <div class="collapsible-header"><i class="material-icons">group</i>Students</div>
                         <div class="collapsible-body">
                             <ul>
-                                <li><a href="#!"><i class="material-icons">account_circle</i>Create a new student</a></li>
+                                <li><a href="{{url('/manage/manager/student/create')}}"><i class="material-icons">account_circle</i>Create a new student</a></li>
                                 <li><a href="#!"><i class="material-icons">group</i>Show all students</a></li>
                             </ul>
                         </div>

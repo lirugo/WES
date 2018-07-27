@@ -19,5 +19,21 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Auth'], function () {
 | Manage panel route
 |--------------------------------------------------------------------------
 */
-    Route::get('/', 'Manage\ManageController@index');
-    Route::get('/manage', 'Manage\ManageController@index')->name('manage');
+Route::get('/', 'Manage\ManageController@index');
+Route::get('/manage', 'Manage\ManageController@index')->name('manage');
+
+    /*
+    |--------------------------------------------------------------------------
+    |--------------------------------------------------------------------------
+    | Manager route
+    |--------------------------------------------------------------------------
+    |--------------------------------------------------------------------------
+    */
+        /*
+        |--------------------------------------------------------------------------
+        | Student route
+        |--------------------------------------------------------------------------
+        */
+        Route::group(['middleware' => ['auth'], 'prefix' => 'manage/manager/student', 'namespace' => 'Manage\Manager\Student'], function () {
+            Route::get('/create', 'StudentController@create');
+        });
