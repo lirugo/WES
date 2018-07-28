@@ -63,6 +63,15 @@ class LaratrustSeeder extends Seeder
                 'password' => bcrypt('password')
             ]);
 
+            // Add name for user
+            $user->names()->create([
+                'user_id' => $user->id,
+                'language' => 'en',
+                'second_name' => ucwords(str_replace('_', ' ', $key)),
+                'name' => ucwords(str_replace('_', ' ', $key)),
+                'middle_name' => ucwords(str_replace('_', ' ', $key))
+            ]);
+
             $user->attachRole($role);
         }
 
