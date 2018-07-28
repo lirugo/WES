@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Manage\Manager\Student;
 use App\Http\Requests\StoreUserStudent;
 use App\Http\Controllers\Controller;
 use App\User;
+use Session;
 
 class StudentController extends Controller
 {
@@ -18,12 +19,12 @@ class StudentController extends Controller
     }
 
     public function store(StoreUserStudent $request){
-        // Validate
         // Persist to db
             $user = new User();
             $user->storeStudent($request);
         // Show flash msg
+        Session::flash('success', 'Student was successfully created.');
         // Redirect to manage page
-        dd($request->all());
+        return redirect(url('/manage'));
     }
 }
