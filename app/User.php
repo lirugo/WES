@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'email', 'password',
     ];
 
     /**
@@ -28,4 +28,19 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function names()
+    {
+        return $this->hasMany(UserName::class);
+    }
+
+    public function addName($userId, $lang, $secondName, $name, $middleName){
+        return UserName::create([
+            'user_id' => $userId,
+            'language' => $lang,
+            'second_name' => $secondName,
+            'name' => $name,
+            'middle_name' => $middleName,
+        ]);
+    }
 }

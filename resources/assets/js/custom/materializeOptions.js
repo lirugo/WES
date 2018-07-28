@@ -18,3 +18,15 @@ document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('.tooltipped');
     var instances = M.Tooltip.init(elems, []);
 });
+// DatePicker
+var optionsDatePicker = {
+    format: 'dd-mm-yyyy',
+    minDate: new Date(1940, 0, 1),
+    maxDate: new Date(),
+    defaultDate: new Date(1980, 0, 1),
+    yearRange:30
+};
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.datepicker');
+    var instances = M.Datepicker.init(elems, optionsDatePicker);
+});

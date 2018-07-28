@@ -36,4 +36,5 @@ Route::get('/manage', 'Manage\ManageController@index')->name('manage');
         */
         Route::group(['middleware' => ['auth'], 'prefix' => 'manage/manager/student', 'namespace' => 'Manage\Manager\Student'], function () {
             Route::get('/create', 'StudentController@create');
+            Route::post('/store', 'StudentController@store')->name('manage.manager.student.store');
         });

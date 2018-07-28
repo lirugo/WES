@@ -15,4 +15,12 @@ class StudentController extends Controller
     public function create(){
         return view('manage.manager.student.create');
     }
+
+    public function store(Request $request){
+        // Validate
+        // Persist to db
+        // Show flash msg
+        // Redirect to manage page
+        dd($request->all());
+    }
 }
