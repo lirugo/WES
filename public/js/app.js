@@ -45215,7 +45215,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 // DatePicker
 var optionsDatePicker = {
-    format: 'dd-mm-yyyy',
+    format: 'yyyy-mm-dd',
     minDate: new Date(1940, 0, 1),
     maxDate: new Date(),
     defaultDate: new Date(1980, 0, 1),

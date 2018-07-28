@@ -23,15 +23,15 @@
                         Ukrainian language
                     </blockquote>
                     <div class="input-field">
-                        <input id="second_name_ua" name="second_name_ua" type="text" class="validate" required>
+                        {!! Form::text('second_name_ua', null, ['class' => 'validate', 'id' => 'second_name_ua', 'required']) !!}
                         <label for="second_name_ua">Second Name</label>
                     </div>
                     <div class="input-field">
-                        <input id="name_ua" name="name_ua" type="text" class="validate" required>
+                        {!! Form::text('name_ua', null, ['class' => 'validate', 'id' => 'name_ua', 'required']) !!}
                         <label for="name_ua">Name</label>
                     </div>
                     <div class="input-field">
-                        <input id="middle_name_ua" name="middle_name_ua" type="text" class="validate" required>
+                        {!! Form::text('middle_name_ua', null, ['class' => 'validate', 'id' => 'middle_name_ua', 'required']) !!}
                         <label for="middle_name_ua">Middle Name</label>
                     </div>
 
@@ -39,15 +39,15 @@
                         Russian language
                     </blockquote>
                     <div class="input-field">
-                        <input id="second_name_ru" name="second_name_ru" type="text" class="validate" required>
+                        {!! Form::text('second_name_ru', null, ['class' => 'validate', 'id' => 'second_name_ru', 'required']) !!}
                         <label for="second_name_ru">Second Name</label>
                     </div>
                     <div class="input-field">
-                        <input id="name_ru" name="name_ru" type="text" class="validate" required>
+                        {!! Form::text('name_ru', null, ['class' => 'validate', 'id' => 'name_ru', 'required']) !!}
                         <label for="name_ru">Name</label>
                     </div>
                     <div class="input-field">
-                        <input id="middle_name_ru" name="middle_name_ru" type="text" class="validate" required>
+                        {!! Form::text('middle_name_ru', null, ['class' => 'validate', 'id' => 'middle_name_ru', 'required']) !!}
                         <label for="middle_name_ru">Middle Name</label>
                     </div>
 
@@ -55,15 +55,15 @@
                         English language
                     </blockquote>
                     <div class="input-field">
-                        <input id="second_name_en" name="second_name_en" type="text" class="validate" required>
+                        {!! Form::text('second_name_en', null, ['class' => 'validate', 'id' => 'second_name_en', 'required']) !!}
                         <label for="second_name_en">Second Name</label>
                     </div>
                     <div class="input-field">
-                        <input id="name_en" name="name_en" type="text" class="validate" required>
+                        {!! Form::text('name_en', null, ['class' => 'validate', 'id' => 'name_en', 'required']) !!}
                         <label for="name_en">Name</label>
                     </div>
                     <div class="input-field">
-                        <input id="middle_name_en" name="middle_name_en" type="text" class="validate" required>
+                        {!! Form::text('middle_name_en', null, ['class' => 'validate', 'id' => 'middle_name_en', 'required']) !!}
                         <label for="middle_name_en">Middle Name</label>
                     </div>
                 </div>
@@ -74,16 +74,29 @@
                     {{--Date of birth--}}
                     <div class="input-field">
                         <i class="material-icons prefix">date_range</i>
-                        <input type="text" id="date_of_birth" name="date_of_birth" class="datepicker validate" required>
+                        {!! Form::text('date_of_birth', null, ['class' => 'validate datepicker', 'id' => 'date_of_birth', 'required']) !!}
                         <label for="date_of_birth">Date of Birthday</label>
                         <span class="helper-text" data-error="wrong" data-success="All is Ok."></span>
                     </div>
                     {{--Email--}}
                     <div class="input-field">
                         <i class="material-icons prefix">email</i>
-                        <input id="email" type="email" name="email" class="validate" required>
+                        {!! Form::email('email', null, ['class' => 'validate', 'id' => 'email', 'required']) !!}
                         <label for="email">Email</label>
                         <span class="helper-text" data-error="wrong" data-success="All is Ok.">example@domain.com</span>
+                    </div>
+                    {{--Password--}}
+                    <div class="input-field">
+                        <i class="material-icons prefix">vpn_key</i>
+                        <input id="password" type="password" name="password" class="validate" min="8" required>
+                        <label for="password">Password</label>
+                        <span class="helper-text" data-error="wrong" data-success="All is Ok.">Minimum 8 characters</span>
+                    </div>
+                    {{--Password Confirmation--}}
+                    <div class="input-field">
+                        <i class="material-icons prefix">vpn_key</i>
+                        <input id="password_confirmation" type="password" name="password_confirmation" class="validate" min="8" required>
+                        <label for="password_confirmation">Password Confirmation</label>
                     </div>
                     {{--Phone--}}
                     <div class="row">
@@ -91,10 +104,11 @@
                             {{--Dialing code--}}
                             <div class="input-field">
                                 <i class="material-icons prefix">phone</i>
-                                <select name="dialing_code">
+                                <select name="dialling_code">
                                     <option value="" disabled>Code</option>
-                                    <option value="" selected>+380</option>
-                                    <option value="">+7</option>
+                                    @foreach (config('dialling_code') as $key => $name)
+                                        <option value="{{ $key }}"{{ old('dialling_code') === $key ? 'selected="selected"' : '' }}>{{ $key }}</option>
+                                    @endforeach
                                 </select>
                                 <span class="helper-text" data-error="wrong" data-success="All is Ok.">Country code</span>
                             </div>
@@ -102,8 +116,8 @@
                         <div class="col s8">
                             {{--User phone--}}
                             <div class="input-field">
-                                <input id="icon_telephone" name="phone_number" type="text" class="validate" required>
-                                <label for="icon_telephone">XX XXX XX XX</label>
+                                {!! Form::text('phone_number', null, ['class' => 'validate', 'id' => 'phone_number', 'required']) !!}
+                                <label for="phone_number">XX XXX XX XX</label>
                                 <span class="helper-text" data-error="wrong" data-success="All is Ok.">Phone number</span>
                             </div>
                         </div>
@@ -113,8 +127,8 @@
                         <i class="material-icons prefix">accessibility</i>
                         <select name="gender" required>
                             <option value="" disabled>Select gender</option>
-                            <option value="male" selected>Male</option>
-                            <option value="female">Female</option>
+                            <option value="male" selected {{ old('gender') ? 'selected="selected"' : '' }}>Male</option>
+                            <option value="female" {{ old('gender') ? 'selected="selected"' : '' }}>Female</option>
                         </select>
                         <span class="helper-text" data-error="wrong" data-success="All is Ok.">Select a gender of student</span>
                     </div>
@@ -123,18 +137,18 @@
                         <i class="material-icons prefix">language</i>
                         <select name="english_lvl" required>
                             <option value="" disabled>Choose English lvl</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5" selected>5</option>
+                            <option value="1" {{ old('english_lvl') ? 'selected="selected"' : '' }}>1</option>
+                            <option value="2" {{ old('english_lvl') ? 'selected="selected"' : '' }}>2</option>
+                            <option value="3" {{ old('english_lvl') ? 'selected="selected"' : '' }}>3</option>
+                            <option value="4" {{ old('english_lvl') ? 'selected="selected"' : '' }}>4</option>
+                            <option value="5" selected {{ old('english_lvl') ? 'selected="selected"' : '' }}>5</option>
                         </select>
                         <span class="helper-text" data-error="wrong" data-success="All is Ok.">Select English language assessment from 1 to 5</span>
                     </div>
                     {{--Introduction score--}}
                     <div class="input-field">
                         <i class="material-icons prefix">dvr</i>
-                        <input id="introductory_score" name="introductory_score" type="number" class="validate" min="50" max="100" step="1" required>
+                        {!! Form::number('introductory_score', null, ['class' => 'validate', 'id' => 'introductory_score', 'min' => 50, 'max' => 100, 'step' => 1, 'required']) !!}
                         <label for="introductory_score">Indicate the introductory score</label>
                         <span class="helper-text" data-error="Choose a rating from 50 to 100" data-success="All is Ok">Choose a rating from 50 to 100</span>
                     </div>
@@ -158,19 +172,19 @@
                 <div class="card-panel hoverable">
                     <h5 class="m-t-0 center-align">Education</h5>
                     <div class="input-field">
-                        <input id="education_name" name="education_name" type="text" class="validate" required>
+                        {!! Form::text('education_name', null, ['class' => 'validate', 'id' => 'education_name', 'required']) !!}
                         <label for="education_name">Name of the educational institution</label>
                     </div>
                     <div class="input-field">
-                        <input id="education_speciality" name="education_speciality" type="text" class="validate" required>
+                        {!! Form::text('education_speciality', null, ['class' => 'validate', 'id' => 'education_speciality', 'required']) !!}
                         <label for="education_speciality">Name of speciality</label>
                     </div>
                     <div class="input-field">
                         <select name="education_rank" required>
                             <option value="" disabled>Select degree</option>
-                            <option value="bachelor" selected>Bachelor</option>
-                            <option value="specialist">Specialist</option>
-                            <option value="master">Master</option>
+                            <option value="bachelor" selected {{ old('education_rank') ? 'selected="selected"' : '' }}>Bachelor</option>
+                            <option value="specialist" {{ old('education_rank') ? 'selected="selected"' : '' }}>Specialist</option>
+                            <option value="master" {{ old('education_rank') ? 'selected="selected"' : '' }}>Master</option>
                         </select>
                         <span class="helper-text" data-error="wrong" data-success="All is Ok.">Select degree</span>
                     </div>
@@ -180,20 +194,20 @@
                 <div class="card-panel hoverable">
                     <h5 class="m-t-0 center-align">Current or last job</h5>
                     <div class="input-field">
-                        <input id="job_name" name="job_name" type="text" class="validate" required>
+                        {!! Form::text('job_name', null, ['class' => 'validate', 'id' => 'job_name', 'required']) !!}
                         <label for="job_name">Name of organisation</label>
                     </div>
                     <div class="input-field">
-                        <input id="job_speciality" name="job_speciality" type="text" class="validate" required>
+                        {!! Form::text('job_position', null, ['class' => 'validate', 'id' => 'job_speciality', 'required']) !!}
                         <label for="job_speciality">Name of position</label>
                     </div>
                     <div class="input-field">
-                        <input id="job_experience" name="job_experience" type="number" min="1" max="50" step="1" class="validate" required>
+                        {!! Form::number('job_experience', null, ['class' => 'validate', 'id' => 'job_experience', 'min' => 1, 'max' => 50, 'step' => 1, 'required']) !!}
                         <label for="job_experience">Managerial experience, years</label>
                     </div>
                     <p>
                         <label>
-                            <input type="checkbox" name="current_job" />
+                            <input type="checkbox" name="current_job" {{ old('current_job') ? 'selected="selected"' : '' }}/>
                             <span>This is my current job</span>
                         </label>
                     </p>
@@ -208,17 +222,17 @@
                     <div class="row">
                         <div class="input-field col s4">
                         <i class="material-icons prefix">insert_link</i>
-                            <input id="social_facebook" name="social_facebook" type="text" class="validate">
+                            {!! Form::text('social_facebook', null, ['class' => 'validate', 'id' => 'social_facebook']) !!}
                             <label for="social_facebook">Facebook</label>
                         </div>
                         <div class="input-field col s4">
                         <i class="material-icons prefix">insert_link</i>
-                            <input id="social_twitter" name="social_twitter" type="text" class="validate">
+                            {!! Form::text('social_twitter', null, ['class' => 'validate', 'id' => 'social_twitter']) !!}
                             <label for="social_twitter">Twitter</label>
                         </div>
                         <div class="input-field col s4">
                         <i class="material-icons prefix">insert_link</i>
-                            <input id="social_linkedin" name="social_linkedin" type="text" class="validate">
+                            {!! Form::text('social_linkedin', null, ['class' => 'validate', 'id' => 'social_linkedin']) !!}
                             <label for="social_linkedin">Linkedin</label>
                         </div>
                     </div>

@@ -4,6 +4,6 @@ return [
     'name' => [
         'facebook' => 'FaceBook',
         'twitter' => 'Twitter',
-        'linkedin' => 'Linkedin'
+        'linkedin' => 'LinkedIn'
         ]
 ];

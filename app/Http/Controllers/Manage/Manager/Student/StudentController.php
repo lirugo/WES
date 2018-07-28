@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Manage\Manager\Student;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreUserStudent;
 use App\Http\Controllers\Controller;
+use App\User;
 
 class StudentController extends Controller
 {
@@ -16,9 +17,11 @@ class StudentController extends Controller
         return view('manage.manager.student.create');
     }
 
-    public function store(Request $request){
+    public function store(StoreUserStudent $request){
         // Validate
         // Persist to db
+            $user = new User();
+            $user->storeStudent($request);
         // Show flash msg
         // Redirect to manage page
         dd($request->all());

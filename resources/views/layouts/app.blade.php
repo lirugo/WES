@@ -31,7 +31,16 @@
             @include('_includes.nav.top')
 
             @include('_includes.nav.left')
-
+            @if(count($errors) > 0)
+                <div class="alert alert-danger">
+                    <strong> Errors: </strong>
+                    <ul>
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             @yield('content')
         </div>
     </div>

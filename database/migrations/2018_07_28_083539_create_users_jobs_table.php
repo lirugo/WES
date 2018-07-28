@@ -20,7 +20,7 @@ class CreateUsersJobsTable extends Migration
             $table->string('name');
             $table->string('position');
             $table->integer('experience');
-            $table->boolean('current_job');
+            $table->boolean('current_job')->default(false);
             $table->timestamps();
         });
     }
