@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Manage\Manager\Student;
+namespace App\Http\Controllers\Student;
 
 use App\Http\Requests\StoreUserStudent;
 use App\Http\Controllers\Controller;
+use App\Role;
 use App\User;
 use Session;
 
@@ -15,13 +16,17 @@ class StudentController extends Controller
     }
 
     public function create(){
-        return view('manage.manager.student.create');
+        return view('student.create');
     }
 
     public function store(StoreUserStudent $request){
         // Persist to db
-            $user = new User();
-            $user->storeStudent($request);
+        $user = new User();
+        $user = $user->storeStudent($request);
+        // Get role student
+        $student = Role::where('name', 'student')->first();
+        // Add role
+        $user->attachRole($student);
         // Show flash msg
         Session::flash('success', 'Student was successfully created.');
         // Redirect to manage page

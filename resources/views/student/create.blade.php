@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    {!! Form::open(['route' => 'manage.manager.student.store', 'method' => 'POST']) !!}
+    {!! Form::open(['route' => 'student.store', 'method' => 'POST']) !!}
         {{--Header--}}
         <div class="row">
             <div class="col s12">

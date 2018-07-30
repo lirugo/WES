@@ -30,6 +30,17 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function getShortName(){
+        $name = $this->names()->where('language', '=','en')->first();
+        return $name->second_name.' '.substr($name->name,0,1).'. '.substr($name->middle_name,0,1).'.';
+    }
+
+    public function getPhone(){
+        $phone = $this->phones()->first();
+        $dialling_code = $phone->diallingCode($phone->dialling_code_id)->dialling_code;
+        return $dialling_code.' '.$phone->phone_number;
+    }
+
     public function names()
     {
         return $this->hasMany(UserName::class);
@@ -139,19 +150,9 @@ class User extends Authenticatable
             $user->socials()->save($linkedin);
         }catch (Exception $e){
             $user->delete();
-            return false;
+            return null;
         }
 
-        return true;
-    }
-
-    public function addName($userId, $lang, $secondName, $name, $middleName){
-        return UserName::create([
-            'user_id' => $userId,
-            'language' => $lang,
-            'second_name' => $secondName,
-            'name' => $name,
-            'middle_name' => $middleName,
-        ]);
+        return $user;
     }
 }

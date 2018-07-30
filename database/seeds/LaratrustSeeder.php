@@ -55,7 +55,6 @@ class LaratrustSeeder extends Seeder
 
             // Create default user for each role
             $user = \App\User::create([
-//                'name' => ucwords(str_replace('_', ' ', $key)),
                 'email' => $key.'@app.com',
                 'date_of_birth' => '1980-01-01',
                 'english_lvl' => '5',
@@ -70,6 +69,13 @@ class LaratrustSeeder extends Seeder
                 'second_name' => ucwords(str_replace('_', ' ', $key)),
                 'name' => ucwords(str_replace('_', ' ', $key)),
                 'middle_name' => ucwords(str_replace('_', ' ', $key))
+            ]);
+
+            // Add phone for user
+            $user->phones()->create([
+                'user_id' => $user->id,
+                'dialling_code_id' => 1,
+                'phone_number' => '93 880 76 73',
             ]);
 
             $user->attachRole($role);

@@ -22,19 +22,32 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Auth'], function () {
 Route::get('/', 'Manage\ManageController@index');
 Route::get('/manage', 'Manage\ManageController@index')->name('manage');
 
-    /*
-    |--------------------------------------------------------------------------
-    |--------------------------------------------------------------------------
-    | Manager route
-    |--------------------------------------------------------------------------
-    |--------------------------------------------------------------------------
-    */
-        /*
-        |--------------------------------------------------------------------------
-        | Student route
-        |--------------------------------------------------------------------------
-        */
-        Route::group(['middleware' => ['auth'], 'prefix' => 'manage/manager/student', 'namespace' => 'Manage\Manager\Student'], function () {
-            Route::get('/create', 'StudentController@create');
-            Route::post('/store', 'StudentController@store')->name('manage.manager.student.store');
-        });
+/*
+|--------------------------------------------------------------------------
+| End manage panel route
+|--------------------------------------------------------------------------
+*/
+
+/*
+|--------------------------------------------------------------------------
+| Student CRUD route
+|--------------------------------------------------------------------------
+*/
+    Route::group(['middleware' => ['auth'], 'prefix' => 'student', 'namespace' => 'Student'], function () {
+        Route::get('/create', 'StudentController@create');
+        Route::post('/store', 'StudentController@store')->name('student.store');
+    });
+
+/*
+|--------------------------------------------------------------------------
+| Team CRUD route
+|--------------------------------------------------------------------------
+*/
+    Route::group(['middleware' => ['auth'], 'prefix' => 'team', 'namespace' => 'Team'], function () {
+        Route::get('/', 'TeamController@index');
+        Route::get('/create', 'TeamController@create');
+        Route::get('/{id}', 'TeamController@show');
+        Route::get('/{id}/edit', 'TeamController@edit');
+        Route::post('/{id}/edit/addMember', 'TeamController@addMember')->name('team.edit.addMember');
+        Route::post('/store', 'TeamController@store')->name('team.store');
+    });

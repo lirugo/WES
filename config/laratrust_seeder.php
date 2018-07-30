@@ -16,6 +16,9 @@ return [
         'student' => [
             'profile' => 'r,u'
         ],
+        'owner' => [
+            'profile' => 'r,u'
+        ],
     ],
     'permission_structure' => [
       []
