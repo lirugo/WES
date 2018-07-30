@@ -41,7 +41,7 @@ class StoreUserStudent extends FormRequest
             'gender' => 'required|in:male,female',
             'english_lvl' => 'required|numeric',
             'introductory_score' => 'required|numeric',
-            'avatar' => 'required|string',
+            'avatar' => 'required',
             'password' => 'required|min:8|confirmed',
 
             'education_name' => 'required|string',

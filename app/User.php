@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laratrust\Traits\LaratrustUserTrait;
 use MongoDB\Driver\Exception\Exception;
+use Image;
 
 class User extends Authenticatable
 {
@@ -76,6 +77,15 @@ class User extends Authenticatable
             'gender' => $request->gender,
             'password' => bcrypt($request->password),
         ]);
+
+        // Handle the user student of avatar
+        if($request->hasFile('avatar')){
+            $avatar = $request->file('avatar');
+            $filename = time() . '.' . $avatar->getClientOriginalExtension();
+            Image::make($avatar)->resize(300, 300)->save( public_path('/uploads/avatars/' . $filename ) );
+            $user->avatar = $filename;
+            $user->save();
+        }
 
         $name_ua = new UserName([
             'user_id' => $user->id,

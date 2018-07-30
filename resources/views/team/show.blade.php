@@ -65,8 +65,9 @@
             </div>
             <div class="s12">
                 @foreach($team->getMembers() as $member)
+
                     <div class="card-panel hoverable">
-                        <a href="#user"><img class="circle left m-r-10" width="100px" src="/uploads/avatars/male.png"></a>
+                        <a href="#user"><img class="circle left m-r-10" width="100px" src="{{asset('/uploads/avatars/'.$member->avatar)}}"></a>
                         <p class="card-title m-b-0">{{$member->getShortName()}}</p>
                         <p class="card-title m-t-0 m-b-0">{{$member->email}}</p>
                         <p class="card-title m-t-0">{{$member->getPhone()}}</p>

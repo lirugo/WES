@@ -40,7 +40,7 @@
             <div class="col s12">
                 <div class="card">
                     <div class="card-image">
-                        <img src="{{asset('/uploads/avatars/'.Auth::user()->avatar)}}">
+                        <img src="{{asset('/uploads/avatars/'.$student->avatar)}}">
                         <span class="card-title">{{$student->getShortName()}}</span>
                     </div>
                 </div>

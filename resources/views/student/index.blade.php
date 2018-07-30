@@ -17,7 +17,7 @@
             <div class="col s4">
                 <div class="card hoverable">
                     <div class="card-image">
-                        <img src="{{asset('/uploads/avatars/'.Auth::user()->avatar)}}">
+                        <img src="{{asset('/uploads/avatars/'.$student->avatar)}}">
                         <span class="card-title">{{$student->getShortName()}}</span>
                     </div>
                     <div class="card-content">
