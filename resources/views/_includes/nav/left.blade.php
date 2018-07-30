@@ -46,36 +46,28 @@
         {{-- Student --}}
         @elseif(Auth::user()->hasRole('student'))
             <li><div class="divider"></div></li>
-            <li><a class="subheader">Groups</a></li>
+            <li><a class="subheader">Student</a></li>
             <li>
                 <ul class="collapsible">
+                    @foreach(Auth::user()->teams() as $team)
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">group</i>GMBA 02</div>
+                        <div class="collapsible-header"><i class="material-icons">group</i>{{$team->name}}</div>
                         <div class="collapsible-body">
                             <ul>
-                                <li><a href="#!"><i class="material-icons">group</i>one</a></li>
-                                <li><a href="#!">two</a></li>
+                                <li><a href="{{url('/team/'.$team->id)}}"><i class="material-icons">dashboard</i>Dashboard</a></li>
+                                <li><a href="#"><i class="material-icons">schedule</i>Schedule</a></li>
+                                <li><a href="#"><i class="material-icons">bookmark_border</i>Marks</a></li>
+                                <li><a href="#"><i class="material-icons">event</i>Events</a></li>
+                                <li><a href="#"><i class="material-icons">group</i>Group</a></li>
+                                <li><a href="#"><i class="material-icons">message</i>Message</a></li>
+                                <li><a href="#"><i class="material-icons">subject</i>Subjects</a></li>
+                                <li><a href="#"><i class="material-icons">school</i>Teachers</a></li>
+                                <li><a href="#"><i class="material-icons">home</i>Home Work</a></li>
+                                <li><a href="#"><i class="material-icons">import_contacts</i>Educational Materials</a></li>
                             </ul>
                         </div>
                     </li>
-                    <li>
-                        <div class="collapsible-header"><i class="material-icons">group</i>EMBA 02</div>
-                        <div class="collapsible-body">
-                            <ul>
-                                <li><a href="#!">one</a></li>
-                                <li><a href="#!">two</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="collapsible-header"><i class="material-icons">group</i>UMBA 02</div>
-                        <div class="collapsible-body">
-                            <ul>
-                                <li><a href="#!">one</a></li>
-                                <li><a href="#!">two</a></li>
-                            </ul>
-                        </div>
-                    </li>
+                    @endforeach
                 </ul>
             </li>
         @endif
@@ -94,10 +86,4 @@
             </a>
         </li>
     </ul>
-
-    @section('scripts')
-        <script>
-
-        </script>
-    @endsection
 @endauth

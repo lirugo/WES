@@ -42,7 +42,7 @@
             </div>
             <div class="s12">
                 <div class="card-panel hoverable">
-                    <a href="#user"><img class="circle left m-r-10" width="100px" src="{{asset('/uploads/avatars/'.Auth::user()->avatar)}}"></a>
+                    <a href="#user"><img class="circle left m-r-10" width="100px" src="{{asset('/uploads/avatars/'.$team->getOwner()->avatar)}}"></a>
                     <p class="card-title m-b-0">{{$team->getOwner()->getShortName()}}</p>
                     <p class="card-title m-t-0 m-b-0">{{$team->getOwner()->email}}</p>
                     <p class="card-title m-t-0">{{$team->getOwner()->getPhone()}}</p>

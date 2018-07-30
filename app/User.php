@@ -155,4 +155,8 @@ class User extends Authenticatable
 
         return $user;
     }
+
+    public function teams(){
+        return $this->rolesTeams;
+    }
 }
