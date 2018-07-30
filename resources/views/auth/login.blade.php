@@ -22,7 +22,7 @@
                                 <span class="helper-text" data-error="Minimum 6 chars at least 1 number and 1 capital letter" data-success="All is OK"></span>
                             </div>
                             <div class="input-field col s12 m-b-30">
-                                <div class="g-recaptcha right" data-sitekey="6Lc_w2UUAAAAABDMaDvisV-3Wg1IT09Kgr0qg4fW"></div>
+                                <div class="g-recaptcha right" data-sitekey="{{env('GOOGLE_CAPTCHA_KEY')}}"></div>
                             </div>
                             <div class="col s12">
                                 <label>
