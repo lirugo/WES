@@ -74,7 +74,7 @@ class User extends Authenticatable
             'introductory_score' => $request->introductory_score,
             'avatar' => $request->avatar,
             'gender' => $request->gender,
-            'password' => bcrypt($request->gender),
+            'password' => bcrypt($request->password),
         ]);
 
         $name_ua = new UserName([

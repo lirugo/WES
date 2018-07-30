@@ -15,8 +15,18 @@ class StudentController extends Controller
         $this->middleware('auth');
     }
 
+    public function index(){
+        $students = User::whereRoleIs('student')->get();
+        return view('student.index')->withStudents($students);
+    }
+
     public function create(){
         return view('student.create');
+    }
+
+    public function show($id){
+        $student = User::find($id);
+        return view('student.show')->withStudent($student);
     }
 
     public function store(StoreUserStudent $request){

@@ -8,8 +8,8 @@
                 <div class="card hoverable">
                     <div class="card-content">
                         <span class="card-title center-align">Create a new student</span>
-                        <button type="submit" class="waves-effect waves-light btn right tooltipped" data-tooltip="You sure? All data is correct?" data-position="top"><i class="material-icons right">send</i>Create a new user</button>
-                        <a href="{{url('/manage')}}" class="waves-effect waves-light btn left m-r-10 tooltipped" data-tooltip="Information will be lost!" data-position="top"><i class="material-icons left">apps</i>Back to manage</a>
+                        <button type="submit" class="indigo waves-effect waves-light btn right tooltipped" data-tooltip="You sure? All data is correct?" data-position="top"><i class="material-icons right">send</i>Create a new user</button>
+                        <a href="{{url('/manage')}}" class="indigo waves-effect waves-light btn left m-r-10 tooltipped" data-tooltip="Information will be lost!" data-position="top"><i class="material-icons left">apps</i>Back to manage</a>
                     </div>
                 </div>
             </div>
@@ -154,7 +154,7 @@
                     </div>
                     {{--Upload image--}}
                     <div class="file-field input-field">
-                        <div class="btn">
+                        <div class="btn indigo waves-effect waves-light">
                             <span>File</span>
                             <input type="file" name="avatar" accept="image/*" required>
                         </div>

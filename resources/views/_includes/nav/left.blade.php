@@ -28,7 +28,7 @@
                         <div class="collapsible-body">
                             <ul>
                                 <li><a href="{{url('/student/create')}}"><i class="material-icons">person_add</i>Create a new student</a></li>
-                                <li><a href="#!"><i class="material-icons">group</i>Show all students</a></li>
+                                <li><a href="{{url('/student/')}}"><i class="material-icons">group</i>Show all students</a></li>
                             </ul>
                         </div>
                     </li>
@@ -85,7 +85,14 @@
         <li><a class="subheader">Settings</a></li>
         <li><a href="#!"><i class="material-icons">settings</i>Settings</a></li>
         <li><a href="#!"><i class="material-icons">assignment_ind</i>Profile</a></li>
-        <li><a href="#!"><i class="material-icons">exit_to_app</i>Logout</a></li>
+        <li> <a href="{{route('logout')}}" onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+                <i class="material-icons">exit_to_app</i>Logout
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: one;">
+                    {{ csrf_field() }}
+                </form>
+            </a>
+        </li>
     </ul>
 
     @section('scripts')
