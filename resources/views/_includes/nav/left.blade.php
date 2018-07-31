@@ -74,6 +74,23 @@
                     </ul>
                 </li>
             @endif
+        @elseif(Auth::user()->hasRole('top-manager'))
+            <li><div class="divider"></div></li>
+            <li><a class="subheader">Top manager</a></li>
+            <li>
+                <ul class="collapsible">
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">group</i>Manager</div>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li><a href="{{url('/manager/create')}}"><i class="material-icons">group_add</i>Create a new manager</a></li>
+                                <li><a href="#"><i class="material-icons">group</i>Show all managers</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+
         @endif
 
         {{-- Settings --}}

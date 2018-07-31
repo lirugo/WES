@@ -32,6 +32,21 @@ Route::get('/manage', 'Manage\ManageController@index')->name('manage');
 
 /*
 |--------------------------------------------------------------------------
+| Manager CRUD route
+|--------------------------------------------------------------------------
+*/
+    Route::group([
+        'middleware' => 'role:administrator|top-manager',
+        'prefix' => 'manager',
+        'namespace' => 'Manager'
+    ], function () {
+        Route::get('/', 'ManagerController@index');
+        Route::get('/create', 'ManagerController@create');
+        Route::post('/store', 'ManagerController@store')->name('manager.store');
+    });
+
+/*
+|--------------------------------------------------------------------------
 | Student CRUD route
 |--------------------------------------------------------------------------
 */

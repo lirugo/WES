@@ -18,8 +18,8 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->date('date_of_birth');
-            $table->tinyInteger('english_lvl');
-            $table->tinyInteger('introductory_score');
+            $table->tinyInteger('english_lvl')->nullable();
+            $table->tinyInteger('introductory_score')->nullable();
             $table->enum('gender', ['male', 'female']);
             $table->string('avatar')->default('male.png');
             $table->rememberToken();
