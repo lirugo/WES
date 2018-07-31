@@ -18,16 +18,12 @@
     <div class="row">
         <div class="col s12">
             <div class="card-panel hoverable">
-                <div class="input-field">
-                    <i class="material-icons prefix">attachment</i>
-                    {!! Form::text('name', null, ['class' => 'validate', 'id' => 'name', 'required']) !!}
-                    <label for="name">Name</label>
-                </div>
-                <div class="input-field">
+                <div class="input-field m-b-0">
                     <i class="material-icons prefix">group</i>
-                    {!! Form::text('display_name', null, ['class' => 'validate', 'id' => 'display_name', 'required']) !!}
+                    <input placeholder="Displaying Name" id="display_name" name="display_name" type="text" class="validate" v-model="title">
                     <label for="display_name">Displaying Name</label>
                 </div>
+                <widget-slug url="{{url('/')}}" subdirectory="/team/" :title="title"></widget-slug>
                 <div class="input-field">
                     <i class="material-icons prefix">format_align_justify</i>
                     {!! Form::textarea('description', null, ['class' => 'validate materialize-textarea', 'id' => 'description', 'required']) !!}
@@ -37,4 +33,15 @@
         </div>
     </div>
     {!! Form::close() !!}
+@endsection
+
+@section('scripts')
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                title: ''
+            }
+        });
+    </script>
 @endsection

@@ -29,6 +29,8 @@
     <div id="app">
         @include('_includes.nav.top')
 
+        @include('_includes.notification.message')
+
         @yield('content')
     </div>
 
