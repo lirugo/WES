@@ -15,7 +15,7 @@
     </div>
     {{--Name and General block--}}
     <div class="row">
-        <div class="col s6">
+        <div class="col s12 m6 l6">
             <div class="card-panel hoverable">
                 <h5 class="m-t-0 center-align">Name</h5>
                 @foreach($student->names as $name)
@@ -36,7 +36,7 @@
                 @endforeach
             </div>
         </div>
-        <div class="col s6">
+        <div class="col s12 m6 l6">
             <div class="col s12">
                 <div class="card">
                     <div class="card-image">
@@ -95,7 +95,7 @@
     </div>
     {{--Education and Job block--}}
     <div class="row">
-        <div class="col s6">
+        <div class="col s12 m6 l6">
             <div class="card-panel hoverable">
                 <h5 class="m-t-0 center-align">Education</h5>
                 @foreach($student->educations as $education)
@@ -114,7 +114,7 @@
                 @endforeach
             </div>
         </div>
-        <div class="col s6">
+        <div class="col s12 m6 l6">
             <div class="card-panel hoverable">
                 <h5 class="m-t-0 center-align">Current or last job</h5>
                 @foreach($student->jobs as $job)
@@ -147,7 +147,7 @@
                 <h5 class="m-t-0 center-align">Social networks</h5>
                 <div class="row">
                     @foreach($student->socials as $social)
-                            <div class="input-field col s4">
+                            <div class="input-field col s12 m6 l4">
                                 <i class="material-icons prefix">insert_link</i>
                                 <label for="social_facebook"><a href="{{$social->url}}">{{$social->name}}</a></label>
                             </div>

@@ -3,7 +3,7 @@
 @section('content')
     <div class="row">
         @foreach($teams as $team)
-            <div class="col s4">
+            <div class="col s12 m6 l4">
                 <div class="card hoverable">
                     <div class="card-content">
                         <span class="card-title center-align">{{$team->display_name}}</span>

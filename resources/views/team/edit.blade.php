@@ -15,7 +15,7 @@
     </div>
     {{--Name and General block--}}
     <div class="row">
-        <div class="col s8">
+        <div class="col s12 m6 l8">
             <div class="card-panel hoverable">
                 <div class="input-field">
                     <i class="material-icons prefix">attachment</i>
@@ -34,7 +34,7 @@
                 </div>
             </div>
         </div>
-        <div class="col s4">
+        <div class="col s12 m6 l4">
             <div class="s12">
                 <div class="card-panel">
                     <h6 class="card-title m-t-0 m-b-0 center-align">Manager of this group.</h6>
@@ -52,7 +52,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col s4">
+        <div class="col s12 m6 l4">
             <div class="card-panel hoverable">
                 {!! Form::open(['route' => ['team.edit.addMember',$team->id], 'method' => 'POST']) !!}
                 <h5 class="center-align m-b-30">Add a new member.</h5>
@@ -69,7 +69,7 @@
                 {!! Form::close() !!}
             </div>
         </div>
-        <div class="col s4 offset-s4">
+        <div class="col s12 m6 l4 offset-l4">
             <div class="s12">
                 <div class="card-panel">
                     <h6 class="card-title m-t-0 m-b-0 center-align">Members of this group.</h6>

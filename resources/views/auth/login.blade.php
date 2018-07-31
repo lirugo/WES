@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="row m-t-100">
-        <div class="col s4 offset-s4">
+        <div class="col s12 m6 l4 offset-l4 offset-m3">
             <div class="row">
                 <div class="card hoverable indigo">
                     <div class="card-content white-text">

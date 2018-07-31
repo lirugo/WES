@@ -4,12 +4,12 @@
     {!! Form::open(['route' => 'team.store', 'method' => 'POST']) !!}
     {{--Header--}}
     <div class="row">
-        <div class="col s12">
+        <div class="col s12 m12 l12">
             <div class="card hoverable">
                 <div class="card-content">
                     <span class="card-title center-align">Create a new group</span>
-                    <button type="submit" class="waves-effect waves-light btn right tooltipped" data-tooltip="You sure? All data is correct?" data-position="top"><i class="material-icons right">send</i>Create a new group</button>
-                    <a href="{{url('/manage')}}" class="waves-effect waves-light btn left m-r-10 tooltipped" data-tooltip="Information will be lost!" data-position="top"><i class="material-icons left">apps</i>Back to manage</a>
+                    <button type="submit" class="indigo waves-effect waves-light btn right tooltipped" data-tooltip="You sure? All data is correct?" data-position="top"><i class="material-icons right">send</i>Create a new group</button>
+                    <a href="{{url('/manage')}}" class="indigo waves-effect waves-light btn left m-r-10 tooltipped" data-tooltip="Information will be lost!" data-position="top"><i class="material-icons left">apps</i>Back to manage</a>
                 </div>
             </div>
         </div>

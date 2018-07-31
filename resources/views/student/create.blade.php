@@ -16,7 +16,7 @@
         </div>
         {{--Name and General block--}}
         <div class="row">
-            <div class="col s6">
+            <div class="col s12 m6 l6">
                 <div class="card-panel hoverable">
                     <h5 class="m-t-0 center-align">Name</h5>
                     <blockquote>
@@ -68,7 +68,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col s6">
+            <div class="col s12 m6 l6">
                 <div class="card-panel hoverable">
                     <h5 class="m-t-0 center-align">General</h5>
                     {{--Date of birth--}}
@@ -168,7 +168,7 @@
         </div>
         {{--Education and Job block--}}
         <div class="row">
-            <div class="col s6">
+            <div class="col s12 m6 l6">
                 <div class="card-panel hoverable">
                     <h5 class="m-t-0 center-align">Education</h5>
                     <div class="input-field">
@@ -190,7 +190,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col s6">
+            <div class="col s12 m6 l6">
                 <div class="card-panel hoverable">
                     <h5 class="m-t-0 center-align">Current or last job</h5>
                     <div class="input-field">
@@ -216,21 +216,21 @@
         </div>
         {{--Social block--}}
         <div class="row">
-            <div class="col s12">
+            <div class="col s12 m12 l12">
                 <div class="card-panel hoverable">
                     <h5 class="m-t-0 center-align">Social networks</h5>
                     <div class="row">
-                        <div class="input-field col s4">
+                        <div class="input-field col s12 m4 l4">
                         <i class="material-icons prefix">insert_link</i>
                             {!! Form::text('social_facebook', null, ['class' => 'validate', 'id' => 'social_facebook']) !!}
                             <label for="social_facebook">Facebook</label>
                         </div>
-                        <div class="input-field col s4">
+                        <div class="input-field col s12 m4 l4">
                         <i class="material-icons prefix">insert_link</i>
                             {!! Form::text('social_twitter', null, ['class' => 'validate', 'id' => 'social_twitter']) !!}
                             <label for="social_twitter">Twitter</label>
                         </div>
-                        <div class="input-field col s4">
+                        <div class="input-field col s12 m4 l4">
                         <i class="material-icons prefix">insert_link</i>
                             {!! Form::text('social_linkedin', null, ['class' => 'validate', 'id' => 'social_linkedin']) !!}
                             <label for="social_linkedin">Linkedin</label>

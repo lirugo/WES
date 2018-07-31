@@ -14,7 +14,7 @@
     </div>
     <div class="row">
         @foreach($students as $student)
-            <div class="col s4">
+            <div class="col s12 m6 l4">
                 <div class="card hoverable">
                     <div class="card-image">
                         <img src="{{asset('/uploads/avatars/'.$student->avatar)}}">
