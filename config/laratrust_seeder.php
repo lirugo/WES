@@ -7,6 +7,9 @@ return [
             'acl' => 'c,r,u,d',
             'profile' => 'r,u'
         ],
+        'top-manager' => [
+            'profile' => 'r,u'
+        ],
         'manager' => [
             'profile' => 'r,u'
         ],
