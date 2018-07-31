@@ -35,7 +35,11 @@ Route::get('/manage', 'Manage\ManageController@index')->name('manage');
 | Student CRUD route
 |--------------------------------------------------------------------------
 */
-    Route::group(['middleware' => ['auth'], 'prefix' => 'student', 'namespace' => 'Student'], function () {
+    Route::group([
+        'middleware' => 'role:administrator|top-manager|manager',
+        'prefix' => 'student',
+        'namespace' => 'Student'
+    ], function () {
         Route::get('/', 'StudentController@index');
         Route::get('/create', 'StudentController@create');
         Route::get('/{id}', 'StudentController@show');
@@ -47,11 +51,15 @@ Route::get('/manage', 'Manage\ManageController@index')->name('manage');
 | Team CRUD route
 |--------------------------------------------------------------------------
 */
-    Route::group(['middleware' => ['auth'], 'prefix' => 'team', 'namespace' => 'Team'], function () {
+    Route::group([
+        'middleware' => 'role:administrator|top-manager|manager',
+        'prefix' => 'team',
+        'namespace' => 'Team'
+    ], function () {
         Route::get('/', 'TeamController@index');
         Route::get('/create', 'TeamController@create');
-        Route::get('/{id}', 'TeamController@show');
-        Route::get('/{id}/edit', 'TeamController@edit');
-        Route::post('/{id}/edit/addMember', 'TeamController@addMember')->name('team.edit.addMember');
+        Route::get('/{name}/edit', 'TeamController@edit');
+        Route::post('/{name}/edit/addMember', 'TeamController@addMember')->name('team.edit.addMember');
         Route::post('/store', 'TeamController@store')->name('team.store');
     });
+    Route::get('/team/{name}', 'Team\TeamController@show');

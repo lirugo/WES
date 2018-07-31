@@ -53,14 +53,14 @@ class TeamController extends Controller
         return redirect(url('/team'));
     }
 
-    public function show($id){
-        $team = Team::find($id);
+    public function show($name){
+        $team = Team::where('name', $name)->first();
         return view('team.show')->withTeam($team);
     }
 
-    public function edit($id){
+    public function edit($name){
         // Get Team
-        $team = Team::find($id);
+        $team = Team::where('name', $name)->first();
 
         // Get all students
         $students = User::whereRoleIs('student')->get();
@@ -69,14 +69,15 @@ class TeamController extends Controller
         return view('team.edit')->withTeam($team)->withStudents($students);
     }
 
-    public function addMember(Request $request, $teamId){
+    public function addMember(Request $request, $teamName){
         // Validate access
 
         // Find user
         $user = User::find($request->member);
 
         // Find team
-        $team = Team::find($teamId);
+        $team = Team::where('name', $teamName)->first();
+
         // Find role student
         $student = Role::where('name', 'student')->first();
 

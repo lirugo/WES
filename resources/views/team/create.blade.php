@@ -20,7 +20,7 @@
             <div class="card-panel hoverable">
                 <div class="input-field m-b-0">
                     <i class="material-icons prefix">group</i>
-                    <input placeholder="Displaying Name" id="display_name" name="display_name" type="text" class="validate" v-model="title">
+                    {!! Form::text('display_name', null, ['class' => 'validate', 'name' => 'display_name', 'id' => 'display_name', 'v-model' => 'title', 'required']) !!}
                     <label for="display_name">Displaying Name</label>
                 </div>
                 <widget-slug url="{{url('/')}}" subdirectory="/team/" :title="title"></widget-slug>

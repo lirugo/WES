@@ -24,7 +24,7 @@ class StoreGroup extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|alpha_dash|max:30',
+            'name' => 'required|alpha_dash|unique:teams|max:30',
             'display_name' => 'required|max:30',
             'description' => 'required|max:200'
         ];

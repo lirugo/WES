@@ -57,7 +57,7 @@
                             <div class="collapsible-header"><i class="material-icons">group</i>{{$team->name}}</div>
                             <div class="collapsible-body">
                                 <ul>
-                                    <li><a href="{{url('/team/'.$team->id)}}"><i class="material-icons">dashboard</i>Dashboard</a></li>
+                                    <li><a href="{{url('/team/'.$team->name)}}"><i class="material-icons">dashboard</i>Dashboard</a></li>
                                     <li><a href="#"><i class="material-icons">schedule</i>Schedule</a></li>
                                     <li><a href="#"><i class="material-icons">bookmark_border</i>Marks</a></li>
                                     <li><a href="#"><i class="material-icons">event</i>Events</a></li>

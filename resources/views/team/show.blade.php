@@ -8,7 +8,6 @@
             <div class="card hoverable">
                 <div class="card-content">
                     <span class="card-title center-align">{{$team->display_name}}</span>
-                    <a href="{{url('/team')}}" class="indigo waves-effect waves-light btn left m-r-10"><i class="material-icons left">groups</i>Back to groups</a>
                 </div>
             </div>
         </div>

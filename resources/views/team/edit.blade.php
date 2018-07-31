@@ -54,7 +54,7 @@
     <div class="row">
         <div class="col s12 m6 l4">
             <div class="card-panel hoverable">
-                {!! Form::open(['route' => ['team.edit.addMember',$team->id], 'method' => 'POST']) !!}
+                {!! Form::open(['route' => ['team.edit.addMember',$team->name], 'method' => 'POST']) !!}
                 <h5 class="center-align m-b-30">Add a new member.</h5>
                 <div class="input-field">
                     <select class="icons" name="member" required>
