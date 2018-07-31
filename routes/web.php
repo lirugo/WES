@@ -8,6 +8,8 @@
 Route::group(['middleware' => ['guest'], 'namespace' => 'Auth'], function () {
     Route::get('/login', 'LoginController@showLoginForm');
     Route::post('/login', 'LoginController@login')->name('login');
+    Route::get('/auth/token', 'TokenController@index');
+    Route::post('/auth/token', 'TokenController@token')->name('auth.token');
 });
 Route::group(['middleware' => ['auth'], 'namespace' => 'Auth'], function () {
     Route::post('/logout', 'LoginController@logout')->name('logout');
