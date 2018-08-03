@@ -6,6 +6,7 @@ use App\Http\Requests\StoreUserStudent;
 use App\Http\Controllers\Controller;
 use App\Role;
 use App\User;
+use Illuminate\Http\Request;
 use Session;
 
 class StudentController extends Controller
@@ -41,5 +42,17 @@ class StudentController extends Controller
         Session::flash('success', 'Student was successfully created.');
         // Redirect to manage page
         return redirect(url('/manage'));
+    }
+
+    public function storeAvatar(Request $request){
+        if($request->hasFile('avatar')){
+            $file = $request->avatar;
+
+            $destinationPath = public_path() . '/uploads/avatars/';
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+
+            $file->move($destinationPath, $filename);
+            return json_encode(['status' => 'OK', 'avatar' => $filename]);
+        }
     }
 }

@@ -69,6 +69,28 @@
                 </div>
             </div>
             <div class="col s12 m6 l6">
+                <div class="card hoverable">
+                    <div class="card-image">
+                        <img :src="imgDataUrl">
+                        <a class="btn-floating btn-large halfway-fab waves-effect waves-light red" @click="toggleShow"><i class="material-icons">add</i></a>
+                    </div>
+                    <input name="avatar" type="hidden" v-model="avatarName"/>
+                    <widget-avatar-cropper
+                            field="avatar"
+                            @crop-success="cropSuccess"
+                            @crop-upload-success="cropUploadSuccess"
+                            @crop-upload-fail="cropUploadFail"
+                            v-model="show"
+                            :width="300"
+                            :height="300"
+                            lang-type='en'
+                            no-rotate
+                            url="/student/store/avatar"
+                            :params="params"
+                            :headers="headers"
+                            img-format="png">
+                    </widget-avatar-cropper>
+                </div>
                 <div class="card-panel hoverable">
                     <h5 class="m-t-0 center-align">General</h5>
                     {{--Date of birth--}}
@@ -151,17 +173,6 @@
                         {!! Form::number('introductory_score', null, ['class' => 'validate', 'id' => 'introductory_score', 'min' => 50, 'max' => 100, 'step' => 1, 'required']) !!}
                         <label for="introductory_score">Indicate the introductory score</label>
                         <span class="helper-text" data-error="Choose a rating from 50 to 100" data-success="All is Ok">Choose a rating from 50 to 100</span>
-                    </div>
-                    {{--Upload image--}}
-                    <div class="file-field input-field">
-                        <div class="btn indigo waves-effect waves-light">
-                            <span>File</span>
-                            <input type="file" name="avatar" accept="image/*" required>
-                        </div>
-                        <div class="file-path-wrapper">
-                            <input class="file-path validate" type="text" placeholder="Upload user avatar">
-                            <span class="helper-text" data-error="Only *.jpg *.png *.gif" data-success="All is Ok">Only *.jpg *.png *.gif</span>
-                        </div>
                     </div>
                 </div>
             </div>

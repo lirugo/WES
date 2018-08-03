@@ -59,6 +59,7 @@ Route::get('/manage', 'Manage\ManageController@index')->name('manage');
         Route::get('/create', 'StudentController@create');
         Route::get('/{id}', 'StudentController@show');
         Route::post('/store', 'StudentController@store')->name('student.store');
+        Route::post('/store/avatar', 'StudentController@storeAvatar')->name('student.store.avatar');
     });
 
 /*
