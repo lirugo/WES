@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Team;
 
-use App\Http\Requests\StoreGroup;
+use App\Http\Requests\StoreTeam;
 use App\Permission;
 use App\Role;
 use App\Team;
@@ -28,7 +28,7 @@ class TeamController extends Controller
         return view('team.create');
     }
 
-    public function store(StoreGroup $request){
+    public function store(StoreTeam $request){
         // Persist
         $team = Team::create([
             'name' => $request->name,

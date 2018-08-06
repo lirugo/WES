@@ -41,6 +41,15 @@
                             </ul>
                         </div>
                     </li>
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">view_list</i>Disciplines</div>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li><a href="{{url('/discipline/create')}}"><i class="material-icons">playlist_add</i>Create a new discipline</a></li>
+                                <li><a href="{{url('/discipline')}}"><i class="material-icons">view_list</i>Show all disciplines</a></li>
+                            </ul>
+                        </div>
+                    </li>
                 </ul>
             </li>
         {{-- Student --}}

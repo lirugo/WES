@@ -79,3 +79,20 @@ Route::get('/manage', 'Manage\ManageController@index')->name('manage');
         Route::post('/store', 'TeamController@store')->name('team.store');
     });
     Route::get('/team/{name}', 'Team\TeamController@show');
+
+/*
+|--------------------------------------------------------------------------
+| Discipline CRUD route
+|--------------------------------------------------------------------------
+*/
+    Route::group([
+        'middleware' => 'role:administrator|top-manager|manager',
+        'prefix' => 'discipline',
+        'namespace' => 'Discipline'
+    ], function () {
+        Route::get('/', 'DisciplineController@index');
+        Route::get('/create', 'DisciplineController@create');
+        Route::get('/{name}/edit', 'DisciplineController@edit');
+        Route::post('/store', 'DisciplineController@store')->name('discipline.store');
+        Route::post('/{name}/update', 'DisciplineController@update')->name('discipline.update');
+    });

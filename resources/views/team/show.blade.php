@@ -1,13 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-    {!! Form::open(['route' => 'team.store', 'method' => 'POST']) !!}
     {{--Header--}}
     <div class="row">
         <div class="col s12">
             <div class="card hoverable">
                 <div class="card-content">
-                    <span class="card-title center-align">{{$team->display_name}}</span>
+                    <span class="card-title center-align">Group - {{$team->display_name}}</span>
                 </div>
             </div>
         </div>
@@ -64,7 +63,6 @@
             </div>
             <div class="s12">
                 @foreach($team->getMembers() as $member)
-
                     <div class="card-panel hoverable">
                         <a href="#user"><img class="circle left m-r-10" width="100px" src="{{asset('/uploads/avatars/'.$member->avatar)}}"></a>
                         <p class="card-title m-b-0">{{$member->getShortName()}}</p>
@@ -75,5 +73,4 @@
             </div>
         </div>
     </div>
-    {!! Form::close() !!}
 @endsection

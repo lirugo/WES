@@ -12,15 +12,18 @@ class DisciplinesSeeder extends Seeder
     public function run()
     {
         DB::table('disciplines')->insert([
-            'name' => 'Mathematics',
+            'display_name' => 'Mathematics',
+            'name' => 'mathematics',
             'description' => 'Mathematics Description',
         ]);
         DB::table('disciplines')->insert([
-            'name' => 'English',
+            'display_name' => 'English',
+            'name' => 'english',
             'description' => 'English Description',
         ]);
         DB::table('disciplines')->insert([
-            'name' => 'Management',
+            'display_name' => 'Management',
+            'name' => 'management',
             'description' => 'Management Description',
         ]);
     }

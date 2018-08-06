@@ -9,4 +9,6 @@ class Discipline extends Model
     protected $table = 'disciplines';
 
     protected $guarded = ['id'];
+
+    public $timestamps = false;
 }

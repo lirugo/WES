@@ -69,7 +69,7 @@
                 </div>
             </div>
             <div class="col s12 m6 l6">
-                <div class="card hoverable">
+                <div class="card hoverable" id="avatar">
                     <div class="card-image">
                         <img :src="imgDataUrl">
                         <a class="btn-floating btn-large halfway-fab waves-effect waves-light red" @click="toggleShow"><i class="material-icons">add</i></a>
@@ -251,4 +251,59 @@
             </div>
         </div>
     {!! Form::close() !!}
+@endsection
+
+@section('scripts')
+    <script>
+        new Vue({
+            el: '#avatar',
+            data: {
+                show: false,
+                params: {
+                    name: 'avatar',
+                },
+                headers: {
+                    'X-CSRF-Token': document.head.querySelector("[name=csrf-token]").content
+                },
+                imgDataUrl: '/uploads/avatars/male.png',
+                avatarName: ''
+            },
+            methods: {
+                toggleShow() {
+                    this.show = !this.show;
+                },
+                /**
+                 * crop success
+                 *
+                 * [param] imgDataUrl
+                 * [param] field
+                 */
+                cropSuccess(imgDataUrl, field){
+                    console.log('-------- crop success --------');
+                    this.imgDataUrl = imgDataUrl;
+                },
+                /**
+                 * upload success
+                 *
+                 * [param] jsonData  server api return data, already json encode
+                 * [param] field
+                 */
+                cropUploadSuccess(jsonData, field){
+                    console.log('-------- upload success --------');
+                    this.avatarName = jsonData.avatar;
+                },
+                /**
+                 * upload fail
+                 *
+                 * [param] status    server api return error status, like 500
+                 * [param] field
+                 */
+                cropUploadFail(status, field){
+                    console.log('-------- upload fail --------');
+                    console.log(status);
+                    console.log('field: ' + field);
+                }
+            }
+        });
+    </script>
 @endsection

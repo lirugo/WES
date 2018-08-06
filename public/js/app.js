@@ -1081,12 +1081,8 @@ module.exports = __webpack_require__(58);
 
 /***/ }),
 /* 11 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_image_crop_upload__ = __webpack_require__(44);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_image_crop_upload___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_image_crop_upload__);
 __webpack_require__(12);
 
 window.Vue = __webpack_require__(36);
@@ -1094,70 +1090,11 @@ window.Vue = __webpack_require__(36);
 window.Slug = __webpack_require__(39);
 Slug.defaults.mode = "rfc3986";
 
+// Slug Editor
 Vue.component('widget-slug', __webpack_require__(41));
+// Avatar Editor
+Vue.component('widget-avatar-cropper', __webpack_require__(44));
 
-/*
-|--------------------------------------------------------------------------
-| Avatar Editor
-|--------------------------------------------------------------------------
-*/
-
-new Vue({
-    el: '#app',
-    data: {
-        show: false,
-        params: {
-            name: 'avatar'
-        },
-        headers: {
-            'X-CSRF-Token': document.head.querySelector("[name=csrf-token]").content
-        },
-        imgDataUrl: '/uploads/avatars/male.png',
-        avatarName: ''
-    },
-    components: {
-        'widget-avatar-cropper': __WEBPACK_IMPORTED_MODULE_0_vue_image_crop_upload___default.a
-    },
-    methods: {
-        toggleShow: function toggleShow() {
-            this.show = !this.show;
-        },
-
-        /**
-         * crop success
-         *
-         * [param] imgDataUrl
-         * [param] field
-         */
-        cropSuccess: function cropSuccess(imgDataUrl, field) {
-            console.log('-------- crop success --------');
-            this.imgDataUrl = imgDataUrl;
-        },
-
-        /**
-         * upload success
-         *
-         * [param] jsonData  server api return data, already json encode
-         * [param] field
-         */
-        cropUploadSuccess: function cropUploadSuccess(jsonData, field) {
-            console.log('-------- upload success --------');
-            this.avatarName = jsonData.avatar;
-        },
-
-        /**
-         * upload fail
-         *
-         * [param] status    server api return error status, like 500
-         * [param] field
-         */
-        cropUploadFail: function cropUploadFail(status, field) {
-            console.log('-------- upload fail --------');
-            console.log(status);
-            console.log('field: ' + field);
-        }
-    }
-});
 /*
 |--------------------------------------------------------------------------
 | Custom scripts
@@ -45708,7 +45645,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "valign-wrapper" }, [
+  return _c("div", { staticClass: "valign-wrapper", attrs: { id: "slug" } }, [
     _c("i", { staticClass: "material-icons m-r-10" }, [_vm._v("attachment")]),
     _vm._v(" "),
     _c("span", [_vm._v(_vm._s(_vm.url))]),
