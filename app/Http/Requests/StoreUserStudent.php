@@ -39,10 +39,11 @@ class StoreUserStudent extends FormRequest
             'dialling_code' => 'required|in:' . implode(',', array_keys(config('dialling_code'))),
             'phone_number' => 'required|numeric',
             'gender' => 'required|in:male,female',
-            'english_lvl' => 'required|numeric',
-            'introductory_score' => 'required|numeric',
             'avatar' => 'required',
             'password' => 'required|min:8|confirmed',
+
+            'english_lvl' => 'required|numeric',
+            'introductory_score' => 'required|numeric',
 
             'education_name' => 'required|string',
             'education_speciality' => 'required|string',
@@ -52,9 +53,9 @@ class StoreUserStudent extends FormRequest
             'job_position' => 'required|string',
             'job_experience' => 'required|numeric',
 
-            'social_facebook' => 'nullable',
-            'social_twitter' => 'nullable',
-            'social_linkedin' => 'nullable',
+            'social_facebook' => 'nullable|active_url',
+            'social_twitter' => 'nullable|active_url',
+            'social_linkedin' => 'nullable|active_url',
         ];
     }
 }

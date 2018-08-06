@@ -79,14 +79,14 @@
                     <div class="input-field">
                         <i class="material-icons prefix">language</i>
                         <select name="english_lvl" required disabled>
-                            <option value="" disabled>{{$student->english_lvl}}</option>
+                            <option value="" disabled>{{$student->student->english_lvl}}</option>
                         </select>
                         <span class="helper-text" data-error="wrong" data-success="All is Ok.">English lvl</span>
                     </div>
                     {{--Introduction score--}}
                     <div class="input-field">
                         <i class="material-icons prefix">dvr</i>
-                        {!! Form::number('introductory_score', $student->introductory_score, ['class' => 'validate', 'id' => 'introductory_score', 'min' => 50, 'max' => 100, 'step' => 1, 'required', 'disabled']) !!}
+                        {!! Form::number('introductory_score', $student->student->introductory_score, ['class' => 'validate', 'id' => 'introductory_score', 'min' => 50, 'max' => 100, 'step' => 1, 'required', 'disabled']) !!}
                         <span class="helper-text" data-error="Choose a rating from 50 to 100" data-success="All is Ok">Introductory score</span>
                     </div>
                 </div>

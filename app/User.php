@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'email', 'password', 'date_of_birth', 'english_lvl', 'introductory_score', 'avatar', 'avatar'
+        'email', 'password', 'date_of_birth', 'avatar'
     ];
 
     /**
@@ -62,6 +62,11 @@ class User extends Authenticatable
         return $this->hasMany(UserJob::class);
     }
 
+    public function student()
+    {
+        return $this->hasOne(UserStudent::class);
+    }
+
     public function socials()
     {
         return $this->hasMany(UserSocial::class);
@@ -71,8 +76,6 @@ class User extends Authenticatable
         $user = $this->create([
             'email' => $request->email,
             'date_of_birth' => $request->date_of_birth,
-            'english_lvl' => $request->english_lvl,
-            'introductory_score' => $request->introductory_score,
             'avatar' => $request->avatar,
             'gender' => $request->gender,
             'password' => bcrypt($request->password),
@@ -123,6 +126,11 @@ class User extends Authenticatable
             'experience' => $request->job_experience,
             'current_job' => $request->current_job == null ? false : true,
         ]);
+        $student = new UserStudent([
+            'user_id' => $user->id,
+            'english_lvl' => $request->english_lvl,
+            'introductory_score' => $request->introductory_score,
+        ]);
         if($request->social_facebook)
             $facebook = new UserSocial([
                 'user_id' => $user->id,
@@ -149,6 +157,7 @@ class User extends Authenticatable
             $user->phones()->save($phone);
             $user->educations()->save($education);
             $user->jobs()->save($job);
+            $user->student()->save($student);
             if(isset($facebook))
             $user->socials()->save($facebook);
             if(isset($twitter))

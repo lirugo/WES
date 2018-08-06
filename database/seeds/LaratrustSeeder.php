@@ -57,8 +57,6 @@ class LaratrustSeeder extends Seeder
             $user = \App\User::create([
                 'email' => $key.'@app.com',
                 'date_of_birth' => '1980-01-01',
-                'english_lvl' => '5',
-                'introductory_score' => '99',
                 'password' => bcrypt('password')
             ]);
 
