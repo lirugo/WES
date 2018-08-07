@@ -117,6 +117,22 @@ Route::get('/manage', 'Manage\ManageController@index')->name('manage');
 
 /*
 |--------------------------------------------------------------------------
+| News CRUD route
+|--------------------------------------------------------------------------
+*/
+    Route::group([
+        'middleware' => 'role:administrator|top-manager|manager',
+        'prefix' => 'news',
+        'namespace' => 'News'
+    ], function () {
+        Route::get('/', 'NewsController@index');
+        Route::get('/create', 'NewsController@create');
+        Route::post('/store', 'NewsController@store')->name('news.store');
+    });
+    Route::get('/news/{id}', 'News\NewsController@show');
+
+/*
+|--------------------------------------------------------------------------
 | Store avatar|image etc
 |--------------------------------------------------------------------------
 */
