@@ -19,7 +19,7 @@ class CreateUsersTeachersTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('science_degree');
             $table->string('academic_status');
-            $table->enum('teacher_status', config('teacher_status'));
+            $table->enum('teacher_status', array_keys(config('teacher_status')));
             $table->boolean('can_teach_in_english')->default(false);
             $table->timestamps();
         });

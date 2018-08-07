@@ -24,6 +24,15 @@
             <li>
                 <ul class="collapsible">
                     <li>
+                        <div class="collapsible-header"><i class="material-icons">school</i>Teachers</div>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li><a href="{{url('/teacher/create')}}"><i class="material-icons">person_add</i>Create a new teacher</a></li>
+                                <li><a href="{{url('/teacher/')}}"><i class="material-icons">group</i>Show all teachers</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
                         <div class="collapsible-header"><i class="material-icons">person</i>Students</div>
                         <div class="collapsible-body">
                             <ul>

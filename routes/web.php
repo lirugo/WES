@@ -59,7 +59,6 @@ Route::get('/manage', 'Manage\ManageController@index')->name('manage');
         Route::get('/create', 'StudentController@create');
         Route::get('/{id}', 'StudentController@show');
         Route::post('/store', 'StudentController@store')->name('student.store');
-        Route::post('/store/avatar', 'StudentController@storeAvatar')->name('student.store.avatar');
     });
 
 /*
@@ -95,4 +94,34 @@ Route::get('/manage', 'Manage\ManageController@index')->name('manage');
         Route::get('/{name}/edit', 'DisciplineController@edit');
         Route::post('/store', 'DisciplineController@store')->name('discipline.store');
         Route::post('/{name}/update', 'DisciplineController@update')->name('discipline.update');
+    });
+
+/*
+|--------------------------------------------------------------------------
+| Teacher CRUD route
+|--------------------------------------------------------------------------
+*/
+    Route::group([
+        'middleware' => 'role:administrator|top-manager|manager',
+        'prefix' => 'teacher',
+        'namespace' => 'Teacher'
+    ], function () {
+        Route::get('/', 'TeacherController@index');
+        Route::get('/create', 'TeacherController@create');
+        Route::get('/{name}/edit', 'TeacherController@edit');
+        Route::post('/store', 'TeacherController@store')->name('teacher.store');
+        Route::post('/{name}/update', 'TeacherController@update')->name('teacher.update');
+    });
+
+/*
+|--------------------------------------------------------------------------
+| Store avatar|image etc
+|--------------------------------------------------------------------------
+*/
+    Route::group([
+        'middleware' => 'auth',
+        'prefix' => 'store',
+        'namespace' => 'Store'
+    ], function () {
+        Route::post('/avatar', 'AvatarController@store')->name('store.avatar');
     });

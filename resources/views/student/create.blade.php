@@ -85,7 +85,7 @@
                             :height="300"
                             lang-type='en'
                             no-rotate
-                            url="/student/store/avatar"
+                            url="/store/avatar"
                             :params="params"
                             :headers="headers"
                             img-format="png">
