@@ -110,7 +110,8 @@ Route::get('/manage', 'Manage\ManageController@index')->name('manage');
         Route::get('/create', 'TeacherController@create');
         Route::get('/{name}/edit', 'TeacherController@edit');
         Route::post('/store', 'TeacherController@store')->name('teacher.store');
-        Route::post('/{name}/update', 'TeacherController@update')->name('teacher.update');
+        Route::post('/{id}/update', 'TeacherController@update')->name('teacher.update');
+        Route::post('/{id}/discipline/store', 'DisciplineController@store')->name('teacher.discipline.store');
     });
     Route::get('/teacher/{id}', 'Teacher\TeacherController@show');
 

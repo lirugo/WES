@@ -191,13 +191,13 @@
                         <label for="education_speciality">Name of speciality</label>
                     </div>
                     <div class="input-field">
-                        <select name="education_rank" required>
-                            <option value="" disabled>Select degree</option>
-                            <option value="bachelor" selected {{ old('education_rank') ? 'selected="selected"' : '' }}>Bachelor</option>
-                            <option value="specialist" {{ old('education_rank') ? 'selected="selected"' : '' }}>Specialist</option>
-                            <option value="master" {{ old('education_rank') ? 'selected="selected"' : '' }}>Master</option>
+                        <select name="education_rank">
+                            <option value="" disabled>Education Rank</option>
+                            @foreach (config('education_rank') as $key => $name)
+                                <option value="{{ $key }}"{{ old('education_rank') === $key ? 'selected="selected"' : '' }}>{{ $name }}</option>
+                            @endforeach
                         </select>
-                        <span class="helper-text" data-error="wrong" data-success="All is Ok.">Select degree</span>
+                        <span class="helper-text" data-error="wrong" data-success="All is Ok.">Education Rank</span>
                     </div>
                 </div>
             </div>

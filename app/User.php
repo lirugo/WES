@@ -52,6 +52,11 @@ class User extends Authenticatable
         return $this->hasMany(UserPhone::class);
     }
 
+    public function disciplines()
+    {
+        return $this->hasMany(UserDiscipline::class);
+    }
+
     public function educations()
     {
         return $this->hasMany(UserEducation::class);

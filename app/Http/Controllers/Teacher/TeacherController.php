@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Teacher;
 
+use App\Discipline;
 use App\Http\Requests\StoreUserTeacher;
 use App\Role;
 use App\User;
+use App\UserDiscipline;
 use Session;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -73,15 +75,17 @@ class TeacherController extends Controller
      */
     public function edit($id)
     {
-        //
+        $teacher = User::find($id);
+        $disciplines = Discipline::all();
+        return view('teacher.edit')->withTeacher($teacher)->withDisciplines($disciplines);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param StoreUserTeacher $request
+     * @param  int $id
+     * @return void
      */
     public function update(Request $request, $id)
     {

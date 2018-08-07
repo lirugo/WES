@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    {!! Form::open(['route' => 'student.store', 'method' => 'POST']) !!}
     {{--Header--}}
     <div class="row">
         <div class="col s12">
@@ -159,5 +158,4 @@
             </div>
         </div>
     </div>
-    {!! Form::close() !!}
 @endsection
