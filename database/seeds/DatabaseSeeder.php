@@ -14,5 +14,6 @@ class DatabaseSeeder extends Seeder
         $this->call(DiallingCodeSeeder::class);
         $this->call(LaratrustSeeder::class);
         $this->call(DisciplinesSeeder::class);
+        $this->call(TeamSeeder::class);
     }
 }
