@@ -35,7 +35,7 @@ class TeacherController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param StoreUserTeacher $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreUserTeacher $request)
@@ -61,7 +61,8 @@ class TeacherController extends Controller
      */
     public function show($id)
     {
-        //
+        $teacher = User::find($id);
+        return view('teacher.show')->withTeacher($teacher);
     }
 
     /**

@@ -112,6 +112,7 @@ Route::get('/manage', 'Manage\ManageController@index')->name('manage');
         Route::post('/store', 'TeacherController@store')->name('teacher.store');
         Route::post('/{name}/update', 'TeacherController@update')->name('teacher.update');
     });
+    Route::get('/teacher/{id}', 'Teacher\TeacherController@show');
 
 /*
 |--------------------------------------------------------------------------

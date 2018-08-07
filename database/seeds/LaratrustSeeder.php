@@ -77,6 +77,24 @@ class LaratrustSeeder extends Seeder
             ]);
 
             $user->attachRole($role);
+
+            if($user->hasRole('student'))
+            {
+                $user->student()->create([
+                    'user_id' => $user->id,
+                    'english_lvl' => 5,
+                    'introductory_score' => 100,
+                ]);
+            } else if($user->hasRole('teacher'))
+            {
+                $user->teacher()->create([
+                    'user_id' => $user->id,
+                    'science_degree' => 'science_degree',
+                    'academic_status' => 'academic_status',
+                    'teacher_status' => 'staff',
+                    'can_teach_in_english' => true,
+                ]);
+            }
         }
 
         // Creating user with permissions

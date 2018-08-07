@@ -57,26 +57,26 @@ class LoginController extends Controller
         ]);
     }
 
-    protected function authenticated(Request $request, User $user){
-        //Check have two factor auth
-        return $this->logoutAndRedirectToTokenEntry($request, $user);
-    }
-
-    protected function logoutAndRedirectToTokenEntry($request, $user){
-        session(['user_id' => Auth::user()->id]);
-        $phone = substr(str_replace(' ', '', Auth::user()->getPhone()),1);
-        Auth::guard()->logout();
-        // Random key
-        $collection = collect([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]);
-        $keyArray = $collection->random(4);
-        $key =  $keyArray[0].$keyArray[1].$keyArray[2].$keyArray[3];
-        // Send sms
-        $this->sendSms($key, $phone);
-        // Put key to session
-        session(['key' => $key]);
-        // Redirect to token page
-        return redirect($this->redirectToTokenPath());
-    }
+//    protected function authenticated(Request $request, User $user){
+//        //Check have two factor auth
+//        return $this->logoutAndRedirectToTokenEntry($request, $user);
+//    }
+//
+//    protected function logoutAndRedirectToTokenEntry($request, $user){
+//        session(['user_id' => Auth::user()->id]);
+//        $phone = substr(str_replace(' ', '', Auth::user()->getPhone()),1);
+//        Auth::guard()->logout();
+//        // Random key
+//        $collection = collect([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]);
+//        $keyArray = $collection->random(4);
+//        $key =  $keyArray[0].$keyArray[1].$keyArray[2].$keyArray[3];
+//        // Send sms
+//        $this->sendSms($key, $phone);
+//        // Put key to session
+//        session(['key' => $key]);
+//        // Redirect to token page
+//        return redirect($this->redirectToTokenPath());
+//    }
 
     protected function redirectToTokenPath(){
         return $this->redirectToToken;

@@ -7,8 +7,8 @@
         <div class="col s12">
             <div class="card hoverable">
                 <div class="card-content">
-                    <span class="card-title center-align">Show student</span>
-                    <a href="{{url('/student')}}" class="indigo waves-effect waves-light btn left m-r-10"><i class="material-icons left">apps</i>Back to all students</a>
+                    <span class="card-title center-align">Show teacher</span>
+                    <a href="{{url('/manage')}}" class="indigo waves-effect waves-light btn left m-r-10"><i class="material-icons left">apps</i>Back to manage</a>
                 </div>
             </div>
         </div>
@@ -18,7 +18,7 @@
         <div class="col s12 m6 l6">
             <div class="card-panel hoverable">
                 <h5 class="m-t-0 center-align">Name</h5>
-                @foreach($student->names as $name)
+                @foreach($teacher->names as $name)
                     <small>Language - {{$name->language}}</small>
                     <div class="input-field">
                         {!! Form::text('second_name', $name->second_name, ['class' => 'validate', 'id' => 'second_name_ua', 'required', 'disabled']) !!}
@@ -40,8 +40,8 @@
             <div class="col s12">
                 <div class="card">
                     <div class="card-image">
-                        <img src="{{asset('/uploads/avatars/'.$student->avatar)}}">
-                        <span class="card-title">{{$student->getShortName()}}</span>
+                        <img src="{{asset('/uploads/avatars/'.$teacher->avatar)}}">
+                        <span class="card-title">{{$teacher->getShortName()}}</span>
                     </div>
                 </div>
             </div>
@@ -51,44 +51,57 @@
                     {{--Date of birth--}}
                     <div class="input-field">
                         <i class="material-icons prefix">date_range</i>
-                        {!! Form::text('date_of_birth', $student->date_of_birth, ['class' => 'validate datepicker', 'id' => 'date_of_birth', 'required', 'disabled']) !!}
+                        {!! Form::text('date_of_birth', $teacher->date_of_birth, ['class' => 'validate datepicker', 'id' => 'date_of_birth', 'required', 'disabled']) !!}
                         <label for="date_of_birth">Date of Birthday</label>
                         <span class="helper-text" data-error="wrong" data-success="All is Ok."></span>
                     </div>
                     {{--Email--}}
                     <div class="input-field">
                         <i class="material-icons prefix">email</i>
-                        {!! Form::email('email', $student->email, ['class' => 'validate', 'id' => 'email', 'required', 'disabled']) !!}
+                        {!! Form::email('email', $teacher->email, ['class' => 'validate', 'id' => 'email', 'required', 'disabled']) !!}
                         <label for="email">Email</label>
                     </div>
                     {{--Phone--}}
                     <div class="input-field">
                         <i class="material-icons prefix">phone</i>
-                        {!! Form::text('phone_number', $student->getPhone(), ['class' => 'validate', 'id' => 'phone_number', 'required', 'disabled']) !!}
-                        <span class="helper-text" data-error="wrong" data-success="All is Ok.">Phone number</span>
+                        {!! Form::text('phone_number', $teacher->getPhone(), ['class' => 'validate', 'id' => 'phone_number', 'required', 'disabled']) !!}
+                        <label for="science_degree">Phone number</label>
                     </div>
                     {{--Gender--}}
                     <div class="input-field">
                         <i class="material-icons prefix">accessibility</i>
                         <select name="gender" required disabled>
-                            <option value="" disabled>{{$student->gender}}</option>
+                            <option value="" disabled>{{$teacher->gender}}</option>
                         </select>
-                        <span class="helper-text" data-error="wrong" data-success="All is Ok.">Gender</span>
+                        <label for="science_degree">Gender</label>
+                    </div>
+                    {{--Science Degree--}}
+                    <div class="input-field">
+                        <i class="material-icons prefix">school</i>
+                        {!! Form::text('science_degree', $teacher->teacher->science_degree, ['class' => 'validate', 'id' => 'science_degree', 'required', 'disabled']) !!}
+                        <label for="science_degree">Science Degree</label>
+                    </div>
+                    {{--Academic Status--}}
+                    <div class="input-field">
+                        <i class="material-icons prefix">school</i>
+                        {!! Form::text('academic_status', $teacher->teacher->academic_status, ['class' => 'validate', 'id' => 'academic_status', 'required', 'disabled']) !!}
+                        <label for="academic_status">Academic Status</label>
+                    </div>
+                    {{--Teacher Status--}}
+                    <div class="input-field">
+                        <i class="material-icons prefix">accessibility</i>
+                        <select name="teacher_status" required disabled>
+                            <option value="" disabled>{{config('teacher_status.'.$teacher->teacher->teacher_status)}}</option>
+                        </select>
+                        <label for="teacher_status">Teacher Status</label>
                     </div>
                     {{--English lvl--}}
-                    <div class="input-field">
-                        <i class="material-icons prefix">language</i>
-                        <select name="english_lvl" required disabled>
-                            <option value="" disabled>{{$student->student->english_lvl}}</option>
-                        </select>
-                        <span class="helper-text" data-error="wrong" data-success="All is Ok.">English lvl</span>
-                    </div>
-                    {{--Introduction score--}}
-                    <div class="input-field">
-                        <i class="material-icons prefix">dvr</i>
-                        {!! Form::number('introductory_score', $student->student->introductory_score, ['class' => 'validate', 'id' => 'introductory_score', 'min' => 50, 'max' => 100, 'step' => 1, 'required', 'disabled']) !!}
-                        <span class="helper-text" data-error="Choose a rating from 50 to 100" data-success="All is Ok">Introductory score</span>
-                    </div>
+                    <p>
+                        <label>
+                            <input type="checkbox" name="can_teach_in_english" {{$teacher->teacher->can_teach_in_english ? "checked" : ""}} disabled/>
+                            <span>Can teach in English</span>
+                        </label>
+                    </p>
                 </div>
             </div>
         </div>
@@ -98,7 +111,7 @@
         <div class="col s12 m6 l6">
             <div class="card-panel hoverable">
                 <h5 class="m-t-0 center-align">Education</h5>
-                @foreach($student->educations as $education)
+                @foreach($teacher->educations as $education)
                     <div class="input-field">
                         {!! Form::text('education_name', $education->name, ['class' => 'validate', 'id' => 'education_name', 'required', 'disabled']) !!}
                         <span class="helper-text" data-error="wrong" data-success="All is Ok.">Name of the educational institution</span>
@@ -117,7 +130,7 @@
         <div class="col s12 m6 l6">
             <div class="card-panel hoverable">
                 <h5 class="m-t-0 center-align">Current or last job</h5>
-                @foreach($student->jobs as $job)
+                @foreach($teacher->jobs as $job)
                     <div class="input-field">
                         {!! Form::text('job_name', $job->name, ['class' => 'validate', 'id' => 'job_name', 'required', 'disabled']) !!}
                         <label for="job_name">Name of organisation</label>
@@ -146,13 +159,13 @@
             <div class="card-panel hoverable">
                 <h5 class="m-t-0 center-align">Social networks</h5>
                 <div class="row">
-                    @foreach($student->socials as $social)
-                            <div class="input-field col s12 m6 l4">
-                                <i class="material-icons prefix">insert_link</i>
-                                <label for="social_facebook"><a href="{{$social->url}}">{{$social->name}}</a></label>
-                            </div>
+                    @foreach($teacher->socials as $social)
+                        <div class="input-field col s12 m6 l4">
+                            <i class="material-icons prefix">insert_link</i>
+                            <label for="social_facebook"><a href="{{$social->url}}">{{$social->name}}</a></label>
+                        </div>
                     @endforeach
-                    @if(count($student->socials) == 0)
+                    @if(count($teacher->socials) == 0)
                         <h6 class="center">Not have any social links.</h6>
                     @endif
                 </div>
