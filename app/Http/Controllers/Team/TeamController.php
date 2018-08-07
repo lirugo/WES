@@ -68,31 +68,4 @@ class TeamController extends Controller
         // Render View
         return view('team.edit')->withTeam($team)->withStudents($students);
     }
-
-    public function addMember(Request $request, $teamName){
-        // Validate access
-
-        // Find user
-        $user = User::find($request->member);
-
-        // Find team
-        $team = Team::where('name', $teamName)->first();
-
-        // Find role student
-        $student = Role::where('name', 'student')->first();
-
-        // Get ACL permission for student
-        $readAcl = Permission::where('name', 'read-acl')->first();
-        $updateAcl = Permission::where('name', 'update-acl')->first();
-
-        // Attach permission for student to team
-        $user->attachPermissions([$readAcl,$updateAcl], $team);
-        $user->attachRole($student,$team);
-
-        // Show flash msg
-        Session::flash('success', 'User was successfully added to group.');
-
-        // Return to manage
-        return back();
-    }
 }

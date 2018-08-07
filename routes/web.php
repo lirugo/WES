@@ -74,8 +74,8 @@ Route::get('/manage', 'Manage\ManageController@index')->name('manage');
         Route::get('/', 'TeamController@index');
         Route::get('/create', 'TeamController@create');
         Route::get('/{name}/edit', 'TeamController@edit');
-        Route::post('/{name}/edit/addMember', 'TeamController@addMember')->name('team.edit.addMember');
         Route::post('/store', 'TeamController@store')->name('team.store');
+        Route::post('/{name}/member/store', 'MemberController@store')->name('team.member.store');
     });
     Route::get('/team/{name}', 'Team\TeamController@show');
 
