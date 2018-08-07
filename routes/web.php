@@ -125,10 +125,10 @@ Route::get('/manage', 'Manage\ManageController@index')->name('manage');
         'prefix' => 'news',
         'namespace' => 'News'
     ], function () {
-        Route::get('/', 'NewsController@index');
         Route::get('/create', 'NewsController@create');
         Route::post('/store', 'NewsController@store')->name('news.store');
     });
+    Route::get('/news', 'News\NewsController@index');
     Route::get('/news/{id}', 'News\NewsController@show');
 
 /*

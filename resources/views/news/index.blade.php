@@ -7,7 +7,7 @@
                 <div class="card hoverable">
                     <div class="card-content">
                         <span class="card-title center-align">{{$news->title}}</span>
-                        <p>{{$news->description}}</p>
+                        <p>{!! $news->description !!}</p>
                     </div>
                 </div>
             </div>
@@ -21,5 +21,12 @@
                 </div>
             </div>
         @endif
+        @role(['administrator', 'top-manage', 'manager'])
+            <div class="fixed-action-btn">
+                <a href="{{url('/news/create')}}" class="btn-floating btn-large red">
+                    <i class="large material-icons">add</i>
+                </a>
+            </div>
+        @endrole
     </div>
 @endsection

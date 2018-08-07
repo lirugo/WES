@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\News;
 
+use App\Http\Requests\StoreNews;
 use App\News;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -23,7 +24,7 @@ class NewsController extends Controller
         return view('news.create');
     }
 
-    public function store(Request $request){
+    public function store(StoreNews $request){
         // Create news
         News::create([
             'title' => $request->title,
