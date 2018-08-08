@@ -10183,3 +10183,7 @@ input[type=range]::-ms-thumb {
   }
 }
 
+.main-content {
+  min-height: 100vh;
+}
+

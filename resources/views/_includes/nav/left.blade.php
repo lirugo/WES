@@ -1,6 +1,5 @@
 @auth
     <ul id="slide-out" class="sidenav sidenav-fixed">
-
         {{-- Header --}}
         <li><div class="user-view">
                 <div class="background">
@@ -108,9 +107,7 @@
                     </li>
                 </ul>
             </li>
-
         @endif
-
         {{-- Settings --}}
         <li><div class="divider"></div></li>
         <li><a class="subheader">Settings</a></li>

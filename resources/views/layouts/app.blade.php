@@ -34,7 +34,11 @@
 
             @include('_includes.notification.message')
 
-            @yield('content')
+            <div class="main-content">
+                @yield('content')
+            </div>
+
+            @include('_includes.footer.index')
         </div>
     </div>
 
