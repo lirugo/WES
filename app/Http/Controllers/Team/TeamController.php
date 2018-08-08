@@ -65,7 +65,10 @@ class TeamController extends Controller
         // Get all students
         $students = User::whereRoleIs('student')->get();
 
+        // Get all teachers
+        $teachers = User::whereRoleIs('teacher')->get();
+
         // Render View
-        return view('team.edit')->withTeam($team)->withStudents($students);
+        return view('team.edit')->withTeam($team)->withStudents($students)->withTeachers($teachers);
     }
 }

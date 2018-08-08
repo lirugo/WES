@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-{{--    {!! Form::open(['route' => 'team.store', 'method' => 'POST']) !!}--}}
     {{--Header--}}
     <div class="row">
         <div class="col s12">
@@ -54,38 +53,71 @@
     <div class="row">
         <div class="col s12 m6 l4">
             <div class="card-panel hoverable">
-                {!! Form::open(['route' => ['team.member.store',$team->name], 'method' => 'POST']) !!}
-                <h5 class="center-align m-b-30">Add a new member.</h5>
+                {!! Form::open(['route' => ['team.student.store',$team->name], 'method' => 'POST']) !!}
+                <h5 class="center-align m-b-30">Add a new student</h5>
                 <div class="input-field">
-                    <select class="icons" name="member" required>
-                        <option value="" disabled selected>Choose a new member</option>
+                    <select class="icons" name="student" required>
+                        <option value="" disabled selected>Choose a new student</option>
                         @foreach($students as $student)
                             <option value="{{$student->id}}" data-icon="{{asset('/uploads/avatars/'.$student->avatar)}}">{{$student->getShortName()}}</option>
                         @endforeach
                     </select>
                     <label>All students</label>
                 </div>
-                <button type="submit" class="indigo waves-effect waves-light btn"><i class="material-icons right">add_circle_outline</i>Add a new member</button>
+                <button type="submit" class="indigo waves-effect waves-light btn"><i class="material-icons right">add_circle_outline</i>Add a new student</button>
                 {!! Form::close() !!}
             </div>
         </div>
-        <div class="col s12 m6 l4 offset-l4">
+        <div class="col s12 m6 l4">
+            <div class="card-panel hoverable">
+                {!! Form::open(['route' => ['team.teacher.store',$team->name], 'method' => 'POST']) !!}
+                <h5 class="center-align m-b-30">Add a new teacher</h5>
+                <div class="input-field">
+                    <select class="icons" name="teacher" required>
+                        <option value="" disabled selected>Choose a new teacher</option>
+                        @foreach($teachers as $teacher)
+                            <option value="{{$teacher->id}}" data-icon="{{asset('/uploads/avatars/'.$teacher->avatar)}}">{{$teacher->getShortName()}}</option>
+                        @endforeach
+                    </select>
+                    <label>All teachers</label>
+                </div>
+                <button type="submit" class="indigo waves-effect waves-light btn"><i class="material-icons right">add_circle_outline</i>Add a new teacher</button>
+                {!! Form::close() !!}
+            </div>
+        </div>
+        <div class="col s12 m6 l4">
             <div class="s12">
                 <div class="card-panel">
-                    <h6 class="card-title m-t-0 m-b-0 center-align">Members of this group.</h6>
+                    <h6 class="card-title m-t-0 m-b-0 center-align">Students of this group</h6>
                 </div>
             </div>
             <div class="s12">
-                @foreach($team->getMembers() as $member)
+                @foreach($team->getStudents() as $student)
                     <div class="card-panel hoverable">
-                        <a href="#user"><img class="circle left m-r-10" width="100px" src="{{asset('/uploads/avatars/'.$member->avatar)}}"></a>
-                        <p class="card-title m-b-0">{{$member->getShortName()}}</p>
-                        <p class="card-title m-t-0 m-b-0">{{$member->email}}</p>
-                        <p class="card-title m-t-0">{{$member->getPhone()}}</p>
+                        <a href="#user"><img class="circle left m-r-10" width="100px" src="{{asset('/uploads/avatars/'.$student->avatar)}}"></a>
+                        <p class="card-title m-b-0">{{$student->getShortName()}}</p>
+                        <p class="card-title m-t-0 m-b-0">{{$student->email}}</p>
+                        <p class="card-title m-t-0">{{$student->getPhone()}}</p>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+        <div class="col s12 m6 l4 offset-l8">
+            <div class="s12">
+                <div class="card-panel">
+                    <h6 class="card-title m-t-0 m-b-0 center-align">Teachers of this group</h6>
+                </div>
+            </div>
+            <div class="s12">
+                @foreach($team->getTeachers() as $student)
+                    <div class="card-panel hoverable">
+                        <a href="#user"><img class="circle left m-r-10" width="100px" src="{{asset('/uploads/avatars/'.$student->avatar)}}"></a>
+                        <p class="card-title m-b-0">{{$student->getShortName()}}</p>
+                        <p class="card-title m-t-0 m-b-0">{{$student->email}}</p>
+                        <p class="card-title m-t-0">{{$student->getPhone()}}</p>
                     </div>
                 @endforeach
             </div>
         </div>
     </div>
-    {{--{!! Form::close() !!}--}}
 @endsection

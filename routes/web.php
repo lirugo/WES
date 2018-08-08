@@ -5,15 +5,15 @@
 | Auth Route
 |--------------------------------------------------------------------------
 */
-Route::group(['middleware' => ['guest'], 'namespace' => 'Auth'], function () {
-    Route::get('/login', 'LoginController@showLoginForm');
-    Route::post('/login', 'LoginController@login')->name('login');
-    Route::get('/auth/token', 'TokenController@index');
-    Route::post('/auth/token', 'TokenController@token')->name('auth.token');
-});
-Route::group(['middleware' => ['auth'], 'namespace' => 'Auth'], function () {
-    Route::post('/logout', 'LoginController@logout')->name('logout');
-});
+    Route::group(['middleware' => ['guest'], 'namespace' => 'Auth'], function () {
+        Route::get('/login', 'LoginController@showLoginForm');
+        Route::post('/login', 'LoginController@login')->name('login');
+        Route::get('/auth/token', 'TokenController@index');
+        Route::post('/auth/token', 'TokenController@token')->name('auth.token');
+    });
+    Route::group(['middleware' => ['auth'], 'namespace' => 'Auth'], function () {
+        Route::post('/logout', 'LoginController@logout')->name('logout');
+    });
 
 
 /*
@@ -21,8 +21,24 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Auth'], function () {
 | Manage panel route
 |--------------------------------------------------------------------------
 */
-Route::get('/', 'Manage\ManageController@index');
-Route::get('/manage', 'Manage\ManageController@index')->name('manage');
+    Route::get('/', 'Manage\ManageController@index');
+    Route::get('/manage', 'Manage\ManageController@index')->name('manage');
+
+        /*
+        |--------------------------------------------------------------------------
+        | Student route
+        |--------------------------------------------------------------------------
+        */
+            Route::group([
+                'middleware' => 'role:student',
+                'prefix' => 'manage/student',
+                'namespace' => 'Manage\Student'
+            ], function () {
+                Route::get('/team/{name}', 'TeamController@show');
+                Route::get('/team/{name}/schedule', 'TeamController@schedule');
+                Route::get('/team/{name}/teachers', 'TeamController@teachers');
+            });
+
 
 /*
 |--------------------------------------------------------------------------
@@ -73,11 +89,12 @@ Route::get('/manage', 'Manage\ManageController@index')->name('manage');
     ], function () {
         Route::get('/', 'TeamController@index');
         Route::get('/create', 'TeamController@create');
+        Route::get('/{name}', 'TeamController@show');
         Route::get('/{name}/edit', 'TeamController@edit');
         Route::post('/store', 'TeamController@store')->name('team.store');
-        Route::post('/{name}/member/store', 'MemberController@store')->name('team.member.store');
+        Route::post('/{name}/student/store', 'StoreController@student')->name('team.student.store');
+        Route::post('/{name}/teacher/store', 'StoreController@teacher')->name('team.teacher.store');
     });
-    Route::get('/team/{name}', 'Team\TeamController@show');
 
 /*
 |--------------------------------------------------------------------------

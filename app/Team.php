@@ -25,12 +25,25 @@ class Team extends LaratrustTeam
         return $owner;
     }
 
-    public function getMembers(){
+    public function getStudents(){
         $users = User::with('rolesTeams')->whereRoleIs('student')->get();
 
-        foreach ($users as $key => $user)
-            if(count($user->rolesTeams) == 0 || $user->hasRole('manager'))
+        foreach ($users as $key => $user){
+            $count = 0;
+            foreach ($user->rolesTeams as $t) {
+                if ($this->name == $t->name)
+                    $count++;
+            }
+            if($count == 0)
                 $users->forget($key);
+
+        }
+
+        return $users;
+    }
+
+    public function getTeachers(){
+        $users = User::with('rolesTeams')->whereRoleIs('teacher')->get();
 
         foreach ($users as $key => $user){
             $count = 0;

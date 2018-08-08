@@ -23,7 +23,7 @@
         @endif
         @role(['administrator', 'top-manage', 'manager'])
             <div class="fixed-action-btn">
-                <a href="{{url('/news/create')}}" class="btn-floating btn-large red">
+                <a href="{{url('/news/create')}}" class="btn-floating btn-large waves-effect waves-light red">
                     <i class="large material-icons">add</i>
                 </a>
             </div>

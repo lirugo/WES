@@ -58,16 +58,16 @@
         <div class="col s12 m6 l4">
             <div class="s12">
                 <div class="card-panel">
-                    <h6 class="card-title m-t-0 m-b-0 center-align">Members of this group.</h6>
+                    <h6 class="card-title m-t-0 m-b-0 center-align">Students of this group.</h6>
                 </div>
             </div>
             <div class="s12">
-                @foreach($team->getMembers() as $member)
+                @foreach($team->getStudents() as $student)
                     <div class="card-panel hoverable">
-                        <a href="#user"><img class="circle left m-r-10" width="100px" src="{{asset('/uploads/avatars/'.$member->avatar)}}"></a>
-                        <p class="card-title m-b-0">{{$member->getShortName()}}</p>
-                        <p class="card-title m-t-0 m-b-0">{{$member->email}}</p>
-                        <p class="card-title m-t-0">{{$member->getPhone()}}</p>
+                        <a href="#user"><img class="circle left m-r-10" width="100px" src="{{asset('/uploads/avatars/'.$student->avatar)}}"></a>
+                        <p class="card-title m-b-0">{{$student->getShortName()}}</p>
+                        <p class="card-title m-t-0 m-b-0">{{$student->email}}</p>
+                        <p class="card-title m-t-0">{{$student->getPhone()}}</p>
                     </div>
                 @endforeach
             </div>

@@ -11,7 +11,7 @@
                         <div class="divider m-t-10 m-b-10"></div>
                             <blockquote class="m-b-0 m-t-5"><small>Created at - {{$team->created_at->format('Y-m-d')}}</small></blockquote>
                             <blockquote class="m-b-0 m-t-5"><small>Manager - {{$team->getOwner()->getShortName()}}</small></blockquote>
-                            <blockquote class="m-b-0 m-t-5"><small>Count of students - {{count($team->getMembers())}}</small></blockquote>
+                            <blockquote class="m-b-0 m-t-5"><small>Count of students - {{count($team->getStudents())}}</small></blockquote>
                     </div>
                     <div class="card-action right-align">
                         <a href="{{url('/team/'.$team->name.'/edit')}}" class="indigo waves-effect waves-light btn-small right">Edit</a>
