@@ -35,7 +35,7 @@
                 'namespace' => 'Manage\Student'
             ], function () {
                 Route::get('/team/{name}', 'TeamController@show');
-                Route::get('/team/{name}/schedule', 'TeamController@schedule');
+                Route::get('/team/{name}/schedule', 'ScheduleController@index');
                 Route::get('/team/{name}/teachers', 'TeamController@teachers');
             });
 

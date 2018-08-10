@@ -22793,7 +22793,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       }
 
       /**
-       * Setup Event Handlers
+       * Setup Schedule Handlers
        */
 
     }, {
@@ -22810,7 +22810,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       }
 
       /**
-       * Remove Event Handlers
+       * Remove Schedule Handlers
        */
 
     }, {
@@ -23154,7 +23154,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       }
 
       /**
-       * Setup Event Handlers
+       * Setup Schedule Handlers
        */
 
     }, {
@@ -23182,7 +23182,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       }
 
       /**
-       * Remove Event Handlers
+       * Remove Schedule Handlers
        */
 
     }, {
@@ -23776,7 +23776,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       }
 
       /**
-       * Setup Event Handlers
+       * Setup Schedule Handlers
        */
 
     }, {
@@ -23793,7 +23793,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       }
 
       /**
-       * Remove Event Handlers
+       * Remove Schedule Handlers
        */
 
     }, {
@@ -24207,7 +24207,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       }
 
       /**
-       * Setup Event Handlers
+       * Setup Schedule Handlers
        */
 
     }, {
@@ -24218,7 +24218,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       }
 
       /**
-       * Remove Event Handlers
+       * Remove Schedule Handlers
        */
 
     }, {
@@ -24876,7 +24876,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       }
 
       /**
-       * Setup Event Handlers
+       * Setup Schedule Handlers
        */
 
     }, {
@@ -24890,7 +24890,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       }
 
       /**
-       * Remove Event Handlers
+       * Remove Schedule Handlers
        */
 
     }, {
@@ -27002,7 +27002,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       }
 
       /**
-       * Setup Event Handlers
+       * Setup Schedule Handlers
        */
 
     }, {
@@ -27019,7 +27019,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       }
 
       /**
-       * Remove Event Handlers
+       * Remove Schedule Handlers
        */
 
     }, {
@@ -27325,7 +27325,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       }
 
       /**
-       * Setup Event Handlers
+       * Setup Schedule Handlers
        */
 
     }, {
@@ -27353,7 +27353,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       }
 
       /**
-       * Remove Event Handlers
+       * Remove Schedule Handlers
        */
 
     }, {
@@ -28110,7 +28110,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       }
 
       /**
-       * Setup Event Handlers
+       * Setup Schedule Handlers
        */
 
     }, {
@@ -28129,7 +28129,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       }
 
       /**
-       * Remove Event Handlers
+       * Remove Schedule Handlers
        */
 
     }, {
@@ -28537,7 +28537,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       }
 
       /**
-       * Setup Event Handlers
+       * Setup Schedule Handlers
        */
 
     }, {
@@ -28558,7 +28558,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       }
 
       /**
-       * Remove Event Handlers
+       * Remove Schedule Handlers
        */
 
     }, {
@@ -29230,7 +29230,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       }
 
       /**
-       * Setup Event Handlers
+       * Setup Schedule Handlers
        */
 
     }, {
@@ -29249,7 +29249,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       }
 
       /**
-       * Remove Event Handlers
+       * Remove Schedule Handlers
        */
 
     }, {
@@ -30158,7 +30158,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       }
 
       /**
-       * Setup Event Handlers
+       * Setup Schedule Handlers
        */
 
     }, {
@@ -30239,7 +30239,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       }
 
       /**
-       * Remove Event Handlers
+       * Remove Schedule Handlers
        */
 
     }, {
@@ -30554,7 +30554,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       }
 
       /**
-       * Setup Event Handlers
+       * Setup Schedule Handlers
        */
 
     }, {
@@ -31167,7 +31167,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       }
 
       /**
-       * Setup Event Handlers
+       * Setup Schedule Handlers
        */
 
     }, {
@@ -31180,7 +31180,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       }
 
       /**
-       * Remove Event Handlers
+       * Remove Schedule Handlers
        */
 
     }, {
@@ -31413,7 +31413,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       }
 
       /**
-       * Setup Event Handlers
+       * Setup Schedule Handlers
        */
 
     }, {
@@ -31453,7 +31453,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       }
 
       /**
-       * Remove Event Handlers
+       * Remove Schedule Handlers
        */
 
     }, {
@@ -32133,7 +32133,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       }
 
       /**
-       * Setup Event Handlers
+       * Setup Schedule Handlers
        */
 
     }, {
@@ -32154,7 +32154,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       }
 
       /**
-       * Remove Event Handlers
+       * Remove Schedule Handlers
        */
 
     }, {
@@ -32492,7 +32492,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       }
 
       /**
-       * Setup Event Handlers
+       * Setup Schedule Handlers
        */
 
     }, {
@@ -32512,7 +32512,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       }
 
       /**
-       * Remove Event Handlers
+       * Remove Schedule Handlers
        */
 
     }, {
@@ -32947,7 +32947,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       }
 
       /**
-       * Setup Event Handlers
+       * Setup Schedule Handlers
        */
 
     }, {
@@ -32977,7 +32977,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       }
 
       /**
-       * Remove Event Handlers
+       * Remove Schedule Handlers
        */
 
     }, {
@@ -36611,7 +36611,7 @@ function eventsMixin (Vue) {
       var lowerCaseEvent = event.toLowerCase();
       if (lowerCaseEvent !== event && vm._events[lowerCaseEvent]) {
         tip(
-          "Event \"" + lowerCaseEvent + "\" is emitted in component " +
+          "Schedule \"" + lowerCaseEvent + "\" is emitted in component " +
           (formatComponentName(vm)) + " but the handler is registered for \"" + event + "\". " +
           "Note that HTML attributes are case-insensitive and you cannot use " +
           "v-on to listen to camelCase events when using in-DOM templates. " +

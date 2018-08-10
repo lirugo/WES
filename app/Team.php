@@ -10,6 +10,10 @@ class Team extends LaratrustTeam
         'name', 'display_name', 'description'
     ];
 
+    public function schedules(){
+        return $this->hasMany(Schedule::class, 'team_id', 'id');
+    }
+
     /**
      * Get owner team.
      * @return User
@@ -25,6 +29,10 @@ class Team extends LaratrustTeam
         return $owner;
     }
 
+    /**
+     * Get All Students of Team
+     * @return mixed
+     */
     public function getStudents(){
         $users = User::with('rolesTeams')->whereRoleIs('student')->get();
 
@@ -42,6 +50,10 @@ class Team extends LaratrustTeam
         return $users;
     }
 
+    /**
+     * Get All Teachers of Team
+     * @return mixed
+     */
     public function getTeachers(){
         $users = User::with('rolesTeams')->whereRoleIs('teacher')->get();
 
@@ -57,5 +69,27 @@ class Team extends LaratrustTeam
         }
 
         return $users;
+    }
+
+    /**
+     * Check User is Member of Team
+     * @param User $user
+     * @return bool
+     */
+    public function isMember(User $user){
+//        $members = User::with('rolesTeams')->all();
+//        foreach ($members as $member)
+//            if($member == $user)
+//                return true;
+//
+//        return false;
+    }
+
+    /**
+     * Get Schedule of group
+     * @return array
+     */
+    public function getSchedule(){
+         return $this->schedules;
     }
 }

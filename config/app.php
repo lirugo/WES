@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Europe/Kiev',
 
     /*
     |--------------------------------------------------------------------------
@@ -168,7 +168,10 @@ return [
         * Intervention Image
         */
         Intervention\Image\ImageServiceProvider::class,
-
+        /*
+        * Maddhatter Laravel-fullcalendar
+        */
+        MaddHatter\LaravelFullcalendar\ServiceProvider::class,
     ],
 
     /*
@@ -226,7 +229,8 @@ return [
         /*
         * Intervention Image
         */
-        'Image' => Intervention\Image\Facades\Image::class
+        'Image' => Intervention\Image\Facades\Image::class,
+        'Calendar' => MaddHatter\LaravelFullcalendar\Facades\Calendar::class,
     ],
 
 ];
