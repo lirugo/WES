@@ -120,4 +120,14 @@
             </div>
         </div>
     </div>
+
+    {{--Floating button--}}
+    <div class="fixed-action-btn">
+        <a class="btn-floating btn-large red">
+            <i class="large material-icons">mode_edit</i>
+        </a>
+        <ul>
+            <li><a class="btn-floating blue tooltipped" data-position="left" data-tooltip="Schedule" href="{{url('/team/'.$team->name.'/schedule')}}"><i class="material-icons">access_time</i></a></li>
+        </ul>
+    </div>
 @endsection

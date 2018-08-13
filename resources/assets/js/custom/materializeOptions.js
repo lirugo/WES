@@ -24,9 +24,34 @@ var optionsDatePicker = {
     minDate: new Date(1940, 0, 1),
     maxDate: new Date(),
     defaultDate: new Date(1980, 0, 1),
-    yearRange:30
+    yearRange:30,
+    firstDay:1
+};
+var optionsDatePickerDefault = {
+    format: 'yyyy-mm-dd',
+    yearRange:30,
+    firstDay:1
 };
 document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('.datepicker');
     var instances = M.Datepicker.init(elems, optionsDatePicker);
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.datepickerDefault');
+    var instances = M.Datepicker.init(elems, optionsDatePickerDefault);
+});
+// Time picker
+var optionsTimePicker = {
+    twelveHour: false,
+    defaultTime: '10:00',
+};
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.timepicker');
+    var instances = M.Timepicker.init(elems, optionsTimePicker);
+});
+// Floating button
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.fixed-action-btn');
+    var instances = M.FloatingActionButton.init(elems, []);
 });

@@ -91,6 +91,8 @@
         Route::get('/create', 'TeamController@create');
         Route::get('/{name}', 'TeamController@show');
         Route::get('/{name}/edit', 'TeamController@edit');
+        Route::get('/{name}/schedule', 'ScheduleController@index');
+        Route::post('/{name}/schedule/store', 'ScheduleController@store')->name('team.schedule.store');
         Route::post('/store', 'TeamController@store')->name('team.store');
         Route::post('/{name}/student/store', 'StoreController@student')->name('team.student.store');
         Route::post('/{name}/teacher/store', 'StoreController@teacher')->name('team.teacher.store');

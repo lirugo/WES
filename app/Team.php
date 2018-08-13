@@ -10,12 +10,16 @@ class Team extends LaratrustTeam
         'name', 'display_name', 'description'
     ];
 
+    /**
+     * Relationship to schedule list
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function schedules(){
         return $this->hasMany(Schedule::class, 'team_id', 'id');
     }
 
     /**
-     * Get owner team.
+     * Get owner team
      * @return User
      */
     public function getOwner(){
