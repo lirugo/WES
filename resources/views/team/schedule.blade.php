@@ -73,7 +73,7 @@
                         {{--End date&time picker--}}
                         <div class="input-field col s12 m6 l6">
                             <i class="material-icons prefix">date_range</i>
-                            <input id="end_date" value="{{ old('end_date') }}" name="end_date" type="text" class="datepickerDefault">
+                            <input id="end_date" value="{{ old('end_date') }}" name="end_date" type="text" class="datepickerDefault" required>
                             <label for="end_date">End date</label>
                         </div>
                         <div class="input-field col s12 m6 l6">

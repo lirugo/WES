@@ -84,24 +84,19 @@ class Team extends LaratrustTeam
     }
 
     /**
-     * Check User is Member of Team
-     * @param User $user
-     * @return bool
-     */
-    public function isMember(User $user){
-//        $members = User::with('rolesTeams')->all();
-//        foreach ($members as $member)
-//            if($member == $user)
-//                return true;
-//
-//        return false;
-    }
-
-    /**
      * Get Schedule of group
      * @return array
      */
     public function getSchedule(){
          return $this->schedules;
+    }
+
+    /**
+     * Get Current Discipline
+     * @param $disciplineId
+     * @return mixed
+     */
+    public function getDiscipline($disciplineId){
+        return $this->disciplines->find($disciplineId);
     }
 }
