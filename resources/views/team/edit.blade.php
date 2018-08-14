@@ -137,6 +137,7 @@
             <i class="large material-icons">mode_edit</i>
         </a>
         <ul>
+            <li><a class="btn-floating green tooltipped" data-position="left" data-tooltip="Home Work" href="{{url('/team/'.$team->name.'/homework')}}"><i class="material-icons">home</i></a></li>
             <li><a class="btn-floating blue tooltipped" data-position="left" data-tooltip="Schedule" href="{{url('/team/'.$team->name.'/schedule')}}"><i class="material-icons">access_time</i></a></li>
         </ul>
     </div>

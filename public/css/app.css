@@ -10187,3 +10187,8 @@ input[type=range]::-ms-thumb {
   min-height: 100vh;
 }
 
+.attached-file {
+  margin-top: -40px !important;
+  margin-right: -20px !important;
+}
+

@@ -17,4 +17,11 @@ class TeamDiscipline extends Model
     public function getTeacher(){
         return $this->hasOne(User::class, 'id', 'teacher_id');
     }
+
+    public function getHomeWork(){
+        return TeamsHomeWork::where([
+            ['team_id', $this->team_id],
+            ['discipline_id', $this->discipline_id]
+        ])->orderBy('id', 'DESC')->get();
+    }
 }

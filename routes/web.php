@@ -90,9 +90,11 @@
         Route::get('/', 'TeamController@index');
         Route::get('/create', 'TeamController@create');
         Route::get('/{name}', 'TeamController@show');
-        Route::get('/{name}/homework/{discipline}', 'HomeWork\HomeWorkController@show');
         Route::get('/{name}/edit', 'TeamController@edit');
         Route::get('/{name}/schedule', 'ScheduleController@index');
+        Route::get('/{name}/homework', 'HomeWork\HomeWorkController@index');
+        Route::get('/{name}/homework/{discipline}', 'HomeWork\HomeWorkController@show');
+        Route::get('/{name}/homework/{discipline}/create', 'HomeWork\HomeWorkController@create');
 
         Route::post('/{name}/homework/{discipline}/store', 'HomeWork\HomeWorkController@store')->name('team.homework.store');
         Route::post('/{name}/schedule/store', 'ScheduleController@store')->name('team.schedule.store');
