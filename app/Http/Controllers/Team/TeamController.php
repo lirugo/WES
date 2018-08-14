@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Team;
 
+use App\Discipline;
 use App\Http\Requests\StoreTeam;
 use App\Permission;
 use App\Role;
@@ -61,14 +62,20 @@ class TeamController extends Controller
     public function edit($name){
         // Get Team
         $team = Team::where('name', $name)->first();
-
         // Get all students
         $students = User::whereRoleIs('student')->get();
 
         // Get all teachers
         $teachers = User::whereRoleIs('teacher')->get();
 
+        // Get all disciplines
+        $disciplines = Discipline::all();
+
         // Render View
-        return view('team.edit')->withTeam($team)->withStudents($students)->withTeachers($teachers);
+        return view('team.edit')
+            ->withTeam($team)
+            ->withStudents($students)
+            ->withTeachers($teachers)
+            ->withDisciplines($disciplines);
     }
 }

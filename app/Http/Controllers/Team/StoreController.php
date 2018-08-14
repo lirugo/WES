@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Team;
 use App\Permission;
 use App\Role;
 use App\Team;
+use App\TeamDiscipline;
 use App\User;
 use Session;
 use Illuminate\Http\Request;
@@ -14,7 +15,7 @@ class StoreController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('role:administrator|top-manager|manager');
     }
 
     public function student(Request $request, $teamName){
@@ -47,13 +48,13 @@ class StoreController extends Controller
     public function teacher(Request $request, $teamName){
         // Validate access
 
-        // Find user
+        // Find teacher
         $user = User::find($request->teacher);
 
         // Find team
         $team = Team::where('name', $teamName)->first();
 
-        // Find role student
+        // Find role teacher
         $teacher = Role::where('name', 'teacher')->first();
 
         // Get ACL permission for teacher
@@ -62,7 +63,14 @@ class StoreController extends Controller
 
         // Attach permission for student to team
         $user->attachPermissions([$readAcl,$updateAcl], $team);
-        $user->attachRole($teacher,$team);
+        $user->attachRole($teacher, $team);
+
+        // Add discipline to team
+        $discipline = TeamDiscipline::create([
+            'team_id' => $team->id,
+            'teacher_id' => $user->id,
+            'discipline_id' => $request->teacher_discipline,
+        ]);
 
         // Show flash msg
         Session::flash('success', 'Teacher was successfully added to group.');

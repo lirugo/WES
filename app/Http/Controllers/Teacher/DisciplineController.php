@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Teacher;
 
 use App\Discipline;
 use App\User;
-use Session;
 use App\UserDiscipline;
+use Session;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 

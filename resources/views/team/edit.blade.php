@@ -64,7 +64,7 @@
                     </select>
                     <label>All students</label>
                 </div>
-                <button type="submit" class="indigo waves-effect waves-light btn"><i class="material-icons right">add_circle_outline</i>Add a new student</button>
+                <button type="submit" class="indigo waves-effect waves-light btn right"><i class="material-icons right">add_circle_outline</i>Add a new student</button>
                 {!! Form::close() !!}
             </div>
         </div>
@@ -81,7 +81,16 @@
                     </select>
                     <label>All teachers</label>
                 </div>
-                <button type="submit" class="indigo waves-effect waves-light btn"><i class="material-icons right">add_circle_outline</i>Add a new teacher</button>
+                <div class="input-field">
+                    <select name="teacher_discipline" required>
+                        <option value="" disabled selected>Choose a discipline</option>
+                        @foreach($disciplines as $discipline)
+                            <option value="{{$discipline->id}}">{{$discipline->display_name}}</option>
+                        @endforeach
+                    </select>
+                    <label>All disciplines</label>
+                </div>
+                <button type="submit" class="indigo waves-effect waves-light btn right"><i class="material-icons right">add_circle_outline</i>Add a New Teacher</button>
                 {!! Form::close() !!}
             </div>
         </div>
@@ -105,16 +114,17 @@
         <div class="col s12 m6 l4 offset-l8">
             <div class="s12">
                 <div class="card-panel">
-                    <h6 class="card-title m-t-0 m-b-0 center-align">Teachers of this group</h6>
+                    <h6 class="card-title m-t-0 m-b-0 center-align">Disciplines of this group</h6>
                 </div>
             </div>
             <div class="s12">
-                @foreach($team->getTeachers() as $student)
-                    <div class="card-panel hoverable">
-                        <a href="#user"><img class="circle left m-r-10" width="100px" src="{{asset('/uploads/avatars/'.$student->avatar)}}"></a>
-                        <p class="card-title m-b-0">{{$student->getShortName()}}</p>
-                        <p class="card-title m-t-0 m-b-0">{{$student->email}}</p>
-                        <p class="card-title m-t-0">{{$student->getPhone()}}</p>
+                @foreach($team->disciplines as $discipline)
+                    <div class="card-panel hoverable p-b-30">
+                        <blockquote class="m-t-0">{{$discipline->getDiscipline->display_name}}</blockquote>
+                        <a href="#user"><img class="circle left m-r-10" width="100px" src="{{asset('/uploads/avatars/'.$discipline->getTeacher->avatar)}}"></a>
+                        <p class="card-title m-b-0">{{$discipline->getTeacher->getShortName()}}</p>
+                        <p class="card-title m-t-0 m-b-0">{{$discipline->getTeacher->email}}</p>
+                        <p class="card-title m-t-0">{{$discipline->getTeacher->getPhone()}}</p>
                     </div>
                 @endforeach
             </div>

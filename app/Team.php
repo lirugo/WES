@@ -19,6 +19,14 @@ class Team extends LaratrustTeam
     }
 
     /**
+     * Relationship to discipline list
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function disciplines(){
+        return $this->hasMany(TeamDiscipline::class);
+    }
+
+    /**
      * Get owner team
      * @return User
      */

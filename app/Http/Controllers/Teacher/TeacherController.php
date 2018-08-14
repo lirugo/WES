@@ -6,7 +6,7 @@ use App\Discipline;
 use App\Http\Requests\StoreUserTeacher;
 use App\Role;
 use App\User;
-use App\UserDiscipline;
+use App\TeamDiscipline;
 use Session;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -77,7 +77,9 @@ class TeacherController extends Controller
     {
         $teacher = User::find($id);
         $disciplines = Discipline::all();
-        return view('teacher.edit')->withTeacher($teacher)->withDisciplines($disciplines);
+        return view('teacher.edit')
+            ->withTeacher($teacher)
+            ->withDisciplines($disciplines);
     }
 
     /**
