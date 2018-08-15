@@ -24,7 +24,6 @@ class CreateTeamsHomeWorksTable extends Migration
             $table->string('name')->unique();
             $table->string('display_name');
             $table->text('description');
-            $table->string('file')->nullable();
             $table->dateTime('assignment_date');
             $table->timestamps();
         });

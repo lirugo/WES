@@ -34,10 +34,10 @@
                         <div class="file-field">
                             <div class="btn indigo">
                                 <span>File</span>
-                                <input type="file" name="file" required>
+                                <input type="file" name="file[]" required multiple>
                             </div>
                             <div class="file-path-wrapper">
-                                <input class="file-path validate" type="text" placeholder="Upload file">
+                                <input class="file-path validate" type="text" placeholder="Upload files">
                             </div>
                         </div>
                     </div>

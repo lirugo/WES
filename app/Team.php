@@ -42,6 +42,26 @@ class Team extends LaratrustTeam
     }
 
     /**
+     * Get All Members of Group
+     * @return User[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function getMembers(){
+        $users = User::with('rolesTeams')->get();
+
+        foreach ($users as $key => $user){
+            $count = 0;
+            foreach ($user->rolesTeams as $t) {
+                if ($this->name == $t->name)
+                    $count++;
+            }
+            if($count == 0)
+                $users->forget($key);
+        }
+
+        return $users;
+    }
+
+    /**
      * Get All Students of Team
      * @return mixed
      */
@@ -98,5 +118,19 @@ class Team extends LaratrustTeam
      */
     public function getDiscipline($disciplineId){
         return $this->disciplines->find($disciplineId);
+    }
+
+    /**
+     * Check If User is Member of Group
+     * @param $user
+     * @return bool
+     */
+    public function isMember($user){
+        foreach($this->getMembers() as $member)
+            if($user->id == $member->id)
+               // Allow
+                return true;
+        // Deny
+        return false;
     }
 }

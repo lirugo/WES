@@ -7,6 +7,7 @@ use App\Http\Requests\StoreHomeWork;
 use App\Team;
 use App\TeamDiscipline;
 use App\TeamsHomeWork;
+use App\TeamsHomeWorkFile;
 use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Auth;
@@ -58,9 +59,15 @@ class HomeWorkController extends Controller
         // Save file if exist
         if($request->hasFile('file'))
         {
-            $filePath = Storage::disk('homework')->put('/task', $request->file);
-            $homework->file =  basename($filePath);
-            $homework->save();
+            foreach ($request->file as $f) {
+                $filePath = Storage::disk('homework')->put('/task', $f);
+                TeamsHomeWorkFile::create([
+                    'team_id' => $team->id,
+                    'homework_id' => $homework->id,
+                    'status' => 'task',
+                    'name' => basename($filePath),
+                ]);
+            }
         }
 
         // Flash message
@@ -80,9 +87,20 @@ class HomeWorkController extends Controller
         // Get HomeWork
         $homework = $team->getDiscipline($discipline->id)->getHomeWork($team->id);
 
-//        dd(Storage::disk('homework')->url('task/vOIO6QifGF5gHKP8KOsh6hvMCmj0PcbU4CfzRbcr.pdf'));
-
         return view('team.homework.show')
-            ->withDiscipline($team->getDiscipline($discipline->id));
+            ->withDiscipline($team->getDiscipline($discipline->id))
+            ->withTeam($team);
+    }
+
+    // Return file for user
+    public function file($team, $discipline, $file)
+    {
+        $team = Team::where('name', $team)->first();
+        if($team->isMember(Auth::user())){
+            $path = storage_path('\app\group\homework\task\/'.$file);
+            return response()->file($path);
+        }
+
+        abort(403);
     }
 }

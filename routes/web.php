@@ -95,6 +95,8 @@
         Route::get('/{name}/homework', 'HomeWork\HomeWorkController@index');
         Route::get('/{name}/homework/{discipline}', 'HomeWork\HomeWorkController@show');
         Route::get('/{name}/homework/{discipline}/create', 'HomeWork\HomeWorkController@create');
+        Route::get('/{name}/homework/{discipline}/file/{file}', 'HomeWork\HomeWorkController@file')->name('team.homework.file');
+
 
         Route::post('/{name}/homework/{discipline}/store', 'HomeWork\HomeWorkController@store')->name('team.homework.store');
         Route::post('/{name}/schedule/store', 'ScheduleController@store')->name('team.schedule.store');
