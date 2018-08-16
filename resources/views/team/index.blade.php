@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('team') }}
+@endsection
 @section('content')
     <div class="row">
         @foreach($teams as $team)

@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('teacher-create') }}
+@endsection
+
 @section('content')
     {!! Form::open(['route' => 'teacher.store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
     {{--Header--}}

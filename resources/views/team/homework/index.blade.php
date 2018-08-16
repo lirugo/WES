@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('team-edit-homework', $team) }}
+@endsection
 @section('content')
     <div class="row">
         @foreach($disciplines as $discipline)

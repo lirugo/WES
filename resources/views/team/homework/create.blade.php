@@ -1,20 +1,8 @@
 @extends('layouts.app')
-
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('team-edit-homework-discipline-create', $team, $discipline->getDiscipline) }}
+@endsection
 @section('content')
-    {{--Header--}}
-    <div class="row">
-        <div class="col s12">
-            <div class="card hoverable">
-                <div class="card-content">
-                    <div class="row m-b-0">
-                        <div class="col s12">
-                            <span class="card-title center-align">Home Work - {{$discipline->getDiscipline->display_name}}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     {{--Add Home Work--}}
     <div class="row">
         <div class="col s12">

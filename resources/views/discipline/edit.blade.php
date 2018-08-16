@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('discipline-edit', $discipline) }}
+@endsection
 @section('content')
     {!! Form::open([$discipline, 'route' => ['discipline.update',$discipline->name], 'method' => 'POST']) !!}
     {{--Header--}}

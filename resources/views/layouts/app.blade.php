@@ -32,6 +32,8 @@
 
             @include('_includes.nav.left')
 
+            @yield('breadcrumbs')
+
             <div class="main-content">
                 @yield('content')
             </div>

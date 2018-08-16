@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('team-edit-homework-discipline', $team, $discipline->getDiscipline) }}
+@endsection
 @section('content')
     {{--Header--}}
     <div class="row">

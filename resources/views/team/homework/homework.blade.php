@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('team-edit-homework-discipline-homework', $team, $discipline->getDiscipline, $homeWork) }}
+@endsection
 @section('content')
     {!! Form::open(['route' => ['team.homework.solution', $team->name, $discipline->getDiscipline->name, $homeWork->name], 'enctype' => 'multipart/form-data', 'method' => 'POST']) !!}
     <div class="row">
@@ -11,6 +13,7 @@
                             <i class="material-icons medium">attach_file</i>
                         </a>
                     @endif
+                    <p class="right tooltipped" data-position="left" data-tooltip="Its Task"><i class="material-icons">help_outline</i></p>
                     <span class="card-title">{{$homeWork->display_name}}</span>
                     <p>{!!$homeWork->description!!}</p>
                     <small><blockquote>Created - {{$homeWork->created_at->format('Y-m-d H:i')}} ({{$homeWork->created_at->diffForHumans()}})</blockquote></small>
@@ -65,6 +68,7 @@
                             <i class="material-icons medium">attach_file</i>
                         </a>
                     @endif
+                    <p class="right tooltipped" data-position="left" data-tooltip="Its My Solution"><i class="material-icons">priority_high</i></p>
                     <span class="card-title">{{$homeWork->getSolution()->display_name}}</span>
                     <p>{!!$homeWork->getSolution()->description!!}</p>
                     <small><blockquote>Created - {{$homeWork->getSolution()->created_at->format('Y-m-d H:i')}} ({{$homeWork->getSolution()->created_at->diffForHumans()}})</blockquote></small>

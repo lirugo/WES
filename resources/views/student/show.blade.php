@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('student-show', $student) }}
+@endsection
 @section('content')
     {{--Header--}}
     <div class="row">

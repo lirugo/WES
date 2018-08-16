@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('team-create') }}
+@endsection
 @section('content')
     {!! Form::open(['route' => 'team.store', 'method' => 'POST']) !!}
     {{--Header--}}

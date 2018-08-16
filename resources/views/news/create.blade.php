@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('news-create') }}
+@endsection
+
 @section('content')
     {!! Form::open(['route' => 'news.store', 'method' => 'POST']) !!}
     {{--Header--}}

@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('discipline-create') }}
+@endsection
 @section('content')
     {!! Form::open(['route' => 'discipline.store', 'method' => 'POST']) !!}
     {{--Header--}}
