@@ -27,8 +27,8 @@
                         @endif
                         <span class="card-title">{{$homeWork->display_name}}</span>
                         <p>{!!$homeWork->description!!}</p>
-                        <blockquote>Created - {{$homeWork->created_at->format('Y-m-d H:i')}} ({{$homeWork->created_at->diffForHumans()}})</blockquote>
-                        <blockquote>End date - {{Carbon\Carbon::parse($homeWork->assignment_date)->format('Y-m-d H:i')}} ({{Carbon\Carbon::parse($homeWork->assignment_date)->diffForHumans()}})</blockquote>
+                        <small><blockquote>Created - {{$homeWork->created_at->format('Y-m-d H:i')}} ({{$homeWork->created_at->diffForHumans()}})</blockquote></small>
+                        <small><blockquote>End date - {{Carbon\Carbon::parse($homeWork->assignment_date)->format('Y-m-d H:i')}} ({{Carbon\Carbon::parse($homeWork->assignment_date)->diffForHumans()}})</blockquote></small>
                             @if(count($homeWork->getFiles) != 0)
                         <hr>
                         <div class="row">
@@ -43,8 +43,7 @@
                             @endif
                     </div>
                     <div class="card-action right-align">
-                        <a href="#" class="indigo waves-effect waves-light btn-small right">Send Solution</a>
-                        <a href="#" class="indigo waves-effect waves-light btn-small right m-r-10">Show My Solution</a>
+                        <a href="{{url('/team/'.$team->name.'/homework/'.$discipline->getDiscipline->name.'/'.$homeWork->name)}}" class="indigo waves-effect waves-light btn-small right">Open</a>
                     </div>
                 </div>
             </div>
@@ -53,11 +52,8 @@
 
     {{--Floating button--}}
     <div class="fixed-action-btn">
-        <a class="btn-floating btn-large red">
-            <i class="large material-icons">mode_edit</i>
+        <a class="btn-floating btn-large green tooltipped" data-position="left" data-tooltip="Set Home Work" href="{{url('/team/'.$team->name.'/homework/'.$discipline->getDiscipline->name.'/create')}}">
+            <i class="material-icons">add</i>
         </a>
-        <ul>
-            <li><a class="btn-floating green tooltipped" data-position="left" data-tooltip="Set Home Work" href="{{url('/team/'.$team->name.'/homework/'.$discipline->getDiscipline->name.'/create')}}"><i class="material-icons">add</i></a></li>
-        </ul>
     </div>
 @endsection

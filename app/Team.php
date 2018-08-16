@@ -117,7 +117,7 @@ class Team extends LaratrustTeam
      * @return mixed
      */
     public function getDiscipline($disciplineId){
-        return $this->disciplines->find($disciplineId);
+        return $this->disciplines->where('discipline_id', $disciplineId)->first();
     }
 
     /**

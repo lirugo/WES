@@ -29,7 +29,6 @@
                     <div class="input-field">
                         <textarea name="description"></textarea>
                     </div>
-                    {{--End date&time picker--}}
                     <div class="input-field col s12 m4 l4">
                         <div class="file-field">
                             <div class="btn indigo">
@@ -41,6 +40,7 @@
                             </div>
                         </div>
                     </div>
+                    {{--End date&time picker--}}
                     <div class="input-field col s12 m4 l4">
                         <i class="material-icons prefix">date_range</i>
                         <input id="end_date" value="{{ old('end_date') }}" name="end_date" type="text" class="datepickerDefault" required>
