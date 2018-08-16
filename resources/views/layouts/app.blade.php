@@ -32,8 +32,6 @@
 
             @include('_includes.nav.left')
 
-            @include('_includes.notification.message')
-
             <div class="main-content">
                 @yield('content')
             </div>
@@ -42,8 +40,11 @@
         </div>
     </div>
 
-    <!-- Scripts -->
+    <!-- Default Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <!-- Toasts -->
+    @include('_includes.notification.message')
+    <!-- Scripts From Blade -->
     @yield('scripts')
 
 </body>
