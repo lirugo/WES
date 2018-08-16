@@ -68,6 +68,9 @@
                     <span class="card-title">{{$homeWork->getSolution()->display_name}}</span>
                     <p>{!!$homeWork->getSolution()->description!!}</p>
                     <small><blockquote>Created - {{$homeWork->getSolution()->created_at->format('Y-m-d H:i')}} ({{$homeWork->getSolution()->created_at->diffForHumans()}})</blockquote></small>
+                    @if($homeWork->getSolution()->created_at != $homeWork->getSolution()->updated_at)
+                        <small><blockquote>Updated - {{$homeWork->getSolution()->updated_at->format('Y-m-d H:i')}} ({{$homeWork->getSolution()->updated_at->diffForHumans()}})</blockquote></small>
+                    @endif
                     @if(count($homeWork->getSolution()->getFiles()) != 0)
                         <hr>
                         <div class="row">
@@ -86,15 +89,27 @@
         @endif
     </div>
 
-
     {{--Floating button--}}
     <div class="fixed-action-btn">
+        @if($homeWork->getSolution() == null)
         <button type="submit" class="btn-floating btn-large green tooltipped" data-position="left" data-tooltip="Send My Solution">
             <i class="large material-icons">save</i>
         </button>
         <ul>
             <li><a class="btn-floating red tooltipped" data-position="left" data-tooltip="Go Back" href="{{url('/team/'.$team->name.'/homework/'.$discipline->getDiscipline->name)}}"><i class="material-icons">close</i></a></li>
         </ul>
+        @elseif(\Carbon\Carbon::now() < $homeWork->assignment_date)
+            <a class="btn-floating btn-large red tooltipped" data-position="left" data-tooltip="Edit Solution" href="{{url('/team/'.$team->name.'/homework/'.$discipline->getDiscipline->name.'/'.$homeWork->name.'/edit')}}">
+                <i class="material-icons">edit</i>
+            </a>
+            <ul>
+                <li><a class="btn-floating red tooltipped" data-position="left" data-tooltip="Go Back" href="{{url('/team/'.$team->name.'/homework/'.$discipline->getDiscipline->name)}}"><i class="material-icons">close</i></a></li>
+            </ul>
+        @else
+            <a class="btn-floating btn-large red tooltipped" data-position="left" data-tooltip="Go Back" href="{{url('/team/'.$team->name.'/homework/'.$discipline->getDiscipline->name)}}">
+                <i class="material-icons">close</i>
+            </a>
+        @endif
     </div>
     {!! Form::close() !!}
 @endsection

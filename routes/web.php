@@ -97,8 +97,10 @@
         Route::get('/{name}/homework/{discipline}/create', 'HomeWork\HomeWorkController@create');
         Route::get('/{name}/homework/{discipline}/file/{file}', 'HomeWork\HomeWorkController@file')->name('team.homework.file');
         Route::get('/{name}/homework/{discipline}/{homework}', 'HomeWork\HomeWorkController@homework');
+        Route::get('/{name}/homework/{discipline}/{homework}/edit', 'HomeWork\HomeWorkController@edit');
 
         Route::post('/{name}/homework/{discipline}/store', 'HomeWork\HomeWorkController@store')->name('team.homework.store');
+        Route::post('/{name}/homework/{discipline}/{homework}/update', 'HomeWork\HomeWorkController@update')->name('team.homework.update');
         Route::post('/{name}/homework/{discipline}/{homework}', 'HomeWork\HomeWorkController@solution')->name('team.homework.solution');
         Route::post('/{name}/schedule/store', 'ScheduleController@store')->name('team.schedule.store');
         Route::post('/store', 'TeamController@store')->name('team.store');

@@ -29,10 +29,10 @@
                         <p>{!!$homeWork->description!!}</p>
                         <small><blockquote>Created - {{$homeWork->created_at->format('Y-m-d H:i')}} ({{$homeWork->created_at->diffForHumans()}})</blockquote></small>
                         <small><blockquote>End date - {{Carbon\Carbon::parse($homeWork->assignment_date)->format('Y-m-d H:i')}} ({{Carbon\Carbon::parse($homeWork->assignment_date)->diffForHumans()}})</blockquote></small>
-                            @if(count($homeWork->getFiles) != 0)
+                            @if(count($homeWork->getFiles()) != 0)
                         <hr>
                         <div class="row">
-                            @foreach($homeWork->getFiles as $file)
+                            @foreach($homeWork->getFiles() as $file)
                                 <div class="col s6 m-t-5">
                                     <a href="{{url('/team/'.$team->name.'/homework/'.$discipline->getDiscipline->name.'/file/'.$file->name)}}" download class="valign-wrapper">
                                         <i class="material-icons m-r-5">cloud_download</i> Download *.{{pathinfo($file->name, PATHINFO_EXTENSION)}}
