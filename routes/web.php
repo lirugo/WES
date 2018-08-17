@@ -89,6 +89,8 @@
     ], function () {
         Route::get('/', 'TeamController@index');
         Route::get('/create', 'TeamController@create');
+        Route::get('/template/create', 'Template\TemplateController@create');
+        Route::get('/template/{name}/edit', 'Template\TemplateController@edit');
         Route::get('/{name}', 'TeamController@show');
         Route::get('/{name}/edit', 'TeamController@edit');
         Route::get('/{name}/schedule', 'ScheduleController@index');
@@ -103,9 +105,11 @@
         Route::post('/{name}/homework/{discipline}/{homework}/update', 'HomeWork\HomeWorkController@update')->name('team.homework.update');
         Route::post('/{name}/homework/{discipline}/{homework}', 'HomeWork\HomeWorkController@solution')->name('team.homework.solution');
         Route::post('/{name}/schedule/store', 'ScheduleController@store')->name('team.schedule.store');
+        Route::post('/template/store', 'Template\TemplateController@store')->name('team.template.store');
         Route::post('/store', 'TeamController@store')->name('team.store');
         Route::post('/{name}/student/store', 'StoreController@student')->name('team.student.store');
         Route::post('/{name}/teacher/store', 'StoreController@teacher')->name('team.teacher.store');
+        Route::post('/template/{name}/teacher/store', 'Template\TemplateController@teacher')->name('team.template.teacher.store');
     });
 
 /*

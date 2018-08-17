@@ -97,11 +97,24 @@
             <li>
                 <ul class="collapsible">
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">group</i>Manager</div>
+                        <div class="collapsible-header"><i class="material-icons">person</i>Manager</div>
                         <div class="collapsible-body">
                             <ul>
-                                <li><a href="{{url('/manager/create')}}"><i class="material-icons">group_add</i>Create a new manager</a></li>
+                                <li><a href="{{url('/manager/create')}}"><i class="material-icons">person_add</i>Create a new manager</a></li>
                                 <li><a href="#"><i class="material-icons">group</i>Show all managers</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <ul class="collapsible">
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">group</i>Template for Group</div>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li><a href="{{url('/team/template/create')}}"><i class="material-icons">group_add</i>Create a new Template</a></li>
+                                <li><a href="#"><i class="material-icons">group</i>Show all Templates</a></li>
                             </ul>
                         </div>
                     </li>
@@ -116,7 +129,7 @@
         <li> <a href="{{route('logout')}}" onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">
                 <i class="material-icons">exit_to_app</i>Logout
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: one;">
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     {{ csrf_field() }}
                 </form>
             </a>

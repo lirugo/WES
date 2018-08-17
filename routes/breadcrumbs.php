@@ -81,6 +81,18 @@
         $trail->parent('team');
         $trail->push($team->display_name.' - Show', url('/team/'.$team->name.'/show'));
     });
+    //Template
+        Breadcrumbs::for('team-template', function ($trail) {
+            $trail->push('Group Templates', url('/team/template'));
+        });
+        Breadcrumbs::for('team-template-create', function ($trail) {
+            $trail->parent('team-template');
+            $trail->push('Create', url('/team/template/create'));
+        });
+        Breadcrumbs::for('team-template-edit', function ($trail, $template) {
+            $trail->parent('team-template');
+            $trail->push('Edit - '.$template->display_name, url('/team/template/'.$template->name.'/edit'));
+        });
     //Homework
         Breadcrumbs::for('team-edit-homework', function ($trail, $team) {
             $trail->parent('team-edit', $team);
