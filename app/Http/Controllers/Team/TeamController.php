@@ -62,8 +62,15 @@ class TeamController extends Controller
     public function edit($name){
         // Get Team
         $team = Team::where('name', $name)->first();
-        // Get all students
-        $students = User::whereRoleIs('student')->get();
+
+        // Get all students not in the current group
+        $students = User::whereRoleIs('student')->with('rolesTeams')->get();
+        foreach ($students as $sk => $student){
+            foreach($student->rolesTeams as $key => $t){
+                if($t->id == $team->id)
+                    $students->forget($sk);
+            }
+        }
 
         // Get all teachers
         $teachers = User::whereRoleIs('teacher')->get();

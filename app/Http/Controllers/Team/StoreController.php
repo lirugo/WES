@@ -57,6 +57,14 @@ class StoreController extends Controller
         // Find role teacher
         $teacher = Role::where('name', 'teacher')->first();
 
+        // Check on duplicate discipline
+        foreach ($team->disciplines as $discipline)
+            if($discipline->discipline_id == $request->teacher_discipline)
+            {
+                // Return back with error message
+                return back()->withErrors(['Current discipline already exist in group']);
+            }
+
         // Get ACL permission for teacher
         $readAcl = Permission::where('name', 'read-acl')->first();
         $updateAcl = Permission::where('name', 'update-acl')->first();

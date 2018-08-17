@@ -3,17 +3,6 @@
     {{ Breadcrumbs::render('team-edit', $team) }}
 @endsection
 @section('content')
-    {{--Header--}}
-    <div class="row">
-        <div class="col s12">
-            <div class="card hoverable">
-                <div class="card-content">
-                    <span class="card-title center-align">{{$team->display_name}}</span>
-                    <a href="{{url('/team')}}" class="indigo waves-effect waves-light btn left m-r-10"><i class="material-icons left">groups</i>Back to groups</a>
-                </div>
-            </div>
-        </div>
-    </div>
     {{--Name and General block--}}
     <div class="row">
         <div class="col s12 m6 l8">
