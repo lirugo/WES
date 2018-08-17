@@ -48,7 +48,7 @@ class ScheduleController extends Controller
         // Get all discipline
         $disciplines = Discipline::all();
 
-        return view('team.schedule')
+        return view('team.schedule.index')
             ->withCalendar($calendar)
             ->withTeachers($teachers)
             ->withTeam($team)
