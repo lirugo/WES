@@ -65,7 +65,7 @@
                     <p class="card-title m-t-25 m-b-0">{{$discipline->getTeacher->getShortName()}}</p>
                     <p class="card-title m-t-0 m-b-0">{{$discipline->getTeacher->email}}</p>
                     <p class="card-title m-t-0 m-b-0">{{$discipline->getTeacher->getPhone()}}</p>
-                    <p class="card-title m-t-0">Count of Hours - {{$discipline->hours}}</p>
+                    <p class="card-title m-t-0">Hours - {{$discipline->hours}}</p>
                 </div>
             </div>
         @endforeach
