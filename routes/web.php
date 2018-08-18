@@ -89,6 +89,7 @@
     ], function () {
         Route::get('/', 'TeamController@index');
         Route::get('/create', 'TeamController@create');
+        Route::get('/template', 'Template\TemplateController@index');
         Route::get('/template/create', 'Template\TemplateController@create');
         Route::get('/template/{name}/edit', 'Template\TemplateController@edit');
         Route::get('/{name}', 'TeamController@show');

@@ -26,7 +26,9 @@ class TemplateController extends Controller
      */
     public function index()
     {
-        //
+        $templates = TeamTemplate::all();
+        return view('team.template.index')
+            ->withTemplates($templates);
     }
 
     /**

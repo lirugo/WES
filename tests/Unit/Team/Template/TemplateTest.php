@@ -38,6 +38,11 @@ class TemplateTest extends TestCase
             ->assertStatus(200);
     }
 
+    /**
+     * Test Store Group Template
+     *
+     * @return void
+     */
     public function testCreateRequest(){
         $user = User::whereRoleIs('top-manager')->first();
         $this->be($user);
@@ -55,5 +60,19 @@ class TemplateTest extends TestCase
             ->assertStatus(200);
 
         TeamTemplate::where('name', 'test')->first()->delete();
+    }
+
+
+    /**
+     * Test Index Page For Group Template
+     *
+     * @return void
+     */
+    public function testIndexPage(){
+        $user = User::whereRoleIs('top-manager')->first();
+        $this->be($user);
+
+        $this->get('/team/template/')
+            ->assertStatus(200);
     }
 }
