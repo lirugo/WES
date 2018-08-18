@@ -4,18 +4,6 @@
 @endsection
 @section('content')
     {!! Form::open(['route' => 'team.store', 'method' => 'POST']) !!}
-    {{--Header--}}
-    <div class="row">
-        <div class="col s12 m12 l12">
-            <div class="card hoverable">
-                <div class="card-content">
-                    <span class="card-title center-align">Create a new group</span>
-                    <button type="submit" class="indigo waves-effect waves-light btn right tooltipped" data-tooltip="You sure? All data is correct?" data-position="top"><i class="material-icons right">send</i>Create a new group</button>
-                    <a href="{{url('/manage')}}" class="indigo waves-effect waves-light btn left m-r-10 tooltipped" data-tooltip="Information will be lost!" data-position="top"><i class="material-icons left">apps</i>Back to manage</a>
-                </div>
-            </div>
-        </div>
-    </div>
     {{--Name and General block--}}
     <div class="row">
         <div class="col s12">
@@ -31,8 +19,24 @@
                     {!! Form::textarea('description', null, ['class' => 'validate materialize-textarea', 'id' => 'description', 'required']) !!}
                     <label for="description">Description</label>
                 </div>
+                <div class="input-field">
+                    <i class="material-icons prefix">assignment</i>
+                    <select name="template" v-model="template" required>
+                        <option value="" disabled selected>Choose template for Group</option>
+                        @foreach($templates as $template)
+                            <option value="{{$template->name}}">{{$template->display_name}}</option>
+                        @endforeach
+                    </select>
+                    <label>Group Template</label>
+                </div>
             </div>
         </div>
+    </div>
+    {{--Floating button--}}
+    <div class="fixed-action-btn">
+        <button type="submit" class="btn-floating btn-large green tooltipped" data-position="left" data-tooltip="Create Group">
+            <i class="large material-icons">add</i>
+        </button>
     </div>
     {!! Form::close() !!}
 @endsection
@@ -42,7 +46,8 @@
         new Vue({
             el: '#slug',
             data: {
-                title: ''
+                template: '',
+                title: '',
             }
         });
     </script>

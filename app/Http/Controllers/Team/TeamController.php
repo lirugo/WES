@@ -7,6 +7,8 @@ use App\Http\Requests\StoreTeam;
 use App\Permission;
 use App\Role;
 use App\Team;
+use App\TeamDiscipline;
+use App\TeamTemplate;
 use App\User;
 use Illuminate\Http\Request;
 use Session;
@@ -26,16 +28,44 @@ class TeamController extends Controller
     }
 
     public function create(){
-        return view('team.create');
+        $templates = TeamTemplate::all();
+        return view('team.create')
+            ->withTemplates($templates);
     }
 
     public function store(StoreTeam $request){
+        // Get Template
+        $template = TeamTemplate::where('name', $request->template)->first();
+
         // Persist
         $team = Team::create([
-            'name' => $request->name,
-            'display_name' => $request->display_name,
+            'name' => $template->name.'-'.$request->name,
+            'display_name' => $template->display_name.'-'.$request->display_name,
             'description' => $request->description,
         ]);
+
+        foreach($template->disciplines as $discipline){
+            // Find teacher
+            $user = User::find($discipline->teacher_id);
+
+            // Find role teacher
+            $teacher = Role::where('name', 'teacher')->first();
+
+            // Get ACL permission for teacher
+            $readAcl = Permission::where('name', 'read-acl')->first();
+            $updateAcl = Permission::where('name', 'update-acl')->first();
+
+            // Attach permission for student to team
+            $user->attachPermissions([$readAcl,$updateAcl], $team);
+            $user->attachRole($teacher, $team);
+
+            // Add discipline to team
+            TeamDiscipline::create([
+                'team_id' => $team->id,
+                'teacher_id' => $user->id,
+                'discipline_id' => $discipline->id,
+            ]);
+        }
 
         // Get ACL permission for manager
         $ownerGroup = Role::where('name', 'owner')->first();

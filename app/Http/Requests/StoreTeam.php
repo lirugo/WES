@@ -26,7 +26,8 @@ class StoreTeam extends FormRequest
         return [
             'name' => 'required|alpha_dash|unique:teams|max:30',
             'display_name' => 'required|max:30',
-            'description' => 'required|max:200'
+            'description' => 'required|max:200',
+            'template' => 'required|exists:teams_templates,name',
         ];
     }
 }
