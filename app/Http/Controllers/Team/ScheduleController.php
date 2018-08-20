@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
+use Auth;
 
 class ScheduleController extends Controller
 {
@@ -53,6 +54,17 @@ class ScheduleController extends Controller
             ->withTeachers($teachers)
             ->withTeam($team)
             ->withDisciplines($disciplines);
+    }
+
+    public function create($teamName){
+        // Validate Access only for teacher
+//        if(!Auth::user()->hasRole('teacher'))
+//            abort(403);
+
+        $team = Team::where('name', $teamName)->first();
+
+        return view('team.schedule.create')
+            ->withTeam($team);
     }
 
     public function store(StoreSchedule $request, $name){

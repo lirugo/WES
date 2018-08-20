@@ -7,6 +7,7 @@ use App\Http\Requests\StoreUserTeacher;
 use App\Role;
 use App\User;
 use App\TeamDiscipline;
+use App\UserDiscipline;
 use Session;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -31,7 +32,9 @@ class TeacherController extends Controller
      */
     public function create()
     {
-        return view('teacher.create');
+        $disciplines = Discipline::all();
+        return view('teacher.create')
+            ->withDisciplines($disciplines);
     }
 
     /**
@@ -45,12 +48,24 @@ class TeacherController extends Controller
         // Persist to db
         $user = new User();
         $user = $user->storeTeacher($request);
+
+        // Add discipline
+        foreach($request->disciplines as $discipline){
+            UserDiscipline::create([
+                'user_id' => $user->id,
+                'discipline_id' => $discipline
+            ]);
+        }
+
         // Get role student
         $teacher = Role::where('name', 'teacher')->first();
+
         // Add role
         $user->attachRole($teacher);
+
         // Show flash msg
         Session::flash('success', 'Student was successfully created.');
+
         // Redirect to manage page
         return redirect(url('/manage'));
     }

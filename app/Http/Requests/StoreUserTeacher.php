@@ -41,6 +41,7 @@ class StoreUserTeacher extends FormRequest
             'gender' => 'required|in:male,female',
             'avatar' => 'required',
             'password' => 'required|min:8|confirmed',
+            'disciplines' => 'required|array',
 
             'science_degree' => 'required',
             'academic_status' => 'required',

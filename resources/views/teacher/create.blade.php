@@ -181,6 +181,17 @@
                     </select>
                     <span class="helper-text" data-error="wrong" data-success="All is Ok.">Teacher status</span>
                 </div>
+                {{--Select disciplines--}}
+                <div class="input-field">
+                    <i class="material-icons prefix">subject</i>
+                    <select multiple name="disciplines[]" required>
+                        <option value="" disabled selected>Choose disciplines for teacher</option>
+                        @foreach($disciplines as $discipline)
+                            <option value="{{$discipline->id}}">{{$discipline->display_name}}</option>
+                        @endforeach
+                    </select>
+                    <span class="helper-text" data-error="wrong" data-success="All is Ok.">Choose disciplines for teacher</span>
+                </div>
                 {{--English lvl--}}
                 <p>
                     <label>
