@@ -24,7 +24,6 @@ class StoreSchedule extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|max:100',
             'teacher_id' => 'required|numeric',
             'discipline_id' => 'required|numeric',
             'start_date' => 'required|date|before_or_equal:end_date',

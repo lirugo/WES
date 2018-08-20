@@ -119,3 +119,7 @@
         $trail->parent('team-edit', $team);
         $trail->push('Schedule', url('/team/'.$team->name.'/schedule'));
     });
+    Breadcrumbs::for('team-edit-schedule-create', function ($trail, $team) {
+        $trail->parent('team-edit-schedule', $team);
+        $trail->push('Create', url('/team/'.$team->name.'/schedule/create'));
+    });

@@ -77,6 +77,29 @@ class ScheduleController extends Controller
         // Find team
         $team = Team::where('name', $name)->first();
 
+        $schs = Schedule::where('team_id', $team->id)->get();
+
+        // Check on duplicate date
+        foreach ($schs as $schedule){
+            $sd = Carbon::parse($schedule->start_date);
+            $ed = Carbon::parse($schedule->end_date);
+
+            if(
+                ($start_date < $sd && $end_date > $sd) ||
+                ($start_date < $ed && $end_date > $ed)
+            )
+            {
+                // Redirect back
+                return back()->withErrors('Sorry, but this date busy');
+            }
+        }
+
+        // Find teacher
+        $teacher = User::find($request->teacher_id);
+
+        // Find Discipline
+        $discipline = Discipline::find($request->discipline_id);
+
         while($start <= $end)
         {
             // Persist to db
@@ -84,7 +107,7 @@ class ScheduleController extends Controller
                 'team_id' => $team->id,
                 'teacher_id' => $request->teacher_id,
                 'discipline_id' => $request->discipline_id,
-                'title' => $request->title,
+                'title' => $discipline->display_name.' - '.$teacher->getShortName(),
                 'start_date' => $start_date,
                 'end_date' => $end_date,
             ]);
@@ -98,6 +121,6 @@ class ScheduleController extends Controller
         Session::flash('success', 'Schedule was updated.');
 
         // Redirect back
-        return back();
+        return redirect(url('/team/'.$team->name.'/schedule'));
     }
 }
