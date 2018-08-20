@@ -21,6 +21,7 @@ class CreateTeamsDisciplinesTable extends Migration
             $table->foreign('teacher_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('discipline_id')->unsigned();
             $table->foreign('discipline_id')->references('id')->on('disciplines')->onDelete('cascade');
+            $table->integer('hours');
             $table->timestamps();
         });
     }

@@ -39,8 +39,8 @@ class TeamController extends Controller
 
         // Persist
         $team = Team::create([
-            'name' => $template->name.'-'.$request->name,
-            'display_name' => $template->display_name.'-'.$request->display_name,
+            'name' => $request->name,
+            'display_name' => $request->display_name,
             'description' => $request->description,
         ]);
 
@@ -58,12 +58,12 @@ class TeamController extends Controller
             // Attach permission for student to team
             $user->attachPermissions([$readAcl,$updateAcl], $team);
             $user->attachRole($teacher, $team);
-
             // Add discipline to team
             TeamDiscipline::create([
                 'team_id' => $team->id,
                 'teacher_id' => $user->id,
                 'discipline_id' => $discipline->id,
+                'hours' => $discipline->hours,
             ]);
         }
 
@@ -81,7 +81,7 @@ class TeamController extends Controller
         Session::flash('success', 'Team was successfully created. You owner this team');
 
         // Return to manage
-        return redirect(url('/team'));
+        return redirect(url('/team/'.$team->name.'/edit'));
     }
 
     public function show($name){
@@ -114,5 +114,32 @@ class TeamController extends Controller
             ->withStudents($students)
             ->withTeachers($teachers)
             ->withDisciplines($disciplines);
+    }
+
+    public function studentDelete($teamId, $studentId){
+        // Validate access
+
+        // Find user
+        $user = User::find($studentId);
+
+        // Find team
+        $team = Team::find($teamId);
+
+        // Find role student
+        $student = Role::where('name', 'student')->first();
+
+        // Get ACL permission for student
+        $readAcl = Permission::where('name', 'read-acl')->first();
+        $updateAcl = Permission::where('name', 'update-acl')->first();
+
+        // Detach permission for student to team
+        $user->detachPermissions([$readAcl->id, $updateAcl->id]);
+        $user->detachRole($student, $team);
+
+        // Show flash msg
+        Session::flash('success', 'Student was successfully deleted from group.');
+
+        // Return to manage
+        return back();
     }
 }

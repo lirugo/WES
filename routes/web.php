@@ -108,6 +108,7 @@
         Route::post('/{name}/schedule/store', 'ScheduleController@store')->name('team.schedule.store');
         Route::post('/template/store', 'Template\TemplateController@store')->name('team.template.store');
         Route::post('/store', 'TeamController@store')->name('team.store');
+        Route::post('/{name}/student/{studentId}/delete', 'TeamController@studentDelete')->name('team.student.delete');
         Route::post('/{name}/student/store', 'StoreController@student')->name('team.student.store');
         Route::post('/{name}/teacher/store', 'StoreController@teacher')->name('team.teacher.store');
         Route::post('/template/{name}/teacher/store', 'Template\TemplateController@teacher')->name('team.template.teacher.store');

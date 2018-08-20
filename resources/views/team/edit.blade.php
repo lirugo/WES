@@ -56,6 +56,9 @@
                     <p class="card-title m-b-0">{{$student->getShortName()}}</p>
                     <p class="card-title m-t-0 m-b-0">{{$student->email}}</p>
                     <p class="card-title m-t-0">{{$student->getPhone()}}</p>
+                    {!! Form::open(['route' => ['team.student.delete', $team->id, $student->id]]) !!}
+                    <button type="submit" class="red darken-1 waves-effect waves-light btn"><i class="material-icons right">delete</i>Delete</button>
+                    {!! Form::close() !!}
                 </div>
             </div>
         @endforeach
@@ -73,9 +76,10 @@
                 <div class="card-panel hoverable p-b-30">
                     <blockquote class="m-t-0">{{$discipline->getDiscipline->display_name}}</blockquote>
                     <a href="#user"><img class="circle left m-r-10" width="100px" src="{{asset('/uploads/avatars/'.$discipline->getTeacher->avatar)}}"></a>
-                    <p class="card-title m-b-0">{{$discipline->getTeacher->getShortName()}}</p>
+                    <p class="card-title m-t-10 m-b-0">{{$discipline->getTeacher->getShortName()}}</p>
                     <p class="card-title m-t-0 m-b-0">{{$discipline->getTeacher->email}}</p>
-                    <p class="card-title m-t-0">{{$discipline->getTeacher->getPhone()}}</p>
+                    <p class="card-title m-t-0 m-b-0">{{$discipline->getTeacher->getPhone()}}</p>
+                    <p class="card-title m-t-0">Hours - {{$discipline->hours}}</p>
                 </div>
             </div>
         @endforeach
