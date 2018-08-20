@@ -15,7 +15,7 @@ class TeamController extends Controller
 
     public function show($name){
         $team = Team::where('name', $name)->first();
-        return view('team.show')->withTeam($team);
+        return view('manage.student.team.index')->withTeam($team);
     }
 
     public function schedule($name){

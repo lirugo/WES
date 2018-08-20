@@ -37,6 +37,9 @@
                 Route::get('/team/{name}', 'TeamController@show');
                 Route::get('/team/{name}/schedule', 'ScheduleController@index');
                 Route::get('/team/{name}/teachers', 'TeamController@teachers');
+                Route::get('/team/{name}/homework', 'HomeWorkController@index');
+                Route::get('/team/{name}/homework/{discipline}', 'HomeWorkController@show');
+                Route::get('/team/{name}/homework/{discipline}/{homework}', 'HomeWorkController@homework');
             });
 
 

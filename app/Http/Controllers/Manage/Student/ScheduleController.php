@@ -37,6 +37,8 @@ class ScheduleController extends Controller
             'timeFormat' => 'H:mm',
             'axisFormat' => 'H:mm',
         ]);
-        return view('manage.student.team.schedule')->withCalendar($calendar);
+        return view('manage.student.team.schedule')
+            ->withCalendar($calendar)
+            ->withTeam($team);
     }
 }

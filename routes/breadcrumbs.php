@@ -123,3 +123,31 @@
         $trail->parent('team-edit-schedule', $team);
         $trail->push('Create', url('/team/'.$team->name.'/schedule/create'));
     });
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Student Breadcrumbs
+|--------------------------------------------------------------------------
+*/
+    Breadcrumbs::for('student-team-dashboard', function ($trail, $team) {
+        $trail->parent('manage');
+        $trail->push($team->display_name.' - Dashboard', url('/manage/student/team/'.$team->name));
+    });
+    Breadcrumbs::for('student-team-schedule', function ($trail, $team) {
+        $trail->parent('student-team-dashboard', $team);
+        $trail->push('Schedule', url('/manage/student/team/'.$team->name));
+    });
+    Breadcrumbs::for('student-team-teachers', function ($trail, $team) {
+        $trail->parent('student-team-dashboard', $team);
+        $trail->push('Teachers', url('/manage/student/team/'.$team->name.'/teachers'));
+    });
+    Breadcrumbs::for('student-team-homework', function ($trail, $team) {
+        $trail->parent('student-team-dashboard', $team);
+        $trail->push('Home Work', url('/manage/student/team/'.$team->name.'/homework'));
+    });
+    Breadcrumbs::for('student-team-homework-discipline', function ($trail, $team, $discipline) {
+        $trail->parent('student-team-homework', $team);
+        $trail->push($discipline->display_name, url('/manage/student/team/'.$team->name.'/homework/'.$discipline->name));
+    });
