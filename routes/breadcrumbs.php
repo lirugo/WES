@@ -151,3 +151,7 @@
         $trail->parent('student-team-homework', $team);
         $trail->push($discipline->display_name, url('/manage/student/team/'.$team->name.'/homework/'.$discipline->name));
     });
+    Breadcrumbs::for('student-team-homework-discipline-homework', function ($trail, $team, $discipline, $homeWork) {
+        $trail->parent('student-team-homework-discipline', $team, $discipline);
+        $trail->push($homeWork->name, url('/manage/student/team/'.$team->name.'/homework/'.$discipline->name.'/'.$homeWork->name));
+    });

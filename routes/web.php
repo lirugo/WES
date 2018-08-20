@@ -40,6 +40,8 @@
                 Route::get('/team/{name}/homework', 'HomeWorkController@index');
                 Route::get('/team/{name}/homework/{discipline}', 'HomeWorkController@show');
                 Route::get('/team/{name}/homework/{discipline}/{homework}', 'HomeWorkController@homework');
+
+                Route::post('/team/{name}/homework/{discipline}/{homework}/store', 'HomeWorkController@solution')->name('manage.student.team.homework.store');
             });
 
 
