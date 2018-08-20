@@ -128,7 +128,7 @@ class TemplateController extends Controller
         // Find teacher
         $user = User::find($request->teacher);
 
-        // Find team
+        // Find template
         $team = TeamTemplate::where('name', $teamName)->first();
 
         // Find role teacher
@@ -152,6 +152,26 @@ class TemplateController extends Controller
 
         // Show flash msg
         Session::flash('success', 'Teacher was successfully added to group template.');
+
+        // Return to manage
+        return back();
+    }
+
+    public function disciplineDelete($team, $discipline){
+//        // Find teacher
+//        $user = User::find($teacher);
+//
+//        // Find template
+//        $template = TeamTemplate::find($team);
+
+        // Find Discipline
+        $discipline = TeamTemplateDiscipline::where([
+            ['template_id', $team],
+            ['discipline_id', $discipline],
+        ])->delete();
+
+        // Show flash msg
+        Session::flash('success', 'Discipline was successfully deleted form group template.');
 
         // Return to manage
         return back();

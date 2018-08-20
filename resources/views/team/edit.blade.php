@@ -3,7 +3,7 @@
     {{ Breadcrumbs::render('team-edit', $team) }}
 @endsection
 @section('content')
-    {{--Name and General block--}}
+    {{--Name and Manager block--}}
     <div class="row">
         <div class="col s12 m6 l8">
             <div class="card-panel hoverable">
@@ -26,7 +26,7 @@
         </div>
         <div class="col s12 m6 l4">
             <div class="s12">
-                <div class="card-panel">
+                <div class="card-panel indigo white-text m-b-0">
                     <h6 class="card-title m-t-0 m-b-0 center-align">Manager of this group.</h6>
                 </div>
             </div>
@@ -41,6 +41,46 @@
             </div>
         </div>
     </div>
+
+    {{--Display students of this group--}}
+    <div class="row">
+        <div class="col s12">
+            <div class="card-panel indigo white-text m-b-0">
+                <h6 class="card-title m-t-0 m-b-0 center-align">Students of this group</h6>
+            </div>
+        </div>
+        @foreach($team->getStudents() as $student)
+            <div class="col s12 m6 l4">
+                <div class="card-panel hoverable">
+                    <a href="#user"><img class="circle left m-r-10" width="100px" src="{{asset('/uploads/avatars/'.$student->avatar)}}"></a>
+                    <p class="card-title m-b-0">{{$student->getShortName()}}</p>
+                    <p class="card-title m-t-0 m-b-0">{{$student->email}}</p>
+                    <p class="card-title m-t-0">{{$student->getPhone()}}</p>
+                </div>
+            </div>
+        @endforeach
+    </div>
+
+    {{--Display discipline of this group--}}
+    <div class="row">
+        <div class="col s12">
+            <div class="card-panel indigo white-text m-b-0">
+                <h6 class="card-title m-t-0 m-b-0 center-align">Disciplines of this group</h6>
+            </div>
+        </div>
+        @foreach($team->disciplines as $discipline)
+            <div class="col s12 m6 l4">
+                <div class="card-panel hoverable p-b-30">
+                    <blockquote class="m-t-0">{{$discipline->getDiscipline->display_name}}</blockquote>
+                    <a href="#user"><img class="circle left m-r-10" width="100px" src="{{asset('/uploads/avatars/'.$discipline->getTeacher->avatar)}}"></a>
+                    <p class="card-title m-b-0">{{$discipline->getTeacher->getShortName()}}</p>
+                    <p class="card-title m-t-0 m-b-0">{{$discipline->getTeacher->email}}</p>
+                    <p class="card-title m-t-0">{{$discipline->getTeacher->getPhone()}}</p>
+                </div>
+            </div>
+        @endforeach
+    </div>
+
     <div class="row">
         <div class="col s12 m6 l4">
             <div class="card-panel hoverable">
@@ -57,67 +97,6 @@
                 </div>
                 <button type="submit" class="indigo waves-effect waves-light btn right"><i class="material-icons right">add_circle_outline</i>Add a new student</button>
                 {!! Form::close() !!}
-            </div>
-        </div>
-        <div class="col s12 m6 l4">
-            <div class="card-panel hoverable">
-                {!! Form::open(['route' => ['team.teacher.store',$team->name], 'method' => 'POST']) !!}
-                <h5 class="center-align m-b-30">Add a new teacher</h5>
-                <div class="input-field">
-                    <select class="icons" name="teacher" required>
-                        <option value="" disabled selected>Choose a new teacher</option>
-                        @foreach($teachers as $teacher)
-                            <option value="{{$teacher->id}}" data-icon="{{asset('/uploads/avatars/'.$teacher->avatar)}}">{{$teacher->getShortName()}}</option>
-                        @endforeach
-                    </select>
-                    <label>All teachers</label>
-                </div>
-                <div class="input-field">
-                    <select name="teacher_discipline" required>
-                        <option value="" disabled selected>Choose a discipline</option>
-                        @foreach($disciplines as $discipline)
-                            <option value="{{$discipline->id}}">{{$discipline->display_name}}</option>
-                        @endforeach
-                    </select>
-                    <label>All disciplines</label>
-                </div>
-                <button type="submit" class="indigo waves-effect waves-light btn right"><i class="material-icons right">add_circle_outline</i>Add a New Teacher</button>
-                {!! Form::close() !!}
-            </div>
-        </div>
-        <div class="col s12 m6 l4">
-            <div class="s12">
-                <div class="card-panel">
-                    <h6 class="card-title m-t-0 m-b-0 center-align">Students of this group</h6>
-                </div>
-            </div>
-            <div class="s12">
-                @foreach($team->getStudents() as $student)
-                    <div class="card-panel hoverable">
-                        <a href="#user"><img class="circle left m-r-10" width="100px" src="{{asset('/uploads/avatars/'.$student->avatar)}}"></a>
-                        <p class="card-title m-b-0">{{$student->getShortName()}}</p>
-                        <p class="card-title m-t-0 m-b-0">{{$student->email}}</p>
-                        <p class="card-title m-t-0">{{$student->getPhone()}}</p>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-        <div class="col s12 m6 l4 offset-l8">
-            <div class="s12">
-                <div class="card-panel">
-                    <h6 class="card-title m-t-0 m-b-0 center-align">Disciplines of this group</h6>
-                </div>
-            </div>
-            <div class="s12">
-                @foreach($team->disciplines as $discipline)
-                    <div class="card-panel hoverable p-b-30">
-                        <blockquote class="m-t-0">{{$discipline->getDiscipline->display_name}}</blockquote>
-                        <a href="#user"><img class="circle left m-r-10" width="100px" src="{{asset('/uploads/avatars/'.$discipline->getTeacher->avatar)}}"></a>
-                        <p class="card-title m-b-0">{{$discipline->getTeacher->getShortName()}}</p>
-                        <p class="card-title m-t-0 m-b-0">{{$discipline->getTeacher->email}}</p>
-                        <p class="card-title m-t-0">{{$discipline->getTeacher->getPhone()}}</p>
-                    </div>
-                @endforeach
             </div>
         </div>
     </div>

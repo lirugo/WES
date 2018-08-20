@@ -114,7 +114,7 @@
                         <div class="collapsible-body">
                             <ul>
                                 <li><a href="{{url('/team/template/create')}}"><i class="material-icons">group_add</i>Create a new Template</a></li>
-                                <li><a href="#"><i class="material-icons">group</i>Show all Templates</a></li>
+                                <li><a href="{{url('/team/template')}}"><i class="material-icons">group</i>Show all Templates</a></li>
                             </ul>
                         </div>
                     </li>

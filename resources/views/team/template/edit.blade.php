@@ -66,6 +66,9 @@
                     <p class="card-title m-t-0 m-b-0">{{$discipline->getTeacher->email}}</p>
                     <p class="card-title m-t-0 m-b-0">{{$discipline->getTeacher->getPhone()}}</p>
                     <p class="card-title m-t-0">Hours - {{$discipline->hours}}</p>
+                    {!! Form::open(['route' => ['team.template.discipline.delete', $template->id, $discipline->getDiscipline->id]]) !!}
+                        <button type="submit" class="red darken-1 waves-effect waves-light btn"><i class="material-icons right">delete</i>Delete</button>
+                    {!! Form::close() !!}
                 </div>
             </div>
         @endforeach

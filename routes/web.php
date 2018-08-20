@@ -111,6 +111,7 @@
         Route::post('/{name}/student/store', 'StoreController@student')->name('team.student.store');
         Route::post('/{name}/teacher/store', 'StoreController@teacher')->name('team.teacher.store');
         Route::post('/template/{name}/teacher/store', 'Template\TemplateController@teacher')->name('team.template.teacher.store');
+        Route::post('/template/{teamId}/teacher/{disciplineId}/delete', 'Template\TemplateController@disciplineDelete')->name('team.template.discipline.delete');
     });
 
 /*
