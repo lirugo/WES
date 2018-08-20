@@ -2,18 +2,6 @@
 
 @section('content')
     {!! Form::open(['route' => 'manager.store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
-    {{--Header--}}
-    <div class="row">
-        <div class="col s12">
-            <div class="card hoverable">
-                <div class="card-content">
-                    <span class="card-title center-align">Create a new student</span>
-                    <button type="submit" class="indigo waves-effect waves-light btn right tooltipped" data-tooltip="You sure? All data is correct?" data-position="top"><i class="material-icons right">send</i>Create a new user</button>
-                    <a href="{{url('/manage')}}" class="indigo waves-effect waves-light btn left m-r-10 tooltipped" data-tooltip="Information will be lost!" data-position="top"><i class="material-icons left">apps</i>Back to manage</a>
-                </div>
-            </div>
-        </div>
-    </div>
     {{--Name and General block--}}
     <div class="row">
         <div class="col s12 m6 l6">
@@ -66,6 +54,31 @@
                     {!! Form::text('middle_name_en', null, ['class' => 'validate', 'id' => 'middle_name_en', 'required']) !!}
                     <label for="middle_name_en">Middle Name</label>
                 </div>
+            </div>
+        </div>
+        {{--Avatar--}}
+        <div class="col s12 m6 l6">
+            <div class="card hoverable" id="avatar">
+                <div class="card-image">
+                    <img :src="imgDataUrl">
+                    <a class="btn-floating btn-large halfway-fab waves-effect waves-light red" @click="toggleShow"><i class="material-icons">add</i></a>
+                </div>
+                <input name="avatar" type="hidden" v-model="avatarName"/>
+                <widget-avatar-cropper
+                        field="avatar"
+                        @crop-success="cropSuccess"
+                        @crop-upload-success="cropUploadSuccess"
+                        @crop-upload-fail="cropUploadFail"
+                        v-model="show"
+                        :width="300"
+                        :height="300"
+                        lang-type='en'
+                        no-rotate
+                        url="/store/avatar"
+                        :params="params"
+                        :headers="headers"
+                        img-format="png">
+                </widget-avatar-cropper>
             </div>
         </div>
         <div class="col s12 m6 l6">
@@ -132,17 +145,6 @@
                     </select>
                     <span class="helper-text" data-error="wrong" data-success="All is Ok.">Select a gender of student</span>
                 </div>
-                {{--Upload image--}}
-                <div class="file-field input-field">
-                    <div class="btn indigo waves-effect waves-light">
-                        <span>File</span>
-                        <input type="file" name="avatar" accept="image/*" required>
-                    </div>
-                    <div class="file-path-wrapper">
-                        <input class="file-path validate" type="text" placeholder="Upload user avatar">
-                        <span class="helper-text" data-error="Only *.jpg *.png *.gif" data-success="All is Ok">Only *.jpg *.png *.gif</span>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -171,5 +173,66 @@
             </div>
         </div>
     </div>
+    {{--Floating button--}}
+    <div class="fixed-action-btn">
+        <button type="submit" class="btn-floating btn-large green waves-effect waves-light">
+            <i class="large material-icons">save</i>
+        </button>
+    </div>
     {!! Form::close() !!}
+@endsection
+
+@section('scripts')
+    <script>
+        new Vue({
+            el: '#avatar',
+            data: {
+                show: false,
+                params: {
+                    name: 'avatar',
+                },
+                headers: {
+                    'X-CSRF-Token': document.head.querySelector("[name=csrf-token]").content
+                },
+                imgDataUrl: '/uploads/avatars/male.png',
+                avatarName: ''
+            },
+            methods: {
+                toggleShow() {
+                    this.show = !this.show;
+                },
+                /**
+                 * crop success
+                 *
+                 * [param] imgDataUrl
+                 * [param] field
+                 */
+                cropSuccess(imgDataUrl, field){
+                    console.log('-------- crop success --------');
+                    this.imgDataUrl = imgDataUrl;
+                },
+                /**
+                 * upload success
+                 *
+                 * [param] jsonData  server api return data, already json encode
+                 * [param] field
+                 */
+                cropUploadSuccess(jsonData, field){
+                    console.log('-------- upload success --------');
+                    this.avatarName = jsonData.avatar;
+                },
+                /**
+                 * upload fail
+                 *
+                 * [param] status    server api return error status, like 500
+                 * [param] field
+                 */
+                cropUploadFail(status, field){
+                    console.log('-------- upload fail --------');
+                    console.log(status);
+                    console.log('field: ' + field);
+                }
+            }
+        });
+    </script>
 @endsection

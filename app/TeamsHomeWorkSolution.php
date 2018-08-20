@@ -22,4 +22,8 @@ class TeamsHomeWorkSolution extends Model
             ['status', 'solution']
         ])->get();
     }
+
+    public function owner(){
+        return $this->hasOne(User::class, 'id', 'student_id');
+    }
 }

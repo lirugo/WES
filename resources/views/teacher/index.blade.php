@@ -5,17 +5,6 @@
 @endsection
 
 @section('content')
-    {{--Header--}}
-    <div class="row">
-        <div class="col s12">
-            <div class="card hoverable">
-                <div class="card-content">
-                    <span class="card-title center-align">All teachers</span>
-                    <a href="{{url('/manage')}}" class="indigo waves-effect waves-light btn left m-r-10"><i class="material-icons left">apps</i>Back to manage</a>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="row">
         @foreach($teachers as $teacher)
             <div class="col s12 m6 l4">
@@ -34,7 +23,6 @@
                     </div>
                     <div class="card-action right-align">
                         <a href="{{url('/teacher/'.$teacher->id.'/edit')}}" class="indigo waves-effect waves-light btn-small right">Edit</a>
-                        <a href="{{url('/teacher',$teacher->id)}}" class="indigo waves-effect waves-light btn-small right m-r-10">Open</a>
                     </div>
                 </div>
             </div>

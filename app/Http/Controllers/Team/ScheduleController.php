@@ -58,8 +58,8 @@ class ScheduleController extends Controller
 
     public function create($teamName){
         // Validate Access only for teacher
-//        if(!Auth::user()->hasRole('teacher'))
-//            abort(403);
+        if(!Auth::user()->hasRole('teacher'))
+            abort(403);
 
         $team = Team::where('name', $teamName)->first();
 

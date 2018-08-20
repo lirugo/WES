@@ -15,12 +15,14 @@
             </div>
         </div>
     </div>
-    {{--Floating button--}}
-    <div class="fixed-action-btn">
-        <a class="btn-floating btn-large red" href="{{url('/team/'.$team->name.'/schedule/create')}}">
-            <i class="large material-icons">add</i>
-        </a>
-    </div>
+    @if(Auth::user()->hasRole('teacher'))
+        {{--Floating button--}}
+        <div class="fixed-action-btn">
+            <a class="btn-floating btn-large red" href="{{url('/team/'.$team->name.'/schedule/create')}}">
+                <i class="large material-icons">add</i>
+            </a>
+        </div>
+    @endif
 @endsection
 
 @section('scripts')

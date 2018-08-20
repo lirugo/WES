@@ -10,6 +10,11 @@ use Session;
 
 class DisciplineController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('role:administrator|top-manager');
+    }
+
     /**
      * Display a listing of the resource.
      *

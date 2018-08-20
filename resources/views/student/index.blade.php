@@ -3,17 +3,6 @@
     {{ Breadcrumbs::render('student') }}
 @endsection
 @section('content')
-    {{--Header--}}
-    <div class="row">
-        <div class="col s12">
-            <div class="card hoverable">
-                <div class="card-content">
-                    <span class="card-title center-align">All students</span>
-                    <a href="{{url('/manage')}}" class="indigo waves-effect waves-light btn left m-r-10"><i class="material-icons left">apps</i>Back to manage</a>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="row">
         @foreach($students as $student)
             <div class="col s12 m6 l4">

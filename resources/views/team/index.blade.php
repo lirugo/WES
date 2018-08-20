@@ -17,7 +17,6 @@
                     </div>
                     <div class="card-action right-align">
                         <a href="{{url('/team/'.$team->name.'/edit')}}" class="indigo waves-effect waves-light btn-small right">Edit</a>
-                        <a href="{{url('/team/'.$team->name)}}" class="indigo waves-effect waves-light btn-small right m-r-10">Open</a>
                     </div>
                 </div>
             </div>

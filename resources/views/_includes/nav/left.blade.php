@@ -23,15 +23,6 @@
             <li>
                 <ul class="collapsible">
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">school</i>Teachers</div>
-                        <div class="collapsible-body">
-                            <ul>
-                                <li><a href="{{url('/teacher/create')}}"><i class="material-icons">person_add</i>Create a new teacher</a></li>
-                                <li><a href="{{url('/teacher/')}}"><i class="material-icons">group</i>Show all teachers</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
                         <div class="collapsible-header"><i class="material-icons">person</i>Students</div>
                         <div class="collapsible-body">
                             <ul>
@@ -46,15 +37,6 @@
                             <ul>
                                 <li><a href="{{url('/team/create')}}"><i class="material-icons">group_add</i>Create a new group</a></li>
                                 <li><a href="{{url('/team')}}"><i class="material-icons">group</i>Show all groups</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="collapsible-header"><i class="material-icons">view_list</i>Disciplines</div>
-                        <div class="collapsible-body">
-                            <ul>
-                                <li><a href="{{url('/discipline/create')}}"><i class="material-icons">playlist_add</i>Create a new discipline</a></li>
-                                <li><a href="{{url('/discipline')}}"><i class="material-icons">view_list</i>Show all disciplines</a></li>
                             </ul>
                         </div>
                     </li>
@@ -97,6 +79,15 @@
             <li>
                 <ul class="collapsible">
                     <li>
+                        <div class="collapsible-header"><i class="material-icons">school</i>Teachers</div>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li><a href="{{url('/teacher/create')}}"><i class="material-icons">person_add</i>Create a new teacher</a></li>
+                                <li><a href="{{url('/teacher/')}}"><i class="material-icons">group</i>Show all teachers</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
                         <div class="collapsible-header"><i class="material-icons">person</i>Manager</div>
                         <div class="collapsible-body">
                             <ul>
@@ -105,10 +96,15 @@
                             </ul>
                         </div>
                     </li>
-                </ul>
-            </li>
-            <li>
-                <ul class="collapsible">
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">view_list</i>Disciplines</div>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li><a href="{{url('/discipline/create')}}"><i class="material-icons">playlist_add</i>Create a new discipline</a></li>
+                                <li><a href="{{url('/discipline')}}"><i class="material-icons">view_list</i>Show all disciplines</a></li>
+                            </ul>
+                        </div>
+                    </li>
                     <li>
                         <div class="collapsible-header"><i class="material-icons">group</i>Template for Group</div>
                         <div class="collapsible-body">

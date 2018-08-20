@@ -11,6 +11,11 @@ use App\Http\Controllers\Controller;
 
 class DisciplineController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('role:administrator|top-manager');
+    }
+
     /**
      * @param Request $request
      * @param $id

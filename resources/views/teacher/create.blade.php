@@ -6,18 +6,6 @@
 
 @section('content')
     {!! Form::open(['route' => 'teacher.store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
-    {{--Header--}}
-    <div class="row">
-        <div class="col s12">
-            <div class="card hoverable">
-                <div class="card-content">
-                    <span class="card-title center-align">Create a new teacher</span>
-                    <button type="submit" class="indigo waves-effect waves-light btn right tooltipped" data-tooltip="You sure? All data is correct?" data-position="top"><i class="material-icons right">send</i>Create a new user</button>
-                    <a href="{{url('/manage')}}" class="indigo waves-effect waves-light btn left m-r-10 tooltipped" data-tooltip="Information will be lost!" data-position="top"><i class="material-icons left">apps</i>Back to manage</a>
-                </div>
-            </div>
-        </div>
-    </div>
     {{--Name and General block--}}
     <div class="row">
         <div class="col s12 m6 l6">
@@ -274,6 +262,12 @@
                 </div>
             </div>
         </div>
+    </div>
+    {{--Floating button--}}
+    <div class="fixed-action-btn">
+        <button type="submit" class="btn-floating btn-large green waves-effect waves-light">
+            <i class="large material-icons">save</i>
+        </button>
     </div>
     {!! Form::close() !!}
 @endsection

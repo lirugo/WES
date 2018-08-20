@@ -85,6 +85,7 @@
         @endforeach
     </div>
 
+    @if(Auth::user()->hasRole(['administrator', 'top-manage', 'manager']))
     <div class="row">
         <div class="col s12 m6 l4">
             <div class="card-panel hoverable">
@@ -104,6 +105,7 @@
             </div>
         </div>
     </div>
+    @endif
 
     {{--Floating button--}}
     <div class="fixed-action-btn">
