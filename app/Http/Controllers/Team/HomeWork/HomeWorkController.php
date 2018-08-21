@@ -21,7 +21,7 @@ class HomeWorkController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:administrator|top-manager|manager|teacher');
+        $this->middleware('role:administrator|top-manager|manager|teacher|student');
     }
 
     public function index($team){
@@ -174,6 +174,10 @@ class HomeWorkController extends Controller
 
         // Validate Access
         if(Carbon::now() > $homeWork->assignment_date)
+            abort(403);
+        if($homeWork->getSolution() == null)
+            abort(403);
+        elseif($homeWork->getSolution()->student_id != Auth::user()->id)
             abort(403);
 
         // Return view

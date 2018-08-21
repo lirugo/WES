@@ -18,7 +18,7 @@ class ScheduleController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:administrator|top-manager|manager|teacher');
+        $this->middleware('role:administrator|top-manager|manager|teacher|student');
     }
 
     public function index($name){

@@ -3,9 +3,8 @@
     {{ Breadcrumbs::render('team-edit-homework-discipline-homework', $team, $discipline->getDiscipline, $homeWork) }}
 @endsection
 @section('content')
-    {!! Form::open(['route' => ['team.homework.solution', $team->name, $discipline->getDiscipline->name, $homeWork->name], 'enctype' => 'multipart/form-data', 'method' => 'POST']) !!}
-    <div class="row">
-        <div class="col s12">
+   <div class="row">
+        <div class="col s12 m6 l6">
             <div class="card hoverable">
                 <div class="card-content">
                     <p class="right tooltipped" data-position="left" data-tooltip="Its Task"><i class="material-icons">help_outline</i></p>
@@ -30,7 +29,8 @@
         </div>
     </div>
 
-    {{--Solution--}}
+    @if(Auth::user()->hasRole(['administrator', 'top-manager', 'manager', 'teacher']))
+    {{--Solutions--}}
     <div class="row">
         @foreach($homeWork->solutions as $solution)
             <div class="col s12 m6 l6">
@@ -61,7 +61,79 @@
             </div>
         @endforeach
     </div>
-    {!! Form::close() !!}
+    @elseif(Auth::user()->hasRole('student'))
+        <div class="row">
+            @if($homeWork->getSolution() == null)
+                {!! Form::open(['route' => ['team.homework.solution', $team->name, $discipline->getDiscipline->name, $homeWork->name], 'enctype' => 'multipart/form-data', 'method' => 'POST']) !!}
+                <div class="col s12 m6 l6">
+                    <div class="card-panel hoverable" id="slug">
+                        <div class="input-field m-b-0 wr">
+                            <i class="material-icons prefix">title</i>
+                            {!! Form::text('display_name', null, ['class' => 'validate', 'id' => 'display_name', 'v-model' => 'title', 'required']) !!}
+                            <label for="display_name">Title</label>
+                        </div>
+                        <div class="input-field">
+                            <textarea name="description"></textarea>
+                        </div>
+                        <div class="input-field">
+                            <div class="file-field">
+                                <div class="btn indigo">
+                                    <span>File</span>
+                                    <input type="file" name="file[]" required multiple>
+                                </div>
+                                <div class="file-path-wrapper">
+                                    <input class="file-path validate" type="text" placeholder="Upload files">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{--Floating button--}}
+                <div class="fixed-action-btn">
+                    <button type="submit" class="btn-floating btn-large green tooltipped" data-position="left" data-tooltip="Send My Solution">
+                        <i class="large material-icons">save</i>
+                    </button>
+                </div>
+                {!! Form::close() !!}
+            @else
+                {{--Solution--}}
+                <div class="col s12 m6 l6">
+                    <div class="card hoverable">
+                        <div class="card-content">
+                            <p class="right tooltipped" data-position="left" data-tooltip="Its My Solution"><i class="material-icons">priority_high</i></p>
+                            <span class="card-title">{{$homeWork->getSolution()->display_name}}</span>
+                            <p>{!!$homeWork->getSolution()->description!!}</p>
+                            <small><blockquote>Created - {{$homeWork->getSolution()->created_at->format('Y-m-d H:i')}} ({{$homeWork->getSolution()->created_at->diffForHumans()}})</blockquote></small>
+                            @if($homeWork->getSolution()->created_at != $homeWork->getSolution()->updated_at)
+                                <small><blockquote>Updated - {{$homeWork->getSolution()->updated_at->format('Y-m-d H:i')}} ({{$homeWork->getSolution()->updated_at->diffForHumans()}})</blockquote></small>
+                            @endif
+                            @if(count($homeWork->getSolution()->getFiles()) != 0)
+                                <hr>
+                                <div class="row">
+                                    @foreach($homeWork->getSolution()->getFiles() as $file)
+                                        <div class="col s6 m-t-5">
+                                            <a href="{{url('/team/'.$team->name.'/homework/'.$discipline->getDiscipline->name.'/file/'.$file->name)}}" download class="valign-wrapper">
+                                                <i class="material-icons m-r-5">cloud_download</i> Download *.{{pathinfo($file->name, PATHINFO_EXTENSION)}}
+                                            </a>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @endif
+                            @if($homeWork->assignment_date > \Carbon\Carbon::now())
+                            {{--Floating button--}}
+                                <div class="fixed-action-btn">
+                                    <a class="btn-floating btn-large red tooltipped" data-position="left" data-tooltip="Edit My Solution"
+                                       href="{{url('/team/'.$team->name.'/homework/'.$discipline->getDiscipline->name.'/'.$homeWork->name.'/edit')}}">
+                                        <i class="large material-icons">edit</i>
+                                    </a>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            @endif
+        </div>
+    @endif
 @endsection
 
 

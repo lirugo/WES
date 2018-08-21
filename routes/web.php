@@ -24,32 +24,6 @@
     Route::get('/', 'Manage\ManageController@index');
     Route::get('/manage', 'Manage\ManageController@index')->name('manage');
 
-        /*
-        |--------------------------------------------------------------------------
-        | Student route
-        |--------------------------------------------------------------------------
-        */
-            Route::group([
-                'middleware' => 'role:student',
-                'prefix' => 'manage/student',
-                'namespace' => 'Manage\Student'
-            ], function () {
-                Route::get('/team/{name}', 'TeamController@show');
-                Route::get('/team/{name}/schedule', 'ScheduleController@index');
-                Route::get('/team/{name}/teachers', 'TeamController@teachers');
-                Route::get('/team/{name}/homework', 'HomeWorkController@index');
-                Route::get('/team/{name}/homework/{discipline}', 'HomeWorkController@show');
-                Route::get('/team/{name}/homework/{discipline}/{homework}', 'HomeWorkController@homework');
-
-                Route::post('/team/{name}/homework/{discipline}/{homework}/store', 'HomeWorkController@solution')->name('manage.student.team.homework.store');
-            });
-
-
-/*
-|--------------------------------------------------------------------------
-| End manage panel route
-|--------------------------------------------------------------------------
-*/
 
 /*
 |--------------------------------------------------------------------------
@@ -88,7 +62,7 @@
 |--------------------------------------------------------------------------
 */
     Route::group([
-        'middleware' => 'role:administrator|top-manager|manager|teacher',
+        'middleware' => 'role:administrator|top-manager|manager|teacher|student',
         'prefix' => 'team',
         'namespace' => 'Team'
     ], function () {

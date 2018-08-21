@@ -3,7 +3,7 @@
     {{ Breadcrumbs::render('team-edit-homework', $team) }}
 @endsection
 @section('content')
-    @if(Auth::user()->hasRole(['administrator', 'top-manager', 'manager']))
+    @if(Auth::user()->hasRole(['administrator', 'top-manager', 'manager', 'student']))
         <div class="row">
             @foreach($disciplines as $discipline)
                 <div class="col s12 m6 l4">
