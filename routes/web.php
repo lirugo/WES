@@ -88,7 +88,7 @@
 |--------------------------------------------------------------------------
 */
     Route::group([
-        'middleware' => 'role:administrator|top-manager|manager',
+        'middleware' => 'role:administrator|top-manager|manager|teacher',
         'prefix' => 'team',
         'namespace' => 'Team'
     ], function () {

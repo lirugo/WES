@@ -19,7 +19,7 @@ class TeamController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:administrator|top-manager|manager');
+        $this->middleware('role:administrator|top-manager|manager|teacher');
     }
 
     public function index(){

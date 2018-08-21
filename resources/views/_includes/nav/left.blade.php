@@ -16,107 +16,18 @@
         <li><a href="#!"><i class="material-icons">notifications</i>Notifications</a></li>
         <li><a href="#!"><i class="material-icons">library_books</i>Library</a></li>
 
+        {{-- Top-Manager --}}
+        @include('_includes.nav.roles.top-manager')
+
         {{-- Manager --}}
-        @if(Auth::user()->hasRole('manager'))
-            <li><div class="divider"></div></li>
-            <li><a class="subheader">Manager</a></li>
-            <li>
-                <ul class="collapsible">
-                    <li>
-                        <div class="collapsible-header"><i class="material-icons">person</i>Students</div>
-                        <div class="collapsible-body">
-                            <ul>
-                                <li><a href="{{url('/student/create')}}"><i class="material-icons">person_add</i>Create a new student</a></li>
-                                <li><a href="{{url('/student/')}}"><i class="material-icons">group</i>Show all students</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="collapsible-header"><i class="material-icons">group</i>Groups</div>
-                        <div class="collapsible-body">
-                            <ul>
-                                <li><a href="{{url('/team/create')}}"><i class="material-icons">group_add</i>Create a new group</a></li>
-                                <li><a href="{{url('/team')}}"><i class="material-icons">group</i>Show all groups</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </li>
+        @include('_includes.nav.roles.manager')
+
+        {{-- Teacher --}}
+        @include('_includes.nav.roles.teacher')
+
         {{-- Student --}}
-        @elseif(Auth::user()->hasRole('student'))
-            <li><div class="divider"></div></li>
-            @if(count(Auth::user()->teams()) == 0)
-                <li><blockquote>Not have any group yet...</blockquote></li>
-            @else
-            <li><a class="subheader">Student</a></li>
-                <li>
-                    <ul class="collapsible">
-                        @foreach(Auth::user()->teams() as $team)
-                        <li>
-                            <div class="collapsible-header"><i class="material-icons">group</i>{{$team->display_name}}</div>
-                            <div class="collapsible-body">
-                                <ul>
-                                    <li><a href="{{url('/manage/student/team/'.$team->name)}}"><i class="material-icons">dashboard</i>Dashboard</a></li>
-                                    <li><a href="{{url('/manage/student/team/'.$team->name.'/schedule')}}"><i class="material-icons">schedule</i>Schedule</a></li>
-                                    {{--<li><a href="#"><i class="material-icons">bookmark_border</i>Marks</a></li>--}}
-                                    {{--<li><a href="#"><i class="material-icons">event</i>Events</a></li>--}}
-                                    {{--<li><a href="#"><i class="material-icons">group</i>Group</a></li>--}}
-                                    {{--<li><a href="#"><i class="material-icons">message</i>Message</a></li>--}}
-                                    {{--<li><a href="#"><i class="material-icons">subject</i>Subjects</a></li>--}}
-                                    <li><a href="{{url('/manage/student/team/'.$team->name.'/teachers')}}"><i class="material-icons">school</i>Teachers</a></li>
-                                    <li><a href="{{url('/manage/student/team/'.$team->name.'/homework')}}"><i class="material-icons">home</i>Home Work</a></li>
-                                    {{--<li><a href="#"><i class="material-icons">import_contacts</i>Educational Materials</a></li>--}}
-                                </ul>
-                            </div>
-                        </li>
-                        @endforeach
-                    </ul>
-                </li>
-            @endif
-        @elseif(Auth::user()->hasRole('top-manager'))
-            <li><div class="divider"></div></li>
-            <li><a class="subheader">Top manager</a></li>
-            <li>
-                <ul class="collapsible">
-                    <li>
-                        <div class="collapsible-header"><i class="material-icons">school</i>Teachers</div>
-                        <div class="collapsible-body">
-                            <ul>
-                                <li><a href="{{url('/teacher/create')}}"><i class="material-icons">person_add</i>Create a new teacher</a></li>
-                                <li><a href="{{url('/teacher/')}}"><i class="material-icons">group</i>Show all teachers</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="collapsible-header"><i class="material-icons">person</i>Manager</div>
-                        <div class="collapsible-body">
-                            <ul>
-                                <li><a href="{{url('/manager/create')}}"><i class="material-icons">person_add</i>Create a new manager</a></li>
-                                <li><a href="#"><i class="material-icons">group</i>Show all managers</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="collapsible-header"><i class="material-icons">view_list</i>Disciplines</div>
-                        <div class="collapsible-body">
-                            <ul>
-                                <li><a href="{{url('/discipline/create')}}"><i class="material-icons">playlist_add</i>Create a new discipline</a></li>
-                                <li><a href="{{url('/discipline')}}"><i class="material-icons">view_list</i>Show all disciplines</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="collapsible-header"><i class="material-icons">group</i>Template for Group</div>
-                        <div class="collapsible-body">
-                            <ul>
-                                <li><a href="{{url('/team/template/create')}}"><i class="material-icons">group_add</i>Create a new Template</a></li>
-                                <li><a href="{{url('/team/template')}}"><i class="material-icons">group</i>Show all Templates</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </li>
-        @endif
+        @include('_includes.nav.roles.student')
+
         {{-- Settings --}}
         <li><div class="divider"></div></li>
         <li><a class="subheader">Settings</a></li>

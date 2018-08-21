@@ -21,7 +21,7 @@ class HomeWorkController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:administrator|top-manager|manager');
+        $this->middleware('role:administrator|top-manager|manager|teacher');
     }
 
     public function index($team){
@@ -77,7 +77,7 @@ class HomeWorkController extends Controller
         Session::flash('success', 'Homework was successfully added.');
 
         // Redirect back
-        return back();
+        return redirect(url('/team/'.$team->name.'/homework/'.$discipline->name));
     }
 
     public function show($team, $discipline){

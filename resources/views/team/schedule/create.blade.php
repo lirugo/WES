@@ -12,8 +12,8 @@
                         {{--Teacher--}}
                         <div class="input-field col s12 m6 l6">
                             <i class="material-icons prefix">school</i>
-                            <select class="icons" name="teacher_id" required>
-                                <option value="{{Auth::user()->id}}" selected>{{Auth::user()->getShortName()}}</option>
+                            <select class="icons" name="teacher_id" required readonly>
+                                <option value="{{Auth::user()->id}}" selected >{{Auth::user()->getShortName()}}</option>
                             </select>
                         </div>
                         {{--Discipline--}}

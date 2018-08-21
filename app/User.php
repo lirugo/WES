@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laratrust\Traits\LaratrustUserTrait;
 use MongoDB\Driver\Exception\Exception;
 use Image;
+use Auth;
 
 class User extends Authenticatable
 {
@@ -55,6 +56,15 @@ class User extends Authenticatable
     public function disciplines()
     {
         return $this->hasMany(UserDiscipline::class);
+    }
+
+    public function getTeacherDiscipline($teamName){
+        $team = Team::where('name', $teamName)->first();
+        foreach ($team->disciplines as $key => $discipline)
+            if($discipline->teacher_id != Auth::user()->id)
+                $team->disciplines->forget($key);
+
+        return $team->disciplines;
     }
 
     public function educations()

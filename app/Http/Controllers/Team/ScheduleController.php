@@ -18,7 +18,7 @@ class ScheduleController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:administrator|top-manager|manager');
+        $this->middleware('role:administrator|top-manager|manager|teacher');
     }
 
     public function index($name){
@@ -84,14 +84,10 @@ class ScheduleController extends Controller
             $sd = Carbon::parse($schedule->start_date);
             $ed = Carbon::parse($schedule->end_date);
 
-            if(
-                ($start_date < $sd && $end_date > $sd) ||
-                ($start_date < $ed && $end_date > $ed)
-            )
-            {
-                // Redirect back
+            if($start_date < $sd && $end_date > $sd)
                 return back()->withErrors('Sorry, but this date busy');
-            }
+            if($start_date < $ed && $end_date > $ed)
+                return back()->withErrors('Sorry, but this date busy');
         }
 
         // Find teacher
