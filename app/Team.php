@@ -3,6 +3,7 @@
 namespace App;
 
 use Laratrust\Models\LaratrustTeam;
+use Auth;
 
 class Team extends LaratrustTeam
 {
@@ -16,6 +17,15 @@ class Team extends LaratrustTeam
      */
     public function schedules(){
         return $this->hasMany(Schedule::class, 'team_id', 'id');
+    }
+
+    public function getTeacherSchedules(){
+        $schedules = $this->schedules;
+        foreach ($schedules as $key => $schedule)
+            if($schedule->teacher_id != Auth::user()->id)
+                $schedules->forget($key);
+
+        return $schedules;
     }
 
     /**

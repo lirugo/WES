@@ -57,9 +57,6 @@ class ScheduleController extends Controller
     }
 
     public function create($teamName){
-        // Validate Access only for teacher
-        if(!Auth::user()->hasRole('teacher'))
-            abort(403);
 
         $team = Team::where('name', $teamName)->first();
 
@@ -130,5 +127,20 @@ class ScheduleController extends Controller
 
         // Redirect back
         return redirect(url('/team/'.$team->name.'/schedule'));
+    }
+
+    public function delete($teamName, $scheduleId){
+        // Find team
+        $team = Team::where('name', $teamName)->first();
+
+        // Remove
+        Schedule::find($scheduleId)->delete();
+
+        // Flash msg
+        Session::flash('success', 'Schedule was successfully deleted.');
+
+        // Redirect back
+        return redirect(url('/team/'.$team->name.'/schedule'));
+
     }
 }

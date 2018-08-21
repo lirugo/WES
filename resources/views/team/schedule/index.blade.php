@@ -15,7 +15,55 @@
             </div>
         </div>
     </div>
-    @if(Auth::user()->hasRole('teacher'))
+
+    @if(Auth::user()->hasRole(['administrator', 'top-manager', 'manager', 'teacher']))
+        <div class="row">
+            <div class="col s12">
+                <div class="card hoverable">
+                    <div class="card-content">
+                        <table class="striped">
+                            <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @if(Auth::user()->hasRole('teacher'))
+                                @foreach($team->getTeacherSchedules() as $schedule)
+                                    <tr>
+                                        <td>{{$schedule->title}}</td>
+                                        <td>{{$schedule->start_date}}</td>
+                                        <td>{{$schedule->end_date}}</td>
+                                        <td>
+                                            {!! Form::open(['route' => ['team.schedule.delete', $team->name, $schedule->id]]) !!}
+                                            <button type="submit" class="waves-effect waves-light btn red"><i class="material-icons right">delete</i>Delete</button>
+                                            {!! Form::close() !!}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                @foreach($team->schedules as $schedule)
+                                    <tr>
+                                        <td>{{$schedule->title}}</td>
+                                        <td>{{$schedule->start_date}}</td>
+                                        <td>{{$schedule->end_date}}</td>
+                                        <td>
+                                            {!! Form::open(['route' => ['team.schedule.delete', $team->name, $schedule->id]]) !!}
+                                            <button type="submit" class="waves-effect waves-light btn red"><i class="material-icons right">delete</i>Delete</button>
+                                            {!! Form::close() !!}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
         {{--Floating button--}}
         <div class="fixed-action-btn">
             <a class="btn-floating btn-large red" href="{{url('/team/'.$team->name.'/schedule/create')}}">
@@ -23,6 +71,7 @@
             </a>
         </div>
     @endif
+
 @endsection
 
 @section('scripts')

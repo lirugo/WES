@@ -65,7 +65,7 @@
         $trail->push($discipline->display_name.' - Show', url('/discipline/'.$discipline->id.'/show'));
     });
 
-// Discipline
+// Team
     Breadcrumbs::for('team', function ($trail) {
         $trail->push('Groups', url('/team'));
     });
@@ -76,6 +76,10 @@
     Breadcrumbs::for('team-edit', function ($trail, $team) {
         $trail->parent('team');
         $trail->push('Edit - '.$team->display_name, url('/team/'.$team->name.'/edit'));
+    });
+    Breadcrumbs::for('team-teachers', function ($trail, $team) {
+        $trail->parent('team-edit', $team);
+        $trail->push('Teachers', url('/team/'.$team->name));
     });
     Breadcrumbs::for('team-show', function ($trail, $team) {
         $trail->parent('team');

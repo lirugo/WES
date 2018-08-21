@@ -12,19 +12,36 @@
                         {{--Teacher--}}
                         <div class="input-field col s12 m6 l6">
                             <i class="material-icons prefix">school</i>
-                            <select class="icons" name="teacher_id" required readonly>
-                                <option value="{{Auth::user()->id}}" selected >{{Auth::user()->getShortName()}}</option>
-                            </select>
+                            @if(Auth::user()->hasRole('teacher'))
+                                <select class="icons" name="teacher_id" required readonly>
+                                    <option value="{{Auth::user()->id}}" selected >{{Auth::user()->getShortName()}}</option>
+                                </select>
+                            @else
+                                <select class="icons" name="teacher_id" required readonly>
+                                @foreach($team->getTeachers() as $teacher)
+                                    <option value="{{$teacher->id}}" {{ old('discipline_id') == $teacher->id ? 'selected="selected"' : '' }}>{{$teacher->getShortName()}}</option>
+                                @endforeach
+                                </select>
+                            @endif
                         </div>
                         {{--Discipline--}}
                         <div class="input-field col s12 m6 l6">
                             <i class="material-icons prefix">view_list</i>
-                            <select name="discipline_id" required>
-                                <option value="" disabled>Choose a discipline</option>
-                                @foreach(Auth::user()->disciplines as $discipline)
-                                    <option value="{{$discipline->get->id}}" {{ old('discipline_id') == $discipline->get->id ? 'selected="selected"' : '' }}>{{$discipline->get->display_name}}</option>
-                                @endforeach
-                            </select>
+                            @if(Auth::user()->hasRole('teacher'))
+                                <select name="discipline_id" required>
+                                    <option value="" disabled>Choose a discipline</option>
+                                    @foreach(Auth::user()->getTeacherDiscipline($team->name) as $discipline)
+                                        <option value="{{$discipline->getDiscipline->id}}" {{ old('discipline_id') == $discipline->getDiscipline->id ? 'selected="selected"' : '' }}>{{$discipline->getDiscipline->display_name}}</option>
+                                    @endforeach
+                                </select>
+                            @else
+                                <select name="discipline_id" required>
+                                    <option value="" disabled>Choose a discipline</option>
+                                    @foreach($team->disciplines as $discipline)
+                                        <option value="{{$discipline->getDiscipline->id}}" {{ old('discipline_id') == $discipline->getDiscipline->id ? 'selected="selected"' : '' }}>{{$discipline->getDiscipline->display_name}}</option>
+                                    @endforeach
+                                </select>
+                            @endif
                             <label for="discipline_id">Select Discipline</label>
                         </div>
                         {{--Start date&time picker--}}

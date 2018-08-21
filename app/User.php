@@ -60,6 +60,7 @@ class User extends Authenticatable
 
     public function getTeacherDiscipline($teamName){
         $team = Team::where('name', $teamName)->first();
+
         foreach ($team->disciplines as $key => $discipline)
             if($discipline->teacher_id != Auth::user()->id)
                 $team->disciplines->forget($key);

@@ -99,6 +99,7 @@
         Route::get('/template/{name}/edit', 'Template\TemplateController@edit');
         Route::get('/{name}', 'TeamController@show');
         Route::get('/{name}/edit', 'TeamController@edit');
+        Route::get('/{name}/teachers', 'Teacher\TeacherController@index');
         Route::get('/{name}/schedule', 'ScheduleController@index');
         Route::get('/{name}/schedule/create', 'ScheduleController@create');
         Route::get('/{name}/homework', 'HomeWork\HomeWorkController@index');
@@ -112,6 +113,7 @@
         Route::post('/{name}/homework/{discipline}/{homework}/update', 'HomeWork\HomeWorkController@update')->name('team.homework.update');
         Route::post('/{name}/homework/{discipline}/{homework}', 'HomeWork\HomeWorkController@solution')->name('team.homework.solution');
         Route::post('/{name}/schedule/store', 'ScheduleController@store')->name('team.schedule.store');
+        Route::post('/{name}/schedule/{id}/delete', 'ScheduleController@delete')->name('team.schedule.delete');
         Route::post('/template/store', 'Template\TemplateController@store')->name('team.template.store');
         Route::post('/store', 'TeamController@store')->name('team.store');
         Route::post('/{name}/student/{studentId}/delete', 'TeamController@studentDelete')->name('team.student.delete');

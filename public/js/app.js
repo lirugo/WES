@@ -47927,12 +47927,14 @@ var optionsDatePicker = {
     maxDate: new Date(),
     defaultDate: new Date(1980, 0, 1),
     yearRange: 30,
-    firstDay: 1
+    firstDay: 1,
+    autoClose: true
 };
 var optionsDatePickerDefault = {
     format: 'yyyy-mm-dd',
     yearRange: 30,
-    firstDay: 1
+    firstDay: 1,
+    autoClose: true
 };
 document.addEventListener('DOMContentLoaded', function () {
     var elems = document.querySelectorAll('.datepicker');
