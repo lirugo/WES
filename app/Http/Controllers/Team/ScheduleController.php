@@ -69,8 +69,8 @@ class ScheduleController extends Controller
 
     public function store(StoreSchedule $request, $name){
         // Convert date
-        $start = Carbon::parse($request->start_date);
-        $end = Carbon::parse($request->end_date);
+        $start = Carbon::parse(date('Y-m-d H:i', strtotime("$request->start_date, $request->start_time")));
+        $end = Carbon::parse(date('Y-m-d H:i', strtotime("$request->end_date, $request->end_time")));
         $start_date = Carbon::parse(date('Y-m-d H:i', strtotime("$request->start_date, $request->start_time")));
         $end_date = Carbon::parse(date('Y-m-d H:i', strtotime("$request->start_date, $request->end_time")));
 
@@ -79,23 +79,35 @@ class ScheduleController extends Controller
 
         $schs = Schedule::where('team_id', $team->id)->get();
 
-        // Check on duplicate date
-        foreach ($schs as $schedule){
-            $sd = Carbon::parse($schedule->start_date);
-            $ed = Carbon::parse($schedule->end_date);
-
-            if($start_date < $sd && $end_date > $sd)
-                return back()->withErrors('Sorry, but this date busy');
-            if($start_date < $ed && $end_date > $ed)
-                return back()->withErrors('Sorry, but this date busy');
-        }
-
         // Find teacher
         $teacher = User::find($request->teacher_id);
 
         // Find Discipline
         $discipline = Discipline::find($request->discipline_id);
 
+        // Check on duplicate date
+        while($start <= $end) {
+            foreach ($schs as $schedule){
+                $sd = Carbon::parse($schedule->start_date);
+                $ed = Carbon::parse($schedule->end_date);
+
+                if($start_date->toDateString() == $sd->toDateString())
+                    if(
+                        $start_date->toTimeString() <= $sd->toTimeString() && $end_date->toTimeString() >= $sd->toTimeString() ||
+                        $start_date->toTimeString() <= $ed->toTimeString() && $end_date->toTimeString() >= $ed->toTimeString() ||
+                        $start_date->toTimeString() >= $sd->toTimeString() && $end_date->toTimeString() <= $ed->toTimeString()
+                    )
+                    return back()->withErrors('Sorry, but this date busy');
+            }
+            $start_date = $start_date->addDay();
+            $end_date = $end_date->addDay();
+            $start = $start->addDay();
+        }
+
+        $start = Carbon::parse(date('Y-m-d H:i', strtotime("$request->start_date, $request->start_time")));
+        $end = Carbon::parse(date('Y-m-d H:i', strtotime("$request->end_date, $request->end_time")));
+        $start_date = Carbon::parse(date('Y-m-d H:i', strtotime("$request->start_date, $request->start_time")));
+        $end_date = Carbon::parse(date('Y-m-d H:i', strtotime("$request->start_date, $request->end_time")));
         while($start <= $end)
         {
             // Persist to db

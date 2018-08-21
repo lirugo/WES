@@ -22,7 +22,7 @@ class CreateSchedulesTable extends Migration
             $table->integer('discipline_id')->unsigned();
             $table->foreign('discipline_id')->references('id')->on('disciplines')->onDelete('cascade');
             $table->string('title');
-            $table->dateTime('start_date');
+            $table->date ('start_date');
             $table->dateTime('end_date');
             $table->timestamps();
         });
