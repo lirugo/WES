@@ -5,6 +5,15 @@
         $trail->push('Manage', url('/manage'));
     });
 
+// User
+    Breadcrumbs::for('user', function ($trail) {
+        $trail->push('User', url('#'));
+    });
+    Breadcrumbs::for('user-profile', function ($trail) {
+        $trail->parent('user');
+        $trail->push('Profile', url('/user/profile'));
+    });
+
 // News
     Breadcrumbs::for('news', function ($trail) {
         $trail->push('News', url('/news'));
