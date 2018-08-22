@@ -72,10 +72,10 @@
         Route::get('/template/create', 'Template\TemplateController@create');
         Route::get('/template/{name}/edit', 'Template\TemplateController@edit');
         Route::get('/{name}', 'TeamController@show');
-        Route::get('/{name}/edit', 'TeamController@edit');
+        Route::get('/{name}/students', 'Student\StudentController@index');
         Route::get('/{name}/teachers', 'Teacher\TeacherController@index');
-        Route::get('/{name}/schedule', 'ScheduleController@index');
-        Route::get('/{name}/schedule/create', 'ScheduleController@create');
+        Route::get('/{name}/schedule', 'Schedule\ScheduleController@index');
+        Route::get('/{name}/schedule/create', 'Schedule\ScheduleController@create');
         Route::get('/{name}/homework', 'HomeWork\HomeWorkController@index');
         Route::get('/{name}/homework/{discipline}', 'HomeWork\HomeWorkController@show');
         Route::get('/{name}/homework/{discipline}/create', 'HomeWork\HomeWorkController@create');
@@ -86,8 +86,8 @@
         Route::post('/{name}/homework/{discipline}/store', 'HomeWork\HomeWorkController@store')->name('team.homework.store');
         Route::post('/{name}/homework/{discipline}/{homework}/update', 'HomeWork\HomeWorkController@update')->name('team.homework.update');
         Route::post('/{name}/homework/{discipline}/{homework}', 'HomeWork\HomeWorkController@solution')->name('team.homework.solution');
-        Route::post('/{name}/schedule/store', 'ScheduleController@store')->name('team.schedule.store');
-        Route::post('/{name}/schedule/{id}/delete', 'ScheduleController@delete')->name('team.schedule.delete');
+        Route::post('/{name}/schedule/store', 'Schedule\ScheduleController@store')->name('team.schedule.store');
+        Route::post('/{name}/schedule/{id}/delete', 'Schedule\ScheduleController@delete')->name('team.schedule.delete');
         Route::post('/template/store', 'Template\TemplateController@store')->name('team.template.store');
         Route::post('/store', 'TeamController@store')->name('team.store');
         Route::post('/{name}/student/{studentId}/delete', 'TeamController@studentDelete')->name('team.student.delete');

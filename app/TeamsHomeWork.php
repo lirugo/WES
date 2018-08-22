@@ -14,7 +14,7 @@ class TeamsHomeWork extends Model
         return $this->hasMany(TeamsHomeWorkSolution::class, 'homework_id', 'id');
     }
 
-    public function getFiles(){
+    public function getFilesTask(){
         return $this->hasMany(TeamsHomeWorkFile::class, 'homework_id', 'id')->where('status','task')->get();
     }
 

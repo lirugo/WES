@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('breadcrumbs')
-    {{ Breadcrumbs::render('team-edit-schedule', $team) }}
+    {{ Breadcrumbs::render('team-show-schedule', $team) }}
 @endsection
 @section('style')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>

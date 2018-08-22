@@ -85,11 +85,6 @@ class TeamController extends Controller
     }
 
     public function show($name){
-        $team = Team::where('name', $name)->first();
-        return view('team.show')->withTeam($team);
-    }
-
-    public function edit($name){
         // Get Team
         $team = Team::where('name', $name)->first();
 
@@ -109,7 +104,7 @@ class TeamController extends Controller
         $disciplines = Discipline::all();
 
         // Render View
-        return view('team.edit')
+        return view('team.show')
             ->withTeam($team)
             ->withStudents($students)
             ->withTeachers($teachers)

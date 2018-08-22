@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('breadcrumbs')
-    {{ Breadcrumbs::render('team-edit-homework-discipline', $team, $discipline->getDiscipline) }}
+    {{ Breadcrumbs::render('team-show-homework-discipline', $team, $discipline->getDiscipline) }}
 @endsection
 @section('content')
     <div class="row">
@@ -13,10 +13,10 @@
                         <p>{!!$homeWork->description!!}</p>
                         <small><blockquote>Created - {{$homeWork->created_at->format('Y-m-d H:i')}} ({{$homeWork->created_at->diffForHumans()}})</blockquote></small>
                         <small><blockquote>End date - {{Carbon\Carbon::parse($homeWork->assignment_date)->format('Y-m-d H:i')}} ({{Carbon\Carbon::parse($homeWork->assignment_date)->diffForHumans()}})</blockquote></small>
-                            @if(count($homeWork->getFiles()) != 0)
+                            @if(count($homeWork->getFilesTask()) != 0)
                         <hr>
                         <div class="row">
-                            @foreach($homeWork->getFiles() as $file)
+                            @foreach($homeWork->getFilesTask() as $file)
                                 <div class="col s6 m-t-5">
                                     <a href="{{url('/team/'.$team->name.'/homework/'.$discipline->getDiscipline->name.'/file/'.$file->name)}}" download class="valign-wrapper">
                                         <i class="material-icons m-r-5">cloud_download</i> Download *.{{pathinfo($file->name, PATHINFO_EXTENSION)}}
@@ -34,10 +34,12 @@
         @endforeach
     </div>
 
-    {{--Floating button--}}
-    <div class="fixed-action-btn">
-        <a class="btn-floating btn-large green tooltipped" data-position="left" data-tooltip="Set Home Work" href="{{url('/team/'.$team->name.'/homework/'.$discipline->getDiscipline->name.'/create')}}">
-            <i class="material-icons">add</i>
-        </a>
-    </div>
+    @if(Auth::user()->hasRole(['administrator', 'top-manager', 'manager', 'teacher']))
+        {{--Floating button--}}
+        <div class="fixed-action-btn">
+            <a class="btn-floating btn-large green tooltipped" data-position="left" data-tooltip="Set Home Work" href="{{url('/team/'.$team->name.'/homework/'.$discipline->getDiscipline->name.'/create')}}">
+                <i class="material-icons">add</i>
+            </a>
+        </div>
+    @endif
 @endsection

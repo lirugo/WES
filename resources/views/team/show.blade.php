@@ -3,7 +3,7 @@
     {{ Breadcrumbs::render('team-show', $team) }}
 @endsection
 @section('content')
-    {{--Name and General block--}}
+    {{--Name and Manager block--}}
     <div class="row">
         <div class="col s12 m6 l8">
             <div class="card-panel hoverable">
@@ -14,25 +14,25 @@
                 </div>
                 <div class="input-field">
                     <i class="material-icons prefix">group</i>
-                    {!! Form::text('display_name', $team->display_name, ['class' => 'validate', 'id' => 'display_name', 'required', 'disabled']) !!}
+                    {!! Form::text('display_name', $team->display_name, ['class' => 'validate', 'id' => 'display_name', 'required']) !!}
                     <label for="display_name">Displaying Name</label>
                 </div>
                 <div class="input-field">
                     <i class="material-icons prefix">format_align_justify</i>
-                    {!! Form::textarea('description', $team->description, ['class' => 'validate materialize-textarea', 'id' => 'description', 'required', 'disabled']) !!}
+                    {!! Form::textarea('description', $team->description, ['class' => 'validate materialize-textarea', 'id' => 'description', 'required']) !!}
                     <label for="description">Description</label>
                 </div>
             </div>
         </div>
         <div class="col s12 m6 l4">
             <div class="s12">
-                <div class="card-panel indigo white-text">
+                <div class="card-panel indigo white-text m-b-0">
                     <h6 class="card-title m-t-0 m-b-0 center-align">Manager of this group.</h6>
                 </div>
             </div>
             <div class="s12">
                 <div class="card-panel hoverable">
-                    <a href="#user"><img class="circle left m-r-10" width="100px" src="{{asset('/uploads/avatars/'.$team->getOwner()->avatar)}}"></a>
+                    <a href="#user"><img class="circle left m-r-10" width="100px" src="{{asset('/uploads/avatars/'.Auth::user()->avatar)}}"></a>
                     <p class="card-title m-b-0">{{$team->getOwner()->getShortName()}}</p>
                     <p class="card-title m-t-0 m-b-0">{{$team->getOwner()->email}}</p>
                     <p class="card-title m-t-0">{{$team->getOwner()->getPhone()}}</p>
@@ -41,6 +41,7 @@
             </div>
         </div>
     </div>
+
     {{--Display students of this group--}}
     <div class="row">
         <div class="col s12">
@@ -55,6 +56,11 @@
                     <p class="card-title m-b-0">{{$student->getShortName()}}</p>
                     <p class="card-title m-t-0 m-b-0">{{$student->email}}</p>
                     <p class="card-title m-t-0">{{$student->getPhone()}}</p>
+                    @if(Auth::user()->hasRole(['administrator', 'top-manager', 'manager']))
+                        {!! Form::open(['route' => ['team.student.delete', $team->id, $student->id]]) !!}
+                        <button type="submit" class="red darken-1 waves-effect waves-light btn"><i class="material-icons right">delete</i>Delete</button>
+                        {!! Form::close() !!}
+                    @endif
                 </div>
             </div>
         @endforeach
@@ -81,13 +87,27 @@
         @endforeach
     </div>
 
-    <div class="row">
-        <div class="col s12">
-            <div class="card-panel hoverable">
-               <h4>Last action etc.</h4>
+    @if(Auth::user()->hasRole(['administrator', 'top-manage', 'manager']))
+        <div class="row">
+            <div class="col s12 m6 l4">
+                <div class="card-panel hoverable">
+                    {!! Form::open(['route' => ['team.student.store',$team->name], 'method' => 'POST']) !!}
+                    <h5 class="center-align m-b-30">Add a new student</h5>
+                    <div class="input-field">
+                        <select class="icons" name="student" required>
+                            <option value="" disabled selected>Choose a new student</option>
+                            @foreach($students as $student)
+                                <option value="{{$student->id}}" data-icon="{{asset('/uploads/avatars/'.$student->avatar)}}">{{$student->getShortName()}}</option>
+                            @endforeach
+                        </select>
+                        <label>All students</label>
+                    </div>
+                    <button type="submit" class="indigo waves-effect waves-light btn right"><i class="material-icons right">add_circle_outline</i>Add a new student</button>
+                    {!! Form::close() !!}
+                </div>
             </div>
         </div>
-    </div>
+    @endif
 
     {{--Floating button--}}
     <div class="fixed-action-btn">

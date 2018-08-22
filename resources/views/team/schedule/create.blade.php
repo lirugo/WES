@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('breadcrumbs')
-    {{ Breadcrumbs::render('team-edit-schedule-create', $team) }}
+    {{ Breadcrumbs::render('team-show-schedule-create', $team) }}
 @endsection
 @section('content')
     {!! Form::open(['route' => ['team.schedule.store', $team->name], 'method' => 'POST']) !!}

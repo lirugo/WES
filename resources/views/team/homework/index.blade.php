@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('breadcrumbs')
-    {{ Breadcrumbs::render('team-edit-homework', $team) }}
+    {{ Breadcrumbs::render('team-show-homework', $team) }}
 @endsection
 @section('content')
     @if(Auth::user()->hasRole(['administrator', 'top-manager', 'manager', 'student']))

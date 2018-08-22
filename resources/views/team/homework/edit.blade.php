@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('breadcrumbs')
-    {{ Breadcrumbs::render('team-edit-homework-discipline-homework-edit', $team, $discipline->getDiscipline, $homeWork) }}
+    {{ Breadcrumbs::render('team-show-homework-discipline-homework-edit', $team, $discipline->getDiscipline, $homeWork) }}
 @endsection
 @section('content')
     {!! Form::open(['route' => ['team.homework.update',$team->name,$discipline->getDiscipline->name,$homeWork->name], 'enctype' => 'multipart/form-data', 'method' => 'POST']) !!}

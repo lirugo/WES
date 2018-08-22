@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('breadcrumbs')
-    {{ Breadcrumbs::render('team-edit-homework-discipline-homework', $team, $discipline->getDiscipline, $homeWork) }}
+    {{ Breadcrumbs::render('team-show-homework-discipline-homework', $team, $discipline->getDiscipline, $homeWork) }}
 @endsection
 @section('content')
    <div class="row">
@@ -12,10 +12,10 @@
                     <p>{!!$homeWork->description!!}</p>
                     <small><blockquote>Created - {{$homeWork->created_at->format('Y-m-d H:i')}} ({{$homeWork->created_at->diffForHumans()}})</blockquote></small>
                     <small><blockquote>End date - {{Carbon\Carbon::parse($homeWork->assignment_date)->format('Y-m-d H:i')}} ({{Carbon\Carbon::parse($homeWork->assignment_date)->diffForHumans()}})</blockquote></small>
-                    @if(count($homeWork->getFiles()) != 0)
+                    @if(count($homeWork->getFilesTask()) != 0)
                         <hr>
                         <div class="row">
-                            @foreach($homeWork->getFiles() as $file)
+                            @foreach($homeWork->getFilesTask() as $file)
                                 <div class="col s6 m-t-5">
                                     <a href="{{url('/team/'.$team->name.'/homework/'.$discipline->getDiscipline->name.'/file/'.$file->name)}}" download class="valign-wrapper">
                                         <i class="material-icons m-r-5">cloud_download</i> Download *.{{pathinfo($file->name, PATHINFO_EXTENSION)}}
@@ -44,10 +44,10 @@
                         @if($solution->created_at != $solution->updated_at)
                             <small><blockquote>Updated - {{$solution->updated_at->format('Y-m-d H:i')}} ({{$solution->updated_at->diffForHumans()}})</blockquote></small>
                         @endif
-                        @if(count($solution->getFiles()) != 0)
+                        @if(count($solution->getFilesSolution($solution->student_id)) != 0)
                             <hr>
                             <div class="row">
-                                @foreach($solution->getFiles() as $file)
+                                @foreach($solution->getFilesSolution($solution->student_id) as $file)
                                     <div class="col s6 m-t-5">
                                         <a href="{{url('/team/'.$team->name.'/homework/'.$discipline->getDiscipline->name.'/file/'.$file->name)}}" download class="valign-wrapper">
                                             <i class="material-icons m-r-5">cloud_download</i> Download *.{{pathinfo($file->name, PATHINFO_EXTENSION)}}
@@ -107,10 +107,10 @@
                             @if($homeWork->getSolution()->created_at != $homeWork->getSolution()->updated_at)
                                 <small><blockquote>Updated - {{$homeWork->getSolution()->updated_at->format('Y-m-d H:i')}} ({{$homeWork->getSolution()->updated_at->diffForHumans()}})</blockquote></small>
                             @endif
-                            @if(count($homeWork->getSolution()->getFiles()) != 0)
+                            @if(count($homeWork->getSolution()->getFilesSolution($homeWork->getSolution()->student_id)) != 0)
                                 <hr>
                                 <div class="row">
-                                    @foreach($homeWork->getSolution()->getFiles() as $file)
+                                    @foreach($homeWork->getSolution()->getFilesSolution($homeWork->getSolution()->student_id) as $file)
                                         <div class="col s6 m-t-5">
                                             <a href="{{url('/team/'.$team->name.'/homework/'.$discipline->getDiscipline->name.'/file/'.$file->name)}}" download class="valign-wrapper">
                                                 <i class="material-icons m-r-5">cloud_download</i> Download *.{{pathinfo($file->name, PATHINFO_EXTENSION)}}

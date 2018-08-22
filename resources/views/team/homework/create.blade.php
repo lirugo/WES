@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('breadcrumbs')
-    {{ Breadcrumbs::render('team-edit-homework-discipline-create', $team, $discipline->getDiscipline) }}
+    {{ Breadcrumbs::render('team-show-homework-discipline-create', $team, $discipline->getDiscipline) }}
 @endsection
 @section('content')
     {{--Add Home Work--}}

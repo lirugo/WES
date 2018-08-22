@@ -16,9 +16,9 @@ class TeamsHomeWorkSolution extends Model
     }
 
     // Get Files For Current Solution&User
-    public function getFiles(){
+    public function getFilesSolution($id){
         return $this->files()->where([
-            ['student_id', Auth::user()->id],
+            ['student_id', $id],
             ['status', 'solution']
         ])->get();
     }

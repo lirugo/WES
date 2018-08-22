@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Team;
+namespace App\Http\Controllers\Team\Schedule;
 
 use App\Discipline;
 use App\Http\Requests\StoreSchedule;
