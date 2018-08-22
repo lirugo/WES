@@ -5,6 +5,11 @@
         $trail->push('Manage', url('/manage'));
     });
 
+//Library
+    Breadcrumbs::for('library', function ($trail) {
+        $trail->push('Library', url('/library'));
+    });
+
 // User
     Breadcrumbs::for('user', function ($trail) {
         $trail->push('User', url('#'));
