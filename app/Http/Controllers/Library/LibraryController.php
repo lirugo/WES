@@ -19,9 +19,18 @@ class LibraryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $libraries = Library::all();
+        $sort = $request->get('sort');
+        if($sort == 'asc' || $sort == 'desc')
+            $libraries = Library::orderBy('id', $sort)->get();
+        elseif($sort == 'a-z')
+            $libraries = Library::orderBy('title', 'asc')->get();
+        elseif($sort == 'z-a')
+            $libraries = Library::orderBy('title', 'desc')->get();
+        else
+            $libraries = Library::all();
+
         return view('library.index')
             ->withLibraries($libraries);
     }

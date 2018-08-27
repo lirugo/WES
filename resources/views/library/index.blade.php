@@ -3,6 +3,16 @@
     {{ Breadcrumbs::render('library') }}
 @endsection
 @section('content')
+    <div class="row m-b-0">
+        <div class="col s12">
+            <div class="card-panel p-b-10 p-t-10">
+                <a href="{{url('/library/?sort=asc')}}">New first</a> |
+                <a href="{{url('/library/?sort=desc')}}">Old first</a> |
+                <a href="{{url('/library/?sort=a-z')}}">Title A-Z</a> |
+                <a href="{{url('/library/?sort=z-a')}}">Title Z-A</a> |
+            </div>
+        </div>
+    </div>
     <div class="row">
         @foreach($libraries as $library)
             <div class="col s12 m4 l4">
