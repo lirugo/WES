@@ -5,6 +5,15 @@
         $trail->push('Manage', url('/manage'));
     });
 
+//Tags
+    Breadcrumbs::for('tag', function ($trail) {
+        $trail->push('Tags', url('/tag'));
+    });
+    Breadcrumbs::for('tag-create', function ($trail) {
+        $trail->parent('tag');
+        $trail->push('Create', url('/tag/create'));
+    });
+
 //Library
     Breadcrumbs::for('library', function ($trail) {
         $trail->push('Library', url('/library'));

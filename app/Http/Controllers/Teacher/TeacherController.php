@@ -69,7 +69,7 @@ class TeacherController extends Controller
         $user->attachRole($teacher);
 
         // Show flash msg
-        Session::flash('success', 'Student was successfully created.');
+        Session::flash('success', 'Teacher was successfully created.');
 
         // Redirect to manage page
         return redirect(url('/manage'));

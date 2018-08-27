@@ -41,7 +41,7 @@ class StudentController extends Controller
         // Show flash msg
         Session::flash('success', 'Student was successfully created.');
         // Redirect to manage page
-        return redirect(url('/manage'));
+        return redirect(url('/student'));
     }
 
     public function storeAvatar(Request $request){

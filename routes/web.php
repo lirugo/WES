@@ -52,7 +52,12 @@
 |--------------------------------------------------------------------------
 */
     Route::group(['middleware' => ['auth'], 'namespace' => 'Tag', 'prefix' => 'tag'], function () {
+        Route::get('/', 'TagController@index');
+        Route::get('/create', 'TagController@create');
         Route::get('/json', 'TagController@json');
+
+        Route::post('/{id}/delete', 'TagController@delete')->name('tag.delete');
+        Route::post('/store', 'TagController@store')->name('tag.store');
     });
 
 /*

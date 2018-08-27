@@ -51,11 +51,14 @@
         </div>
     @endif
     <div class="row">
-        @role(['administrator', 'top-manage', 'manager'])
+        @role(['administrator', 'top-manager', 'manager'])
         <div class="fixed-action-btn">
             <a href="{{url('/library/create')}}" class="btn-floating btn-large waves-effect waves-light red">
                 <i class="large material-icons">add</i>
             </a>
+            <ul>
+                <li><a class="btn-floating green tooltipped" data-position="left" data-tooltip="Tags" href="{{url('/tag')}}"><i class="material-icons">visibility</i></a></li>
+            </ul>
         </div>
         @endrole
     </div>
