@@ -3,7 +3,7 @@
     {{ Breadcrumbs::render('library-create') }}
 @endsection
 @section('content')
-    {!! Form::open(['route' => 'library.store']) !!}
+    {!! Form::open(['route' => 'library.store', 'enctype' => 'multipart/form-data']) !!}
     <div class="row">
         <div class="col s12 m6 l6">
             <div class="card-panel">
@@ -57,6 +57,19 @@
                         :headers="headers"
                         img-format="png">
                 </widget-avatar-cropper>
+                <div class="card-content p-t-0 p-b-0">
+                    <div class="input-field">
+                        <div class="file-field">
+                            <div class="btn indigo">
+                                <span>Book</span>
+                                <input type="file" name="file" accept="application/pdf" required>
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text" placeholder="Upload only PDF">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

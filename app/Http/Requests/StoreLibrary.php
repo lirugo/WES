@@ -30,6 +30,7 @@ class StoreLibrary extends FormRequest
             'year' => 'required|numeric',
             'tags' => 'required|json',
             'avatar' => 'required',
+            'file' => 'required',
         ];
     }
 }

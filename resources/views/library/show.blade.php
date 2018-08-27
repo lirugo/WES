@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('breadcrumbs')
-    {{ Breadcrumbs::render('library') }}
+    {{ Breadcrumbs::render('library-show', $library) }}
 @endsection
 @section('content')
     <div class="row">
@@ -15,6 +15,7 @@
                         <span class="new badge green" data-badge-caption="pages">{{$library->pages}}</span>
                         <span class="new badge red" data-badge-caption="">PDF</span>
                     <span class="card-title">{{$library->title}}</span>
+                        |
                         @foreach($library->authors as $name)
                             {{$name->getShortName()}} |
                         @endforeach
@@ -29,7 +30,7 @@
                             </div>
                         @endforeach
                     </div>
-                    <a class="btn-floating btn halfway-fab right waves-effect waves-light indigo"><i class="material-icons">cloud_download</i></a>
+                    <a class="btn-floating btn halfway-fab right waves-effect waves-light indigo" href="{{url('/library/file/'.$library->file)}}" download><i class="material-icons">cloud_download</i></a>
                 </div>
             </div>
         </div>

@@ -21,7 +21,9 @@ class LibraryController extends Controller
      */
     public function index()
     {
-        return view('library.index');
+        $libraries = Library::all();
+        return view('library.index')
+            ->withLibraries($libraries);
     }
 
     /**
@@ -49,6 +51,8 @@ class LibraryController extends Controller
         $library->pages = $request->pages;
         $library->year = $request->year;
         $library->image = $request->avatar;
+        $filePath = Storage::disk('library')->put('/', $request->file);
+        $library->file =  basename($filePath);
         $library->save();
 
         foreach (json_decode($request->tags) as $tag){
@@ -140,4 +144,8 @@ class LibraryController extends Controller
         // Return
         return redirect(url('/library/'.$id));
     }
+
+    public function getFile($name){
+        $path = storage_path('\app\library\/'.$name);
+        return response()->file($path);}
 }

@@ -4,45 +4,59 @@
 @endsection
 @section('content')
     <div class="row">
-        <div class="col s12 m4 l4">
-            <div class="card">
-                <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" src="https://images-na.ssl-images-amazon.com/images/I/41T9JSV0ZAL.jpg">
-                </div>
-                <div class="card-content p-b-10">
-                    <span class="card-title activator grey-text text-darken-4">Java Black Book<i class="material-icons right">more_vert</i></span>
-                    <small>Jhordan H.M Mickle F.A. Benedict D.D.</small>
-                    <a class="btn-floating btn halfway-fab right waves-effect waves-light indigo"><i class="material-icons">cloud_download</i></a>
-                </div>
-                <div class="card-content p-t-0">
-                    <span class="new badge blue" data-badge-caption="year">1984</span>
-                    <span class="new badge green" data-badge-caption="pages">963</span>
-                    <span class="new badge red" data-badge-caption="">PDF</span>
-                </div>
-                <div class="card-content p-t-5">
+        @foreach($libraries as $library)
+            <div class="col s12 m4 l4">
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="{{url('/library/image/'.$library->image)}}">
+                    </div>
+                    <div class="card-content p-b-10">
+                        <span class="card-title activator grey-text text-darken-4">{{$library->title}}<i class="material-icons right">more_vert</i></span>
+                        <small> |
+                            @foreach($library->authors as $author)
+                                {{$author->getShortName()}} |
+                            @endforeach
+                        </small>
+                    </div>
+                    <div class="card-content p-t-0">
+                        <span class="new badge blue" data-badge-caption="year">{{$library->year}}</span>
+                        <span class="new badge green" data-badge-caption="pages">{{$library->pages}}</span>
+                        <span class="new badge red" data-badge-caption="">PDF</span>
+                    </div>
+                    <div class="card-content p-t-5">
+                        @foreach($library->tags as $tag)
+                            <div class="chip">
+                                {{$tag->get->display_name}}
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">{{$library->title}}<i class="material-icons right">close</i></span>
+                        <p>
+                            {!! $library->description !!}
+                        </p>
+                    </div>
 
-                    <div class="chip">
-                        Management Accounting
-                    </div>
-                    <div class="chip">
-                        Some long tag
-                    </div>
-                </div>
-                <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4">Java Black Book<i class="material-icons right">close</i></span>
-                    <p>
-                        Today I am sharing the best java books to learn java programming.
-                        Java is one of the most widely used programming languages.
-                        You will find java based applications everywhere, from embedded systems to web applications.
-                        Android programming is built on top of java, that is used in billions of smartphones, tablets etc.
-                        So if you want to build your career as a Java professional,
-                        having good core java knowledge is a must. If you are good at Core Java,
-                        learning all other java based frameworks is not that hard. That’s why,
-                        even after working in IT industry for 10 years and using several Java,
-                        Java EE frameworks; I value Core Java most.
-                    </p>
+                    <a class="btn-floating btn halfway-fab left waves-effect waves-light indigo" href="{{url('/library/'.$library->id)}}"><i class="material-icons">open_in_new</i></a>
+                    <a class="btn-floating btn halfway-fab right waves-effect waves-light indigo" href="{{url('/library/file/'.$library->file)}}" download><i class="material-icons">cloud_download</i></a>
                 </div>
             </div>
+        @endforeach
+    </div>
+    @if(count($libraries) == 0)
+        <div class="row">
+            <div class="col s12">
+                So far there is nothing here...
+            </div>
         </div>
+    @endif
+    <div class="row">
+        @role(['administrator', 'top-manage', 'manager'])
+        <div class="fixed-action-btn">
+            <a href="{{url('/library/create')}}" class="btn-floating btn-large waves-effect waves-light red">
+                <i class="large material-icons">add</i>
+            </a>
+        </div>
+        @endrole
     </div>
 @endsection

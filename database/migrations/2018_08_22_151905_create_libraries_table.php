@@ -20,6 +20,7 @@ class CreateLibrariesTable extends Migration
             $table->integer('pages');
             $table->integer('year');
             $table->string('image');
+            $table->string('file');
             $table->timestamps();
         });
     }
