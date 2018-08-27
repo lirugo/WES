@@ -18,7 +18,9 @@ class ManagerController extends Controller
      */
     public function index()
     {
-        //
+        $managers = User::whereRoleIs('manager')->get();
+        return view('manager.index')
+            ->withManagers($managers);
     }
 
     /**
@@ -49,7 +51,7 @@ class ManagerController extends Controller
         // Show flash msg
         Session::flash('success', 'Manager was successfully created.');
         // Redirect to manage page
-        return redirect(url('/manage'));
+        return redirect(url('/manager'));
     }
 
     /**

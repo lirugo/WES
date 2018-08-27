@@ -17,7 +17,7 @@
                 <div class="collapsible-body">
                     <ul>
                         <li><a href="{{url('/manager/create')}}"><i class="material-icons">person_add</i>Create a new manager</a></li>
-                        <li><a href="#"><i class="material-icons">group</i>Show all managers</a></li>
+                        <li><a href="{{url('/manager/')}}"><i class="material-icons">group</i>Show all managers</a></li>
                     </ul>
                 </div>
             </li>
