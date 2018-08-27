@@ -36,6 +36,22 @@
 */
     Route::group(['middleware' => ['auth'], 'namespace' => 'Library', 'prefix' => 'library'], function () {
         Route::get('/', 'LibraryController@index');
+        Route::get('/{id}', 'LibraryController@show');
+        Route::get('/image/{name}', 'LibraryController@getImage');
+        Route::get('/create', 'LibraryController@create');
+
+        Route::post('/{id}/author/update', 'LibraryController@authorUpdate')->name('library.author.update');
+        Route::post('/upload/image', 'LibraryController@image');
+        Route::post('/store', 'LibraryController@store')->name('library.store');
+    });
+
+/*
+|--------------------------------------------------------------------------
+| Tag route
+|--------------------------------------------------------------------------
+*/
+    Route::group(['middleware' => ['auth'], 'namespace' => 'Tag', 'prefix' => 'tag'], function () {
+        Route::get('/json', 'TagController@json');
     });
 
 /*

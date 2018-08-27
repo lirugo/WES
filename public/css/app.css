@@ -9651,6 +9651,10 @@ input[type=range]::-ms-thumb {
   visibility: hidden;
 }
 
+.chips .autocomplete-content {
+  width: 250px !important;
+}
+
 .m-t-0 {
   margin-top: 0px !important;
 }

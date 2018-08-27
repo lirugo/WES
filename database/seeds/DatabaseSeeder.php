@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TeamSeeder::class);
         $this->call(ScheduleSeeder::class);
         $this->call(TemplateGroupSeed::class);
+        $this->call(TagSeeder::class);
     }
 }

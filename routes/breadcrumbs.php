@@ -9,6 +9,10 @@
     Breadcrumbs::for('library', function ($trail) {
         $trail->push('Library', url('/library'));
     });
+    Breadcrumbs::for('library-create', function ($trail) {
+        $trail->parent('library');
+        $trail->push('Create', url('/library/create'));
+    });
 
 // User
     Breadcrumbs::for('user', function ($trail) {

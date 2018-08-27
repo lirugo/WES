@@ -4,3 +4,8 @@ input, select, textarea{
 body {
   @extend .grey, .lighten-3;
 }
+
+// Not better way it's temporary
+.chips .autocomplete-content {
+  width: 250px !important;
+}
