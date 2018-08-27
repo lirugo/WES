@@ -16,7 +16,7 @@
                             <blockquote class="m-b-0 m-t-5"><small>Count of students - {{count($team->getStudents())}}</small></blockquote>
                     </div>
                     <div class="card-action right-align">
-                        <a href="{{url('/team/'.$team->name.'/edit')}}" class="indigo waves-effect waves-light btn-small right">Edit</a>
+                        <a href="{{url('/team/'.$team->name)}}" class="indigo waves-effect waves-light btn-small right">Open</a>
                     </div>
                 </div>
             </div>
