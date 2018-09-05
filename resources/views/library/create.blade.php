@@ -83,6 +83,40 @@
 @endsection
 
 @section('scripts')
+    <script>
+        //Chips
+        var optionsChip = {
+            placeholder: 'Enter a tag',
+            secondaryPlaceholder: '+ Tag',
+            autocompleteOptions: {
+                data: {
+                }
+            },
+            onChipAdd: function (e, chip) {
+                chip = chip.textContent.replace('close','');
+                var data = optionsChip.autocompleteOptions.data;
+                if(!data.hasOwnProperty(chip))
+                    this.deleteChip(-1);
+
+                var chips = document.getElementsByClassName('chip');
+                var all = [];
+
+                for(var i=0; i<chips.length; i++){
+                    all.push(chips[i].firstChild.data);
+                }
+
+                document.getElementById('tags').value = JSON.stringify(all);
+            }
+        };
+        document.addEventListener('DOMContentLoaded', function() {
+            axios.get('/tag/json')
+                .then(response => {
+                    optionsChip.autocompleteOptions.data = response.data;
+                    var elems = document.querySelectorAll('.chips');
+                    var instances = M.Chips.init(elems, optionsChip);
+                });
+        });
+    </script>
     <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey={{env('TINY_MC_KEY')}}"></script>
     <script>
         tinymce.init({

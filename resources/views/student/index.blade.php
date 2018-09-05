@@ -7,11 +7,8 @@
         @foreach($students as $student)
             <div class="col s12 m6 l4">
                 <div class="card hoverable">
-                    <div class="card-image">
-                        <img src="{{asset('/uploads/avatars/'.$student->avatar)}}">
-                        <span class="card-title">{{$student->getShortName()}}</span>
-                    </div>
                     <div class="card-content">
+                        <span class="card-title">{{$student->getShortName()}}</span>
                         <span class="card-title center-align"></span>
                         <p></p>
                         <div class="divider m-t-10 m-b-10"></div>

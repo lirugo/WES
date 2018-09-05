@@ -9,7 +9,7 @@
                 <div class="card hoverable">
                     <div class="card-content">
                         <span class="card-title center-align">{{$team->display_name}}</span>
-                        <p>{{strlen($team->description) > 35 ? substr($team->description, 0, 35).'...' : $team->description}}</p>
+                        <p>{{$team->description}}</p>
                         <div class="divider m-t-10 m-b-10"></div>
                             <blockquote class="m-b-0 m-t-5"><small>Created at - {{$team->created_at->format('Y-m-d')}}</small></blockquote>
                             <blockquote class="m-b-0 m-t-5"><small>Manager - {{$team->getOwner()->getShortName()}}</small></blockquote>
