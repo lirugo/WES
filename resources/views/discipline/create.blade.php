@@ -4,18 +4,6 @@
 @endsection
 @section('content')
     {!! Form::open(['route' => 'discipline.store', 'method' => 'POST']) !!}
-    {{--Header--}}
-    <div class="row">
-        <div class="col s12 m12 l12">
-            <div class="card hoverable">
-                <div class="card-content">
-                    <span class="card-title center-align">Create a new group</span>
-                    <button type="submit" class="indigo waves-effect waves-light btn right tooltipped" data-tooltip="You sure? All data is correct?" data-position="top"><i class="material-icons right">send</i>Create a new descipline</button>
-                    <a href="{{url('/manage')}}" class="indigo waves-effect waves-light btn left m-r-10 tooltipped" data-tooltip="Information will be lost!" data-position="top"><i class="material-icons left">apps</i>Back to manage</a>
-                </div>
-            </div>
-        </div>
-    </div>
     {{--Name and General block--}}
     <div class="row">
         <div class="col s12">
@@ -33,6 +21,12 @@
                 </div>
             </div>
         </div>
+    </div>
+    {{--Floating button--}}
+    <div class="fixed-action-btn">
+        <button type="submit" class="btn-floating btn-large green tooltipped" data-position="left" data-tooltip="Save">
+            <i class="large material-icons">save</i>
+        </button>
     </div>
     {!! Form::close() !!}
 @endsection

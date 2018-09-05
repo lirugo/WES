@@ -24,8 +24,8 @@ class StoreDiscipline extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|alpha_dash|unique:disciplines|max:30',
-            'display_name' => 'required|max:30',
+            'name' => 'required|alpha_dash|unique:disciplines|max:150',
+            'display_name' => 'required|max:150',
             'description' => 'required|max:200'
         ];
     }

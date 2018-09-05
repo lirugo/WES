@@ -4,19 +4,6 @@
 @endsection
 @section('content')
     {!! Form::open([$discipline, 'route' => ['discipline.update',$discipline->name], 'method' => 'POST']) !!}
-    {{--Header--}}
-    <div class="row">
-        <div class="col s12">
-            <div class="card hoverable">
-                <div class="card-content">
-                    <span class="card-title center-align">Discipline - {{$discipline->display_name}}</span>
-                    <button type="submit" href="{{url('/discipline/'.$discipline->name.'/edit')}}" class="indigo waves-effect waves-light btn right"><i class="material-icons right">cloud</i>Update</button>
-                    <a href="{{url('/discipline')}}" class="indigo waves-effect waves-light btn left m-r-10 tooltipped" data-tooltip="Information will be lost!" data-position="top"><i class="material-icons left">apps</i>Back to disciplines</a>
-
-                </div>
-            </div>
-        </div>
-    </div>
     {{--Name and General block--}}
     <div class="row">
         <div class="col s12 m12 l12">
@@ -38,6 +25,12 @@
                 </div>
             </div>
         </div>
+    </div>
+    {{--Floating button--}}
+    <div class="fixed-action-btn">
+        <button type="submit" class="btn-floating btn-large green tooltipped" data-position="left" data-tooltip="Save">
+            <i class="large material-icons">save</i>
+        </button>
     </div>
     {!! Form::close() !!}
 @endsection
