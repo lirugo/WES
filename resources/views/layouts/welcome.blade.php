@@ -26,11 +26,7 @@
    @include('_includes.preloader.page')
 
     <!-- Application -->
-    <div id="app">
-        @include('_includes.nav.top')
-
-        @include('_includes.notification.message')
-
+    <div id="app" class="welcome">
         @yield('content')
     </div>
 
