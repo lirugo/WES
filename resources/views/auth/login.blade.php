@@ -1,9 +1,9 @@
 @extends('layouts.welcome')
 
 @section('content')
-    <div class="row">
+    <div class="row valign-wrapper height-100vh m-b-0">
         <div class="col s12 m6 l4 offset-l4 offset-m3">
-            <div class="row m-t-100">
+            <div class="row">
                 <div class="card hoverable black opacity-80">
                     <div class="card-content white-text">
                         <div class="row m-b-0">
