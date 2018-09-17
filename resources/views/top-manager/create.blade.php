@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('breadcrumbs')
-    {{ Breadcrumbs::render('manager-create') }}
+    {{ Breadcrumbs::render('top-manager-create') }}
 @endsection
 @section('content')
-    {!! Form::open(['route' => 'manager.store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+    {!! Form::open(['route' => 'top-manager.store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
     {{--Name and General block--}}
     <div class="row">
         <div class="col s12 m6 l6">

@@ -62,6 +62,21 @@
 
 /*
 |--------------------------------------------------------------------------
+| Top-Manager CRUD route
+|--------------------------------------------------------------------------
+*/
+    Route::group([
+        'middleware' => 'role:administrator',
+        'prefix' => 'top-manager',
+        'namespace' => 'TopManager'
+    ], function () {
+        Route::get('/', 'TopManagerController@index');
+        Route::get('/create', 'TopManagerController@create');
+        Route::post('/store', 'TopManagerController@store')->name('top-manager.store');
+    });
+
+/*
+|--------------------------------------------------------------------------
 | Manager CRUD route
 |--------------------------------------------------------------------------
 */

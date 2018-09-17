@@ -163,6 +163,34 @@
 
 /*
 |--------------------------------------------------------------------------
+| Top Manager Breadcrumbs
+|--------------------------------------------------------------------------
+*/
+Breadcrumbs::for('top-manager', function ($trail) {
+    $trail->push('Top Managers', url('/top-manager'));
+});
+
+Breadcrumbs::for('top-manager-create', function ($trail) {
+    $trail->parent('top-manager');
+    $trail->push('Create', url('/top-manager/create'));
+});
+
+/*
+|--------------------------------------------------------------------------
+| Manager Breadcrumbs
+|--------------------------------------------------------------------------
+*/
+Breadcrumbs::for('manager', function ($trail) {
+    $trail->push('Managers', url('/manager'));
+});
+
+Breadcrumbs::for('manager-create', function ($trail) {
+    $trail->parent('manager');
+    $trail->push('Create', url('/manager/create'));
+});
+
+/*
+|--------------------------------------------------------------------------
 | Student Breadcrumbs
 |--------------------------------------------------------------------------
 */

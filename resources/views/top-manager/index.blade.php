@@ -1,10 +1,10 @@
 @extends('layouts.app')
 @section('breadcrumbs')
-    {{ Breadcrumbs::render('manager') }}
+    {{ Breadcrumbs::render('top-manager') }}
 @endsection
 @section('content')
     <div class="row">
-        @foreach($managers as $manager)
+        @foreach($topManagers as $manager)
             <div class="col s12 m6 l4">
                 <div class="card hoverable">
                     <div class="card-image">
@@ -26,7 +26,7 @@
                 </div>
             </div>
         @endforeach
-        @if($managers->all() == null)
+        @if($topManagers->all() == null)
             <div class="row">
                 <div class="col s12">
                     <div class="card-panel orange white-text">
