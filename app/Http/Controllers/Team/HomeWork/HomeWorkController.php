@@ -97,7 +97,7 @@ class HomeWorkController extends Controller
     {
         $team = Team::where('name', $team)->first();
         if($team->isMember(Auth::user())){
-            $path = storage_path('\app\group\homework\task\/'.$file);
+            $path = storage_path('/app/group/homework/task/'.$file);
             return response()->file($path);
         }
 
@@ -228,5 +228,23 @@ class HomeWorkController extends Controller
         Session::flash('success', 'Homework was successfully added.');
         // Redirect back
         return redirect(url('/team/'.$team->name.'/homework/'.$discipline->name.'/'.$homeWork->name));
+    }
+
+    public function delete($team, $homeWork){
+        // Find
+        $homeWork = TeamsHomeWork::where('name', $homeWork)->first();
+
+        // Check permission
+        if(Auth::user()->id != $homeWork->teacher_id)
+            abort(403);
+        else
+            $homeWork->delete();
+
+        // Flash message
+        Session::flash('success', 'Homework was successfully deleted.');
+
+        // Redirect back
+        return back();
+
     }
 }

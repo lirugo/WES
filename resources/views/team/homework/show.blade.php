@@ -26,8 +26,13 @@
                         </div>
                             @endif
                     </div>
-                    <div class="card-action right-align">
+                    <div class="card-action">
                         <a href="{{url('/team/'.$team->name.'/homework/'.$discipline->getDiscipline->name.'/'.$homeWork->name)}}" class="indigo waves-effect waves-light btn-small right">Open</a>
+                        @if(Auth::user()->id == $homeWork->teacher_id)
+                            {!! Form::open(['route' => ['team.homework.delete', $team->name, $homeWork->name]]) !!}
+                                <button type="submit" class="red waves-effect waves-light btn btn-small m-r-10"><i class="material-icons right">delete</i>Delete</button>
+                            {!! Form::close() !!}
+                        @endif
                     </div>
                 </div>
             </div>
