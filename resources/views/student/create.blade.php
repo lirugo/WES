@@ -155,7 +155,7 @@
                             <option value="4" {{ old('english_lvl') ? 'selected="selected"' : '' }}>4</option>
                             <option value="5" selected {{ old('english_lvl') ? 'selected="selected"' : '' }}>5</option>
                         </select>
-                        <span class="helper-text" data-error="wrong" data-success="All is Ok.">Select English language assessment from 1 to 5</span>
+                        <span class="helper-text" data-error="wrong" data-success="All is Ok.">Select English language assessment from 1(min) to 5(max)</span>
                     </div>
                     {{--Introduction score--}}
                     <div class="input-field">

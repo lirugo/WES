@@ -81,7 +81,7 @@ class TeamController extends Controller
         Session::flash('success', 'Team was successfully created. You owner this team');
 
         // Return to manage
-        return redirect(url('/team/'.$team->name.'/edit'));
+        return redirect(url('/team/'.$team->name));
     }
 
     public function show($name){
