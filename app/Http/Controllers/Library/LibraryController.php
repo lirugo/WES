@@ -135,7 +135,7 @@ class LibraryController extends Controller
     }
 
     public function getImage($name){
-        $path = storage_path('\app\library\image\/'.$name);
+        $path = storage_path('/app/library/image/'.$name);
         return response()->file($path);
     }
 
@@ -155,6 +155,6 @@ class LibraryController extends Controller
     }
 
     public function getFile($name){
-        $path = storage_path('\app\library\/'.$name);
+        $path = storage_path('/app/library/'.$name);
         return response()->file($path);}
 }
