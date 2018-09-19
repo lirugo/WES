@@ -5,25 +5,30 @@
 @section('content')
     {{--Name and Manager block--}}
     <div class="row">
-        <div class="col s12 m6 l8">
-            <div class="card-panel hoverable">
-                <div class="input-field">
-                    <i class="material-icons prefix">attachment</i>
-                    {!! Form::text('name', $team->name, ['class' => 'validate', 'id' => 'name', 'required', 'disabled']) !!}
-                    <label for="name">Name</label>
-                </div>
-                <div class="input-field">
-                    <i class="material-icons prefix">group</i>
-                    {!! Form::text('display_name', $team->display_name, ['class' => 'validate', 'id' => 'display_name', 'required']) !!}
-                    <label for="display_name">Displaying Name</label>
-                </div>
-                <div class="input-field">
-                    <i class="material-icons prefix">format_align_justify</i>
-                    {!! Form::textarea('description', $team->description, ['class' => 'validate materialize-textarea', 'id' => 'description', 'required']) !!}
-                    <label for="description">Description</label>
+        {!! Form::open(['route' => ['team.update', $team->name], 'method' => 'POST']) !!}
+            <div class="col s12 m6 l8">
+                <div class="card-panel hoverable">
+                    <div class="input-field">
+                        <i class="material-icons prefix">attachment</i>
+                        {!! Form::text('name', $team->name, ['class' => 'validate', 'id' => 'name', 'required', 'disabled']) !!}
+                        <label for="name">Name</label>
+                    </div>
+                    <div class="input-field">
+                        <i class="material-icons prefix">group</i>
+                        {!! Form::text('display_name', $team->display_name, ['class' => 'validate', 'id' => 'display_name', 'required']) !!}
+                        <label for="display_name">Displaying Name</label>
+                    </div>
+                    <div class="input-field">
+                        <i class="material-icons prefix">format_align_justify</i>
+                        {!! Form::textarea('description', $team->description, ['class' => 'validate materialize-textarea', 'id' => 'description', 'required']) !!}
+                        <label for="description">Description</label>
+                    </div>
+                    @role('manager')
+                    <button type="submit" class="yellow darken-4 waves-effect waves-light btn"><i class="material-icons right">update</i>Update</button>
+                    @endrole
                 </div>
             </div>
-        </div>
+        {!! Form::close() !!}
         <div class="col s12 m6 l4">
             <div class="s12">
                 <div class="card-panel indigo white-text m-b-0">

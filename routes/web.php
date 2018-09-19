@@ -133,6 +133,7 @@
         Route::get('/{name}/homework/{discipline}/{homework}', 'HomeWork\HomeWorkController@homework');
         Route::get('/{name}/homework/{discipline}/{homework}/edit', 'HomeWork\HomeWorkController@edit');
 
+        Route::post('/{name}/update', 'TeamController@update')->name('team.update');
         Route::post('/{name}/homework/{discipline}/store', 'HomeWork\HomeWorkController@store')->name('team.homework.store');
         Route::post('/{name}/homework/{discipline}/{homework}/update', 'HomeWork\HomeWorkController@update')->name('team.homework.update');
         Route::post('/{name}/homework/{discipline}/{homework}', 'HomeWork\HomeWorkController@solution')->name('team.homework.solution');

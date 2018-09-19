@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Team;
 
 use App\Discipline;
 use App\Http\Requests\StoreTeam;
+use App\Http\Requests\UpdateTeam;
 use App\Permission;
 use App\Role;
 use App\Team;
@@ -133,6 +134,23 @@ class TeamController extends Controller
 
         // Show flash msg
         Session::flash('success', 'Student was successfully deleted from group.');
+
+        // Return to manage
+        return back();
+    }
+
+    public function update(UpdateTeam $request, $team){
+        // Find team
+        $team = Team::where('name', $team)->first();
+
+        // Update
+        $team->update([
+            'display_name' => $request->display_name,
+            'description' => $request->description,
+        ]);
+
+        // Show flash msg
+        Session::flash('success', 'Team was successfully updated.');
 
         // Return to manage
         return back();
