@@ -88,7 +88,8 @@
                             {{--English lvl--}}
                             <div class="input-field">
                                 <i class="material-icons prefix">language</i>
-                                {!! Form::text('gender', $user->student->english_lvl, ['class' => 'validate', 'id' => 'gender', 'disabled']) !!}
+                                {!! Form::text('english_lvl', $user->student->english_lvl, ['class' => 'validate', 'id' => 'gender', 'disabled']) !!}
+                                <label for="english_lvl">1(min) to 5(max)</label>
                                 <span class="helper-text" data-error="wrong" data-success="All is Ok.">English level</span>
                             </div>
                         </div>
@@ -96,7 +97,7 @@
                             {{--Introduction score--}}
                             <div class="input-field">
                                 <i class="material-icons prefix">dvr</i>
-                                {!! Form::text('gender', $user->student->introductory_score, ['class' => 'validate', 'id' => 'gender', 'disabled']) !!}
+                                {!! Form::text('introductory_score', $user->student->introductory_score, ['class' => 'validate', 'id' => 'gender', 'disabled']) !!}
                                 <span class="helper-text" data-error="Choose a rating from 50 to 100" data-success="All is Ok">Introductory score</span>
                             </div>
                         </div>
