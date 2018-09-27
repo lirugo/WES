@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laratrust\Traits\LaratrustUserTrait;
@@ -461,5 +462,9 @@ class User extends Authenticatable
 
     public function teams(){
         return $this->rolesTeams;
+    }
+
+    public function getCountOfYear(){
+        return Carbon::parse(Auth::user()->date_of_birth)->age;
     }
 }
