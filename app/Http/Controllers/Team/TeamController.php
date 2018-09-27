@@ -24,7 +24,7 @@ class TeamController extends Controller
     }
 
     public function index(){
-        $teams = Team::all();
+        $teams = Auth::user()->teams();
         return view('team.index')->withTeams($teams);
     }
 
