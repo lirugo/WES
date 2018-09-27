@@ -61,7 +61,9 @@
                     <p class="card-title m-b-0">{{$student->getShortName()}}</p>
                     <p class="card-title m-t-0 m-b-0">{{$student->email}}</p>
                     <p class="card-title m-t-0 m-b-0">{{$student->getPhone()}}</p>
-                    <p class="card-title m-t-0">{{$student->getCountOfYear()}} years old</p>
+                    @if(Auth::user()->hasRole(['top-manager', 'manager', 'teacher']))
+                        <p class="card-title m-t-0">{{$student->getCountOfYear()}} years old</p>
+                    @endif
                     @if(Auth::user()->hasRole(['administrator', 'top-manager', 'manager']))
                         {!! Form::open(['route' => ['team.student.delete', $team->id, $student->id]]) !!}
                         <button type="submit" class="red darken-1 waves-effect waves-light btn"><i class="material-icons right">delete</i>Delete</button>
@@ -88,7 +90,9 @@
                     <p class="card-title m-t-0 m-b-0">{{$discipline->getTeacher->email}}</p>
                     <p class="card-title m-t-0 m-b-0">{{$discipline->getTeacher->getPhone()}}</p>
                     <p class="card-title m-t-0 m-b-0">Hours - {{$discipline->hours}}</p>
-                    <p class="card-title m-t-0">{{$student->getCountOfYear()}} years old</p>
+                    @if(Auth::user()->hasRole(['top-manager', 'manager', 'teacher']))
+                        <p class="card-title m-t-0">{{$discipline->getTeacher->getCountOfYear()}} years old</p>
+                    @endif
                 </div>
             </div>
         @endforeach

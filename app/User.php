@@ -465,6 +465,6 @@ class User extends Authenticatable
     }
 
     public function getCountOfYear(){
-        return Carbon::parse(Auth::user()->date_of_birth)->age;
+        return Carbon::parse($this->date_of_birth)->age;
     }
 }
