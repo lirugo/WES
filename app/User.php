@@ -200,7 +200,6 @@ class User extends Authenticatable
         $user = $this->create([
             'email' => $request->email,
             'date_of_birth' => $request->date_of_birth,
-            'avatar' => $request->avatar,
             'gender' => $request->gender,
             'password' => bcrypt($request->password),
         ]);

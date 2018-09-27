@@ -39,7 +39,6 @@ class StoreUserStudent extends FormRequest
             'dialling_code' => 'required|in:' . implode(',', array_keys(config('dialling_code'))),
             'phone_number' => 'required|numeric',
             'gender' => 'required|in:male,female',
-            'avatar' => 'required',
             'password' => 'required|min:8|confirmed',
 
             'english_lvl' => 'required|numeric',
