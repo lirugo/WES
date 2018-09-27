@@ -75,7 +75,7 @@
     </div>
     {{--Floating button--}}
     <div class="fixed-action-btn">
-        <button type="submit" class="btn-floating btn-large green tooltipped" data-position="left" data-tooltip="Create Group">
+        <button type="submit" class="btn-floating btn-large green tooltipped" data-position="left" data-tooltip="Add Book">
             <i class="large material-icons">add</i>
         </button>
     </div>

@@ -31,25 +31,8 @@
         <div class="col s12 m6 l6">
             <div class="card hoverable" id="avatar">
                 <div class="card-image">
-                    <img :src="imgDataUrl">
-                    <a class="btn-floating btn-large halfway-fab waves-effect waves-light red" @click="toggleShow"><i class="material-icons">edit</i></a>
+                    <img src="{{asset('/uploads/avatars/'.$user->avatar)}}">
                 </div>
-                <input name="avatar" type="hidden" v-model="avatarName"/>
-                <widget-avatar-cropper
-                        field="avatar"
-                        @crop-success="cropSuccess"
-                        @crop-upload-success="cropUploadSuccess"
-                        @crop-upload-fail="cropUploadFail"
-                        v-model="show"
-                        :width="300"
-                        :height="300"
-                        lang-type='en'
-                        no-rotate
-                        url="/store/avatar"
-                        :params="params"
-                        :headers="headers"
-                        img-format="png">
-                </widget-avatar-cropper>
             </div>
             <div class="card-panel hoverable">
                 <h5 class="m-t-0 center-align">General</h5>
@@ -182,59 +165,4 @@
         {{--</div>--}}
     {{--</div>--}}
     {!! Form::close() !!}
-@endsection
-
-@section('scripts')
-    <script>
-        new Vue({
-            el: '#avatar',
-            data: {
-                show: false,
-                params: {
-                    name: 'avatar',
-                },
-                headers: {
-                    'X-CSRF-Token': document.head.querySelector("[name=csrf-token]").content
-                },
-                imgDataUrl: '/uploads/avatars/' + {!! json_encode($user->avatar) !!},
-                avatarName: ''
-            },
-            methods: {
-                toggleShow() {
-                    this.show = !this.show;
-                },
-                /**
-                 * crop success
-                 *
-                 * [param] imgDataUrl
-                 * [param] field
-                 */
-                cropSuccess(imgDataUrl, field){
-                    console.log('-------- crop success --------');
-                    this.imgDataUrl = imgDataUrl;
-                },
-                /**
-                 * upload success
-                 *
-                 * [param] jsonData  server api return data, already json encode
-                 * [param] field
-                 */
-                cropUploadSuccess(jsonData, field){
-                    console.log('-------- upload success --------');
-                    this.avatarName = jsonData.avatar;
-                },
-                /**
-                 * upload fail
-                 *
-                 * [param] status    server api return error status, like 500
-                 * [param] field
-                 */
-                cropUploadFail(status, field){
-                    console.log('-------- upload fail --------');
-                    console.log(status);
-                    console.log('field: ' + field);
-                }
-            }
-        });
-    </script>
 @endsection
