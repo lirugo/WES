@@ -231,14 +231,17 @@ class HomeWorkController extends Controller
     }
 
     public function delete($team, $homeWork){
+        // Team
+        $team = Team::where('name', $team)->first();
+
         // Find
         $homeWork = TeamsHomeWork::where('name', $homeWork)->first();
 
         // Check permission
-        if(Auth::user()->id != $homeWork->teacher_id)
-            abort(403);
-        else
+        if(Auth::user()->id == $homeWork->teacher_id || Auth::user()->id == $team->getOwner()->id)
             $homeWork->delete();
+        else
+            abort(403);
 
         // Flash message
         Session::flash('success', 'Homework was successfully deleted.');
