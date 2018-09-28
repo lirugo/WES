@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Student;
 
 use App\Http\Requests\StoreUserStudent;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateUserStudent;
 use App\Role;
 use App\User;
 use Illuminate\Http\Request;
@@ -13,7 +14,7 @@ class StudentController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('role:administrator|top-manager|manager');
     }
 
     public function index(){
@@ -42,6 +43,16 @@ class StudentController extends Controller
         Session::flash('success', 'Student was successfully created.');
         // Redirect to manage page
         return redirect(url('/student'));
+    }
+
+    public function update(UpdateUserStudent $request, $id){
+        //Find student
+        $student = User::find($id);
+        $student->updateStudent($request);
+        // Show flash msg
+        Session::flash('success', 'Student was successfully updated.');
+        // Redirect to manage page
+        return back();
     }
 
     public function storeAvatar(Request $request){

@@ -10,6 +10,10 @@ class UserPhone extends Model
 
     protected $guarded = ['id'];
 
+    public function getCode(){
+        return DiallingCode::find($this->dialling_code_id);
+    }
+
     public function diallingCode($id){
         return DiallingCode::find($id)->first();
     }

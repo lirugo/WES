@@ -103,7 +103,11 @@
         Route::get('/', 'StudentController@index');
         Route::get('/create', 'StudentController@create');
         Route::get('/{id}', 'StudentController@show');
+        Route::get('/{id}/social/{socialId}/delete', 'SocialController@delete')->name('student.social.delete');
+
         Route::post('/store', 'StudentController@store')->name('student.store');
+        Route::post('/{id}/update', 'StudentController@update')->name('student.update');
+        Route::post('/{id}/social/store', 'SocialController@store')->name('student.social.store');
     });
 
 /*

@@ -42,9 +42,9 @@ class StoreUserManager extends FormRequest
             'avatar' => 'required',
             'password' => 'required|min:8|confirmed',
 
-            'social_facebook' => 'nullable',
-            'social_twitter' => 'nullable',
-            'social_linkedin' => 'nullable',
+            'social_facebook' => 'nullable|active_url',
+            'social_twitter' => 'nullable|active_url',
+            'social_linkedin' => 'nullable|active_url',
         ];
     }
 }

@@ -46,7 +46,7 @@ class StoreUserStudent extends FormRequest
 
             'education_name' => 'required|string',
             'education_speciality' => 'required|string',
-            'education_rank' => 'required||in:' . implode(',', array_keys(config('education_rank'))),
+            'education_rank' => 'required|in:' . implode(',', array_keys(config('education_rank'))),
 
             'job_name' => 'required|string',
             'job_position' => 'required|string',

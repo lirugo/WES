@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'bachelor' => 'Bachelor',
-    'specialist' => 'Specialist',
-    'master' => 'Master',
+    'Bachelor' => 'Bachelor',
+    'Specialist' => 'Specialist',
+    'Master' => 'Master',
 ];

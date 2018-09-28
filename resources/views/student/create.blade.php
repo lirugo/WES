@@ -149,11 +149,11 @@
                         <i class="material-icons prefix">language</i>
                         <select name="english_lvl" required>
                             <option value="" disabled>Choose English lvl</option>
-                            <option value="1" {{ old('english_lvl') ? 'selected="selected"' : '' }}>1</option>
+                            <option value="1" {{ old('english_lvl') ? 'selected="selected"' : '' }}>1 (min)</option>
                             <option value="2" {{ old('english_lvl') ? 'selected="selected"' : '' }}>2</option>
                             <option value="3" {{ old('english_lvl') ? 'selected="selected"' : '' }}>3</option>
                             <option value="4" {{ old('english_lvl') ? 'selected="selected"' : '' }}>4</option>
-                            <option value="5" selected {{ old('english_lvl') ? 'selected="selected"' : '' }}>5</option>
+                            <option value="5" selected {{ old('english_lvl') ? 'selected="selected"' : '' }}>5 (max)</option>
                         </select>
                         <span class="helper-text" data-error="wrong" data-success="All is Ok.">Select English language assessment from 1(min) to 5(max)</span>
                     </div>

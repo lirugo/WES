@@ -10211,3 +10211,7 @@ input[type=range]::-ms-thumb {
   height: 100vh;
 }
 
+i.icon-red {
+  color: #f44336;
+}
+
