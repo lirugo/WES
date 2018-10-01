@@ -3,7 +3,7 @@
     {{ Breadcrumbs::render('team-show-homework-discipline-homework-edit', $team, $discipline->getDiscipline, $homeWork) }}
 @endsection
 @section('content')
-    {!! Form::open(['route' => ['team.homework.update',$team->name,$discipline->getDiscipline->name,$homeWork->name], 'enctype' => 'multipart/form-data', 'method' => 'POST']) !!}
+    {!! Form::open(['route' => ['team.homework.solution.update',$team->name,$discipline->getDiscipline->name,$homeWork->name], 'enctype' => 'multipart/form-data', 'method' => 'POST']) !!}
     {{--Add Home Work--}}
     <div class="row">
         <div class="col s12">
@@ -15,6 +15,19 @@
                 </div>
                 <div class="input-field">
                     <textarea name="description">{{$homeWork->getSolution()->description}}</textarea>
+                </div>
+                <div class="file-field">
+                    @if(count($homeWork->getSolution()->getFilesSolution($homeWork->getSolution()->student_id)) != 0)
+                        <div class="row">
+                            @foreach($homeWork->getSolution()->getFilesSolution($homeWork->getSolution()->student_id) as $file)
+                                <div class="input-field col s3 m-t-5 m-b-0">
+                                    <a href="{{url('/team/'.$team->name.'/homework/'.$discipline->getDiscipline->name.'/file/'.$file->name)}}" download class="valign-wrapper">
+                                        <i class="material-icons m-r-5">cloud_download</i> Download *.{{pathinfo($file->name, PATHINFO_EXTENSION)}}
+                                    </a>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
                 </div>
                 <div class="file-field">
                     <div class="btn indigo">

@@ -136,12 +136,13 @@
         Route::get('/{name}/homework/{discipline}/create', 'HomeWork\HomeWorkController@create');
         Route::get('/{name}/homework/{discipline}/file/{file}', 'HomeWork\HomeWorkController@file')->name('team.homework.file');
         Route::get('/{name}/homework/{discipline}/{homework}', 'HomeWork\HomeWorkController@homework');
-        Route::get('/{name}/homework/{discipline}/{homework}/edit', 'HomeWork\HomeWorkController@edit');
+        Route::get('/{name}/homework/{discipline}/{homework}/solution/edit', 'HomeWork\SolutionController@edit');
 
         Route::post('/{name}/update', 'TeamController@update')->name('team.update');
         Route::post('/{name}/homework/{homework}/delete', 'HomeWork\HomeWorkController@delete')->name('team.homework.delete');
         Route::post('/{name}/homework/{discipline}/store', 'HomeWork\HomeWorkController@store')->name('team.homework.store');
         Route::post('/{name}/homework/{discipline}/{homework}/update', 'HomeWork\HomeWorkController@update')->name('team.homework.update');
+        Route::post('/{name}/homework/{discipline}/{homework}/solution/update', 'HomeWork\SolutionController@update')->name('team.homework.solution.update');
         Route::post('/{name}/homework/{discipline}/{homework}', 'HomeWork\HomeWorkController@solution')->name('team.homework.solution');
         Route::post('/{name}/schedule/store', 'Schedule\ScheduleController@store')->name('team.schedule.store');
         Route::post('/{name}/schedule/{id}/delete', 'Schedule\ScheduleController@delete')->name('team.schedule.delete');

@@ -4,29 +4,90 @@
 @endsection
 @section('content')
    <div class="row">
-        <div class="col s12 m6 l6">
-            <div class="card hoverable">
-                <div class="card-content">
-                    <p class="right tooltipped" data-position="left" data-tooltip="Its Task"><i class="material-icons">help_outline</i></p>
-                    <span class="card-title">{{$homeWork->display_name}}</span>
-                    <p>{!!$homeWork->description!!}</p>
-                    <small><blockquote>Created - {{$homeWork->created_at->format('Y-m-d H:i')}} ({{$homeWork->created_at->diffForHumans()}})</blockquote></small>
-                    <small><blockquote>End date - {{Carbon\Carbon::parse($homeWork->assignment_date)->format('Y-m-d H:i')}} ({{Carbon\Carbon::parse($homeWork->assignment_date)->diffForHumans()}})</blockquote></small>
-                    @if(count($homeWork->getFilesTask()) != 0)
-                        <hr>
-                        <div class="row">
-                            @foreach($homeWork->getFilesTask() as $file)
-                                <div class="col s6 m-t-5">
-                                    <a href="{{url('/team/'.$team->name.'/homework/'.$discipline->getDiscipline->name.'/file/'.$file->name)}}" download class="valign-wrapper">
-                                        <i class="material-icons m-r-5">cloud_download</i> Download *.{{pathinfo($file->name, PATHINFO_EXTENSION)}}
-                                    </a>
-                                </div>
-                            @endforeach
-                        </div>
-                    @endif
-                </div>
-            </div>
-        </div>
+       @if(Auth::user()->hasRole(['administrator', 'top-manager', 'manager', 'teacher']))
+           <div class="col s12">
+               <div class="card hoverable">
+                   <div class="card-content">
+                       {!! Form::open(['route' => ['team.homework.update',$team->name, $discipline->getDiscipline->name, $homeWork->name], 'enctype' => 'multipart/form-data', 'method' => 'POST']) !!}
+                       <div class="input-field m-b-0">
+                           <i class="material-icons prefix">title</i>
+                           {!! Form::text('display_name', $homeWork->display_name, ['class' => 'validate', 'name' => 'display_name', 'id' => 'display_name', 'v-model' => 'title', 'required']) !!}
+                           <label for="display_name">Display Name</label>
+                       </div>
+                       <widget-slug url="{{url('/')}}" subdirectory="/team/{{$team->name}}/homework/{{$discipline->getDiscipline->name}}/" :title="title"></widget-slug>
+                       <div class="input-field">
+                           <textarea name="description">{{$homeWork->description}}</textarea>
+                       </div>
+                       <div class="row">
+                           @if(count($homeWork->getFilesTask()) != 0)
+                               <div class="row">
+                                   @foreach($homeWork->getFilesTask() as $file)
+                                       <div class="input-field col s3 m-t-5 m-b-0">
+                                           <a href="{{url('/team/'.$team->name.'/homework/'.$discipline->getDiscipline->name.'/file/'.$file->name)}}" download class="valign-wrapper">
+                                               <i class="material-icons m-r-5">cloud_download</i> Download *.{{pathinfo($file->name, PATHINFO_EXTENSION)}}
+                                           </a>
+                                       </div>
+                                   @endforeach
+                               </div>
+                           @endif
+                           <div class="input-field col s12 m4 l4">
+                               <div class="file-field">
+                                   <div class="btn indigo">
+                                       <span>File</span>
+                                       <input type="file" name="file[]" multiple>
+                                   </div>
+                                   <div class="file-path-wrapper">
+                                       <input class="file-path validate" type="text" placeholder="Update files">
+                                   </div>
+                               </div>
+                           </div>
+                           {{--End date&time picker--}}
+                           <div class="input-field col s12 m4 l4">
+                               <i class="material-icons prefix">date_range</i>
+                               <input id="end_date" value="{{Carbon\Carbon::parse($homeWork->assignment_date)->format('Y-m-d')}}" name="end_date" type="text" class="datepickerDefault" required>
+                               <label for="end_date">End Date Assignment</label>
+                           </div>
+                           <div class="input-field col s12 m4 l4">
+                               <i class="material-icons prefix">access_time</i>
+                               <input id="end_time" value="{{Carbon\Carbon::parse($homeWork->assignment_date)->format('H:i')}}" name="end_time" type="text" class="timepicker" required>
+                               <label for="end_time">End Time Assignment</label>
+                           </div>
+                       </div>
+                       {{--Floating button--}}
+                       <div class="fixed-action-btn">
+                           <button type="submit" class="btn-floating btn-large yellow darken-3 tooltipped" data-position="left" data-tooltip="Update">
+                               <i class="large material-icons">cloud</i>
+                           </button>
+                       </div>
+                       {!! Form::close() !!}
+                   </div>
+               </div>
+           </div>
+       @else
+           <div class="col s12">
+               <div class="card hoverable">
+                   <div class="card-content">
+                       <p class="right tooltipped" data-position="left" data-tooltip="Its Task"><i class="material-icons">help_outline</i></p>
+                       <span class="card-title">{{$homeWork->display_name}}</span>
+                       <p>{!!$homeWork->description!!}</p>
+                       <small><blockquote>Created - {{$homeWork->created_at->format('Y-m-d H:i')}} ({{$homeWork->created_at->diffForHumans()}})</blockquote></small>
+                       <small><blockquote>End date - {{Carbon\Carbon::parse($homeWork->assignment_date)->format('Y-m-d H:i')}} ({{Carbon\Carbon::parse($homeWork->assignment_date)->diffForHumans()}})</blockquote></small>
+                       @if(count($homeWork->getFilesTask()) != 0)
+                           <hr>
+                           <div class="row">
+                               @foreach($homeWork->getFilesTask() as $file)
+                                   <div class="col s6 m-t-5">
+                                       <a href="{{url('/team/'.$team->name.'/homework/'.$discipline->getDiscipline->name.'/file/'.$file->name)}}" download class="valign-wrapper">
+                                           <i class="material-icons m-r-5">cloud_download</i> Download *.{{pathinfo($file->name, PATHINFO_EXTENSION)}}
+                                       </a>
+                                   </div>
+                               @endforeach
+                           </div>
+                       @endif
+                   </div>
+               </div>
+           </div>
+       @endif
     </div>
 
     @if(Auth::user()->hasRole(['administrator', 'top-manager', 'manager', 'teacher']))
@@ -123,7 +184,7 @@
                             {{--Floating button--}}
                                 <div class="fixed-action-btn">
                                     <a class="btn-floating btn-large red tooltipped" data-position="left" data-tooltip="Edit My Solution"
-                                       href="{{url('/team/'.$team->name.'/homework/'.$discipline->getDiscipline->name.'/'.$homeWork->name.'/edit')}}">
+                                       href="{{url('/team/'.$team->name.'/homework/'.$discipline->getDiscipline->name.'/'.$homeWork->name.'/solution/edit')}}">
                                         <i class="large material-icons">edit</i>
                                     </a>
                                 </div>
