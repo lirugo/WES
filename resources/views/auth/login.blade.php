@@ -25,10 +25,10 @@
                                 <div class="g-recaptcha right" data-sitekey="{{env('GOOGLE_CAPTCHA_KEY')}}"></div>
                             </div>
                             <div class="col s12">
-                                <label>
-                                    <input type="checkbox" />
-                                    <span>Remember Me?</span>
-                                </label>
+                                {{--<label>--}}
+                                    {{--<input type="checkbox" />--}}
+                                    {{--<span>Remember Me?</span>--}}
+                                {{--</label>--}}
                                 <button class="btn waves-effect waves-light grey lighten-5 indigo-text right" type="submit" name="action">Sign in
                                     <i class="material-icons right">send</i>
                                 </button>

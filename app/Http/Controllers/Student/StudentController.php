@@ -9,6 +9,7 @@ use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 use Session;
+use Auth;
 
 class StudentController extends Controller
 {
@@ -55,7 +56,7 @@ class StudentController extends Controller
         return back();
     }
 
-    public function storeAvatar(Request $request){
+    public function updateAvatar(Request $request, $id){
         if($request->hasFile('avatar')){
             $file = $request->avatar;
 
@@ -63,6 +64,11 @@ class StudentController extends Controller
             $filename = time() . '.' . $file->getClientOriginalExtension();
 
             $file->move($destinationPath, $filename);
+
+            $student = User::find($id);
+            $student->avatar = $filename;
+            $student->save();
+
             return json_encode(['status' => 'OK', 'avatar' => $filename]);
         }
     }

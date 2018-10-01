@@ -107,6 +107,7 @@
 
         Route::post('/store', 'StudentController@store')->name('student.store');
         Route::post('/{id}/update', 'StudentController@update')->name('student.update');
+        Route::post('/{id}/avatar/update', 'StudentController@updateAvatar')->name('student.avatar.update');
         Route::post('/{id}/social/store', 'SocialController@store')->name('student.social.store');
     });
 

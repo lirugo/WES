@@ -5,6 +5,7 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Collection;
 use Laratrust\Traits\LaratrustUserTrait;
 use MongoDB\Driver\Exception\Exception;
 use Image;
@@ -504,5 +505,14 @@ class User extends Authenticatable
 
     public function getCountOfYear(){
         return Carbon::parse($this->date_of_birth)->age;
+    }
+
+    public function getAllMyStudents(){
+        $teams = $this->teams();
+        $students = new Collection();
+        foreach ($teams as $team){
+            $students = $students->merge($team->getStudents());
+        }
+        return $students;
     }
 }

@@ -5,14 +5,6 @@
 @section('content')
     {{--Social block--}}
     <div class="row">
-        <div class="col s12 m4">
-            <div class="card ">
-                <div class="card-image ">
-                    <img src="{{asset('/uploads/avatars/'.$student->avatar)}}">
-                    <span class="card-title">{{$student->getShortName()}}</span>
-                </div>
-            </div>
-        </div>
         <div class="col s12 m8">
             <div class="card-panel small hoverable">
                 <h5 class="m-t-0 center-align">Social networks</h5>
@@ -56,6 +48,30 @@
                 @endif
             </div>
         </div>
+        <div class="col s12 m4">
+            <div class="card hoverable" id="avatar">
+                <div class="card-image">
+                    <img :src="imgDataUrl">
+                    <a class="btn-floating btn-large halfway-fab waves-effect waves-light red" @click="toggleShow"><i class="material-icons">cloud_upload</i></a>
+                </div>
+                <input name="avatar" type="hidden" v-model="avatarName"/>
+                <widget-avatar-cropper
+                        field="avatar"
+                        @crop-success="cropSuccess"
+                        @crop-upload-success="cropUploadSuccess"
+                        @crop-upload-fail="cropUploadFail"
+                        v-model="show"
+                        :width="300"
+                        :height="300"
+                        lang-type='en'
+                        no-rotate
+                        url="/student/{{$student->id}}/avatar/update"
+                        :params="params"
+                        :headers="headers"
+                        img-format="png">
+                </widget-avatar-cropper>
+            </div>
+        </div>
     </div>
 
     {!! Form::open(['route' => ['student.update', $student->id], 'method' => 'POST']) !!}
@@ -83,73 +99,71 @@
             </div>
         </div>
         <div class="col s12 m6 l6">
-            <div class="col s12">
-                <div class="card-panel hoverable">
-                    <h5 class="m-t-0 center-align">General</h5>
-                    {{--Date of birth--}}
-                    <div class="input-field">
-                        <i class="material-icons prefix">date_range</i>
-                        {!! Form::text('date_of_birth', $student->date_of_birth, ['class' => 'validate datepicker', 'id' => 'date_of_birth', 'required', 'disabled']) !!}
-                        <label for="date_of_birth">Date of Birthday</label>
-                        <span class="helper-text" data-error="wrong" data-success="All is Ok."></span>
-                    </div>
-                    {{--Email--}}
-                    <div class="input-field">
-                        <i class="material-icons prefix">email</i>
-                        {!! Form::email('email', $student->email, ['class' => 'validate', 'id' => 'email', 'required', 'disabled']) !!}
-                        <label for="email">Email</label>
-                    </div>
-                    {{--Phone--}}
-                    <div class="row m-b-0 m-t-0">
-                        <div class="col s4">
-                            {{--Dialing code--}}
-                            <div class="input-field m-b-0 m-t-0">
-                                <i class="material-icons prefix">phone</i>
-                                <select name="dialling_code">
-                                    <option value="" disabled>Country Code</option>
-                                    @foreach (config('dialling_code') as $key => $name)
-                                        <option value="{{ $key }}"{{ $student->phones()->first()->getCode()->dialling_code == $key ? 'selected="selected"' : '' }}>{{ $key }}</option>
-                                    @endforeach
-                                </select>
-                                <span class="helper-text" data-error="wrong" data-success="All is Ok.">Code</span>
-                            </div>
-                        </div>
-                        <div class="col s8">
-                            {{--User phone--}}
-                            <div class="input-field m-b-0 m-t-0">
-                                {!! Form::text('phone_number', $student->phones()->first()->phone_number, ['class' => 'validate', 'id' => 'phone_number', 'required']) !!}
-                                <label for="phone_number">XX XXX XX XX</label>
-                                <span class="helper-text" data-error="wrong" data-success="All is Ok.">Phone number</span>
-                            </div>
+            <div class="card-panel hoverable">
+                <h5 class="m-t-0 center-align">General</h5>
+                {{--Date of birth--}}
+                <div class="input-field">
+                    <i class="material-icons prefix">date_range</i>
+                    {!! Form::text('date_of_birth', $student->date_of_birth, ['class' => 'validate datepicker', 'id' => 'date_of_birth', 'required', 'disabled']) !!}
+                    <label for="date_of_birth">Date of Birthday</label>
+                    <span class="helper-text" data-error="wrong" data-success="All is Ok."></span>
+                </div>
+                {{--Email--}}
+                <div class="input-field">
+                    <i class="material-icons prefix">email</i>
+                    {!! Form::email('email', $student->email, ['class' => 'validate', 'id' => 'email', 'required', 'disabled']) !!}
+                    <label for="email">Email</label>
+                </div>
+                {{--Phone--}}
+                <div class="row m-b-0 m-t-0">
+                    <div class="col s4">
+                        {{--Dialing code--}}
+                        <div class="input-field m-b-0 m-t-0">
+                            <i class="material-icons prefix">phone</i>
+                            <select name="dialling_code">
+                                <option value="" disabled>Country Code</option>
+                                @foreach (config('dialling_code') as $key => $name)
+                                    <option value="{{ $key }}"{{ $student->phones()->first()->getCode()->dialling_code == $key ? 'selected="selected"' : '' }}>{{ $key }}</option>
+                                @endforeach
+                            </select>
+                            <span class="helper-text" data-error="wrong" data-success="All is Ok.">Code</span>
                         </div>
                     </div>
-                    {{--Gender--}}
-                    <div class="input-field">
-                        <i class="material-icons prefix">accessibility</i>
-                        <select name="gender" required disabled>
-                            <option value="" disabled>{{$student->gender}}</option>
-                        </select>
-                        <span class="helper-text" data-error="wrong" data-success="All is Ok.">Gender</span>
+                    <div class="col s8">
+                        {{--User phone--}}
+                        <div class="input-field m-b-0 m-t-0">
+                            {!! Form::text('phone_number', $student->phones()->first()->phone_number, ['class' => 'validate', 'id' => 'phone_number', 'required']) !!}
+                            <label for="phone_number">XX XXX XX XX</label>
+                            <span class="helper-text" data-error="wrong" data-success="All is Ok.">Phone number</span>
+                        </div>
                     </div>
-                    {{--English lvl--}}
-                    <div class="input-field">
-                        <i class="material-icons prefix">language</i>
-                        <select name="english_lvl" required>
-                            <option value="" disabled>Choose English lvl</option>
-                            <option value="1" {{ $student->student->english_lvl == 1 ? 'selected="selected"' : '' }}>1 (min)</option>
-                            <option value="2" {{ $student->student->english_lvl == 2 ? 'selected="selected"' : '' }}>2</option>
-                            <option value="3" {{ $student->student->english_lvl == 3 ? 'selected="selected"' : '' }}>3</option>
-                            <option value="4" {{ $student->student->english_lvl == 4 ? 'selected="selected"' : '' }}>4</option>
-                            <option value="5" {{ $student->student->english_lvl == 5 ? 'selected="selected"' : '' }}>5 (max)</option>
-                        </select>
-                        <span class="helper-text" data-error="wrong" data-success="All is Ok.">English lvl</span>
-                    </div>
-                    {{--Introduction score--}}
-                    <div class="input-field">
-                        <i class="material-icons prefix">dvr</i>
-                        {!! Form::number('introductory_score', $student->student->introductory_score, ['class' => 'validate', 'id' => 'introductory_score', 'min' => 50, 'max' => 100, 'step' => 1, 'required']) !!}
-                        <span class="helper-text" data-error="Choose a rating from 50 to 100" data-success="All is Ok">Introductory score</span>
-                    </div>
+                </div>
+                {{--Gender--}}
+                <div class="input-field">
+                    <i class="material-icons prefix">accessibility</i>
+                    <select name="gender" required disabled>
+                        <option value="" disabled>{{$student->gender}}</option>
+                    </select>
+                    <span class="helper-text" data-error="wrong" data-success="All is Ok.">Gender</span>
+                </div>
+                {{--English lvl--}}
+                <div class="input-field">
+                    <i class="material-icons prefix">language</i>
+                    <select name="english_lvl" required>
+                        <option value="" disabled>Choose English lvl</option>
+                        <option value="1" {{ $student->student->english_lvl == 1 ? 'selected="selected"' : '' }}>1 (min)</option>
+                        <option value="2" {{ $student->student->english_lvl == 2 ? 'selected="selected"' : '' }}>2</option>
+                        <option value="3" {{ $student->student->english_lvl == 3 ? 'selected="selected"' : '' }}>3</option>
+                        <option value="4" {{ $student->student->english_lvl == 4 ? 'selected="selected"' : '' }}>4</option>
+                        <option value="5" {{ $student->student->english_lvl == 5 ? 'selected="selected"' : '' }}>5 (max)</option>
+                    </select>
+                    <span class="helper-text" data-error="wrong" data-success="All is Ok.">English lvl</span>
+                </div>
+                {{--Introduction score--}}
+                <div class="input-field">
+                    <i class="material-icons prefix">dvr</i>
+                    {!! Form::number('introductory_score', $student->student->introductory_score, ['class' => 'validate', 'id' => 'introductory_score', 'min' => 50, 'max' => 100, 'step' => 1, 'required']) !!}
+                    <span class="helper-text" data-error="Choose a rating from 50 to 100" data-success="All is Ok">Introductory score</span>
                 </div>
             </div>
         </div>
@@ -213,4 +227,60 @@
         </button>
     </div>
     {!! Form::close() !!}
+@endsection
+
+
+@section('scripts')
+    <script>
+        new Vue({
+            el: '#avatar',
+            data: {
+                show: false,
+                params: {
+                    name: 'avatar',
+                },
+                headers: {
+                    'X-CSRF-Token': document.head.querySelector("[name=csrf-token]").content
+                },
+                imgDataUrl: '/uploads/avatars/' + {!! json_encode($student->avatar) !!},
+                avatarName: ''
+            },
+            methods: {
+                toggleShow() {
+                    this.show = !this.show;
+                },
+                /**
+                 * crop success
+                 *
+                 * [param] imgDataUrl
+                 * [param] field
+                 */
+                cropSuccess(imgDataUrl, field){
+                    console.log('-------- crop success --------');
+                    this.imgDataUrl = imgDataUrl;
+                },
+                /**
+                 * upload success
+                 *
+                 * [param] jsonData  server api return data, already json encode
+                 * [param] field
+                 */
+                cropUploadSuccess(jsonData, field){
+                    console.log('-------- upload success --------');
+                    this.avatarName = jsonData.avatar;
+                },
+                /**
+                 * upload fail
+                 *
+                 * [param] status    server api return error status, like 500
+                 * [param] field
+                 */
+                cropUploadFail(status, field){
+                    console.log('-------- upload fail --------');
+                    console.log(status);
+                    console.log('field: ' + field);
+                }
+            }
+        });
+    </script>
 @endsection
