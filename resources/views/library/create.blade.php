@@ -3,7 +3,7 @@
     {{ Breadcrumbs::render('library-create') }}
 @endsection
 @section('content')
-    {!! Form::open(['route' => 'library.store', 'enctype' => 'multipart/form-data']) !!}
+    {!! Form::open(['route' => 'library.store', 'enctype' => 'multipart/form-data', 'onsubmit' => 'progressBar()']) !!}
     <div class="row">
         <div class="col s12 m6 l6">
             <div class="card-panel">
@@ -79,11 +79,28 @@
             <i class="large material-icons">add</i>
         </button>
     </div>
+
+    <!-- Modal Structure -->
+    <div id="progress-bar" class="modal valign-wrapper">
+        <div class="modal-content">
+            <div class="progress">
+                <div class="indeterminate"></div>
+            </div>
+        </div>
+    </div>
     {!! Form::close() !!}
 @endsection
 
 @section('scripts')
     <script>
+
+        //Show progress
+        function progressBar(){
+            var elems = document.getElementById('progress-bar');
+            var instances = M.Modal.init(elems, {dismissible:false});
+            instances.open();
+        }
+
         //Chips
         var optionsChip = {
             placeholder: 'Enter a tag',

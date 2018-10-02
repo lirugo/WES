@@ -46311,6 +46311,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 		withCredentials: {
 			type: Boolean,
 			'default': false
+		},
+		method: {
+			type: String,
+			'default': 'POST'
 		}
 	},
 	data: function data() {
@@ -46597,6 +46601,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 		// 设置图片源
 		setSourceImg: function setSourceImg(file) {
+			this.$emit('src-file-set', file.name, file.type, file.size);
 			var that = this,
 			    fr = new FileReader();
 			fr.onload = function (e) {
@@ -46913,6 +46918,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			    ki = this.ki,
 			    createImgUrl = this.createImgUrl,
 			    withCredentials = this.withCredentials,
+			    method = this.method,
 			    fmData = new FormData();
 
 			fmData.append(field, Object(__WEBPACK_IMPORTED_MODULE_2__utils_data2blob_js__["a" /* default */])(createImgUrl, mime), field + '.' + imgFormat);
@@ -46937,7 +46943,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			that.setStep(3);
 			new Promise(function (resolve, reject) {
 				var client = new XMLHttpRequest();
-				client.open('POST', url, true);
+				client.open(method, url, true);
 				client.withCredentials = withCredentials;
 				client.onreadystatechange = function () {
 					if (this.readyState !== 4) {
@@ -47661,7 +47667,7 @@ var render = function() {
                           max: "100"
                         },
                         domProps: { value: _vm.scale.range },
-                        on: { input: _vm.zoomChange }
+                        on: { mousemove: _vm.zoomChange }
                       }),
                       _vm._v(" "),
                       _c("i", {
