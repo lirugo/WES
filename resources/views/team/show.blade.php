@@ -61,12 +61,13 @@
                     <p class="card-title m-b-0">{{$student->getShortName()}}</p>
                     <p class="card-title m-t-0 m-b-0">{{$student->email}}</p>
                     <p class="card-title m-t-0 m-b-0">{{$student->getPhone()}}</p>
-                    @if(Auth::user()->hasRole(['top-manager', 'manager', 'teacher']))
+                    @if(Auth::user()->hasRole(['administrator', 'top-manager', 'manager', 'teacher']))
                         <p class="card-title m-t-0">{{$student->getCountOfYear()}} years old</p>
                     @endif
                     @if(Auth::user()->hasRole(['administrator', 'top-manager', 'manager']))
                         {!! Form::open(['route' => ['team.student.delete', $team->id, $student->id]]) !!}
-                        <button type="submit" class="red darken-1 waves-effect waves-light btn"><i class="material-icons right">delete</i>Delete</button>
+                        <button type="submit" class="red darken-1 waves-effect waves-light btn btn-small"><i class="material-icons">delete</i></button>
+                        <a href="{{url('/student',$student->id)}}" class="indigo waves-effect waves-light btn btn-small right"><i class="material-icons">open_in_new</i></a>
                         {!! Form::close() !!}
                     @endif
                 </div>
