@@ -25,9 +25,7 @@
         @if($students->all() == null)
             <div class="row">
                 <div class="col s12">
-                    <div class="card-panel orange white-text">
-                        <h5 class="center-align m-t-0 m-b-0-">Sorry, but you do not have any groups...</h5>
-                    </div>
+                    <p>Sorry, but you do not have any free students...</p>
                 </div>
             </div>
         @endif

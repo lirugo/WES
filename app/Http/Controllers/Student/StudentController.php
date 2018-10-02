@@ -20,6 +20,11 @@ class StudentController extends Controller
 
     public function index(){
         $students = User::whereRoleIs('student')->get();
+        foreach ($students as $key => $student){
+            if(count($student->teams()) != 0)
+                unset($students[$key]);
+        }
+
         return view('student.index')->withStudents($students);
     }
 
