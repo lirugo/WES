@@ -103,12 +103,9 @@
         Route::get('/', 'StudentController@index');
         Route::get('/create', 'StudentController@create');
         Route::get('/{id}', 'StudentController@show');
-        Route::get('/{id}/social/{socialId}/delete', 'SocialController@delete')->name('student.social.delete');
 
         Route::post('/store', 'StudentController@store')->name('student.store');
         Route::post('/{id}/update', 'StudentController@update')->name('student.update');
-        Route::post('/{id}/avatar/update', 'StudentController@updateAvatar')->name('student.avatar.update');
-        Route::post('/{id}/social/store', 'SocialController@store')->name('student.social.store');
     });
 
 /*
@@ -184,12 +181,20 @@
     ], function () {
         Route::get('/', 'TeacherController@index');
         Route::get('/create', 'TeacherController@create');
-        Route::get('/{name}/edit', 'TeacherController@edit');
+        Route::get('/{id}', 'TeacherController@show');
+
         Route::post('/store', 'TeacherController@store')->name('teacher.store');
         Route::post('/{id}/update', 'TeacherController@update')->name('teacher.update');
         Route::post('/{id}/discipline/store', 'DisciplineController@store')->name('teacher.discipline.store');
     });
-    Route::get('/teacher/{id}', 'Teacher\TeacherController@show');
+
+/*
+|--------------------------------------------------------------------------
+| News Social route
+|--------------------------------------------------------------------------
+*/
+    Route::post('/social/{socialId}/delete', 'Social\SocialController@delete')->name('social.delete');
+    Route::post('/social/{userId}/store', 'Social\SocialController@store')->name('social.store');
 
 /*
 |--------------------------------------------------------------------------
@@ -219,3 +224,5 @@
     ], function () {
         Route::post('/avatar', 'AvatarController@store')->name('store.avatar');
     });
+
+Route::post('/avatar/{studentId}/update', 'Store\AvatarController@update')->name('avatar.update');

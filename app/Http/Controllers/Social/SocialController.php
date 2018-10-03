@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Student;
+namespace App\Http\Controllers\Social;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSocial;
@@ -96,7 +96,7 @@ class SocialController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete($studentId, $socialId)
+    public function delete($socialId)
     {
         UserSocial::find($socialId)->delete();
         Session::flash('success', 'Social was be deleted');

@@ -7,16 +7,22 @@
     <div class="row">
         <div class="col s12 m8">
             <div class="card-panel small hoverable">
-                <h5 class="m-t-0 center-align">Social networks</h5>
-                <div class="row">
+                <h5 class="m-t-0 m-b-20 center-align">Social networks</h5>
+                <div class="row m-b-0">
                     @foreach($student->socials as $social)
-                        <div class="input-field col s4 xl3">
+                        <div class="col s4 xl3">
                             @if(Auth::user()->hasRole(['top-manager', 'manager']))
-                                <a href="{!! route('student.social.delete', [$student->id, $social->id]) !!}" class="prefix valign-wrapper"><i class="material-icons icon-red m-t-5">delete</i></a>
+                                {!! Form::open(['route' => ['social.delete', $social->id]]) !!}
+                                <div class="valign-wrapper">
+                                    <a href="{{$social->url}}">{{$social->name}}</a>
+                                    <button type="submit" class=" transparent border-none"><i class="material-icons icon-red">delete</i></button>
+                                </div>
+                                {!! Form::close() !!}
                             @else
-                                <i class="material-icons prefix">insert_link</i>
+                                <div class="valign-wrapper">
+                                    <i class="material-icons prefix">insert_link</i><a href="{{$social->url}}">{{$social->name}}</a>
+                                </div>
                             @endif
-                            <label for="social_facebook"><a href="{{$social->url}}">{{$social->name}}</a></label>
                         </div>
                     @endforeach
                     @if(count($student->socials) == 0)
@@ -25,7 +31,7 @@
                 </div>
                 @if(Auth::user()->hasRole(['top-manager', 'manager']))
                     <div class="row m-b-0">
-                        {!! Form::open(['route' => ['student.social.store', $student->id], 'method' => 'POST']) !!}
+                        {!! Form::open(['route' => ['social.store', $student->id], 'method' => 'POST']) !!}
                         <div class="input-field col s3">
                             <select name="name" required>
                                 <option value="" disabled>Select social</option>
@@ -65,7 +71,7 @@
                         :height="300"
                         lang-type='en'
                         no-rotate
-                        url="/student/{{$student->id}}/avatar/update"
+                        url="/avatar/{{$student->id}}/update"
                         :params="params"
                         :headers="headers"
                         img-format="png">

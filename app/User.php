@@ -499,6 +499,47 @@ class User extends Authenticatable
         return true;
     }
 
+    public function updateTeacher($request){
+        $this->teacher->science_degree = $request->science_degree;
+        $this->teacher->academic_status = $request->academic_status;
+        $this->teacher->teacher_status = $request->teacher_status;
+        $this->teacher->can_teach_in_english = $request->can_teach_in_english == 'on' ? true : false;
+        $this->teacher->save();
+
+        $this->educations->first()->name = $request->education_name;
+        $this->educations->first()->speciality = $request->education_speciality;
+        $this->educations->first()->rank = $request->education_rank;
+        $this->educations->first()->save();
+
+        $this->jobs->first()->name = $request->job_name;
+        $this->jobs->first()->position = $request->job_position;
+        $this->jobs->first()->experience = $request->job_experience;
+        $this->jobs->first()->current_job = $request->current_job == 'on' ? true : false;
+        $this->jobs->first()->save();
+
+        $this->phones->first()->phone_number = $request->phone_number;
+        $this->phones->first()->dialling_code_id = DiallingCode::where('dialling_code', $request->dialling_code)->first()->id;
+        $this->phones->first()->save();
+
+        $this->names->where('language', '=', 'ua')->first()->second_name = $request->second_name_ua;
+        $this->names->where('language', '=', 'ua')->first()->name = $request->name_ua;
+        $this->names->where('language', '=', 'ua')->first()->middle_name = $request->middle_name_ua;
+        $this->names->where('language', '=', 'ua')->first()->save();
+
+        $this->names->where('language', '=', 'ru')->first()->second_name = $request->second_name_ru;
+        $this->names->where('language', '=', 'ru')->first()->name = $request->name_ru;
+        $this->names->where('language', '=', 'ru')->first()->middle_name = $request->middle_name_ru;
+        $this->names->where('language', '=', 'ru')->first()->save();
+
+        $this->names->where('language', '=', 'en')->first()->second_name = $request->second_name_en;
+        $this->names->where('language', '=', 'en')->first()->name = $request->name_en;
+        $this->names->where('language', '=', 'en')->first()->middle_name = $request->middle_name_en;
+        $this->names->where('language', '=', 'en')->first()->save();
+
+//        dd($this->names()->where('language', '=', 'ua')->first()->name);
+        return true;
+    }
+
     public function teams(){
         return $this->rolesTeams;
     }

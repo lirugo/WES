@@ -22,7 +22,7 @@
                         <blockquote class="m-b-0 m-t-5"><small>Created at - {{$teacher->created_at->format('Y-m-d')}}</small></blockquote>
                     </div>
                     <div class="card-action right-align">
-                        <a href="{{url('/teacher/'.$teacher->id.'/edit')}}" class="indigo waves-effect waves-light btn-small right">Edit</a>
+                        <a href="{{url('/teacher/'.$teacher->id)}}" class="indigo waves-effect waves-light btn-small right">Open</a>
                     </div>
                 </div>
             </div>

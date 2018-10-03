@@ -53,10 +53,6 @@
         $trail->parent('teacher');
         $trail->push('Create', url('/teacher/create'));
     });
-    Breadcrumbs::for('teacher-edit', function ($trail, $teacher) {
-        $trail->parent('teacher');
-        $trail->push($teacher->getShortName().' - Edit', url('/teacher/'.$teacher->id.'/edit'));
-    });
     Breadcrumbs::for('teacher-show', function ($trail, $teacher) {
         $trail->parent('teacher');
         $trail->push($teacher->getShortName().' - Show', url('/teacher/'.$teacher->id.'/show'));
@@ -69,10 +65,6 @@
     Breadcrumbs::for('student-create', function ($trail) {
         $trail->parent('student');
         $trail->push('Create', url('/student/create'));
-    });
-    Breadcrumbs::for('student-edit', function ($trail, $student) {
-        $trail->parent('student');
-        $trail->push($student->getShortName().' - Edit', url('/student/'.$student->id.'/edit'));
     });
     Breadcrumbs::for('student-show', function ($trail, $student) {
         $trail->parent('student');

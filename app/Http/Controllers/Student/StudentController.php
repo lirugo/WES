@@ -60,21 +60,4 @@ class StudentController extends Controller
         // Redirect to manage page
         return back();
     }
-
-    public function updateAvatar(Request $request, $id){
-        if($request->hasFile('avatar')){
-            $file = $request->avatar;
-
-            $destinationPath = public_path() . '/uploads/avatars/';
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-
-            $file->move($destinationPath, $filename);
-
-            $student = User::find($id);
-            $student->avatar = $filename;
-            $student->save();
-
-            return json_encode(['status' => 'OK', 'avatar' => $filename]);
-        }
-    }
 }
