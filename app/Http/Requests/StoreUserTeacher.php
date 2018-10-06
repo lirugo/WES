@@ -26,13 +26,13 @@ class StoreUserTeacher extends FormRequest
         return [
             'second_name_ua' => 'required|max:50',
             'name_ua' => 'required|max:50',
-            'middle_name_ua' => 'required|max:50',
+            'middle_name_ua' => 'max:50',
             'second_name_ru' => 'required|max:50',
             'name_ru' => 'required|max:50',
-            'middle_name_ru' => 'required|max:50',
+            'middle_name_ru' => 'max:50',
             'second_name_en' => 'required|max:50',
             'name_en' => 'required|max:50',
-            'middle_name_en' => 'required|max:50',
+            'middle_name_en' => 'max:50',
 
             'date_of_birth' => 'required|date',
             'email' => 'required|email|unique:users,email',

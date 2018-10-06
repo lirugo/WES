@@ -23,7 +23,7 @@
                     <label for="name_ua">Name</label>
                 </div>
                 <div class="input-field">
-                    {!! Form::text('middle_name_ua', null, ['class' => 'validate', 'id' => 'middle_name_ua', 'required']) !!}
+                    {!! Form::text('middle_name_ua', null, ['class' => 'validate', 'id' => 'middle_name_ua']) !!}
                     <label for="middle_name_ua">Middle Name</label>
                 </div>
 
@@ -39,7 +39,7 @@
                     <label for="name_ru">Name</label>
                 </div>
                 <div class="input-field">
-                    {!! Form::text('middle_name_ru', null, ['class' => 'validate', 'id' => 'middle_name_ru', 'required']) !!}
+                    {!! Form::text('middle_name_ru', null, ['class' => 'validate', 'id' => 'middle_name_ru']) !!}
                     <label for="middle_name_ru">Middle Name</label>
                 </div>
 
@@ -55,7 +55,7 @@
                     <label for="name_en">Name</label>
                 </div>
                 <div class="input-field">
-                    {!! Form::text('middle_name_en', null, ['class' => 'validate', 'id' => 'middle_name_en', 'required']) !!}
+                    {!! Form::text('middle_name_en', null, ['class' => 'validate', 'id' => 'middle_name_en']) !!}
                     <label for="middle_name_en">Middle Name</label>
                 </div>
             </div>

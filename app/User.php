@@ -36,7 +36,10 @@ class User extends Authenticatable
 
     public function getShortName(){
         $name = $this->names()->where('language', '=','en')->first();
-        return $name->second_name.' '.mb_substr($name->name,0,1).'. '.mb_substr($name->middle_name,0,1).'.';
+        if(is_null($name->middle_name))
+            return $name->second_name.' '.mb_substr($name->name,0,1).'.';
+        else
+            return $name->second_name.' '.mb_substr($name->name,0,1).'. '.mb_substr($name->middle_name,0,1).'.';
     }
 
     public function getPhone(){
