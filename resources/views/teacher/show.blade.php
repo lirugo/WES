@@ -98,7 +98,7 @@
                         <label for="name_ua">Name</label>
                     </div>
                     <div class="input-field">
-                        {!! Form::text('middle_name_'.$name->language, $name->middle_name, ['class' => 'validate', 'id' => 'middle_name_ua', 'required']) !!}
+                        {!! Form::text('middle_name_'.$name->language, $name->middle_name, ['class' => 'validate', 'id' => 'middle_name_ua']) !!}
                         <label for="middle_name_ua">Middle Name</label>
                     </div>
                     <div class="divider"></div>
