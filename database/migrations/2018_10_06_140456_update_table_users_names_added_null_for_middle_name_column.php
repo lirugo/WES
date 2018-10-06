@@ -24,11 +24,6 @@ class UpdateTableUsersNamesAddedNullForMiddleNameColumn extends Migration
      *
      * @return void
      */
-    public function down()
-    {
-        Schema::table('users_names', function(Blueprint $table)
-        {
-            DB::statement('ALTER TABLE users_names CHANGE COLUMN middle_name middle_name VARCHAR(255) NOT NULL;');
-        });
+    public function down(){
     }
 }
