@@ -89,16 +89,16 @@
                 @foreach($student->names as $name)
                     <small>Language - {{$name->language}}</small>
                     <div class="input-field">
-                        {!! Form::text('second_name_'.$name->language, $name->second_name, ['class' => 'validate', 'id' => 'second_name_ua', 'required']) !!}
-                        <label for="second_name_ua">Second Name</label>
+                        {!! Form::text('second_name_'.$name->language, $name->second_name, ['class' => 'validate', 'id' => 'second_name_'.$name->language, 'required']) !!}
+                        <label for="second_name_{{$name->language}}">Second Name</label>
                     </div>
                     <div class="input-field">
-                        {!! Form::text('name_'.$name->language, $name->name, ['class' => 'validate', 'id' => 'name_ua', 'required']) !!}
-                        <label for="name_ua">Name</label>
+                        {!! Form::text('name_'.$name->language, $name->name, ['class' => 'validate', 'id' => 'name_'.$name->language, 'required']) !!}
+                        <label for="name_{{$name->language}}">Name</label>
                     </div>
                     <div class="input-field">
-                        {!! Form::text('middle_name_'.$name->language, $name->middle_name, ['class' => 'validate', 'id' => 'middle_name_ua', 'required']) !!}
-                        <label for="middle_name_ua">Middle Name</label>
+                        {!! Form::text('middle_name_'.$name->language, $name->middle_name, ['class' => 'validate', 'id' => 'middle_name_'.$name->language]) !!}
+                        <label for="middle_name_{{$name->language}}">Middle Name</label>
                     </div>
                     <div class="divider"></div>
                 @endforeach

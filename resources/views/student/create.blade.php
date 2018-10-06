@@ -52,10 +52,6 @@
                         {!! Form::text('name_en', null, ['class' => 'validate', 'id' => 'name_en', 'required']) !!}
                         <label for="name_en">Name</label>
                     </div>
-                    <div class="input-field">
-                        {!! Form::text('middle_name_en', null, ['class' => 'validate', 'id' => 'middle_name_en', 'required']) !!}
-                        <label for="middle_name_en">Middle Name</label>
-                    </div>
                 </div>
             </div>
             <div class="col s12 m6 l6">
