@@ -11,7 +11,7 @@
                         <span class="card-title center-align">{{$template->display_name}}</span>
                         <div class="row m-b-0">
                             @foreach($template->disciplines as $discipline)
-                                <div class="col s12 m6 xl4 m-b-20 card card-content hoverable height-200px">
+                                <div class="col s12 m6 m-b-20 card card-content hoverable height-200px">
                                     <a href="#user"><img class="circle left m-r-10" width="100px" src="{{asset('/uploads/avatars/'.$discipline->getTeacher->avatar)}}"></a>
                                     <p class="m-t-10">{{$discipline->getDiscipline->display_name}}</p>
                                     <p>{{$discipline->getTeacher->getShortName()}}</p>
