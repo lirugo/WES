@@ -502,16 +502,20 @@ class User extends Authenticatable
     }
 
     public function updateProfile($request){
-        $this->educations->first()->name = $request->education_name;
-        $this->educations->first()->speciality = $request->education_speciality;
-        $this->educations->first()->rank = $request->education_rank;
-        $this->educations->first()->save();
+        if($this->educations()->first()) {
+            $this->educations->first()->name = $request->education_name;
+            $this->educations->first()->speciality = $request->education_speciality;
+            $this->educations->first()->rank = $request->education_rank;
+            $this->educations->first()->save();
+        }
 
-        $this->jobs->first()->name = $request->job_name;
-        $this->jobs->first()->position = $request->job_position;
-        $this->jobs->first()->experience = $request->job_experience;
-        $this->jobs->first()->current_job = $request->current_job == 'on' ? true : false;
-        $this->jobs->first()->save();
+        if($this->jobs()->first()) {
+            $this->jobs->first()->name = $request->job_name;
+            $this->jobs->first()->position = $request->job_position;
+            $this->jobs->first()->experience = $request->job_experience;
+            $this->jobs->first()->current_job = $request->current_job == 'on' ? true : false;
+            $this->jobs->first()->save();
+        }
 
         $this->phones->first()->phone_number = $request->phone_number;
         $this->phones->first()->dialling_code_id = DiallingCode::where('dialling_code', $request->dialling_code)->first()->id;
