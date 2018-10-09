@@ -3,7 +3,57 @@
     {{ Breadcrumbs::render('user-profile') }}
 @endsection
 @section('content')
-    {!! Form::open(['route' => 'student.store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+    <div class="row m-b-0">
+        <div class="col s12 m8">
+            <div class="card-panel small hoverable">
+                <h5 class="m-t-0 m-b-20 center-align">Social networks</h5>
+                <div class="row m-b-0">
+                    @foreach(Auth::user()->socials as $social)
+                        <div class="col s4 xl3">
+                            {!! Form::open(['route' => ['social.delete', $social->id]]) !!}
+                            <div class="valign-wrapper">
+                                <a href="{{$social->url}}">{{$social->name}}</a>
+                                <button type="submit" class=" transparent border-none"><i class="material-icons icon-red">delete</i></button>
+                            </div>
+                            {!! Form::close() !!}
+                        </div>
+                    @endforeach
+                    @if(count(Auth::user()->socials) == 0)
+                        <h6 class="center">Not have any social links.</h6>
+                    @endif
+                </div>
+                <div class="row m-b-0">
+                    {!! Form::open(['route' => ['social.store', Auth::user()->id], 'method' => 'POST']) !!}
+                    <div class="input-field col s3">
+                        <select name="name" required>
+                            <option value="" disabled>Select social</option>
+                            @foreach (config('social.name') as $key => $name)
+                                <option value="{{ $key }}">{{ $name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="url" type="text" name="url" class="validate" required>
+                        <label for="url">URL</label>
+                    </div>
+                    <div class="input-field col s3">
+                        <button class="btn waves-effect waves-light green" type="submit">Add
+                            <i class="material-icons right">add</i>
+                        </button>
+                    </div>
+                    {!! Form::close() !!}
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m4">
+            <div class="card hoverable" id="avatar">
+                <div class="card-image">
+                    <img src="{{asset('/uploads/avatars/'.$user->avatar)}}">
+                </div>
+            </div>
+        </div>
+    </div>
+    {!! Form::open(['route' => 'user.profile.update', 'method' => 'POST']) !!}
     {{--Name and General block--}}
     <div class="row">
         <div class="col s12 m6 l6">
@@ -14,26 +64,21 @@
                         {{strtoupper($name->language)}} language
                     </blockquote>
                     <div class="input-field">
-                        {!! Form::text('second_name_ua', $name->second_name, ['class' => 'validate', 'id' => 'second_name_ua', 'required']) !!}
-                        <label for="second_name_ua">Second Name</label>
+                        {!! Form::text('second_name_'.$name->language, $name->second_name, ['class' => 'validate', 'id' => 'second_name_'.$name->language, 'required']) !!}
+                        <label for="second_name_{{$name->language}}">Second Name</label>
                     </div>
                     <div class="input-field">
-                        {!! Form::text('name_ua', $name->name, ['class' => 'validate', 'id' => 'name_ua', 'required']) !!}
-                        <label for="name_ua">Name</label>
+                        {!! Form::text('name_'.$name->language, $name->name, ['class' => 'validate', 'id' => 'name_'.$name->language, 'required']) !!}
+                        <label for="name_{{$name->language}}">Name</label>
                     </div>
                     <div class="input-field">
-                        {!! Form::text('middle_name_ua', $name->middle_name, ['class' => 'validate', 'id' => 'middle_name_ua', 'required']) !!}
-                        <label for="middle_name_ua">Middle Name</label>
+                        {!! Form::text('middle_name_'.$name->language, $name->middle_name, ['class' => 'validate', 'id' => 'middle_name_'.$name->language, 'required']) !!}
+                        <label for="middle_name_{{$name->language}}">Middle Name</label>
                     </div>
                 @endforeach
             </div>
         </div>
         <div class="col s12 m6 l6">
-            <div class="card hoverable" id="avatar">
-                <div class="card-image">
-                    <img src="{{asset('/uploads/avatars/'.$user->avatar)}}">
-                </div>
-            </div>
             <div class="card-panel hoverable">
                 <h5 class="m-t-0 center-align">General</h5>
                 {{--Date of birth--}}
@@ -50,11 +95,25 @@
                     <label for="email">Email</label>
                     <span class="helper-text" data-error="wrong" data-success="All is Ok.">example@domain.com</span>
                 </div>
-                {{--Phone--}}
-                <div class="input-field">
-                    <i class="material-icons prefix">phone</i>
-                    {!! Form::text('phone', $user->getPhone(), ['class' => 'validate', 'id' => 'phone', 'disabled']) !!}
-                    <span class="helper-text" data-error="wrong" data-success="All is Ok.">Phone</span>
+                <div class="row m-b-0 m-t-0">
+                    <div class="col s4">
+                        {{--Dialing code--}}
+                        <div class="input-field m-b-0 m-t-0">
+                            <i class="material-icons prefix">phone</i>
+                            <select name="dialling_code">
+                                <option value="" disabled>Country Code</option>
+                                @foreach (config('dialling_code') as $key => $name)
+                                    <option value="{{ $key }}"{{ Auth::user()->phones()->first()->getCode()->dialling_code == $key ? 'selected="selected"' : '' }}>{{ $key }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col s8">
+                        {{--User phone--}}
+                        <div class="input-field m-b-0 m-t-0">
+                            {!! Form::text('phone_number', Auth::user()->phones()->first()->phone_number, ['class' => 'validate', 'id' => 'phone_number', 'required']) !!}
+                        </div>
+                    </div>
                 </div>
                 {{--Student--}}
                 @if($user->hasRole('student'))
@@ -96,16 +155,21 @@
                 <div class="card-panel hoverable">
                     <h5 class="m-t-0 center-align">Education</h5>
                     <div class="input-field">
-                        {!! Form::text('education_name', $education->name, ['class' => 'validate', 'id' => 'education_name', 'disabled']) !!}
+                        {!! Form::text('education_name', $education->name, ['class' => 'validate', 'id' => 'education_name', 'required']) !!}
                         <span class="helper-text" data-error="wrong" data-success="All is Ok.">Name of the educational institution</span>
                     </div>
                     <div class="input-field">
-                        {!! Form::text('education_speciality', $education->speciality, ['class' => 'validate', 'id' => 'education_speciality', 'disabled']) !!}
+                        {!! Form::text('education_speciality', $education->speciality, ['class' => 'validate', 'id' => 'education_speciality', 'required']) !!}
                         <span class="helper-text" data-error="wrong" data-success="All is Ok.">Name of speciality</span>
                     </div>
                     <div class="input-field">
-                        {!! Form::text('education_rank', $education->rank, ['class' => 'validate', 'id' => 'education_rank', 'disabled']) !!}
-                        <span class="helper-text" data-error="wrong" data-success="All is Ok.">Education Rank</span>
+                        <select name="education_rank">
+                            <option value="" disabled>Education Rank</option>
+                            @foreach (config('education_rank') as $key => $name)
+                                <option value="{{ $name }}"{{ $education->rank == $key ? 'selected="selected"' : '' }}>{{ $name }}</option>
+                            @endforeach
+                        </select>
+                        <span class="helper-text" data-error="wrong" data-success="All is Ok.">Degree</span>
                     </div>
                 </div>
             </div>
@@ -116,53 +180,32 @@
                 <div class="card-panel hoverable">
                     <h5 class="m-t-0 center-align">Job</h5>
                     <div class="input-field">
-                        {!! Form::text('job_name', $job->name, ['class' => 'validate', 'id' => 'job_name', 'disabled']) !!}
+                        {!! Form::text('job_name', $job->name, ['class' => 'validate', 'id' => 'job_name', 'required']) !!}
                         <span class="helper-text" data-error="wrong" data-success="All is Ok.">Name of organisation</span>
                     </div>
                     <div class="input-field">
-                        {!! Form::text('job_position', $job->position, ['class' => 'validate', 'id' => 'job_speciality', 'disabled']) !!}
+                        {!! Form::text('job_position', $job->position, ['class' => 'validate', 'id' => 'job_speciality', 'required']) !!}
                         <span class="helper-text" data-error="wrong" data-success="All is Ok.">Name of position</span>
                     </div>
                     <div class="input-field">
                         {!! Form::number('job_experience', $job->experience, ['class' => 'validate', 'id' => 'job_experience', 'min' => 1, 'max' => 50, 'step' => 1, 'required']) !!}
                         <span class="helper-text" data-error="wrong" data-success="All is Ok.">Managerial experience, years</span>
                     </div>
-                    @if($job->current_job)
-                        <p>
-                            <label>
-                                <input type="checkbox" name="current_job" checked="checked" disabled/>
-                                <span>This is my current job</span>
-                            </label>
-                        </p>
-                    @endif
+                    <p>
+                        <label>
+                            <input type="checkbox" name="current_job" {{$job->current_job ? "checked=\"true\"" : ""}} />
+                            <span>This is my current job</span>
+                        </label>
+                    </p>
                 </div>
             </div>
         @endforeach
     </div>
-    {{--Social block--}}
-    {{--<div class="row">--}}
-        {{--<div class="col s12 m12 l12">--}}
-            {{--<div class="card-panel hoverable">--}}
-                {{--<h5 class="m-t-0 center-align">Social networks</h5>--}}
-                {{--<div class="row">--}}
-                    {{--<div class="input-field col s12 m4 l4">--}}
-                        {{--<i class="material-icons prefix">insert_link</i>--}}
-                        {{--{!! Form::text('social_facebook', null, ['class' => 'validate', 'id' => 'social_facebook']) !!}--}}
-                        {{--<label for="social_facebook">Facebook</label>--}}
-                    {{--</div>--}}
-                    {{--<div class="input-field col s12 m4 l4">--}}
-                        {{--<i class="material-icons prefix">insert_link</i>--}}
-                        {{--{!! Form::text('social_twitter', null, ['class' => 'validate', 'id' => 'social_twitter']) !!}--}}
-                        {{--<label for="social_twitter">Twitter</label>--}}
-                    {{--</div>--}}
-                    {{--<div class="input-field col s12 m4 l4">--}}
-                        {{--<i class="material-icons prefix">insert_link</i>--}}
-                        {{--{!! Form::text('social_linkedin', null, ['class' => 'validate', 'id' => 'social_linkedin']) !!}--}}
-                        {{--<label for="social_linkedin">Linkedin</label>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-    {{--</div>--}}
+    {{--Floating button--}}
+    <div class="fixed-action-btn">
+        <button type="submit" class="btn-floating btn-large green tooltipped" data-position="left" data-tooltip="Update Profile">
+            <i class="large material-icons">save</i>
+        </button>
+    </div>
     {!! Form::close() !!}
 @endsection
