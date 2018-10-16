@@ -20,6 +20,17 @@ Route::get('/phpinfo', function () {
 
 /*
 |--------------------------------------------------------------------------
+| ChangeLog Route
+|--------------------------------------------------------------------------
+*/
+    Route::group(['middleware' => ['auth']], function () {
+        Route::get('/changelog', 'ChangeLogController@index');
+        Route::get('/changelog/create', 'ChangeLogController@create');
+        Route::post('/changelog/store', 'ChangeLogController@store')->name('changelog.store');
+    });
+
+/*
+|--------------------------------------------------------------------------
 | Manage panel route
 |--------------------------------------------------------------------------
 */
