@@ -18,13 +18,13 @@ class CreateTeamTasksTable extends Migration
             $table->integer('team_id')->unsigned();
             $table->foreign('team_id')->references('id')->on('teams')->onDelete('cascade');
             $table->integer('discipline_id')->unsigned();
-            $table->foreign('discipline_id')->references('id')->on('disciplines')->onDelete('cascade');
+            $table->foreign('discipline_id')->references('id')->on('teams_disciplines')->onDelete('cascade');
             $table->integer('homework_id')->unsigned()->nullable();
             $table->foreign('homework_id')->references('id')->on('teams_home_works')->onDelete('cascade');
             $table->integer('number')->unique()->unsigned();
             $table->integer('max_mark')->unsigned();
             $table->string('name');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->boolean('has_term')->default(false);
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();

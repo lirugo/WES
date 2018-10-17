@@ -54,9 +54,13 @@ class TaskController extends Controller
     {
         $team = Team::where('name', $team)->first();
         $discipline = Discipline::where('name', $discipline)->first();
+
+        if(($team->getDiscipline($discipline->id)->getCountPoints() + $request->max_mark) > 100)
+            return back()->withErrors('Not enough free points');
+
         TeamTask::create([
             'team_id' => $team->id,
-            'discipline_id' => $discipline->id,
+            'discipline_id' => $team->getDiscipline($discipline->id)->id,
             'homework_id' => $request->homework_id,
             'number' => $request->number,
             'name' => $request->name,

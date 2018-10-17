@@ -59,7 +59,7 @@
                     <div class="row m-b-0">
                         <div class="input-field col s12 l6 m-t-20">
                             <p class="center-align">Free points</p>
-                            <p class="center-align card-title red-text"><strong>100</strong></p>
+                            <p class="center-align card-title red-text"><strong>{{100 -$discipline->getCountPoints()}}</strong></p>
                         </div>
                         <div class="input-field col s12 l6 m-t-20">
                             <label>Task Auto-Generate Number</label>
@@ -79,40 +79,27 @@
     {!! Form::close() !!}
     <div class="row">
         <div class="col s12">
-            <div class="card-panel">
+            <div class="card-panel hoverable">
                 <table class="striped responsive-table">
                     <thead>
                     <tr>
                         <th>Name</th>
                         <th>Number</th>
                         <th>Task</th>
-                        <th>Points</th>
+                        <th>Max Mark</th>
                         <th>Description</th>
                     </tr>
                     </thead>
-
                     <tbody>
-                    <tr>
-                        <td>Alvin</td>
-                        <td>Eclair</td>
-                        <td>Eclair</td>
-                        <td>Eclair</td>
-                        <td>Eclair</td>
-                    </tr>
-                    <tr>
-                        <td>Alvin</td>
-                        <td>Eclair</td>
-                        <td>Eclair</td>
-                        <td>Eclair</td>
-                        <td>Eclair</td>
-                    </tr>
-                    <tr>
-                        <td>Alvin</td>
-                        <td>Eclair</td>
-                        <td>Eclair</td>
-                        <td>Eclair</td>
-                        <td>Eclair</td>
-                    </tr>
+                    @foreach($discipline->getTasks as $task)
+                        <tr>
+                            <td>{{$task->name}}</td>
+                            <td>{{$task->number}}</td>
+                            <td>{{$task->homework ? $task->homework->display_name : $task->name}}</td>
+                            <td>{{$task->max_mark}}</td>
+                            <td>{{$task->description}}</td>
+                        </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>
