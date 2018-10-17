@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Team;
 
 use App\Discipline;
+use App\Http\Requests\StoreTask;
 use App\Team;
+use App\TeamTask;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Session;
 
 class TaskController extends Controller
 {
@@ -47,9 +50,25 @@ class TaskController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTask $request, $team, $discipline)
     {
-        dd($request->all());
+        $team = Team::where('name', $team)->first();
+        $discipline = Discipline::where('name', $discipline)->first();
+        TeamTask::create([
+            'team_id' => $team->id,
+            'discipline_id' => $discipline->id,
+            'homework_id' => $request->homework_id,
+            'number' => $request->number,
+            'name' => $request->name,
+            'description' => $request->description,
+            'max_mark' => $request->max_mark,
+            'has_term' => $request->has_term ? '1' : '0',
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+        ]);
+
+        Session::flash('success', 'Task was successfully created');
+        return back();
     }
 
     /**

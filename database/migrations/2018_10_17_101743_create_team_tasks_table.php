@@ -16,9 +16,12 @@ class CreateTeamTasksTable extends Migration
         Schema::create('team_tasks', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('team_id')->unsigned();
+            $table->foreign('team_id')->references('id')->on('teams')->onDelete('cascade');
             $table->integer('discipline_id')->unsigned();
+            $table->foreign('discipline_id')->references('id')->on('disciplines')->onDelete('cascade');
             $table->integer('homework_id')->unsigned()->nullable();
-            $table->integer('number')->unsigned()->unique();
+            $table->foreign('homework_id')->references('id')->on('teams_home_works')->onDelete('cascade');
+            $table->integer('number')->unique()->unsigned();
             $table->integer('max_mark')->unsigned();
             $table->string('name');
             $table->text('description');

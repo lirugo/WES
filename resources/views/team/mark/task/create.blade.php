@@ -9,7 +9,7 @@
             <div class="card-panel hoverable" id="check_has_term">
                 <div class="input-field m-b-0">
                     <i class="material-icons prefix">group</i>
-                    <input placeholder="Name" name="name" type="text" class="validate" required>
+                    <input placeholder="Name" name="name" value="{{old('name')}}" type="text" class="validate" required>
                 </div>
                 <div class="input-field">
                     <i class="material-icons prefix">home</i>
@@ -17,7 +17,7 @@
                         <select name="homework_id">
                             <option value="" disabled selected>Choose Homework</option>
                             @foreach($discipline->getHomeWork() as $homeWork)
-                            <option value="{{$homeWork->id}}">{{$homeWork->display_name}}</option>
+                            <option {{ old('homework_id') == $homeWork->id ? 'selected' : '' }} value="{{$homeWork->id}}">{{$homeWork->display_name}}</option>
                             @endforeach
                         </select>
                     @else
@@ -28,26 +28,26 @@
                 </div>
                 <div class="input-field">
                     <i class="material-icons prefix">bookmark_border</i>
-                    <input placeholder="Max mark" name="max_mark" type="number" class="validate" min="1" max="100" step="1" required>
+                    <input placeholder="Max mark" name="max_mark" type="number" value="{{old('max_mark')}}" class="validate" min="1" max="100" step="1" required>
                 </div>
                 <div class="input-field">
                     <i class="material-icons prefix">mode_edit</i>
-                    <textarea name="description" placeholder="Description" class="materialize-textarea"></textarea>
+                    <textarea name="description" placeholder="Description" class="materialize-textarea">{{old('description')}}</textarea>
                 </div>
                 <p>
                     <label>
-                        <input type="checkbox" name="has_term" v-model="has_term"/>
+                        <input type="checkbox" name="has_term" v-model="has_term" />
                         <span>Has Term</span>
                     </label>
                 </p>
                 <div class="row  m-t-0 m-b-0" v-if="has_term">
                     <div class="input-field col s12 l6  m-t-0 m-b-0">
                         <i class="material-icons prefix">date_range</i>
-                        <input type="text" name="start_date" placeholder="Start Date" class="datepicker" required>
+                        <input type="text" name="start_date" placeholder="Start Date" value="{{old('start_date')}}" class="datepicker" required>
                     </div>
                     <div class="input-field col s12 l6  m-t-0 m-b-0">
                         <i class="material-icons prefix">date_range</i>
-                        <input type="text" name="end_date" placeholder="End Date" class="datepicker" required>
+                        <input type="text" name="end_date" placeholder="End Date" value="{{old('end_date')}}" class="datepicker" required>
                     </div>
                 </div>
             </div>
@@ -56,10 +56,15 @@
             <div class="card hoverable">
                 <div class="card-content">
                     <span class="card-title">{{$discipline->getDiscipline->display_name}}</span>
-                    <p class="center-align">Free points</p>
-                    <p class="center-align card-title red-text"><strong>88</strong></p>
-                    <div class="input-field m-t-20">
-                        <input readonly placeholder="Task Number" id="number" name="number" v-model="number" type="text" class="center-align green white-text">
+                    <div class="row m-b-0">
+                        <div class="input-field col s12 l6 m-t-20">
+                            <p class="center-align">Free points</p>
+                            <p class="center-align card-title red-text"><strong>100</strong></p>
+                        </div>
+                        <div class="input-field col s12 l6 m-t-20">
+                            <label>Task Auto-Generate Number</label>
+                            <input readonly placeholder="Task Number" id="number" name="number" v-model="number" type="text" class="center-align green white-text m-t-5">
+                        </div>
                     </div>
                 </div>
             </div>
