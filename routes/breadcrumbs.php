@@ -117,6 +117,21 @@
         $trail->parent('team-show', $team);
         $trail->push('Students', url('/team/'.$team->name.'/students'));
     });
+
+    //Mark
+    Breadcrumbs::for('team-mark', function ($trail, $team) {
+        $trail->parent('team-show', $team);
+        $trail->push('Marks', url('/team/'.$team->name.'/mark'));
+    });
+    Breadcrumbs::for('team-mark-discipline', function ($trail, $team, $discipline) {
+        $trail->parent('team-mark', $team);
+        $trail->push($discipline->display_name, url('/team/'.$team->name.'/mark/'.$discipline->name));
+    });
+    Breadcrumbs::for('team-mark-discipline-task-create', function ($trail, $team, $discipline) {
+        $trail->parent('team-mark-discipline', $team, $discipline);
+        $trail->push('Create Task', url('/team/'.$team->name.'/mark/'.$discipline->name.'/task/create'));
+    });
+
     //Template
         Breadcrumbs::for('team-template', function ($trail) {
             $trail->push('Group Templates', url('/team/template'));

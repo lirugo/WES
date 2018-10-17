@@ -1,18 +1,19 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Team;
 
-use App\ChangeLog;
+use App\Discipline;
+use App\Team;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Session;
+use App\Http\Controllers\Controller;
 
-class ChangeLogController extends Controller
+class TaskController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('role:administrator|top-manager|manager|teacher');
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -20,8 +21,7 @@ class ChangeLogController extends Controller
      */
     public function index()
     {
-        $changelogs = ChangeLog::orderBy('id', 'DESC')->get();
-        return view('changelog.index')->with('changelogs', $changelogs);
+        //
     }
 
     /**
@@ -29,12 +29,16 @@ class ChangeLogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($name, $discipline)
     {
-        if(!Auth::user()->hasRole('administrator'))
-            abort(403);
-        else
-            return view('changelog.create');
+        // Get Team
+        $team = Team::where('name', $name)->first();
+        // Get Discipline
+        $discipline = Discipline::where('name', $discipline)->first();
+        return view('team.mark.task.create')->with([
+            'team' => $team,
+            'discipline' => $team->getDiscipline($discipline->id)
+        ]);
     }
 
     /**
@@ -45,15 +49,7 @@ class ChangeLogController extends Controller
      */
     public function store(Request $request)
     {
-        $request = $request->validate([
-            'title' => 'required|unique:change_logs|max:255',
-            'body' => 'required',
-        ]);
-
-        ChangeLog::create($request);
-
-        Session::flash('success', 'Log successfully updated');
-        return redirect(url('/changelog'));
+        dd($request->all());
     }
 
     /**

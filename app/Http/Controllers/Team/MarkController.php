@@ -1,27 +1,33 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Team;
 
-use App\ChangeLog;
+use App\Discipline;
+use App\Team;
+use Auth;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Session;
+use App\Http\Controllers\Controller;
 
-class ChangeLogController extends Controller
+class MarkController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('role:administrator|top-manager|manager|teacher');
     }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($name)
     {
-        $changelogs = ChangeLog::orderBy('id', 'DESC')->get();
-        return view('changelog.index')->with('changelogs', $changelogs);
+        // Get Team
+        $team = Team::where('name', $name)->first();
+        return view('team.mark.index')->with([
+            'team' => $team,
+            'disciplines' => $team->getDisciplines(Auth::user()->id)
+        ]);
     }
 
     /**
@@ -31,10 +37,7 @@ class ChangeLogController extends Controller
      */
     public function create()
     {
-        if(!Auth::user()->hasRole('administrator'))
-            abort(403);
-        else
-            return view('changelog.create');
+
     }
 
     /**
@@ -45,15 +48,7 @@ class ChangeLogController extends Controller
      */
     public function store(Request $request)
     {
-        $request = $request->validate([
-            'title' => 'required|unique:change_logs|max:255',
-            'body' => 'required',
-        ]);
-
-        ChangeLog::create($request);
-
-        Session::flash('success', 'Log successfully updated');
-        return redirect(url('/changelog'));
+        //
     }
 
     /**
@@ -62,9 +57,16 @@ class ChangeLogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($name, $discipline)
     {
-        //
+        // Get Team
+        $team = Team::where('name', $name)->first();
+        // Get Discipline
+        $discipline = Discipline::where('name', $discipline)->first();
+        return view('team.mark.show')->with([
+            'team' => $team,
+            'discipline' => $discipline
+        ]);
     }
 
     /**

@@ -36,6 +36,10 @@ class Team extends LaratrustTeam
         return $this->hasMany(TeamDiscipline::class);
     }
 
+    public function getDisciplines($userId){
+        return $this->disciplines()->where('teacher_id', '=', $userId)->get();
+    }
+
     /**
      * Get owner team
      * @return User

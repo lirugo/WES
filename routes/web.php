@@ -140,6 +140,10 @@ Route::get('/phpinfo', function () {
         Route::get('/template/create', 'Template\TemplateController@create');
         Route::get('/template/{name}/edit', 'Template\TemplateController@edit');
         Route::get('/{name}', 'TeamController@show');
+        //Marks
+        Route::get('/{name}/mark', 'MarkController@index');
+        Route::get('/{name}/mark/{discipline}', 'MarkController@show');
+        Route::get('/{name}/mark/{discipline}/task/create', 'TaskController@create');
         Route::get('/{name}/students', 'Student\StudentController@index');
         Route::get('/{name}/teachers', 'Teacher\TeacherController@index');
         Route::get('/{name}/schedule', 'Schedule\ScheduleController@index');
@@ -151,6 +155,7 @@ Route::get('/phpinfo', function () {
         Route::get('/{name}/homework/{discipline}/{homework}', 'HomeWork\HomeWorkController@homework');
         Route::get('/{name}/homework/{discipline}/{homework}/solution/edit', 'HomeWork\SolutionController@edit');
 
+        Route::post('/{name}/mark/{discipline}/task/store', 'TaskController@store')->name('team.mark.discipline.task.store');
         Route::post('/{name}/update', 'TeamController@update')->name('team.update');
         Route::post('/{name}/homework/{homework}/delete', 'HomeWork\HomeWorkController@delete')->name('team.homework.delete');
         Route::post('/{name}/homework/{discipline}/store', 'HomeWork\HomeWorkController@store')->name('team.homework.store');
