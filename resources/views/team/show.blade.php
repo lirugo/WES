@@ -6,7 +6,7 @@
     {{--Name and Manager block--}}
     <div class="row">
         {!! Form::open(['route' => ['team.update', $team->name], 'method' => 'POST']) !!}
-            <div class="col s12 m6 l8">
+            <div class="col s12 l6">
                 <div class="card-panel hoverable">
                     <div class="input-field">
                         <i class="material-icons prefix">attachment</i>
@@ -29,7 +29,7 @@
                 </div>
             </div>
         {!! Form::close() !!}
-        <div class="col s12 m6 l4">
+        <div class="col s12 l6">
             <div class="s12">
                 <div class="card-panel indigo white-text m-b-0">
                     <h6 class="card-title m-t-0 m-b-0 center-align">Manager of this group.</h6>
@@ -37,7 +37,7 @@
             </div>
             <div class="s12">
                 <div class="card-panel hoverable">
-                    <a href="#user"><img class="circle left m-r-10" width="100px" src="{{asset('/uploads/avatars/'.Auth::user()->avatar)}}"></a>
+                    <a href="#user"><img class="circle left m-r-10" width="100px" src="{{asset('/uploads/avatars/'.$team->getOwner()->avatar)}}"></a>
                     <p class="card-title m-b-0">{{$team->getOwner()->getShortName()}}</p>
                     <p class="card-title m-t-0 m-b-0">{{$team->getOwner()->email}}</p>
                     <p class="card-title m-t-0">{{$team->getOwner()->getPhone()}}</p>
@@ -55,7 +55,7 @@
             </div>
         </div>
         @foreach($team->getStudents() as $student)
-            <div class="col s12 m6 l4">
+            <div class="col s12 l6">
                 <div class="card-panel hoverable">
                     <a href="#user"><img class="circle left m-r-10" width="100px" src="{{asset('/uploads/avatars/'.$student->avatar)}}"></a>
                     <p class="card-title m-b-0">{{$student->getShortName()}}</p>
@@ -83,8 +83,8 @@
             </div>
         </div>
         @foreach($team->disciplines as $discipline)
-            <div class="col s12 m6 l4">
-                <div class="card-panel hoverable p-b-30">
+            <div class="col s12 l6">
+                <div class="card-panel hoverable height-200px">
                     <blockquote class="m-t-0">{{$discipline->getDiscipline->display_name}}</blockquote>
                     <a href="#user"><img class="circle left m-r-10" width="100px" src="{{asset('/uploads/avatars/'.$discipline->getTeacher->avatar)}}"></a>
                     <p class="card-title m-t-10 m-b-0">{{$discipline->getTeacher->getShortName()}}</p>

@@ -43,3 +43,8 @@ i.icon-red {
 .height-200px {
   height: 200px;
 }
+
+.vertical-rl {
+  writing-mode: tb-rl;
+  transform: rotate(-180deg);
+}

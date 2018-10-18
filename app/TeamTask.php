@@ -11,4 +11,8 @@ class TeamTask extends Model
     public function homework(){
         return $this->hasOne(TeamsHomeWork::class, 'id', 'homework_id');
     }
+
+    public function getMark($id){
+        return $this->hasMany(TeamMark::class, 'task_id', 'id')->where('user_id', '=', $id)->first();
+    }
 }

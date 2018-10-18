@@ -8,7 +8,7 @@
         <div class="col s12 l6">
             <div class="card-panel hoverable" id="check_has_term">
                 <div class="input-field m-b-0">
-                    <i class="material-icons prefix">group</i>
+                    <i class="material-icons prefix">assignment</i>
                     <input placeholder="Name" name="name" value="{{old('name')}}" type="text" class="validate" required>
                 </div>
                 <div class="input-field">
@@ -112,7 +112,7 @@
        new Vue({
            el:'#generate_number',
             data: {
-                number: Math.floor(Math.random() * (999999 - 1 + 1)) + 1,
+                number: Math.floor(Math.random() * 899999) + 100000,
             }
         });
        new Vue({
