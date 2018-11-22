@@ -98,7 +98,9 @@ class HomeWorkController extends Controller
         $team = Team::where('name', $team)->first();
         if($team->isMember(Auth::user())){
             $path = storage_path('/app/group/homework/task/'.$file);
-            return response()->download($path, $homework.".pdf");
+            $info = pathinfo($path);
+
+            return response()->download($path, $homework.'.'.$info['extension']);
         }
 
         abort(403);
