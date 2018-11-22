@@ -93,12 +93,12 @@ class HomeWorkController extends Controller
     }
 
     // Return file for user if user is member group
-    public function file($team, $discipline, $file)
+    public function file($team, $discipline, $file, $homework)
     {
         $team = Team::where('name', $team)->first();
         if($team->isMember(Auth::user())){
             $path = storage_path('/app/group/homework/task/'.$file);
-            return response()->file($path);
+            return response()->download($path, $homework.".pdf");
         }
 
         abort(403);

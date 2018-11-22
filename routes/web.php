@@ -151,7 +151,7 @@ Route::get('/phpinfo', function () {
         Route::get('/{name}/homework', 'HomeWork\HomeWorkController@index');
         Route::get('/{name}/homework/{discipline}', 'HomeWork\HomeWorkController@show');
         Route::get('/{name}/homework/{discipline}/create', 'HomeWork\HomeWorkController@create');
-        Route::get('/{name}/homework/{discipline}/file/{file}', 'HomeWork\HomeWorkController@file')->name('team.homework.file');
+        Route::get('/{name}/homework/{discipline}/file/{file}/{homework}', 'HomeWork\HomeWorkController@file')->name('team.homework.file');
         Route::get('/{name}/homework/{discipline}/{homework}', 'HomeWork\HomeWorkController@homework');
         Route::get('/{name}/homework/{discipline}/{homework}/solution/edit', 'HomeWork\SolutionController@edit');
 

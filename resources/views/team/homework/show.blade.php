@@ -18,7 +18,7 @@
                         <div class="row">
                             @foreach($homeWork->getFilesTask() as $file)
                                 <div class="col s6 m-t-5">
-                                    <a href="{{url('/team/'.$team->name.'/homework/'.$discipline->getDiscipline->name.'/file/'.$file->name)}}" download class="valign-wrapper">
+                                    <a href="{{url('/team/'.$team->name.'/homework/'.$discipline->getDiscipline->name.'/file/'.$file->name.'/'.$homeWork->name)}}" download class="valign-wrapper">
                                         <i class="material-icons m-r-5">cloud_download</i> Download *.{{pathinfo($file->name, PATHINFO_EXTENSION)}}
                                     </a>
                                 </div>
