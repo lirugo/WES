@@ -144,6 +144,10 @@ Route::get('/phpinfo', function () {
         Route::get('/{name}/mark', 'MarkController@index');
         Route::get('/{name}/mark/{discipline}', 'MarkController@show');
         Route::get('/{name}/mark/{discipline}/task/create', 'TaskController@create');
+        //Pretest
+        Route::get('/{name}/pretest', 'Pretest\PretestController@index');
+        Route::get('/{name}/pretest/create', 'Pretest\PretestController@create');
+
         Route::get('/{name}/students', 'Student\StudentController@index');
         Route::get('/{name}/teachers', 'Teacher\TeacherController@index');
         Route::get('/{name}/schedule', 'Schedule\ScheduleController@index');
