@@ -126,4 +126,8 @@ class PretestController extends Controller
         return $questions;
     }
 
+    public function deleteQuestion($team, $discipline, $pretestId, $questionId){
+        return PretestQuestion::destroy($questionId);
+    }
+
 }

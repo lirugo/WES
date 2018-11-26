@@ -87,26 +87,25 @@
                         </div>
                     </div>
                 </div>
-                <a class="btn-floating btn-large waves-effect waves-light red left" @click="addAnswer"><i class="material-icons">add</i></a>
-                <a class="btn-floating btn-large waves-effect waves-light red right" @click="persistQuestion"><i class="material-icons">save</i></a>
+                <a class="btn-floating btn-large waves-effect waves-light green left" @click="addAnswer"><i class="material-icons">add</i></a>
+                <a class="btn-floating btn-large waves-effect waves-light green right" @click="persistQuestion"><i class="material-icons">save</i></a>
             </div>
         </div>
         <div class="col s12 m6" v-for="(question, index) in questions">
             <div class="card-panel">
-                <div>
-                    <input type="text" value="" v-model="question.name" disabled/>
-                    <div class="row m-b-0 m-t-0" v-for="(answer, index) in question.answers">
-                        <div class="input-field col s8 m-b-0 m-t-0">
-                            <input type="text" value="" v-model="answer.name" disabled/>
-                        </div>
-                        <div class="input-field col s4 m-b-0 m-t-0">
-                            <label>
-                                <input type="checkbox" v-model="answer.is_answer" />
-                                <span>Answer</span>
-                            </label>
-                        </div>
+                <input type="text" value="" v-model="question.name" disabled/>
+                <div class="row m-b-0 m-t-0" v-for="(answer, index) in question.answers">
+                    <div class="input-field col s8 m-b-0 m-t-0">
+                        <input type="text" value="" v-model="answer.name" disabled/>
+                    </div>
+                    <div class="input-field col s4 m-b-0 m-t-0">
+                        <label>
+                            <input type="checkbox" v-model="answer.is_answer" />
+                            <span>Answer</span>
+                        </label>
                     </div>
                 </div>
+                <a class="btn-floating btn-small waves-effect waves-light red right" @click="deleteQuestion(question.id, index)"><i class="material-icons">delete</i></a>
             </div>
         </div>
     </div>
@@ -141,7 +140,6 @@
                 axios.post('/team/{!! $team->name !!}/pretest/discipline/{!! $discipline->name !!}/{!! $pretest->id !!}/question')
                     .then(response => {
                         this.questions = response.data
-                        console.log(response.data)
                     })
                     .catch(e => {
                         this.errors.push(e)
@@ -166,6 +164,15 @@
                                     isTrue: false
                                 }
                             ]
+                        })
+                        .catch(e => {
+                            this.errors.push(e)
+                        })
+                },
+                deleteQuestion(id, index) {
+                    axios.delete('/team/{!! $team->name !!}/pretest/discipline/{!! $discipline->name !!}/{!! $pretest->id !!}/question/' + id, {id: id})
+                        .then(response => {
+                            this.questions.splice(index, 1)
                         })
                         .catch(e => {
                             this.errors.push(e)
