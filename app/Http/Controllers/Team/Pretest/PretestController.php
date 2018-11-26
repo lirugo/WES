@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Team\Pretest;
 use App\Discipline;
 use App\Http\Controllers\Controller;
 use App\Models\Team\Pretest;
+use App\Models\Team\PretestAnswer;
 use App\Models\Team\PretestFile;
+use App\Models\Team\PretestQuestion;
 use App\Team;
 use DateTime;
 use Session;
@@ -19,9 +21,9 @@ class PretestController extends Controller
         $this->middleware('role:administrator|top-manager|manager|teacher|student');
     }
 
-    public function index($name)
+    public function index($team)
     {
-        $team = Team::where('name', $name)->first();
+        $team = Team::where('name', $team)->first();
         return view('team.pretest.index')
             ->withTeam($team);
     }
@@ -94,6 +96,34 @@ class PretestController extends Controller
         $info = pathinfo($path);
 
         return response()->download($path, $file->name.'.'.$info['extension']);
+    }
+
+    public function putQuestion(Request $request, $team, $discipline, $pretestId){
+        $team = Team::where('name', $team)->first();
+        $discipline = Discipline::where('name', $discipline)->first();
+        $pretest = Pretest::find($pretestId);
+
+        $question = PretestQuestion::create([
+            'pretest_id' => $pretest->id,
+            'name' => $request->name,
+        ]);
+
+        foreach($request->answers as $ans){
+            PretestAnswer::create([
+                'pretest_question_id' => $question->id,
+                'name' => $ans['answer'],
+                'is_answer' => $ans['isTrue']
+            ]);
+        }
+
+        return PretestQuestion::with('answers')->find($question->id);
+    }
+
+    public function getQuestion($team, $discipline, $pretestId){
+        $pretest = Pretest::find($pretestId);
+        $questions = PretestQuestion::where('pretest_id', $pretest->id)->with('answers')->orderBy('id', 'DESC')->get();
+
+        return $questions;
     }
 
 }

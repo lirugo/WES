@@ -57,7 +57,7 @@
         </div>
         <div class="col s12 l6">
             @foreach($pretest->files as $file)
-                <div class="card-panel valign-wrapper">
+                <div class="card-panel">
                     {!! Form::open(['route' => ['team.pretest.getFile', $file->file], 'method' => 'POST']) !!}
                     <button class="btn waves-effect waves-light indigo" type="submit" name="action">{{$file->name}}
                         <i class="material-icons right">file_download</i>
@@ -66,14 +66,112 @@
                 </div>
             @endforeach
         </div>
-        @role('teacher')
-        {{--Floating button--}}
-        <div class="fixed-action-btn">
-            <a href="{{url('/team/'.$team->name.'/pretest/create')}}" class="btn-floating btn-large green tooltipped" data-position="left"
-               data-tooltip="Create Pretest">
-                <i class="large material-icons">save</i>
-            </a>
-        </div>
-        @endrole
     </div>
+
+    <div class="row" id="pretest-question">
+        <div class="col s12">
+            <div class="card-panel">
+                <div>
+                    <input type="text" placeholder="Write the question" v-model="question.name" required/>
+                    <div v-for="(answer, index) in question.answers">
+                        <div class="row m-b-0 m-t-0">
+                            <div class="input-field col s8 m10 m-b-0 m-t-0">
+                                <input type="text" v-model="question.answers[index].answer" placeholder="Write the answer" required/>
+                            </div>
+                            <div class="input-field col s4 m2 m-b-0 m-t-0">
+                                <label>
+                                    <input type="checkbox" v-model="question.answers[index].isTrue" />
+                                    <span>Answer</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a class="btn-floating btn-large waves-effect waves-light red left" @click="addAnswer"><i class="material-icons">add</i></a>
+                <a class="btn-floating btn-large waves-effect waves-light red right" @click="persistQuestion"><i class="material-icons">save</i></a>
+            </div>
+        </div>
+        <div class="col s12 m6" v-for="(question, index) in questions">
+            <div class="card-panel">
+                <div>
+                    <input type="text" value="" v-model="question.name" disabled/>
+                    <div class="row m-b-0 m-t-0" v-for="(answer, index) in question.answers">
+                        <div class="input-field col s8 m-b-0 m-t-0">
+                            <input type="text" value="" v-model="answer.name" disabled/>
+                        </div>
+                        <div class="input-field col s4 m-b-0 m-t-0">
+                            <label>
+                                <input type="checkbox" v-model="answer.is_answer" />
+                                <span>Answer</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{--@role('teacher')--}}
+    {{--Floating button--}}
+    {{--<div class="fixed-action-btn">--}}
+    {{--<a href="{{url('/team/'.$team->name.'/pretest/create')}}" class="btn-floating btn-large green tooltipped" data-position="left"--}}
+    {{--data-tooltip="Create Pretest">--}}
+    {{--<i class="large material-icons">save</i>--}}
+    {{--</a>--}}
+    {{--</div>--}}
+    {{--@endrole--}}
+@endsection
+
+@section('scripts')
+    <script>
+        new Vue({
+            el: '#pretest-question',
+            data: {
+                questions: [],
+                question: {
+                    name: '',
+                    answers: [
+                        {
+                            answer: '',
+                            isTrue: false
+                        }
+                    ]
+                }
+            },
+            created() {
+                axios.post('/team/{!! $team->name !!}/pretest/discipline/{!! $discipline->name !!}/{!! $pretest->id !!}/question')
+                    .then(response => {
+                        this.questions = response.data
+                        console.log(response.data)
+                    })
+                    .catch(e => {
+                        this.errors.push(e)
+                    })
+            },
+            methods: {
+                addAnswer() {
+                    this.question.answers.push({
+                        answer: '',
+                        isTrue: false
+                    })
+                },
+                persistQuestion() {
+                    axios.put('/team/{!! $team->name !!}/pretest/discipline/{!! $discipline->name !!}/{!! $pretest->id !!}/question', this.question)
+                        .then(response => {
+                            console.log(response.data)
+                            this.questions.push(response.data)
+                            this.question.name = ''
+                            this.question.answers = [
+                                {
+                                    answer: '',
+                                    isTrue: false
+                                }
+                            ]
+                        })
+                        .catch(e => {
+                            this.errors.push(e)
+                        })
+                }
+            }
+        });
+    </script>
 @endsection
