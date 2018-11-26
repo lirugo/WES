@@ -28,8 +28,8 @@
                 </div>
                 <div class="input-field">
                     <i class="material-icons prefix">format_align_justify</i>
-                    <input placeholder="Write description of pretest" name="description" id="description" type="text"
-                           class="validate" required>
+                    <textarea placeholder="Write description of pretest" name="description" id="description" type="text"
+                              class="validate materialize-textarea" required></textarea>
                     <label for="description">Description</label>
                 </div>
                 <div class="row">

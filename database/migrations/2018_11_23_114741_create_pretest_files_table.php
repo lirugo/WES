@@ -18,7 +18,7 @@ class CreatePretestFilesTable extends Migration
             $table->integer('pretest_id')->unsigned();
             $table->foreign('pretest_id')->references('id')->on('pretests')->onDelete('cascade');
             $table->string('name');
-            $table->string('file');
+            $table->string('file')->unique();
         });
     }
 

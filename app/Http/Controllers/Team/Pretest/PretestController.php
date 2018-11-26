@@ -87,4 +87,13 @@ class PretestController extends Controller
             ->withDiscipline($discipline)
             ->withPretests($pretests);
     }
+
+    public function getFile($name){
+        $file = PretestFile::where('file', $name)->first();
+        $path = storage_path('/app/pretest/'.$name);
+        $info = pathinfo($path);
+
+        return response()->download($path, $file->name.'.'.$info['extension']);
+    }
+
 }
