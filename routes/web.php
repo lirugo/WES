@@ -147,6 +147,10 @@ Route::get('/phpinfo', function () {
         //Pretest
         Route::get('/{name}/pretest', 'Pretest\PretestController@index');
         Route::get('/{name}/pretest/create', 'Pretest\PretestController@create');
+        Route::get('/{name}/pretest/discipline/{discipline}', 'Pretest\PretestController@pretests');
+        Route::get('/{name}/pretest/discipline/{discipline}/{pretestId}', 'Pretest\PretestController@show');
+        Route::post('/{name}/pretest/store', 'Pretest\PretestController@store')->name('team.pretest.store');
+        Route::post('/{name}/pretest/store/file', 'Pretest\PretestController@storeFile')->name('team.pretest.store.file');
 
         Route::get('/{name}/students', 'Student\StudentController@index');
         Route::get('/{name}/teachers', 'Teacher\TeacherController@index');

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Team\Pretest;
 use Illuminate\Database\Eloquent\Model;
 
 class TeamDiscipline extends Model
@@ -38,5 +39,13 @@ class TeamDiscipline extends Model
         foreach ($this->getTasks as $task)
             $points += $task->max_mark;
         return $points;
+    }
+
+    public function hasPretest(){
+        return (bool) $this->hasMany(Pretest::class, 'discipline_id', 'discipline_id')->first();
+    }
+
+    public function pretests(){
+        return $this->hasMany(Pretest::class, 'discipline_id', 'discipline_id');
     }
 }

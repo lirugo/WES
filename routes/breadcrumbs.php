@@ -120,12 +120,20 @@
 
     //Pretest
     Breadcrumbs::for('team-pretest', function ($trail, $team) {
-        $trail->parent('team');
+        $trail->parent('team-show', $team);
         $trail->push('Pretest', url('/team/'.$team->name.'/pretest'));
+    });
+    Breadcrumbs::for('team-pretest-discipline', function ($trail, $team, $discipline) {
+        $trail->parent('team-pretest', $team);
+        $trail->push($discipline->display_name, url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name));
     });
     Breadcrumbs::for('team-pretest-create', function ($trail, $team) {
         $trail->parent('team-pretest', $team);
         $trail->push('Create', url('/team/'.$team->name.'/pretest/create'));
+    });
+    Breadcrumbs::for('team-pretest-discipline-show', function ($trail, $team, $discipline, $pretest) {
+        $trail->parent('team-pretest-discipline', $team, $discipline);
+        $trail->push($discipline->display_name, url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name.'/'.$pretest->id));
     });
 
     //Mark
