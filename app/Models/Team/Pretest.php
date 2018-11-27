@@ -16,4 +16,13 @@ class Pretest extends Model
     public function questions(){
         return $this->hasMany(PretestQuestion::class, 'pretest_id', 'id');
     }
+
+    public function isAnswer($questionId, $answerId){
+        $answers = PretestQuestion::find($questionId)->rightAnswers();
+
+        foreach ($answers as $answer)
+            if ($answer->id == $answerId) return true;
+
+        return false;
+    }
 }

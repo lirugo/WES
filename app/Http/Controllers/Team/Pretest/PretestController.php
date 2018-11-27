@@ -141,4 +141,26 @@ class PretestController extends Controller
             ->withPretest($pretest);
     }
 
+    public function checking(Request $request, $team, $discipline, $pretestId){
+        $pretest = Pretest::find($pretestId);
+        $data = [];
+        $countAnswers = 0;
+        foreach($pretest->questions as $question) {
+            foreach ($request->all() as $req) {
+                if ($req['questionId'] == $question->id){
+                    foreach ($req['answers'] as $ans){
+                        if($pretest->isAnswer($req['questionId'], $ans)){
+                            $countAnswers++;
+                            break;
+                        }
+
+                    }
+                }
+            }
+        }
+
+        $data['countAnswers'] = $countAnswers;
+        return $data;
+    }
+
 }
