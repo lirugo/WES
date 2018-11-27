@@ -109,15 +109,12 @@
             </div>
         </div>
     </div>
-    {{--@role('teacher')--}}
-    {{--Floating button--}}
-    {{--<div class="fixed-action-btn">--}}
-    {{--<a href="{{url('/team/'.$team->name.'/pretest/create')}}" class="btn-floating btn-large green tooltipped" data-position="left"--}}
-    {{--data-tooltip="Create Pretest">--}}
-    {{--<i class="large material-icons">save</i>--}}
-    {{--</a>--}}
-    {{--</div>--}}
-    {{--@endrole--}}
+    <div class="fixed-action-btn">
+        <a href="{{url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name.'/'.$pretest->id.'/pass')}}" class="btn-floating btn-large green tooltipped" data-position="left"
+           data-tooltip="Pass the Pretest">
+            <i class="large material-icons">assignment_turned_in</i>
+        </a>
+    </div>
 @endsection
 
 @section('scripts')
@@ -155,7 +152,6 @@
                 persistQuestion() {
                     axios.put('/team/{!! $team->name !!}/pretest/discipline/{!! $discipline->name !!}/{!! $pretest->id !!}/question', this.question)
                         .then(response => {
-                            console.log(response.data)
                             this.questions.push(response.data)
                             this.question.name = ''
                             this.question.answers = [

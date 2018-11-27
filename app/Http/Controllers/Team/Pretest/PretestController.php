@@ -28,9 +28,9 @@ class PretestController extends Controller
             ->withTeam($team);
     }
 
-    public function create($name)
+    public function create($team)
     {
-        $team = Team::where('name', $name)->first();
+        $team = Team::where('name', $team)->first();
         return view('team.pretest.create')
             ->withTeam($team);
     }
@@ -128,6 +128,17 @@ class PretestController extends Controller
 
     public function deleteQuestion($team, $discipline, $pretestId, $questionId){
         return PretestQuestion::destroy($questionId);
+    }
+
+    public function pass($team, $discipline, $pretestId){
+        $team = Team::where('name', $team)->first();
+        $discipline = Discipline::where('name', $discipline)->first();
+        $pretest = Pretest::find($pretestId);
+
+        return view('team.pretest.pass')
+            ->withTeam($team)
+            ->withDiscipline($discipline)
+            ->withPretest($pretest);
     }
 
 }
