@@ -46133,29 +46133,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this = this;
 
         window.setInterval(function () {
-            _this.now = _this.now - 1;
+            if (_this.left > 0) _this.left = _this.left - 1;
         }, 1000);
     },
 
     props: {
-        date: null
+        time: Number,
+        endTime: null
     },
     data: function data() {
         return {
-            now: this.date * 60
+            left: this.time
         };
     },
-    created: function created() {},
 
     computed: {
         seconds: function seconds() {
-            return this.now % 60;
+            if (this.left == 0) this.endTime();
+            return this.left % 60;
         },
         minutes: function minutes() {
-            return Math.trunc(this.now / 60) % 60;
+            return Math.trunc(this.left / 60) % 60;
         },
         hours: function hours() {
-            return Math.trunc(this.now / 60 / 60) % 24;
+            return Math.trunc(this.left / 60 / 60) % 24;
         }
     }
 });

@@ -8,13 +8,14 @@ use App\Models\Team\Pretest;
 use App\Models\Team\PretestAnswer;
 use App\Models\Team\PretestFile;
 use App\Models\Team\PretestQuestion;
+use App\Models\Team\PretestUserAccess;
 use App\Models\Team\PretestUserAnswer;
 use App\Team;
 use DateTime;
-use Illuminate\Support\Facades\Auth;
-use Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Session;
+use Auth;
 
 class PretestController extends Controller
 {
@@ -136,11 +137,17 @@ class PretestController extends Controller
         $team = Team::where('name', $team)->first();
         $discipline = Discipline::where('name', $discipline)->first();
         $pretest = Pretest::find($pretestId);
-
-        return view('team.pretest.pass')
-            ->withTeam($team)
-            ->withDiscipline($discipline)
-            ->withPretest($pretest);
+        if(true
+//            Auth::user()->hasRole('student') &&
+//            $pretest->isAvailable(Auth::user()->id)
+        ){
+            return view('team.pretest.pass')
+                ->withTeam($team)
+                ->withDiscipline($discipline)
+                ->withPretest($pretest);
+        }else {
+            return back()->withErrors('Access denied. Contact to your manager');
+        }
     }
 
     public function checking(Request $request, $team, $discipline, $pretestId){
@@ -166,6 +173,19 @@ class PretestController extends Controller
         }
         $data['countAnswers'] = $countAnswers;
         return $data;
+    }
+
+    public function startPretest($team, $discipline, $pretestId){
+        PretestUserAccess::create([
+            'user_id' => Auth::user()->id,
+            'pretest_id' => $pretestId,
+            'access' => false,
+        ]);
+        return ['status' => 'OK'];
+    }
+
+    public function available($team, $discipline, $pretestId){
+        return Pretest::find($pretestId)->isAvailable(Auth::user()->id);
     }
 
 }

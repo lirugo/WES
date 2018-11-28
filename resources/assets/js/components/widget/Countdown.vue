@@ -18,30 +18,33 @@
     export default {
         mounted() {
             window.setInterval(() => {
-                this.now = this.now - 1;
+                if(this.left > 0)
+                    this.left = this.left - 1;
             }, 1000);
         },
         props: {
-            date: null
+            time: Number,
+            endTime: null
         },
         data() {
             return {
-                now: this.date * 60,
+                left: this.time,
             }
-        },
-        created() {
         },
         computed: {
             seconds() {
-                return (this.now) % 60
+                if (this.left == 0)
+                    this.endTime()
+                return (this.left) % 60
             },
             minutes() {
-                return Math.trunc(this.now / 60) % 60
+                return Math.trunc(this.left / 60) % 60
             },
             hours() {
-                return Math.trunc(this.now / 60 / 60) % 24
+                return Math.trunc(this.left / 60 / 60) % 24
             },
-        }
+
+        },
     }
 </script>
 <style>

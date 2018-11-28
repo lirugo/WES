@@ -67,8 +67,8 @@
                             @crop-upload-success="cropUploadSuccess"
                             @crop-upload-fail="cropUploadFail"
                             v-model="show"
-                            :width="300"
-                            :height="300"
+                            :width="1600"
+                            :height="1600"
                             lang-type='en'
                             no-rotate
                             url="/store/avatar"

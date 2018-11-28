@@ -8,7 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 @endsection
 @section('content')
-    <widget-countdown :date="{!! $pretest->time !!}"></widget-countdown>
+    <widget-countdown
+            :time="time"
+            :end-time="endTimer"
+            ></widget-countdown>
     <v-app class="grey lighten-3">
         <v-content>
             <v-container>
@@ -76,7 +79,7 @@
                                     flat
                                     @click="accepted"
                             >
-                                I accept
+                                Close
                             </v-btn>
                         </v-card-actions>
                     </v-card>
@@ -119,8 +122,10 @@
                 answers: [],
                 dialog: false,
                 countAnswers: 0,
+                time: '{!! $pretest->time !!}' * 60
             },
             created() {
+                //Get questions
                 axios.post('/team/{!! $team->name !!}/pretest/discipline/{!! $discipline->name !!}/{!! $pretest->id !!}/question')
                     .then(response => {
                         this.questions = response.data
@@ -133,17 +138,25 @@
                     .catch(e => {
                         this.errors.push(e)
                     })
-
+                //Set start pretest
+                axios.post('/team/{!! $team->name !!}/pretest/discipline/{!! $discipline->name !!}/{!! $pretest->id !!}/start')
+                    .catch(e => {
+                        this.errors.push(e)
+                    })
             },
             methods: {
+                endTimer(){
+                    this.time = 0
+                    this.passPretest()
+                },
                 accepted() {
                     window.location.href = '/';
                 },
                 passPretest() {
                     axios.post('/team/{!! $team->name !!}/pretest/discipline/{!! $discipline->name !!}/{!! $pretest->id !!}/checking', this.answers)
                         .then(response => {
-                            this.countAnswers = response.data.countAnswers
                             this.dialog = true
+                            this.countAnswers = response.data.countAnswers
                         })
                         .catch(e => {
                             this.errors.push(e)

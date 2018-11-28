@@ -25,4 +25,9 @@ class Pretest extends Model
 
         return false;
     }
+
+    //Is available
+    public function isAvailable($userId){
+        return  !(boolean) count($this->hasMany(PretestUserAccess::class, 'pretest_id', 'id')->where('user_id', '=', $userId)->get());
+    }
 }
