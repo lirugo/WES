@@ -262,7 +262,7 @@
                 headers: {
                     'X-CSRF-Token': document.head.querySelector("[name=csrf-token]").content
                 },
-                imgDataUrl: '/uploads/avatars/{!! json_encode($teacher->avatar) !!}',
+                imgDataUrl: '/uploads/avatars/{!! $teacher->avatar !!}',
                 avatarName: ''
             },
             methods: {
