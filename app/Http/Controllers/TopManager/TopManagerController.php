@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\TopManager;
 
+use App\Http\Requests\StoreUserManager;
 use App\Role;
 use App\User;
 use Session;
@@ -38,7 +39,7 @@ class TopManagerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserManager $request)
     {
         // Persist to db
         $user = new User();
