@@ -8,8 +8,10 @@ use App\Models\Team\Pretest;
 use App\Models\Team\PretestAnswer;
 use App\Models\Team\PretestFile;
 use App\Models\Team\PretestQuestion;
+use App\Models\Team\PretestUserAnswer;
 use App\Team;
 use DateTime;
+use Illuminate\Support\Facades\Auth;
 use Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -149,16 +151,19 @@ class PretestController extends Controller
             foreach ($request->all() as $req) {
                 if ($req['questionId'] == $question->id){
                     foreach ($req['answers'] as $ans){
+                        PretestUserAnswer::create([
+                            'user_id' => Auth::user()->id,
+                            'pretest_question_id' => $req['questionId'],
+                            'pretest_answer_id' => $ans,
+                        ]);
                         if($pretest->isAnswer($req['questionId'], $ans)){
                             $countAnswers++;
                             break;
                         }
-
                     }
                 }
             }
         }
-
         $data['countAnswers'] = $countAnswers;
         return $data;
     }

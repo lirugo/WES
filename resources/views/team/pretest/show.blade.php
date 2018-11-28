@@ -100,7 +100,7 @@
                     </div>
                     <div class="input-field col s4 m-b-0 m-t-0">
                         <label>
-                            <input type="checkbox" v-model="answer.is_answer" />
+                            <input type="checkbox" v-model="answer.is_answer" disabled />
                             <span>Answer</span>
                         </label>
                     </div>

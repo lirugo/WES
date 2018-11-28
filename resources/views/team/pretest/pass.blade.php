@@ -64,7 +64,7 @@
                         </v-card-title>
 
                         <v-card-text>
-                            Correct answers - @{{ countAnswers }} | @{{ countAnswers / questions.length * 100 }} %
+                            Correct answers - @{{ countAnswers }} | @{{ Math.round(countAnswers / questions.length * 100) }} %
                         </v-card-text>
 
                         <v-divider></v-divider>

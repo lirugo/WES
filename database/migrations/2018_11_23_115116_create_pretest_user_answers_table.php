@@ -19,8 +19,8 @@ class CreatePretestUserAnswersTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('pretest_question_id')->unsigned();
             $table->foreign('pretest_question_id')->references('id')->on('pretest_questions')->onDelete('cascade');
-            $table->string('name');
-            $table->boolean('is_answer')->default(false);
+            $table->integer('pretest_answer_id')->unsigned();
+            $table->foreign('pretest_answer_id')->references('id')->on('pretest_answers')->onDelete('cascade');
         });
     }
 
