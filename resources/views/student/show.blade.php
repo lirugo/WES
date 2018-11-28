@@ -67,8 +67,8 @@
                         @crop-upload-success="cropUploadSuccess"
                         @crop-upload-fail="cropUploadFail"
                         v-model="show"
-                        :width="300"
-                        :height="300"
+                        :width="900"
+                        :height="900"
                         lang-type='en'
                         no-rotate
                         url="/avatar/{{$student->id}}/update"
@@ -248,7 +248,7 @@
                 headers: {
                     'X-CSRF-Token': document.head.querySelector("[name=csrf-token]").content
                 },
-                imgDataUrl: '/uploads/avatars/' + {!! json_encode($student->avatar) !!},
+                imgDataUrl: '/uploads/avatars/{!! json_encode($student->avatar) !!}',
                 avatarName: ''
             },
             methods: {
