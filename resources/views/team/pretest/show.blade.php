@@ -109,12 +109,12 @@
             </div>
         </div>
     </div>
-    <div class="fixed-action-btn">
-        <a href="{{url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name.'/'.$pretest->id.'/pass')}}" class="btn-floating btn-large green tooltipped" data-position="left"
-           data-tooltip="Pass the Pretest">
-            <i class="large material-icons">assignment_turned_in</i>
-        </a>
-    </div>
+    {{--<div class="fixed-action-btn">--}}
+        {{--<a href="{{url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name.'/'.$pretest->id.'/pass')}}" class="btn-floating btn-large green tooltipped" data-position="left"--}}
+           {{--data-tooltip="Pass the Pretest">--}}
+            {{--<i class="large material-icons">assignment_turned_in</i>--}}
+        {{--</a>--}}
+    {{--</div>--}}
 @endsection
 
 @section('scripts')

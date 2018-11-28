@@ -137,9 +137,9 @@ class PretestController extends Controller
         $team = Team::where('name', $team)->first();
         $discipline = Discipline::where('name', $discipline)->first();
         $pretest = Pretest::find($pretestId);
-        if(true
-//            Auth::user()->hasRole('student') &&
-//            $pretest->isAvailable(Auth::user()->id)
+        if(
+            Auth::user()->hasRole('student') &&
+            $pretest->isAvailable(Auth::user()->id)
         ){
             return view('team.pretest.pass')
                 ->withTeam($team)

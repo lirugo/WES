@@ -150,7 +150,7 @@
                     this.passPretest()
                 },
                 accepted() {
-                    window.location.href = '/';
+                    window.history.back()
                 },
                 passPretest() {
                     axios.post('/team/{!! $team->name !!}/pretest/discipline/{!! $discipline->name !!}/{!! $pretest->id !!}/checking', this.answers)

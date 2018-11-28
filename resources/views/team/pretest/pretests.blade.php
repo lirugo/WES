@@ -11,7 +11,12 @@
                         <span class="card-title">{{$pretest->name}}</span>
                     </div>
                     <div class="card-action right-align">
-                        <a href="{{url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name.'/'.$pretest->id)}}" class="indigo waves-effect waves-light btn-small right">Open</a>
+                        @role('student')
+                            <a href="{{url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name.'/'.$pretest->id.'/pass')}}" class="indigo waves-effect waves-light btn-small right">Pass</a>
+                        @endrole
+                        @role('teacher')
+                            <a href="{{url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name.'/'.$pretest->id)}}" class="indigo waves-effect waves-light btn-small right">Open</a>
+                        @endrole
                     </div>
                 </div>
             </div>
