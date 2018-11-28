@@ -2,6 +2,7 @@
 
 namespace App\Models\Team;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Pretest extends Model
@@ -28,6 +29,10 @@ class Pretest extends Model
 
     //Is available
     public function isAvailable($userId){
-        return  !(boolean) count($this->hasMany(PretestUserAccess::class, 'pretest_id', 'id')->where('user_id', '=', $userId)->get());
+        $access = !(boolean) count($this->hasMany(PretestUserAccess::class, 'pretest_id', 'id')->where('user_id', '=', $userId)->get());
+        $start = Carbon::now()->diffInMinutes($this->start_date, false) < 0;
+        $end = Carbon::now()->diffInMinutes($this->end_date, false) > 0;
+        $available = ($access + $start + $end) == 3;
+        return  $access;
     }
 }

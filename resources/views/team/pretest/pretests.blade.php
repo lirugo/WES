@@ -12,7 +12,11 @@
                     </div>
                     <div class="card-action right-align">
                         @role('student')
-                            <a href="{{url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name.'/'.$pretest->id.'/pass')}}" class="indigo waves-effect waves-light btn-small right">Pass</a>
+                            @if($pretest->isAvailable(Auth::user()->id))
+                                <a href="{{url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name.'/'.$pretest->id.'/pass')}}" class="indigo waves-effect waves-light btn-small right">Pass</a>
+                            @else
+                            <a class="waves-effect waves-light btn btn-small right disabled"><i class="material-icons right">lock</i>locked</a>
+                            @endif
                         @endrole
                         @role('teacher')
                             <a href="{{url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name.'/'.$pretest->id)}}" class="indigo waves-effect waves-light btn-small right">Open</a>
