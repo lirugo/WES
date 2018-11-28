@@ -47,8 +47,8 @@
                         @crop-upload-success="cropUploadSuccess"
                         @crop-upload-fail="cropUploadFail"
                         v-model="show"
-                        :width="1200"
-                        :height="1600"
+                        :width="600"
+                        :height="800"
                         lang-type='en'
                         no-rotate
                         no-circle
