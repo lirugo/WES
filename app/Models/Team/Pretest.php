@@ -27,12 +27,20 @@ class Pretest extends Model
         return false;
     }
 
+    //Is open
+    public function isOpen(){
+        $start = Carbon::now()->diffInMinutes($this->start_date, false) < 0;
+        $end = Carbon::now()->diffInMinutes($this->end_date, false) > 0;
+        $locked = ($start + $end) == 2;
+        return $locked;
+    }
+
     //Is available
     public function isAvailable($userId){
         $access = !(boolean) count($this->hasMany(PretestUserAccess::class, 'pretest_id', 'id')->where('user_id', '=', $userId)->get());
         $start = Carbon::now()->diffInMinutes($this->start_date, false) < 0;
         $end = Carbon::now()->diffInMinutes($this->end_date, false) > 0;
         $available = ($access + $start + $end) == 3;
-        return  $access;
+        return  $available;
     }
 }

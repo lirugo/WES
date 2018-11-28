@@ -9,6 +9,16 @@
                 <div class="card hoverable">
                     <div class="card-content p-b-10 p-t-10">
                         <span class="card-title">{{$pretest->name}}</span>
+                        <p class="m-b-10">{{$pretest->description}}</p>
+                        @foreach($pretest->files as $file)
+                            {!! Form::open(['route' => ['team.pretest.getFile', $file->file], 'method' => 'POST']) !!}
+                            <button class="btn btn-small waves-effect waves-light indigo m-b-5" type="submit" name="action">{{$file->name}}
+                                <i class="material-icons right">file_download</i>
+                            </button>
+                            {!! Form::close() !!}
+                        @endforeach
+                        <small><blockquote class="m-b-0 m-t-15">Start date - {{$pretest->start_date}}</blockquote></small>
+                        <small><blockquote class="m-b-0 m-t-5">End date - {{$pretest->end_date}}</blockquote></small>
                     </div>
                     <div class="card-action right-align">
                         @role('student')
