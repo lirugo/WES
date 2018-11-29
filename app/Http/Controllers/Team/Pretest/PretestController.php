@@ -77,6 +77,15 @@ class PretestController extends Controller
         $team = Team::where('name', $team)->first();
         $discipline = Discipline::where('name', $discipline)->first();
         $pretest = Pretest::find($pretestId);
+        // TODO:: Remake checking Access
+        $access = 0;
+        foreach ($team->getTeachers() as $teacher){
+           if($teacher->id == Auth::user()->id)
+               $access++;
+        }
+        if($access == 0)
+           return back();
+
         return view('team.pretest.show')
             ->withTeam($team)
             ->withDiscipline($discipline)
