@@ -50,10 +50,16 @@
     <div class="modal">
         <div class="modal-content">
             <h4>Attention</h4>
-            <p>You are about to be tested. You have one attempt </p>
+            <p>You are about to be tested.
+                After the start of the test, it is impossible to stop or move the test.
+
+                If you close the page, refresh it or go to another page - the test will be counted as passed, and you will receive points.
+
+                If you are ready, click the "Ready" button.</p>
         </div>
         <div class="modal-footer">
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat" onclick="redirect()">Open</a>
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat" onclick="close()">Close</a>
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat" onclick="redirect()">Ready</a>
         </div>
     </div>
 @endsection
@@ -62,6 +68,8 @@
     <script>
         // TODO::// remake this it a trash
         var pretestId;
+        var elem = document.querySelector('.modal');
+        var instance = M.Modal.init(this.elem);
         function redirect() {
             window.location.href = '{{url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name)}}/'  + pretestId + '/pass';
         }
@@ -73,8 +81,8 @@
                 instance: null,
             },
             created() {
-                this.elem = document.querySelector('.modal');
-                this.instance = M.Modal.init(this.elem);
+                this.elem = elem
+                this.instance = instance
             },
             methods: {
                 passPretest(id){
