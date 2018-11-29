@@ -55,7 +55,6 @@ class TeamController extends Controller
             // Get ACL permission for teacher
             $readAcl = Permission::where('name', 'read-acl')->first();
             $updateAcl = Permission::where('name', 'update-acl')->first();
-
             // Attach permission for student to team
             $user->attachPermissions([$readAcl,$updateAcl], $team);
             $user->attachRole($teacher, $team);
@@ -63,11 +62,10 @@ class TeamController extends Controller
             TeamDiscipline::create([
                 'team_id' => $team->id,
                 'teacher_id' => $user->id,
-                'discipline_id' => $discipline->id,
+                'discipline_id' => $discipline->discipline_id,
                 'hours' => $discipline->hours,
             ]);
         }
-
         // Get ACL permission for manager
         $ownerGroup = Role::where('name', 'owner')->first();
         $createAcl = Permission::where('name', 'create-acl')->first();
