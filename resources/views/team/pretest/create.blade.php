@@ -87,7 +87,7 @@
                         <div class="col s12 file-field input-field">
                             <div class="btn indigo">
                                 <span>File</span>
-                                <input type="file" id="uploadFile" required>
+                                <input type="file" :id="'upload-'+index" required>
                             </div>
                             <div class="file-path-wrapper">
                                 <input class="file-path validate" placeholder="Upload file" @change="uploadFile(index)"
@@ -140,19 +140,17 @@
                 },
                 uploadFile(index) {
                     let formData = new FormData()
-                    var inputs = this.inputs
                     this.isUploading = true
                     const parent = this;
-                    formData.append('file', document.getElementById('uploadFile').files[0]);
+                    formData.append('file', document.getElementById('upload-' + index).files[0]);
                     axios.post('/team/{!! $team->name !!}/pretest/store/file', formData,
-                        ).then(function (response) {
-                            inputs[index].nameFormServer = response.data
-                            parent.isUploading = false
-                        })
+                    ).then(function (response) {
+                        parent.inputs[index].nameFormServer = response.data
+                        parent.isUploading = false
+                    })
                         .catch(function () {
                             console.log('FAILURE!!');
                         });
-                    this.inputs = inputs;
                 }
             }
         })
