@@ -221,13 +221,17 @@ class PretestController extends Controller
             $countAnswers = 0;
             foreach ($pretest->questions as $question){
                 $hasAnswer = false;
-                foreach ($question->rightAnswers() as $answer)
-                    foreach ($student->pretestAnswers as $studentAnswer)
-                        if($studentAnswer->pretest_answer_id == $answer->id)
+                foreach ($question->rightAnswers() as $answer){
+                    foreach ($student->pretestAnswers as $studentAnswer) {
+                        if ($studentAnswer->pretest_answer_id == $answer->id) {
                             $hasAnswer = true;
+                        }
+                    }
+                }
                 $question['has_answer'] = $hasAnswer;
-                if($hasAnswer)
+                if($hasAnswer) {
                     $countAnswers++;
+                }
             }
             $student['shortName'] = User::find($student->id)->getShortName();
             $student['countAnswers'] = $countAnswers;
