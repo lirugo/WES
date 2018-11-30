@@ -55,10 +55,11 @@ class PretestController extends Controller
             'start_date' => new DateTime($request->start_date.' '.$request->start_time),
             'end_date' => new DateTime($request->start_date.' '.$request->start_time),
         ]);
-        PretestFile::create([
+        foreach (json_decode($request->inputs) as $file)
+            PretestFile::create([
             'pretest_id' => $pretest->id,
-            'name' => $request->file,
-            'file' => $request->nameFormServer,
+            'name' => $file->file,
+            'file' => $file->nameFormServer,
         ]);
 
         Session::flash('success', 'Pretest was be successfully created');
