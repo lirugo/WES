@@ -53,7 +53,7 @@ class PretestController extends Controller
             'mark_in_journal' => $request->mark_in_journal == 'on' ? true : false,
             'time' => $request->time,
             'start_date' => new DateTime($request->start_date.' '.$request->start_time),
-            'end_date' => new DateTime($request->start_date.' '.$request->start_time),
+            'end_date' => new DateTime($request->end_date.' '.$request->end_time),
         ]);
         foreach (json_decode($request->inputs) as $file)
             PretestFile::create([
