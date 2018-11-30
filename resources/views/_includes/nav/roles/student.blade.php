@@ -13,7 +13,7 @@
                             <ul>
                                 <li><a href="{{url('/team/'.$team->name)}}"><i class="material-icons">dashboard</i>Dashboard</a></li>
                                 <li><a href="{{url('/team/'.$team->name.'/schedule')}}"><i class="material-icons">schedule</i>Schedule</a></li>
-                                {{--<li><a href="#"><i class="material-icons">bookmark_border</i>Marks</a></li>--}}
+                                <li><a href="#"><i class="material-icons">bookmark_border</i>Marks</a></li>
                                 {{--<li><a href="#"><i class="material-icons">event</i>Events</a></li>--}}
                                 <li><a href="{{url('/team/'.$team->name.'/students')}}"><i class="material-icons">group</i>Students</a></li>
                                 {{--<li><a href="#"><i class="material-icons">message</i>Message</a></li>--}}
