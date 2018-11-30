@@ -203,6 +203,8 @@ class PretestController extends Controller
         $team = Team::where('name', $team)->first();
         $discipline = Discipline::where('name', $discipline)->first();
         $pretest = Pretest::find($pretestId);
+        if(!Auth::user()->hasRole('teacher'))
+            return back();
 
         return view('team.pretest.statistic')
             ->withTeam($team)
