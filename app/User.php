@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Team\PretestUserAnswer;
 use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -595,5 +596,9 @@ class User extends Authenticatable
             $students = $students->merge($team->getStudents());
         }
         return $students;
+    }
+
+    public function pretestAnswers(){
+        return $this->hasMany(PretestUserAnswer::class, 'user_id', 'id');
     }
 }

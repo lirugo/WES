@@ -11,8 +11,10 @@ use App\Models\Team\PretestQuestion;
 use App\Models\Team\PretestUserAccess;
 use App\Models\Team\PretestUserAnswer;
 use App\Team;
+use App\User;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Session;
 use Auth;
@@ -195,6 +197,42 @@ class PretestController extends Controller
 
     public function available($team, $discipline, $pretestId){
         return Pretest::find($pretestId)->isAvailable(Auth::user()->id);
+    }
+
+    public function statistic($team, $discipline, $pretestId){
+        $team = Team::where('name', $team)->first();
+        $discipline = Discipline::where('name', $discipline)->first();
+        $pretest = Pretest::find($pretestId);
+
+        return view('team.pretest.statistic')
+            ->withTeam($team)
+            ->withDiscipline($discipline)
+            ->withPretest($pretest);
+    }
+
+    public function getStatistic($team, $discipline, $pretestId){
+        $team = Team::where('name', $team)->first();
+        $pretest = Pretest::find($pretestId);
+
+        $students = $team->getStudents();
+        foreach ($students as $student){
+            $countAnswers = 0;
+            foreach ($pretest->questions as $question){
+                $hasAnswer = false;
+                foreach ($question->rightAnswers() as $answer)
+                    foreach ($student->pretestAnswers as $studentAnswer)
+                        if($studentAnswer->pretest_answer_id == $answer->id)
+                            $hasAnswer = true;
+                $question['has_answer'] = $hasAnswer;
+                if($hasAnswer)
+                    $countAnswers++;
+            }
+            $student['shortName'] = User::find($student->id)->getShortName();
+            $student['countAnswers'] = $countAnswers;
+            $student['questions'] = $pretest->questions;
+        }
+
+        return $students;
     }
 
 }

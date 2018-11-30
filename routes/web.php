@@ -150,6 +150,7 @@ Route::get('/phpinfo', function () {
         Route::get('/{name}/pretest/discipline/{discipline}', 'Pretest\PretestController@pretests');
         Route::get('/{name}/pretest/discipline/{discipline}/{pretestId}', 'Pretest\PretestController@show');
         Route::get('/{name}/pretest/discipline/{discipline}/{pretestId}/pass', 'Pretest\PretestController@pass');
+        Route::get('/{name}/pretest/discipline/{discipline}/{pretestId}/statistic', 'Pretest\PretestController@statistic');
         Route::post('/pretest/getFile/{name}', 'Pretest\PretestController@getFile')->name('team.pretest.getFile');
         Route::post('/{name}/pretest/store', 'Pretest\PretestController@store')->name('team.pretest.store');
         Route::post('/{name}/pretest/store/file', 'Pretest\PretestController@storeFile')->name('team.pretest.store.file');
@@ -157,6 +158,7 @@ Route::get('/phpinfo', function () {
         Route::post('/{name}/pretest/discipline/{discipline}/{pretestId}/available', 'Pretest\PretestController@available');
         //Pretest API
         Route::put('/{name}/pretest/discipline/{discipline}/{pretestId}/question', 'Pretest\PretestController@putQuestion');
+        Route::post('/{name}/pretest/discipline/{discipline}/{pretestId}/getStatistic', 'Pretest\PretestController@getStatistic');
         Route::post('/{name}/pretest/discipline/{discipline}/{pretestId}/checking', 'Pretest\PretestController@checking');
         Route::post('/{name}/pretest/discipline/{discipline}/{pretestId}/question', 'Pretest\PretestController@getQuestion');
         Route::delete('/{name}/pretest/discipline/{discipline}/{pretestId}/question/{questionId}', 'Pretest\PretestController@deleteQuestion');

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Team\PretestUserAnswer;
 use Illuminate\Database\Eloquent\Model;
 
 class UserStudent extends Model
