@@ -220,23 +220,28 @@ class PretestController extends Controller
         $students = $team->getStudents();
         foreach ($students as $student){
             $countAnswers = 0;
-            foreach ($pretest->questions as $question){
+            $passed = false;
+            $questions = $pretest->questions;
+            $quests = new Collection();
+            foreach ($questions as $question){
+                if(count($student->pretestAnswers) != 0)
+                    $passed = true;
                 $hasAnswer = false;
                 foreach ($question->rightAnswers() as $answer){
                     foreach ($student->pretestAnswers as $studentAnswer) {
-                        if ($studentAnswer->pretest_answer_id == $answer->id) {
+                        if ($studentAnswer->pretest_answer_id == $answer->id){
                             $hasAnswer = true;
                         }
                     }
                 }
-                $question['has_answer'] = $hasAnswer;
-                if($hasAnswer) {
+                if($hasAnswer)
                     $countAnswers++;
-                }
+                $quests->push((object) ['questionId' => $question->id, 'hasAnswer' => $hasAnswer]);
             }
-            $student['shortName'] = User::find($student->id)->getShortName();
-            $student['countAnswers'] = $countAnswers;
-            $student['questions'] = $pretest->questions;
+            $student->passed = $passed;
+            $student->shortName = $student->getShortName();
+            $student->countAnswers = $countAnswers;
+            $student->questions = $quests;
         }
 
         return $students;
