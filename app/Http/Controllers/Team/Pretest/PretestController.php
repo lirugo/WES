@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Team\Pretest;
 
+use App\Charts\ChartPretestStatistic;
 use App\Discipline;
 use App\Http\Controllers\Controller;
 use App\Models\Team\Pretest;
@@ -12,6 +13,7 @@ use App\Models\Team\PretestUserAccess;
 use App\Models\Team\PretestUserAnswer;
 use App\Team;
 use App\User;
+use ConsoleTVs\Charts\Classes\Chartjs\Chart;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -207,10 +209,36 @@ class PretestController extends Controller
         if(!Auth::user()->hasRole('teacher'))
             return back();
 
+        //Get Data for Chart
+        $chartData = new Collection();
+        foreach ($pretest->questions as $question){
+            $countAnswer = 0;
+            foreach ($question->userAnswers as $answer){
+                if($answer->isAnswer())
+                    $countAnswer++;
+            }
+            $chartData->push((object) [
+                'questionId' => $question->id,
+                'countAnswers' => $countAnswer
+            ]);
+        }
+        $labels = [];
+        $data = [];
+        foreach ($chartData as $key => $ch){
+            array_push($labels, 'Question '.($key+1) );
+            array_push($data, $ch->countAnswers);
+        }
+
+        //Chart
+        $chart = new ChartPretestStatistic();
+        $chart->labels($labels);
+        $chart->dataset('Answers', 'bar', $data);
+
         return view('team.pretest.statistic')
             ->withTeam($team)
             ->withDiscipline($discipline)
-            ->withPretest($pretest);
+            ->withPretest($pretest)
+            ->withChart($chart);
     }
 
     public function getStatistic($team, $discipline, $pretestId){

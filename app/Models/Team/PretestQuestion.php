@@ -14,6 +14,10 @@ class PretestQuestion extends Model
         return $this->hasMany(PretestAnswer::class, 'pretest_question_id', 'id');
     }
 
+    public function userAnswers(){
+        return $this->hasMany(PretestUserAnswer::class, 'pretest_question_id', 'id');
+    }
+
     //Correct answer
     public function rightAnswers(){
         return $this->hasMany(PretestAnswer::class, 'pretest_question_id', 'id')->where('is_answer', '=', true)->get();
