@@ -24,13 +24,13 @@
                     </thead>
                     <tbody>
                     <tr v-for="(student, index) in statistic" v-if="student.passed">
-                            <td>@{{ index + 1 }}</td>
-                            <td>@{{ student.shortName }}</td>
-                            <td v-for="question in student.questions">
-                                <i class="material-icons" v-if="question.hasAnswer">done</i>
-                                <i class="material-icons" v-else>close</i>
-                            </td>
-                            <th>@{{ student.countAnswers }}</th>
+                        <td>@{{ index + 1 }}</td>
+                        <td>@{{ student.shortName }}</td>
+                        <td v-for="question in student.questions">
+                            <i class="material-icons" v-if="question.hasAnswer">done</i>
+                            <i class="material-icons" v-else>close</i>
+                        </td>
+                        <th>@{{ student.countAnswers }}</th>
                     </tr>
                     </tbody>
                 </table>

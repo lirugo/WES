@@ -53,6 +53,9 @@
                         </v-card>
                     </v-tab-item>
                 </v-tabs>
+                <div class="text-xs-center right mt-3">
+                    <v-btn @click="next">next</v-btn>
+                </div>
                 <v-dialog
                         v-model="dialog"
                         persistent
@@ -148,6 +151,10 @@
                 endTimer(){
                     this.time = 0
                     this.passPretest()
+                },
+                next () {
+                    const active = parseInt(this.active)
+                    this.active = (active < 2 ? active + 1 : 0)
                 },
                 accepted() {
                     window.history.back()
