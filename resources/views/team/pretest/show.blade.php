@@ -75,7 +75,8 @@
                     <input type="text" placeholder="Write the question" v-model="question.name" required/>
                     <div v-for="(answer, index) in question.answers">
                         <div class="row m-b-0 m-t-0">
-                            <div class="input-field col s8 m10 m-b-0 m-t-0">
+                            <a class="btn-floating btn-small waves-effect waves-light red left m-t-10" @click="deleteAnswer(answer, index)"><i class="material-icons">delete</i></a>
+                            <div class="input-field col s8 m9 m-b-0 m-t-0">
                                 <input type="text" v-model="question.answers[index].answer" placeholder="Write the answer" required/>
                             </div>
                             <div class="input-field col s4 m2 m-b-0 m-t-0">
@@ -83,6 +84,7 @@
                                     <input type="checkbox" v-model="question.answers[index].isTrue" />
                                     <span>Answer</span>
                                 </label>
+
                             </div>
                         </div>
                     </div>
@@ -143,11 +145,16 @@
                     })
             },
             methods: {
+                deleteAnswer(answer, index) {
+                    if(index != 0)
+                        this.question.answers.splice(index, 1)
+                },
                 addAnswer() {
-                    this.question.answers.push({
-                        answer: '',
-                        isTrue: false
-                    })
+                    if(this.question.answers[this.question.answers.length - 1].answer != '')
+                        this.question.answers.push({
+                            answer: '',
+                            isTrue: false
+                        })
                 },
                 persistQuestion() {
                     axios.put('/team/{!! $team->name !!}/pretest/discipline/{!! $discipline->name !!}/{!! $pretest->id !!}/question', this.question)
