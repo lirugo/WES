@@ -153,6 +153,7 @@ Route::get('/phpinfo', function () {
         Route::get('/{name}/pretest/discipline/{discipline}/{pretestId}', 'Pretest\PretestController@show');
         Route::get('/{name}/pretest/discipline/{discipline}/{pretestId}/pass', 'Pretest\PretestController@pass');
         Route::get('/{name}/pretest/discipline/{discipline}/{pretestId}/statistic', 'Pretest\PretestController@statistic');
+        Route::post('/{name}/setHeadman', 'TeamController@setHeadman')->name('team.setHeadman');
         Route::post('/pretest/getFile/{name}', 'Pretest\PretestController@getFile')->name('team.pretest.getFile');
         Route::post('/{name}/pretest/store', 'Pretest\PretestController@store')->name('team.pretest.store');
         Route::post('/{name}/pretest/store/file', 'Pretest\PretestController@storeFile')->name('team.pretest.store.file');

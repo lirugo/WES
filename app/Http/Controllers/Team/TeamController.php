@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Team;
 use App\Discipline;
 use App\Http\Requests\StoreTeam;
 use App\Http\Requests\UpdateTeam;
+use App\Models\Team\TeamHeadman;
 use App\Permission;
 use App\Role;
 use App\Team;
@@ -151,6 +152,17 @@ class TeamController extends Controller
         Session::flash('success', 'Team was successfully updated.');
 
         // Return to manage
+        return back();
+    }
+
+    public function setHeadman(Request $request, $team){
+        $team = Team::where('name', $team)->first();
+        TeamHeadman::where('team_id', $team->id)->delete();
+        TeamHeadman::create([
+            'team_id' => $team->id,
+            'student_id' => $request->student_id
+        ]);
+        Session::flash('success', 'Headman was been successfully updated');
         return back();
     }
 }

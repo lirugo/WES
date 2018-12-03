@@ -57,8 +57,23 @@
         @foreach($team->getStudents() as $student)
             <div class="col s12 l6">
                 <div class="card-panel hoverable">
-                    <a href="#user"><img class="circle left m-r-10" width="100px" src="{{asset('/uploads/avatars/'.$student->avatar)}}"></a>
-                    <p class="card-title m-b-0">{{$student->getShortName()}}</p>
+                    @if(Auth::user()->hasRole('manager'))
+                    <div class="right">
+                        @if(!$team->isHeadman($student->id))
+                            {!! Form::open(['route' => ['team.setHeadman', $team->name], 'method' => 'POST', 'id' => 'headman-form']) !!}
+                                <button type="submit" data-position="left" data-tooltip="Set like a headman" class="waves-effect waves-light btn btn-small indigo tooltipped"><i class="material-icons">add_circle_outline</i></button>
+                                <input type="hidden" name="student_id" value="{{$student->id}}"/>
+                            {!! Form::close() !!}
+                        @endif
+                    </div>
+                    @endif
+                    <a href="#user">
+                        @if($team->isHeadman($student->id))
+                            <img src="{{asset('/images/icon/teams/headman_en.png')}}" class="left" style="position: absolute; margin: -15px 0 0 -10px;" width="50px"/>
+                        @endif
+                        <img class="circle left m-r-10" width="100px" src="{{asset('/uploads/avatars/'.$student->avatar)}}">
+                    </a>
+                    <p class="card-title m-t-0 m-b-0">{{$student->getShortName()}}</p>
                     <p class="card-title m-t-0 m-b-0">{{$student->email}}</p>
                     <p class="card-title m-t-0 m-b-0">{{$student->getPhone()}}</p>
                     @if(Auth::user()->hasRole(['administrator', 'top-manager', 'manager', 'teacher']))
@@ -132,4 +147,6 @@
             <li><a class="btn-floating orange tooltipped" data-position="left" data-tooltip="Pretest" href="{{url('/team/'.$team->name.'/pretest')}}"><i class="material-icons">border_color</i></a></li>
         </ul>
     </div>
+@endsection
+@section('scripts')
 @endsection
