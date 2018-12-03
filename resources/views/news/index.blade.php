@@ -25,7 +25,7 @@
                 </div>
             </div>
         @endif
-        @role(['administrator', 'top-manage', 'manager'])
+        @role(['administrator', 'top-manage'])
             <div class="fixed-action-btn">
                 <a href="{{url('/news/create')}}" class="btn-floating btn-large waves-effect waves-light red">
                     <i class="large material-icons">add</i>
