@@ -522,25 +522,28 @@ class User extends Authenticatable
             $this->jobs->first()->save();
         }
 
+
         $this->phones->first()->phone_number = $request->phone_number;
         $this->phones->first()->dialling_code_id = DiallingCode::where('dialling_code', $request->dialling_code)->first()->id;
         $this->phones->first()->save();
-
-        $this->names->where('language', '=', 'ua')->first()->second_name = $request->second_name_ua;
-        $this->names->where('language', '=', 'ua')->first()->name = $request->name_ua;
-        $this->names->where('language', '=', 'ua')->first()->middle_name = $request->middle_name_ua;
-        $this->names->where('language', '=', 'ua')->first()->save();
-
-        $this->names->where('language', '=', 'ru')->first()->second_name = $request->second_name_ru;
-        $this->names->where('language', '=', 'ru')->first()->name = $request->name_ru;
-        $this->names->where('language', '=', 'ru')->first()->middle_name = $request->middle_name_ru;
-        $this->names->where('language', '=', 'ru')->first()->save();
-
-        $this->names->where('language', '=', 'en')->first()->second_name = $request->second_name_en;
-        $this->names->where('language', '=', 'en')->first()->name = $request->name_en;
-        $this->names->where('language', '=', 'en')->first()->middle_name = $request->middle_name_en;
-        $this->names->where('language', '=', 'en')->first()->save();
-
+        if($request->second_name_ua){
+            $this->names->where('language', '=', 'ua')->first()->second_name = $request->second_name_ua;
+            $this->names->where('language', '=', 'ua')->first()->name = $request->name_ua;
+            $this->names->where('language', '=', 'ua')->first()->middle_name = $request->middle_name_ua;
+            $this->names->where('language', '=', 'ua')->first()->save();
+        }
+        if($request->second_name_ru) {
+            $this->names->where('language', '=', 'ru')->first()->second_name = $request->second_name_ru;
+            $this->names->where('language', '=', 'ru')->first()->name = $request->name_ru;
+            $this->names->where('language', '=', 'ru')->first()->middle_name = $request->middle_name_ru;
+            $this->names->where('language', '=', 'ru')->first()->save();
+        }
+        if($request->second_name_en) {
+            $this->names->where('language', '=', 'en')->first()->second_name = $request->second_name_en;
+            $this->names->where('language', '=', 'en')->first()->name = $request->name_en;
+            $this->names->where('language', '=', 'en')->first()->middle_name = $request->middle_name_en;
+            $this->names->where('language', '=', 'en')->first()->save();
+        }
         return true;
     }
 

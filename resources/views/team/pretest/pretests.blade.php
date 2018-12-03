@@ -55,13 +55,13 @@
     <!-- Modal Structure -->
     <div class="modal">
         <div class="modal-content">
-            <h4>Attention</h4>
-            <p>You are about to be tested.
-                After the start of the test, it is impossible to stop or move the test.
+        <h4>Attention</h4>
+        <p>You are about to be tested.
+            After the start of the test, it is impossible to stop or move the test.
 
-                If you close the page, refresh it or go to another page - the test will be counted as passed, and you will receive points.
+            If you close the page, refresh it or go to another page - the test will be counted as passed, and you will receive points.
 
-                If you are ready, click the "Ready" button.</p>
+            If you are ready, click the "Ready" button.</p>
         </div>
         <div class="modal-footer">
             <a href="#!" class="modal-close waves-effect waves-green btn-flat" onclick="close()">Close</a>

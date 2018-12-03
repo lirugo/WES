@@ -45,6 +45,7 @@ Route::get('/phpinfo', function () {
     Route::get('/user/profile', 'User\ProfileController@index');
     Route::post('/user/profile/update', 'User\ProfileController@update')->name('user.profile.update');
     Route::post('/user/profile/setAvatar', 'User\ProfileController@setAvatar')->name('user.profile.setAvatar');
+    Route::post('/user/profile/resetPassword', 'User\ProfileController@resetPassword')->name('user.profile.resetPassword');
 
 /*
 |--------------------------------------------------------------------------

@@ -152,7 +152,7 @@
                             {{--English lvl--}}
                             <div class="input-field">
                                 <i class="material-icons prefix">language</i>
-                                {!! Form::text('english_lvl', $user->student->english_lvl, ['class' => 'validate', 'id' => 'gender', 'disabled']) !!}
+                                {!! Form::text('english_lvl', $user->student->english_lvl, ['class' => 'validate', 'id' => 'english_lvl', 'disabled']) !!}
                                 <label for="english_lvl">1(min) to 5(max)</label>
                                 <span class="helper-text" data-error="wrong" data-success="All is Ok.">English level</span>
                             </div>
@@ -161,7 +161,7 @@
                             {{--Introduction score--}}
                             <div class="input-field">
                                 <i class="material-icons prefix">dvr</i>
-                                {!! Form::text('introductory_score', $user->student->introductory_score, ['class' => 'validate', 'id' => 'gender', 'disabled']) !!}
+                                {!! Form::text('introductory_score', $user->student->introductory_score, ['class' => 'validate', 'id' => 'introductory_score', 'disabled']) !!}
                                 <span class="helper-text" data-error="Choose a rating from 50 to 100" data-success="All is Ok">Introductory score</span>
                             </div>
                         </div>
@@ -228,8 +228,42 @@
         <button type="submit" class="btn-floating btn-large green tooltipped" data-position="left" data-tooltip="Update Profile">
             <i class="large material-icons">save</i>
         </button>
+        <ul>
+            <li><a class="btn-floating orange tooltipped" @click="showPasswordReset()" id="password-show" data-position="left" data-tooltip="Reset Password"><i class="material-icons">lock</i></a></li>
+        </ul>
     </div>
     {!! Form::close() !!}
+
+    <!-- Modal Structure -->
+    <div class="modal bottom-sheet">
+        <div class="modal-content">
+            {!! Form::open(['route' => ['user.profile.resetPassword'], 'method' => 'POST']) !!}
+            <div class="row">
+                <div>
+                    Reset Password
+                    <div class="right">
+                        <a href="#!" class="modal-close waves-effect waves-green btn-flat" onclick="close()">Close</a>
+                        <button class="modal-close waves-effect waves-green btn-flat" type="submit">Save</button>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="input-field col s12">
+                    <input id="current_password" type="password" name="current_password" class="validate" required>
+                    <label for="current_password">Old Password</label>
+                </div>
+                <div class="input-field col s12">
+                    <input id="password" name="password" type="password" class="validate" required>
+                    <label for="password">Password Confirmation</label>
+                </div>
+                <div class="input-field col s12">
+                    <input id="password_confirmation" name="password_confirmation" type="password" class="validate" required>
+                    <label for="password_confirmation">Password Confirmation</label>
+                </div>
+            </div>
+            {!! Form::close() !!}
+        </div>
+    </div>
 @endsection
 @section('scripts')
     {{--Avatar widget--}}
@@ -293,6 +327,25 @@
     </script>
     {{--Password reset--}}
     <script>
+        var elem = document.querySelector('.modal');
+        var instance = M.Modal.init(this.elem);
 
+        new Vue({
+            el: '#password-show',
+            data: {
+                instance: null,
+            },
+            created() {
+                this.instance = instance
+            },
+            methods: {
+                showPasswordReset(){
+                    this.instance.open();
+                },
+                save(){
+
+                }
+            }
+        })
     </script>
 @endsection
