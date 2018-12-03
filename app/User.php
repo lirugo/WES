@@ -503,8 +503,10 @@ class User extends Authenticatable
     }
 
     public function updateProfile($request){
-        $this->date_of_birth = $request->date_of_birth;
-        $this->save();
+        if($request->date_of_birth) {
+            $this->date_of_birth = $request->date_of_birth;
+            $this->save();
+        }
         if($this->educations()->first()) {
             $this->educations->first()->name = $request->education_name;
             $this->educations->first()->speciality = $request->education_speciality;
