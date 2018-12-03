@@ -108,7 +108,7 @@
                 {{--Date of birth--}}
                 <div class="input-field">
                     <i class="material-icons prefix">date_range</i>
-                    {!! Form::text('date_of_birth', $user->date_of_birth, ['class' => 'validate datepicker', 'id' => 'date_of_birth']) !!}
+                    {!! Form::text('date_of_birth', $user->date_of_birth, ['class' => 'validate datepicker', 'id' => 'date_of_birth', 'required']) !!}
                     <label for="date_of_birth">Date of Birthday {{'('.$user->getCountOfYear().' years)'}}</label>
                     <span class="helper-text" data-error="wrong" data-success="All is Ok."></span>
                 </div>
@@ -231,9 +231,8 @@
     </div>
     {!! Form::close() !!}
 @endsection
-
-
 @section('scripts')
+    {{--Avatar widget--}}
     <script>
         new Vue({
             el: '#avatar',
@@ -291,5 +290,9 @@
                 }
             }
         });
+    </script>
+    {{--Password reset--}}
+    <script>
+
     </script>
 @endsection

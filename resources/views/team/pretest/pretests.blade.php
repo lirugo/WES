@@ -19,6 +19,9 @@
                         @endforeach
                         <small><blockquote class="m-b-0 m-t-15">Start date - {{$pretest->start_date}}</blockquote></small>
                         <small><blockquote class="m-b-0 m-t-5">End date - {{$pretest->end_date}}</blockquote></small>
+                        @role('student')
+                        <small><blockquote class="blockquote-green m-b-0 m-t-5">Passage time - {{$pretest->time}} min</blockquote></small>
+                        @endrole
                     </div>
                     <div class="card-action right-align">
                         @role('student')
