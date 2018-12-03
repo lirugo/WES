@@ -46,10 +46,32 @@
             </div>
         </div>
         <div class="col s12 m4">
+            {{--<div class="card hoverable" id="avatar">--}}
+                {{--<div class="card-image">--}}
+                    {{--<img src="{{asset('/uploads/avatars/'.$user->avatar)}}">--}}
+                {{--</div>--}}
+            {{--</div>--}}
             <div class="card hoverable" id="avatar">
                 <div class="card-image">
-                    <img src="{{asset('/uploads/avatars/'.$user->avatar)}}">
+                    <img :src="imgDataUrl" id="avatarFile">
+                    <a class="btn-floating btn-large halfway-fab waves-effect waves-light red" @click="toggleShow"><i class="material-icons">cloud_upload</i></a>
                 </div>
+                <input name="avatar" type="hidden" v-model="avatarName"/>
+                <widget-avatar-cropper
+                        field="avatar"
+                        @crop-success="cropSuccess"
+                        @crop-upload-success="cropUploadSuccess"
+                        @crop-upload-fail="cropUploadFail"
+                        v-model="show"
+                        :width="900"
+                        :height="900"
+                        lang-type='en'
+                        no-rotate
+                        url="/store/avatar"
+                        :params="params"
+                        :headers="headers"
+                        img-format="png">
+                </widget-avatar-cropper>
             </div>
         </div>
     </div>
@@ -71,10 +93,12 @@
                         {!! Form::text('name_'.$name->language, $name->name, ['class' => 'validate', 'id' => 'name_'.$name->language, 'required']) !!}
                         <label for="name_{{$name->language}}">Name</label>
                     </div>
+                    @if($name->language != 'en')
                     <div class="input-field">
                         {!! Form::text('middle_name_'.$name->language, $name->middle_name, ['class' => 'validate', 'id' => 'middle_name_'.$name->language, 'required']) !!}
                         <label for="middle_name_{{$name->language}}">Middle Name</label>
                     </div>
+                    @endif
                 @endforeach
             </div>
         </div>
@@ -115,17 +139,15 @@
                         </div>
                     </div>
                 </div>
+                {{--Gender--}}
+                <div class="input-field">
+                    <i class="material-icons prefix">accessibility</i>
+                    {!! Form::text('gender', ucfirst($user->gender), ['class' => 'validate', 'id' => 'gender', 'disabled']) !!}
+                    <span class="helper-text" data-error="wrong" data-success="All is Ok.">Gender</span>
+                </div>
                 {{--Student--}}
                 @if($user->hasRole('student'))
                     <div class="row m-b-0">
-                        <div class="col s12 m4 l4">
-                            {{--Gender--}}
-                            <div class="input-field">
-                                <i class="material-icons prefix">accessibility</i>
-                                {!! Form::text('gender', ucfirst($user->gender), ['class' => 'validate', 'id' => 'gender', 'disabled']) !!}
-                                <span class="helper-text" data-error="wrong" data-success="All is Ok.">Gender</span>
-                            </div>
-                        </div>
                         <div class="col s12 m4 l4">
                             {{--English lvl--}}
                             <div class="input-field">
@@ -208,4 +230,66 @@
         </button>
     </div>
     {!! Form::close() !!}
+@endsection
+
+
+@section('scripts')
+    <script>
+        new Vue({
+            el: '#avatar',
+            data: {
+                show: false,
+                params: {
+                    name: 'avatar',
+                },
+                headers: {
+                    'X-CSRF-Token': document.head.querySelector("[name=csrf-token]").content
+                },
+                imgDataUrl: '/uploads/avatars/{!! $user->avatar !!}',
+                avatarName: ''
+            },
+            methods: {
+                toggleShow() {
+                    this.show = !this.show;
+                },
+                /**
+                 * crop success
+                 *
+                 * [param] imgDataUrl
+                 * [param] field
+                 */
+                cropSuccess(imgDataUrl, field){
+                    console.log('-------- crop success --------');
+                    this.imgDataUrl = imgDataUrl;
+                },
+                /**
+                 * upload success
+                 *
+                 * [param] jsonData  server api return data, already json encode
+                 * [param] field
+                 */
+                cropUploadSuccess(jsonData, field){
+                    this.avatarName = jsonData.avatar;
+                    axios.post('/user/profile/setAvatar', {'avatar': this.avatarName})
+                        .then(response => {
+                            console.log('-------- upload success --------');
+                        })
+                        .catch(e => {
+                            this.errors.push(e)
+                        })
+                },
+                /**
+                 * upload fail
+                 *
+                 * [param] status    server api return error status, like 500
+                 * [param] field
+                 */
+                cropUploadFail(status, field){
+                    console.log('-------- upload fail --------');
+                    console.log(status);
+                    console.log('field: ' + field);
+                }
+            }
+        });
+    </script>
 @endsection

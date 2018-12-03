@@ -94,8 +94,11 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function setAvatar(Request $request)
     {
-        //
+        $user = Auth::user();
+        $user->avatar = $request->avatar;
+        $user->save();
+        return $request->avatar;
     }
 }
