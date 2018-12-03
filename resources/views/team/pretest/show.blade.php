@@ -157,20 +157,21 @@
                         })
                 },
                 persistQuestion() {
-                    axios.put('/team/{!! $team->name !!}/pretest/discipline/{!! $discipline->name !!}/{!! $pretest->id !!}/question', this.question)
-                        .then(response => {
-                            this.questions.push(response.data)
-                            this.question.name = ''
-                            this.question.answers = [
-                                {
-                                    answer: '',
-                                    isTrue: false
-                                }
-                            ]
-                        })
-                        .catch(e => {
-                            this.errors.push(e)
-                        })
+                    if(this.question.answers[this.question.answers.length - 1].answer != '')
+                        axios.put('/team/{!! $team->name !!}/pretest/discipline/{!! $discipline->name !!}/{!! $pretest->id !!}/question', this.question)
+                            .then(response => {
+                                this.questions.push(response.data)
+                                this.question.name = ''
+                                this.question.answers = [
+                                    {
+                                        answer: '',
+                                        isTrue: false
+                                    }
+                                ]
+                            })
+                            .catch(e => {
+                                this.errors.push(e)
+                            })
                 },
                 deleteQuestion(id, index) {
                     axios.delete('/team/{!! $team->name !!}/pretest/discipline/{!! $discipline->name !!}/{!! $pretest->id !!}/question/' + id, {id: id})
