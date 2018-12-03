@@ -28,6 +28,9 @@
                             <a class="waves-effect waves-light btn btn-small right disabled"><i class="material-icons right">lock</i>locked</a>
                         @endif
                         @endrole
+                        @role('manager')
+                            <a href="{{url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name.'/'.$pretest->id.'/statistic')}}" class="indigo waves-effect waves-light btn-small right">Statistic</a>
+                        @endrole
                         @role('teacher')
                         <a href="{{url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name.'/'.$pretest->id)}}" class="indigo waves-effect waves-light btn-small right">Open</a>
                         @endrole

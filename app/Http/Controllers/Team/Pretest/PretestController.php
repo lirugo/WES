@@ -206,7 +206,7 @@ class PretestController extends Controller
         $team = Team::where('name', $team)->first();
         $discipline = Discipline::where('name', $discipline)->first();
         $pretest = Pretest::find($pretestId);
-        if(!Auth::user()->hasRole('teacher'))
+        if(!Auth::user()->hasRole(['manager', 'teacher']))
             return back();
 
         //Get Data for Chart
