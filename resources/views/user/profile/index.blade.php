@@ -108,8 +108,8 @@
                 {{--Date of birth--}}
                 <div class="input-field">
                     <i class="material-icons prefix">date_range</i>
-                    {!! Form::text('date_of_birth', $user->date_of_birth.' ('.$user->getCountOfYear().' years)', ['class' => 'validate datepicker', 'id' => 'date_of_birth', 'disabled']) !!}
-                    <label for="date_of_birth">Date of Birthday</label>
+                    {!! Form::text('date_of_birth', $user->date_of_birth, ['class' => 'validate datepicker', 'id' => 'date_of_birth']) !!}
+                    <label for="date_of_birth">Date of Birthday {{'('.$user->getCountOfYear().' years)'}}</label>
                     <span class="helper-text" data-error="wrong" data-success="All is Ok."></span>
                 </div>
                 {{--Email--}}
