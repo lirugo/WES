@@ -49,4 +49,10 @@ class Pretest extends Model
         $start = Carbon::now()->diffInMinutes($this->start_date, false) - 720 > 0;
         return $start;
     }
+
+    //Has access
+    public function hasAccess($studentId){
+        $access = $this->hasOne(PretestUserAccess::class, 'pretest_id', 'id')->where('user_id', '=', $studentId)->get();
+        return (boolean) count($access) == 0;
+    }
 }

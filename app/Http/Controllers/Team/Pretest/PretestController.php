@@ -278,4 +278,40 @@ class PretestController extends Controller
         return $students;
     }
 
+    public function access($team, $discipline, $pretestId){
+        $team = Team::where('name', $team)->first();
+        $discipline = Discipline::where('name', $discipline)->first();
+        $pretest = Pretest::find($pretestId);
+
+        if(!Auth::user()->hasRole('manager')) {
+            return back();
+        }
+
+        return view('team.pretest.access')
+            ->withTeam($team)
+            ->withDiscipline($discipline)
+            ->withPretest($pretest);
+    }
+
+    public function setAccess(Request $request, $team, $discipline, $pretestId){
+        $team = Team::where('name', $team)->first();
+        $discipline = Discipline::where('name', $discipline)->first();
+        $pretest = Pretest::find($pretestId);
+
+        //Delete deny access
+        PretestUserAccess::where([
+            ['user_id', $request->student_id],
+            ['pretest_id', $pretest->id]
+        ])->delete();
+
+        //Delete old user answers
+        foreach ($pretest->questions as $question)
+            PretestUserAnswer::where([
+                ['user_id', $request->student_id],
+                ['pretest_question_id', $question->id]
+            ])->delete();
+
+        Session::flash('success', 'Access was be added');
+        return back();
+    }
 }

@@ -139,6 +139,10 @@
         $trail->parent('team-pretest-discipline-show', $team, $discipline, $pretest);
         $trail->push('Statistics', url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name.'/'.$pretest->id));
     });
+    Breadcrumbs::for('team-pretest-discipline-show-access', function ($trail, $team, $discipline, $pretest) {
+        $trail->parent('team-pretest-discipline-show', $team, $discipline, $pretest);
+        $trail->push('Access', url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name.'/'.$pretest->id));
+    });
     Breadcrumbs::for('team-pretest-discipline-show-pass', function ($trail, $team, $discipline, $pretest) {
         $trail->parent('team-pretest-discipline-show', $team, $discipline, $pretest);
         $trail->push('Passing test', url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name.'/'.$pretest->id.'/'));

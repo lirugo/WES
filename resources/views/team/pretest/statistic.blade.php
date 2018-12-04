@@ -36,6 +36,14 @@
                 </table>
             </div>
         </div>
+        @if(Auth::user()->hasRole('manager'))
+        <div class="fixed-action-btn">
+            <a href="{{url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name.'/'.$pretest->id.'/access')}}" class="btn-floating btn-large orange tooltipped" data-position="left"
+               data-tooltip="Access">
+                <i class="large material-icons">lock</i>
+            </a>
+        </div>
+        @endif
     </div>
 @endsection
 
