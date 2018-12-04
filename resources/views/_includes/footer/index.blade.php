@@ -27,7 +27,18 @@
     <div class="footer-copyright indigo darken-2">
         <div class="container">
             © {{date("Y")}} All rights reserved
-            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+
+            {{--Docs pdf link--}}
+            @if(Auth::user()->hasRole('manager'))
+                <a class="grey-text text-lighten-4 right" href="{{asset('/uploads/docs/se_istr_coordin.pdf')}}"><i class="material-icons">help_outline</i></a>
+            @elseif(Auth::user()->hasRole('teacher'))
+                <a class="grey-text text-lighten-4 right" href="{{asset('/uploads/docs/se_istr_teacher.pdf')}}"><i class="material-icons">help_outline</i></a>
+            @elseif(Auth::user()->hasRole('student'))
+                <a class="grey-text text-lighten-4 right" href="{{asset('/uploads/docs/se_istr_listen.pdf')}}"><i class="material-icons">help_outline</i></a>
+            @endif
+
+            {{--Feedback form--}}
+            <a class="grey-text text-lighten-4 right m-r-10" href="#!"><i class="material-icons">announcement</i></a>
         </div>
     </div>
 </footer>
