@@ -39,11 +39,37 @@
             </div>
 
             @include('_includes.footer.index')
+
+            @include('_includes.feedback.feedback')
         </div>
+
     </div>
 
     <!-- Default Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    {{--Feedback modal--}}
+    <script>
+        var elem = document.querySelector('.feedback-modal');
+        var instance = M.Modal.init(this.elem);
+
+        new Vue({
+            el: '#feedback-modal',
+            data: {
+                instance: null,
+            },
+            created() {
+                this.instance = instance
+            },
+            methods: {
+                showPasswordReset(){
+                    this.instance.open();
+                },
+                save(){
+
+                }
+            }
+        })
+    </script>
     <!-- Toasts -->
     @include('_includes.notification.message')
     <!-- Scripts From Blade -->

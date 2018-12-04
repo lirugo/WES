@@ -242,8 +242,8 @@
                 <div>
                     Reset Password
                     <div class="right">
-                        <a href="#!" class="modal-close waves-effect waves-green btn-flat" onclick="close()">Close</a>
-                        <button class="modal-close waves-effect waves-green btn-flat" type="submit">Save</button>
+                        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+                        <button class="waves-effect waves-green btn-flat" type="submit">Save</button>
                     </div>
                 </div>
             </div>

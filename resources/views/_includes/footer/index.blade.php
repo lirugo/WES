@@ -38,7 +38,7 @@
             @endif
 
             {{--Feedback form--}}
-            <a class="grey-text text-lighten-4 right m-r-10" href="#!"><i class="material-icons">announcement</i></a>
+            <a class="grey-text text-lighten-4 right m-r-10" href="#" @click="showPasswordReset()" id="feedback-modal"><i class="material-icons">announcement</i></a>
         </div>
     </div>
 </footer>

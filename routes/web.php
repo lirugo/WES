@@ -270,3 +270,5 @@ Route::get('/phpinfo', function () {
     });
 
 Route::post('/avatar/{studentId}/update', 'Store\AvatarController@update')->name('avatar.update');
+
+Route::post('/feedback/send', 'FeedbackController@send')->name('feedback.send');
