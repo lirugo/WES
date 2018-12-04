@@ -90,6 +90,9 @@ class PretestController extends Controller
         }
         if($access == 0)
            return back();
+        if(!$pretest->isEditable()) {
+            return redirect(url('/team/' . $team->name . '/pretest/discipline/' . $discipline->name . '/' . $pretest->id . '/statistic'))->with('warning', 'You cant edit pretest');
+        }
 
         return view('team.pretest.show')
             ->withTeam($team)

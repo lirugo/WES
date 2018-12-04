@@ -43,4 +43,10 @@ class Pretest extends Model
         $available = ($access + $start + $end) == 3;
         return  $available;
     }
+
+    //Is editable pretest
+    public function isEditable(){
+        $start = Carbon::now()->diffInMinutes($this->start_date, false) - 720 > 0;
+        return $start;
+    }
 }
