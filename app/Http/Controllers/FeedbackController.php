@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Session;
 class FeedbackController extends Controller
 {
     public function send(Request $request){
-        Mail::to('maksim.dolgov@iib.com.ua')->send(new Feedback(Auth::user(), $request->title, $request->body));
+        Mail::to(env('MAIL_FOR_FEEDBACK'))->send(new Feedback(Auth::user(), $request->title, $request->body));
         Session::flash('success', 'Feedback was successfully sent');
         return back();
     }

@@ -113,7 +113,7 @@
         @endif
         {{--Block show question--}}
         <div class="col s12 m6" v-for="(question, index) in questions">
-            <div class="card-panel">
+            <div class="card-panel">м
                 <input type="text" value="" v-model="question.name" disabled/>
                 <div class="row m-b-0 m-t-0" v-for="(answer, index) in question.answers">
                     <div class="input-field col s8 m-b-0 m-t-0">
