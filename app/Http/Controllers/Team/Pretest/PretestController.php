@@ -314,4 +314,13 @@ class PretestController extends Controller
         Session::flash('success', 'Access was be added');
         return back();
     }
+
+    public function delete($team, $discipline, $pretestId) {
+        if(!Auth::user()->hasRole('manager'))
+            abort(403);
+        Pretest::find($pretestId)->delete();
+        Session::flash('success', 'Pretest has been successfully deleted');
+        return back();
+
+    }
 }

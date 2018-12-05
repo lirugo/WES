@@ -20,7 +20,7 @@
                         <small><blockquote class="m-b-0 m-t-15">Start date - {{$pretest->start_date}}</blockquote></small>
                         <small><blockquote class="m-b-0 m-t-5">End date - {{$pretest->end_date}}</blockquote></small>
                         @role('student')
-                        <small><blockquote class="blockquote-green m-b-0 m-t-5">Passage time - {{$pretest->time}} min</blockquote></small>
+                            <small><blockquote class="blockquote-green m-b-0 m-t-5">Passage time - {{$pretest->time}} min</blockquote></small>
                         @endrole
                     </div>
                     <div class="card-action right-align">
@@ -32,7 +32,10 @@
                         @endif
                         @endrole
                         @role('manager')
+                        {!! Form::open(['route' => ['team.pretest.delete', $team->name, $discipline->name, $pretest->id], 'method' => 'DELETE']) !!}
+                            <button type="submit" class="waves-effect waves-light btn btn-small red left"><i class="material-icons">delete</i></button>
                             <a href="{{url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name.'/'.$pretest->id.'/statistic')}}" class="indigo waves-effect waves-light btn-small right">Statistic</a>
+                        {!! Form::close() !!}
                         @endrole
                         @role('teacher')
                         <a href="{{url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name.'/'.$pretest->id)}}" class="indigo waves-effect waves-light btn-small right">Open</a>
