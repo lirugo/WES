@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    @if(Auth::user()->hasRole(['administrator', 'top-manager', 'manager', 'teacher']))
+    @if(Auth::user()->hasRole(['administrator', 'top-manager', 'manager']))
         <div class="row">
             <div class="col s12">
                 <div class="card hoverable">
