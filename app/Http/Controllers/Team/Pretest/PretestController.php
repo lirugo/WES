@@ -90,9 +90,6 @@ class PretestController extends Controller
         }
         if($access == 0)
            return back();
-        if(!$pretest->isEditable()) {
-            return redirect(url('/team/' . $team->name . '/pretest/discipline/' . $discipline->name . '/' . $pretest->id . '/statistic'))->with('warning', 'You cant edit pretest');
-        }
 
         return view('team.pretest.show')
             ->withTeam($team)
@@ -322,5 +319,21 @@ class PretestController extends Controller
         Session::flash('success', 'Pretest has been successfully deleted');
         return back();
 
+    }
+
+    public function update(Request $request, $team, $discipline, $pretestId) {
+        $pretest = Pretest::find($pretestId);
+        if($pretest->isEditable()) {
+            $pretest->time = $request->time;
+            $pretest->name = $request->name;
+            $pretest->description = $request->description;
+            $pretest->start_date = new DateTime($request->start_date . ' ' . $request->start_time);
+            $pretest->end_date = new DateTime($request->end_date . ' ' . $request->end_time);
+            $pretest->mark_in_journal = $request->mark_in_journal == 'on' ? true : false;
+            $pretest->save();
+            Session::flash('success', 'Pretest has been successfully updated');
+        }else Session::flash('errors', 'Deny');
+
+        return back();
     }
 }

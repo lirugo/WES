@@ -167,6 +167,7 @@ Route::get('/phpinfo', function () {
         Route::post('/{name}/pretest/discipline/{discipline}/{pretestId}/checking', 'Pretest\PretestController@checking');
         Route::post('/{name}/pretest/discipline/{discipline}/{pretestId}/question', 'Pretest\PretestController@getQuestion');
         Route::delete('/{name}/pretest/discipline/{discipline}/{pretestId}/question/{questionId}', 'Pretest\PretestController@deleteQuestion');
+        Route::put('/{name}/pretest/discipline/{discipline}/{pretestId}/update}', 'Pretest\PretestController@update')->name('team.pretest.update');
         Route::delete('/{name}/pretest/discipline/{discipline}/{pretestId}/delete}', 'Pretest\PretestController@delete')->name('team.pretest.delete');
 
 

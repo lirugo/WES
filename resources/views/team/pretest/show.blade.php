@@ -3,6 +3,7 @@
     {{ Breadcrumbs::render('team-pretest-discipline-show', $team, $discipline, $pretest) }}
 @endsection
 @section('content')
+    {!! Form::open(['route' => ['team.pretest.update',$team->name, $discipline->name, $pretest->id], 'method' => 'PUT']) !!}
     <div class="row">
         <div class="col s12 l6">
             <div class="card-panel">
@@ -15,36 +16,46 @@
                         <label for="discipline_id">Discipline</label>
                     </div>
                     <div class="input-field col s12 m4">
-                        {!! Form::number('time', $pretest->time, ['placeholder' => 'Minutes', 'min' => 0, 'max' => 480, 'disabled']) !!}
+                        {!! Form::number('time', $pretest->time, ['placeholder' => 'Minutes', 'min' => 0, 'max' => 480, 'required']) !!}
                         <label for="time">Min for that test</label>
                     </div>
                 </div>
                 <div class="input-field">
                     <i class="material-icons prefix">title</i>
                     <input placeholder="Write name of pretest" name="name" id="name" type="text" class="validate"
-                           value="{{$pretest->name}}" disabled>
+                           value="{{$pretest->name}}" required>
                     <label for="name">Name</label>
                 </div>
                 <div class="input-field">
                     <i class="material-icons prefix">format_align_justify</i>
                     <textarea placeholder="Write description of pretest" name="description" id="description" type="text"
-                              class="materialize-textarea" readonly>{{$pretest->description}}</textarea>
+                              class="materialize-textarea" required>{{$pretest->description}}</textarea>
                     <label for="description">Description</label>
                 </div>
                 <div class="row">
                     {{--Start date&time picker--}}
-                    <div class="input-field">
+                    <div class="input-field col s6">
                         <i class="material-icons prefix">date_range</i>
-                        <input id="start_date" value="{{$pretest->start_date}}" name="start_date" type="text"
-                               class="datepickerDefault" disabled>
+                        <input id="start_date" value="{{Carbon\Carbon::parse($pretest->start_date)->format('Y-m-d')}}" name="start_date" type="text"
+                               class="datepickerDefault" required>
                         <label for="start_date">Start date</label>
                     </div>
+                    <div class="input-field col s6">
+                        <input id="start_time" value="{{Carbon\Carbon::parse($pretest->start_date)->format('H:i')}}" name="start_time" type="text"
+                               class="timepicker" required>
+                        <label for="start_time">Time</label>
+                    </div>
                     {{--End date&time picker--}}
-                    <div class="input-field">
+                    <div class="input-field col s6">
                         <i class="material-icons prefix">date_range</i>
-                        <input id="end_date" value="{{$pretest->end_date}}" name="end_date" type="text"
-                               class="datepickerDefault" disabled>
+                        <input id="end_date" value="{{Carbon\Carbon::parse($pretest->end_date)->format('Y-m-d')}}" name="end_date" type="text"
+                               class="datepickerDefault" required>
                         <label for="end_date">End date</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="end_time" value="{{Carbon\Carbon::parse($pretest->end_date)->format('H:i')}}" name="end_time" type="text"
+                               class="timepicker" required>
+                        <label for="end_time">Time</label>
                     </div>
                 </div>
                 <p>
@@ -53,8 +64,12 @@
                         <span>Mark in Journal</span>
                     </label>
                 </p>
+                @if($pretest->isEditable())
+                    <button type="submit" class="btn btn-small right orange">Update</button>
+                @endif
             </div>
         </div>
+    {!! Form::close() !!}
         <div class="col s12 l6">
             @foreach($pretest->files as $file)
                 <div class="card-panel">
@@ -69,6 +84,8 @@
     </div>
 
     <div class="row" id="pretest-question">
+        {{--Block add question--}}
+        @if($pretest->isEditable())
         <div class="col s12">
             <div class="card-panel">
                 <div>
@@ -93,6 +110,8 @@
                 <a class="btn-floating btn-large waves-effect waves-light green right" @click="persistQuestion"><i class="material-icons">save</i></a>
             </div>
         </div>
+        @endif
+        {{--Block show question--}}
         <div class="col s12 m6" v-for="(question, index) in questions">
             <div class="card-panel">
                 <input type="text" value="" v-model="question.name" disabled/>
@@ -107,7 +126,9 @@
                         </label>
                     </div>
                 </div>
-                <a class="btn-floating btn-small waves-effect waves-light red right" @click="deleteQuestion(question.id, index)"><i class="material-icons">delete</i></a>
+                @if($pretest->isEditable())
+                    <a class="btn-floating btn-small waves-effect waves-light red right" @click="deleteQuestion(question.id, index)"><i class="material-icons">delete</i></a>
+                @endif
             </div>
         </div>
     </div>
