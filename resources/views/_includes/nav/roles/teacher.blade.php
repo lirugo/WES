@@ -19,9 +19,9 @@
                                 {{--<li><a href="#"><i class="material-icons">message</i>Message</a></li>--}}
                                 {{--<li><a href="#"><i class="material-icons">subject</i>Subjects</a></li>--}}
                                 <li><a href="{{url('/team/'.$team->name.'/teachers')}}"><i class="material-icons">school</i>Teachers</a></li>
+                                <li><a href="#"><i class="material-icons">import_contacts</i>Educational Materials</a></li>
                                 <li><a href="{{url('/team/'.$team->name.'/homework')}}"><i class="material-icons">home</i>Home Work</a></li>
                                 <li><a href="{{url('/team/'.$team->name.'/pretest')}}"><i class="material-icons">border_color</i>Pretest</a></li>
-                                {{--<li><a href="#"><i class="material-icons">import_contacts</i>Educational Materials</a></li>--}}
                             </ul>
                         </div>
                     </li>
