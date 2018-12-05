@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     <div class="row">
-        @foreach($team->disciplines as $discipline)
+        @foreach($disciplines as $discipline)
             @if($discipline->hasPretest())
                 <div class="col s12 m6">
                     <div class="card hoverable">

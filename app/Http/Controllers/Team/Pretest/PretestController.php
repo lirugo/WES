@@ -31,8 +31,15 @@ class PretestController extends Controller
     public function index($team)
     {
         $team = Team::where('name', $team)->first();
+
+        if(Auth::user()->hasRole('teacher'))
+            $disciplines = Auth::user()->getTeacherDiscipline($team->name);
+        else
+            $disciplines = $team->disciplines;
+
         return view('team.pretest.index')
-            ->withTeam($team);
+            ->withTeam($team)
+            ->withDisciplines($disciplines);
     }
 
     public function create($team)
