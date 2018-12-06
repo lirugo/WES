@@ -81,10 +81,11 @@ class MaterialController extends Controller
 
     }
 
-    public function getFile($material){
-        $file = TeamMaterials::where('name', $material)->first();
-        $path = storage_path('/app/material/'.$file->file);
+    public function getFile($name){
+        $file = TeamMaterials::where('file', $name)->first();
+        $path = storage_path('/app/material/'.$name);
         $info = pathinfo($path);
+
         return response()->download($path, $file->name.'.'.$info['extension']);
     }
 }
