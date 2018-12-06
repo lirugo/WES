@@ -9,7 +9,7 @@
                 <div class="col s12 m6">
                     <div class="card hoverable">
                         <div class="card-content">
-                            <span class="card-title center-align">Pretest - {{$discipline->getDiscipline->display_name}}</span>
+                            <span class="card-title center-align">{{$discipline->getDiscipline->display_name}}</span>
                             <p>{{$discipline->getDiscipline->description}}</p>
                         </div>
                         <div class="card-action right-align">
