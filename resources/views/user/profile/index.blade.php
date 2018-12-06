@@ -142,7 +142,11 @@
                 {{--Gender--}}
                 <div class="input-field">
                     <i class="material-icons prefix">accessibility</i>
-                    {!! Form::text('gender', ucfirst($user->gender), ['class' => 'validate', 'id' => 'gender', 'disabled']) !!}
+                    <select name="gender" required>
+                        <option value="" disabled>Select gender</option>
+                        <option value="male" {{ $user->gender == 'male' ? 'selected="selected"' : '' }}>Male</option>
+                        <option value="female" {{$user->gender == 'female' ? 'selected="selected"' : '' }}>Female</option>
+                    </select>
                     <span class="helper-text" data-error="wrong" data-success="All is Ok.">Gender</span>
                 </div>
                 {{--Student--}}
