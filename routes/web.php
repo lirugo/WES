@@ -161,6 +161,7 @@ Route::get('/phpinfo', function () {
         Route::post('/{name}/setHeadman', 'TeamController@setHeadman')->name('team.setHeadman');
         Route::post('/pretest/getFile/{name}', 'Pretest\PretestController@getFile')->name('team.pretest.getFile');
         Route::post('/material/getFile/{name}', 'MaterialController@getFile')->name('team.material.getFile');
+        Route::post('/material/delete/{id}', 'MaterialController@delete')->name('team.material.delete');
         Route::post('/{name}/material/store', 'MaterialController@store')->name('team.material.store');
         Route::post('/{name}/material/store/file', 'MaterialController@storeFile')->name('team.material.store.file');
         Route::post('/{name}/pretest/store', 'Pretest\PretestController@store')->name('team.pretest.store');

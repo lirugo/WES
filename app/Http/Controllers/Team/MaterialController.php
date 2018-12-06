@@ -88,4 +88,11 @@ class MaterialController extends Controller
 
         return response()->download($path, $file->name.'.'.$info['extension']);
     }
+
+    public function delete($id){
+        TeamMaterials::find($id)->delete();
+
+        Session::flash('success', 'Education material was be successfully deleted');
+        return back();
+    }
 }
