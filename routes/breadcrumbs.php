@@ -123,6 +123,10 @@
         $trail->parent('team-show', $team);
         $trail->push('Pretest', url('/team/'.$team->name.'/pretest'));
     });
+    Breadcrumbs::for('team-material', function ($trail, $team) {
+        $trail->parent('team-show', $team);
+        $trail->push('Materials', url('/team/'.$team->name.'/material'));
+    });
     Breadcrumbs::for('team-pretest-discipline', function ($trail, $team, $discipline) {
         $trail->parent('team-pretest', $team);
         $trail->push($discipline->display_name, url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name));
@@ -130,6 +134,14 @@
     Breadcrumbs::for('team-pretest-create', function ($trail, $team) {
         $trail->parent('team-pretest', $team);
         $trail->push('Create', url('/team/'.$team->name.'/pretest/create'));
+    });
+    Breadcrumbs::for('team-material-create', function ($trail, $team) {
+        $trail->parent('team-material', $team);
+        $trail->push('Create', url('/team/'.$team->name.'/material/create'));
+    });
+    Breadcrumbs::for('team-material-show', function ($trail, $team) {
+        $trail->parent('team-material', $team);
+        $trail->push('Show', url('/team/'.$team->name.'/material/show'));
     });
     Breadcrumbs::for('team-pretest-discipline-show', function ($trail, $team, $discipline, $pretest) {
         $trail->parent('team-pretest-discipline', $team, $discipline);

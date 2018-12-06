@@ -147,6 +147,9 @@ Route::get('/phpinfo', function () {
         Route::get('/{name}/mark/{discipline}', 'MarkController@show');
         Route::get('/{name}/mark/{discipline}/task/create', 'TaskController@create');
         //Pretest
+        Route::get('/{name}/material', 'MaterialController@index');
+        Route::get('/{name}/material/create', 'MaterialController@create');
+        Route::get('/{name}/material/{discipline}', 'MaterialController@show');
         Route::get('/{name}/pretest', 'Pretest\PretestController@index');
         Route::get('/{name}/pretest/create', 'Pretest\PretestController@create');
         Route::get('/{name}/pretest/discipline/{discipline}', 'Pretest\PretestController@pretests');
@@ -157,6 +160,9 @@ Route::get('/phpinfo', function () {
         Route::post('/{name}/pretest/discipline/{discipline}/{pretestId}/setAccess', 'Pretest\PretestController@setAccess');
         Route::post('/{name}/setHeadman', 'TeamController@setHeadman')->name('team.setHeadman');
         Route::post('/pretest/getFile/{name}', 'Pretest\PretestController@getFile')->name('team.pretest.getFile');
+        Route::post('/material/getFile/{name}', 'MaterialController@getFile')->name('team.material.getFile');
+        Route::post('/{name}/material/store', 'MaterialController@store')->name('team.material.store');
+        Route::post('/{name}/material/store/file', 'MaterialController@storeFile')->name('team.material.store.file');
         Route::post('/{name}/pretest/store', 'Pretest\PretestController@store')->name('team.pretest.store');
         Route::post('/{name}/pretest/store/file', 'Pretest\PretestController@storeFile')->name('team.pretest.store.file');
         Route::post('/{name}/pretest/discipline/{discipline}/{pretestId}/start', 'Pretest\PretestController@startPretest');
