@@ -20,13 +20,4 @@
             @endif
         @endforeach
     </div>
-    @role('teacher')
-    {{--Floating button--}}
-    <div class="fixed-action-btn">
-        <a href="{{url('/team/'.$team->name.'/material/create')}}" class="btn-floating btn-large green tooltipped" data-position="left"
-           data-tooltip="Upload Material">
-            <i class="large material-icons">add</i>
-        </a>
-    </div>
-    @endrole
 @endsection
