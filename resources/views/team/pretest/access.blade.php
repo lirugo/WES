@@ -4,6 +4,29 @@
 @endsection
 @section('content')
     <div class="row">
+        @if(Auth::user()->hasRole('manager'))
+        <div class="col s12">
+            <div class="card-panel">
+                {!! Form::open(['route' => ['team.pretest.updateEndDate',$team->name, $discipline->name, $pretest->id], 'method' => 'PUT']) !!}
+                {{--End date&time picker--}}
+                <div class="row m-b-0">
+                    <div class="input-field col s6">
+                        <i class="material-icons prefix">date_range</i>
+                        <input id="end_date" value="{{Carbon\Carbon::parse($pretest->end_date)->format('Y-m-d')}}" name="end_date" type="text"
+                               class="datepickerDefault" required>
+                        <label for="end_date">End date</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="end_time" value="{{Carbon\Carbon::parse($pretest->end_date)->format('H:i')}}" name="end_time" type="text"
+                               class="timepicker" required>
+                        <label for="end_time">Time</label>
+                    </div>
+                </div>
+                    <button type="submit" class="btn btn-small right orange">Update</button>
+                {!! Form::close() !!}
+            </div>
+        </div>
+        @endif
         <div class="col s12">
             <div class="card-panel">
                 <table>

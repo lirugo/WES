@@ -343,4 +343,13 @@ class PretestController extends Controller
 
         return back();
     }
+
+    public function updateEndDate(Request $request, $team, $discipline, $pretestId) {
+        $pretest = Pretest::find($pretestId);
+        $pretest->end_date = new DateTime($request->end_date . ' ' . $request->end_time);
+        $pretest->save();
+        Session::flash('success', 'End date has been successfully updated');
+
+        return back();
+    }
 }
