@@ -143,11 +143,11 @@
                 },
                 next () {
                     const active = parseInt(this.active)
-                    const countQuestions = this.questions.length - 2
+                    const countQuestions = this.questions.length - 1
                     if(active <= countQuestions)
-                        this.active = active + 1
+                        this.active++
 
-                    if(active == countQuestions)
+                    if(active == countQuestions - 1)
                         this.isFinish = true
                 },
                 accepted() {
