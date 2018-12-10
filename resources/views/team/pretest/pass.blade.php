@@ -54,7 +54,8 @@
                     </v-tab-item>
                 </v-tabs>
                 <div class="text-xs-center right mt-3">
-                    <v-btn @click="next">next</v-btn>
+                    <v-btn @click="next" v-if="!isFinish">next</v-btn>
+                    <v-btn @click="passPretest" class="green white-text" v-else>finish</v-btn>
                 </div>
                 <v-dialog
                         v-model="dialog"
@@ -87,19 +88,6 @@
                         </v-card-actions>
                     </v-card>
                 </v-dialog>
-                <v-btn
-                        absolute
-                        dark
-                        fab
-                        bottom
-                        right
-                        fixed
-                        color="green"
-                        class="m-b-50"
-                        @click="passPretest"
-                >
-                    <v-icon>send</v-icon>
-                </v-btn>
             </v-container>
         </v-content>
     </v-app>
@@ -121,6 +109,7 @@
             el: '#app',
             data: {
                 active: null,
+                isFinish: false,
                 questions: [],
                 answers: [],
                 dialog: false,
@@ -154,7 +143,12 @@
                 },
                 next () {
                     const active = parseInt(this.active)
-                    this.active = (active < 2 ? active + 1 : 0)
+                    const countQuestions = this.questions.length - 2
+                    if(active <= countQuestions)
+                        this.active = active + 1
+
+                    if(active == countQuestions)
+                        this.isFinish = true
                 },
                 accepted() {
                     window.history.back()
