@@ -168,6 +168,11 @@ Route::get('/phpinfo', function () {
         Route::post('/{name}/pretest/store/file', 'Pretest\PretestController@storeFile')->name('team.pretest.store.file');
         Route::post('/{name}/pretest/discipline/{discipline}/{pretestId}/start', 'Pretest\PretestController@startPretest');
         Route::post('/{name}/pretest/discipline/{discipline}/{pretestId}/available', 'Pretest\PretestController@available');
+        //Activity
+        Route::get('/{name}/activity', 'Activity\ActivityController@index');
+        Route::get('/{name}/activity/create', 'Activity\ActivityController@create');
+        Route::post('/{name}/activity/store', 'Activity\ActivityController@store')->name('team.activity.store');
+        Route::post('/{name}/activity/store/file', 'Activity\ActivityController@storeFile')->name('team.activity.store.file');
         //Pretest API
         Route::put('/{name}/pretest/discipline/{discipline}/{pretestId}/question', 'Pretest\PretestController@putQuestion');
         Route::post('/{name}/pretest/discipline/{discipline}/{pretestId}/getStatistic', 'Pretest\PretestController@getStatistic');

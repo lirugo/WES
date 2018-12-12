@@ -118,6 +118,15 @@
         $trail->push('Students', url('/team/'.$team->name.'/students'));
     });
 
+    //Activity
+    Breadcrumbs::for('team-activity', function ($trail, $team) {
+        $trail->parent('team-show', $team);
+        $trail->push('Activity', url('/team/'.$team->name.'/activity'));
+    });
+    Breadcrumbs::for('team-activity-create', function ($trail, $team) {
+        $trail->parent('team-activity', $team);
+        $trail->push('Create', url('/team/'.$team->name.'/activity/create'));
+    });
     //Pretest
     Breadcrumbs::for('team-pretest', function ($trail, $team) {
         $trail->parent('team-show', $team);

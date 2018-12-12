@@ -1406,7 +1406,6 @@ Vue.component('widget-slug', __webpack_require__(43));
 Vue.component('widget-countdown', __webpack_require__(46));
 // Avatar Editor
 Vue.component('widget-avatar-cropper', __webpack_require__(52));
-
 /*
 |--------------------------------------------------------------------------
 | Custom scripts
