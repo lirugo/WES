@@ -8,10 +8,10 @@ use App\Models\Team\TeamActivity;
 use App\Models\Team\TeamActivityFile;
 use App\Team;
 use Auth;
-use Illuminate\Support\Facades\Storage;
-use Session;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Session;
 
 class ActivityController extends Controller
 {
@@ -67,6 +67,20 @@ class ActivityController extends Controller
         return redirect(url('/team/'.$team->name.'/activity'));
     }
 
+    public function show($team, $discipline){
+        $team = Team::where('name', $team)->first();
+        $discipline = Discipline::where('name', $discipline)->first();
+        $activities = TeamActivity::where(
+            ['team_id' => $team->id],
+            ['discipline_id' => $discipline->id]
+        )->orderBy('id', 'DESC')->get();
+
+        return view('team.activity.show')
+            ->withTeam($team)
+            ->withDiscipline($discipline)
+            ->withActivities($activities);
+    }
+
     public function storeFile(Request $request, $name)
     {
         if ($request->hasFile('file')) {
@@ -75,5 +89,13 @@ class ActivityController extends Controller
         } else
             return false;
 
+    }
+
+    public function getFile($name){
+        $file = TeamActivityFile::where('file', $name)->first();
+        $path = storage_path('/app/activity/'.$name);
+        $info = pathinfo($path);
+
+        return response()->download($path, $file->name.'.'.$info['extension']);
     }
 }

@@ -123,6 +123,10 @@
         $trail->parent('team-show', $team);
         $trail->push('Activity', url('/team/'.$team->name.'/activity'));
     });
+    Breadcrumbs::for('team-activity-show', function ($trail, $team, $discipline) {
+        $trail->parent('team-activity', $team);
+        $trail->push($discipline->display_name, url('/team/'.$team->name.'/activity/'.$discipline->name));
+    });
     Breadcrumbs::for('team-activity-create', function ($trail, $team) {
         $trail->parent('team-activity', $team);
         $trail->push('Create', url('/team/'.$team->name.'/activity/create'));

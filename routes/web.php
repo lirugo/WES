@@ -171,6 +171,8 @@ Route::get('/phpinfo', function () {
         //Activity
         Route::get('/{name}/activity', 'Activity\ActivityController@index');
         Route::get('/{name}/activity/create', 'Activity\ActivityController@create');
+        Route::get('/{name}/activity/{discipline}', 'Activity\ActivityController@show');
+        Route::post('/material/getFile/{name}', 'Activity\ActivityController@getFile')->name('team.activity.getFile');
         Route::post('/{name}/activity/store', 'Activity\ActivityController@store')->name('team.activity.store');
         Route::post('/{name}/activity/store/file', 'Activity\ActivityController@storeFile')->name('team.activity.store.file');
         //Pretest API
