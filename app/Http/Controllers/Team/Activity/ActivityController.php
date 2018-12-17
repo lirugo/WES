@@ -137,18 +137,32 @@ class ActivityController extends Controller
             'student_id' => $studentId,
             'activity_id' => $activityId,
             'text' => $request->text,
-        ])->load('teacher');
+        ])->load(['teacher', 'files']);
+
+        // TODO:: remake that
+        foreach ($request->all('files') as $file) {
+            for ($i = 0; $i < count($file); $i++)
+            TeamActivityFile::create([
+                'reply_id' => $message->id,
+                'type' => 'reply',
+                'name' => $file[$i]['name'],
+                'file' => $file[$i]['file'],
+            ]);
+        }
+
+        $message = TeamActivityReply::with(['teacher', 'files'])->find($message->id);
         return $message;
     }
 
     public function getMessages($team, $activityId, $studentId){
         //Check access
         //Get messages
-        $messages = TeamActivityReply::with('teacher')->where(
+        $messages = TeamActivityReply::with(['teacher', 'files'])->where(
             ['student_id' => $studentId],
             ['activity_id' => $activityId]
         )->orderBy('id', 'DESC')->get();
         //Return messages
         return $messages;
     }
+
 }

@@ -17,4 +17,8 @@ class TeamActivityReply extends Model
     public function student(){
         return $this->hasOne(User::class, 'id', 'student_id');
     }
+
+    public function files(){
+        return $this->hasMany(TeamActivityFile::class, 'reply_id', 'id');
+    }
 }
