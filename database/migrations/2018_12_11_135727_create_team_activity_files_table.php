@@ -15,15 +15,13 @@ class CreateTeamActivityFilesTable extends Migration
     {
         Schema::create('team_activity_files', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('answer_id')->unsigned()->nullable();
-            $table->foreign('answer_id')->references('id')->on('team_activity_user_answers')->onDelete('cascade');
             $table->integer('reply_id')->unsigned()->nullable();
-            $table->foreign('reply_id')->references('id')->on('team_activity_reply_on_user_answers')->onDelete('cascade');
+            $table->foreign('reply_id')->references('id')->on('team_activity_replies')->onDelete('cascade');
             $table->integer('activity_id')->unsigned()->nullable();;
             $table->foreign('activity_id')->references('id')->on('team_activities')->onDelete('cascade');
             $table->string('name');
             $table->string('file');
-            $table->enum('type', ['activity', 'answer', 'reply']);
+            $table->enum('type', ['activity', 'reply']);
             $table->timestamps();
         });
     }

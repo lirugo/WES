@@ -6,6 +6,7 @@ use App\Discipline;
 use App\Http\Controllers\Controller;
 use App\Models\Team\TeamActivity;
 use App\Models\Team\TeamActivityFile;
+use App\Models\Team\TeamActivityReply;
 use App\Team;
 use Auth;
 use DateTime;
@@ -17,7 +18,7 @@ class ActivityController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:administrator|top-manager|manager|teacher');
+        $this->middleware('role:administrator|top-manager|manager|teacher|student');
     }
 
     public function index($team){
@@ -44,7 +45,7 @@ class ActivityController extends Controller
         $activity = TeamActivity::create([
             'team_id' => $team->id,
             'discipline_id' => $discipline->id,
-            'user_id' => Auth::user()->id,
+            'teacher_id' => Auth::user()->id,
             'name' => $request->name,
             'description' => $request->description,
             'type_name' => $request->type == 'other' ? $request->type_name : null,
@@ -97,5 +98,40 @@ class ActivityController extends Controller
         $info = pathinfo($path);
 
         return response()->download($path, $file->name.'.'.$info['extension']);
+    }
+
+    public function pass($team, $discipline, $activityId){
+        $team = Team::where('name', $team)->first();
+        $discipline = Discipline::where('name', $discipline)->first();
+        $activity = TeamActivity::find($activityId);
+        if(!$activity->isOpen())
+            abort(403);
+
+        return view('team.activity.pass')
+            ->withTeam($team)
+            ->withDiscipline($discipline)
+            ->withActivity($activity);
+    }
+
+    //API Chat Functionality
+    public function answer(Request $request, $team, $activityId){
+        TeamActivityReply::create([
+            'student_id' => Auth::user()->id,
+            'activity_id' => $activityId,
+            'text' => $request->text,
+        ]);
+        Session::flash('success', 'Reply has been sent');
+        return back();
+    }
+
+    public function getMessages($team, $activityId){
+        //Check access
+        //Get messages
+        $messages = TeamActivityReply::where(
+            ['student_id' => Auth::user()->id],
+            ['activity_id' => $activityId]
+        )->orderBy('id', 'DESC')->get();
+        //Return messages
+        return $messages;
     }
 }

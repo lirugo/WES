@@ -2,6 +2,7 @@
 
 namespace App\Models\Team;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class TeamActivity extends Model
@@ -19,5 +20,13 @@ class TeamActivity extends Model
 
     public function files(){
         return $this->hasMany(TeamActivityFile::class, 'activity_id', 'id');
+    }
+
+    //Is open
+    public function isOpen(){
+        $start = Carbon::now()->diffInMinutes($this->start_date, false) < 0;
+        $end = Carbon::now()->diffInMinutes($this->end_date, false) > 0;
+        $locked = ($start + $end) == 2;
+        return $locked;
     }
 }

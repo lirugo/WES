@@ -15,7 +15,10 @@
                         @endif
                     </div>
                     <div class="card-content">
-                        <p class="card-title">{{$activity->name}}</p>
+                        <p class="card-title m-b-0">{{$activity->name}}</p>
+                        @if($activity->type == 'other')
+                            <span><small>{{$activity->type_name}}</small></span>
+                        @endif
                         <p><small>{{$activity->description}}</small></p>
                         <div class="m-t-10">
                             @if(count($activity->files))
@@ -32,7 +35,11 @@
                         <small><blockquote class="m-b-0 m-t-5">End date - {{$activity->end_date}}</blockquote></small>
                     </div>
                     <div class="card-action p-l-0">
-                        <a href="#" class="btn btn-small indigo right waves-effect waves-light">Open</a>
+                        @role('student')
+                            @if($activity->isOpen())
+                                <a href="{{ url('team/'.$team->name.'/activity/'.$discipline->name.'/pass/'.$activity->id) }}" class="btn btn-small indigo right waves-effect waves-light">Open</a>
+                            @endif
+                        @endrole
                     </div>
                 </div>
             </div>

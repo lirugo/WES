@@ -131,6 +131,10 @@
         $trail->parent('team-activity', $team);
         $trail->push('Create', url('/team/'.$team->name.'/activity/create'));
     });
+    Breadcrumbs::for('team-activity-pass', function ($trail, $team, $discipline, $activity) {
+        $trail->parent('team-activity-show', $team, $discipline);
+        $trail->push($activity->getType(), url('/team/'.$team->name.'/activity/'.$discipline->name.'/pass/',$activity->id));
+    });
     //Pretest
     Breadcrumbs::for('team-pretest', function ($trail, $team) {
         $trail->parent('team-show', $team);
