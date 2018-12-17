@@ -131,15 +131,14 @@ class ActivityController extends Controller
     }
 
     //API Chat Functionality
-    public function answer(Request $request, $team, $activityId, $studentId){
-        TeamActivityReply::create([
+    public function send(Request $request, $team, $activityId, $studentId){
+        $message = TeamActivityReply::create([
             'teacher_id' => Auth::user()->hasRole('teacher') ? Auth::user()->id : null,
             'student_id' => $studentId,
             'activity_id' => $activityId,
             'text' => $request->text,
-        ]);
-        Session::flash('success', 'Reply has been sent');
-        return back();
+        ])->load('teacher');
+        return $message;
     }
 
     public function getMessages($team, $activityId, $studentId){

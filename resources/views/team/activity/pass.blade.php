@@ -36,36 +36,36 @@
             </div>
         </div>
     </div>
-    <div class="row m-b-0">
-        <div class="col s12">
-            <div class="card-panel">
-                {!! Form::open(['route' => ['team.activity.reply', $team->name, $activity->id, $student->id]]) !!}
-                <div class="input-field">
-                    <textarea id="text" name="text" class="materialize-textarea"></textarea>
-                    <label for="text">Write your answer here</label>
+    <div id="activityChat">
+        <div class="row m-b-0">
+            <div class="col s12">
+                <div class="card-panel">
+                    <div class="input-field">
+                        <textarea id="text" name="text" class="materialize-textarea" v-model="message.text"></textarea>
+                        <label for="text">Write your answer here</label>
+                    </div>
+                    <button type="submit" class="btn btn-small right indigo" @click="send">Send</button>
                 </div>
-                <button type="submit" class="btn btn-small right indigo">Send</button>
-                {!! Form::close() !!}
             </div>
         </div>
-    </div>
 
-    <div class="row" id="activityChat">
-        <div class="col s12">
-            <div class="card-panel" v-for="message in messages">
-                {{--Image--}}
-                <div class="chip" v-if="!message.teacher">
-                    <img src="{{asset('/uploads/avatars/'.$student->avatar)}}" alt="{{$student->getShortName()}}">
-                    {{$student->getShortName()}}
+        <div class="row">
+            <div class="col s12">
+                <div class="card-panel" v-for="message in messages">
+                    {{--Image--}}
+                    <div class="chip" v-if="!message.teacher">
+                        <img src="{{asset('/uploads/avatars/'.$student->avatar)}}" alt="{{$student->getShortName()}}">
+                        {{$student->getShortName()}}
+                    </div>
+                    <div class="chip" v-else>
+                        <img :src="'/uploads/avatars/' + message.teacher.avatar" alt="teacher">
+                        Teacher
+                    </div>
+                    <div class="chip">
+                        @{{ message.created_at }}
+                    </div>
+                    <p class="card-text">@{{ message.text }}</p>
                 </div>
-                <div class="chip" v-else>
-                    <img :src="'/uploads/avatars/' + message.teacher.avatar" alt="teacher">
-                    Teacher
-                </div>
-                <div class="chip">
-                    @{{ message.created_at }}
-                </div>
-                <p class="card-text">@{{ message.text }}</p>
             </div>
         </div>
     </div>
@@ -77,20 +77,32 @@
             el: '#activityChat',
             data: {
                 messages: [],
+                message: {
+                    text: null,
+                }
             },
             created(){
                 //Get questions
                 axios.post('/team/{!! $team->name !!}/activity/api/getMessages/{!! $activity->id !!}/{!! $student->id !!}')
                     .then(response => {
                         this.messages = response.data
-                        console.log(response.data)
                     })
                     .catch(e => {
                         this.errors.push(e)
                     })
             },
             methods: {
-
+                send(){
+                    axios.post('/team/{!! $team->name !!}/activity/api/send/{!! $activity->id !!}/{!! $student->id !!}', this.message)
+                        .then(response => {
+                            console.log(response.data)
+                            this.messages.unshift(response.data)
+                            this.message.text = null
+                        })
+                        .catch(e => {
+                            this.errors.push(e)
+                        })
+                }
             }
         })
     </script>
