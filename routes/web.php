@@ -177,6 +177,7 @@ Route::get('/phpinfo', function () {
         Route::post('/material/getFile/{name}', 'Activity\ActivityController@getFile')->name('team.activity.getFile');
         Route::post('/{name}/activity/store', 'Activity\ActivityController@store')->name('team.activity.store');
         Route::post('/{name}/activity/store/file', 'Activity\ActivityController@storeFile')->name('team.activity.store.file');
+        Route::post('/{name}/activity/{discipline}/pass/{activityId}/{studentId}', 'Activity\ActivityController@setMark')->name('team.activity.pass.mark');
         //Activity API
         Route::post('/{name}/activity/api/send/{activityId}/{studentId}', 'Activity\ActivityController@send');
         Route::post('/{name}/activity/api/getMessages/{activityId}/{studentId}', 'Activity\ActivityController@getMessages');

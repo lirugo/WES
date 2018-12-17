@@ -6,6 +6,7 @@ use App\Discipline;
 use App\Http\Controllers\Controller;
 use App\Models\Team\TeamActivity;
 use App\Models\Team\TeamActivityFile;
+use App\Models\Team\TeamActivityMark;
 use App\Models\Team\TeamActivityReply;
 use App\Team;
 use App\User;
@@ -109,8 +110,6 @@ class ActivityController extends Controller
             $student = User::find($studentId);
         else
             $student = User::find(Auth::user()->id);
-        if(!$activity->isOpen())
-            abort(403);
 
         return view('team.activity.pass')
             ->withTeam($team)
@@ -128,6 +127,16 @@ class ActivityController extends Controller
             ->withTeam($team)
             ->withDiscipline($discipline)
             ->withActivity($activity);
+    }
+
+    public function setMark(Request $request, $team, $discipline, $activityId, $studentId){
+        TeamActivityMark::create([
+            'student_id' => $studentId,
+            'activity_id' => $activityId,
+            'mark' => $request->mark
+        ]);
+        Session::flash('success', 'Mark was successfully set');
+        return back();
     }
 
     //API Chat Functionality

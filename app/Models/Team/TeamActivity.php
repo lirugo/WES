@@ -29,4 +29,8 @@ class TeamActivity extends Model
         $locked = ($start + $end) == 2;
         return $locked;
     }
+
+    public function getMark($studentId){
+        return $this->hasOne(TeamActivityMark::class, 'activity_id', 'id')->where('student_id', '=', $studentId)->first();
+    }
 }
