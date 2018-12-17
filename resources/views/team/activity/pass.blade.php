@@ -39,7 +39,7 @@
     <div class="row m-b-0">
         <div class="col s12">
             <div class="card-panel">
-                {!! Form::open(['route' => ['team.activity.reply', $team->name, $activity->id]]) !!}
+                {!! Form::open(['route' => ['team.activity.reply', $team->name, $activity->id, $student->id]]) !!}
                 <div class="input-field">
                     <textarea id="text" name="text" class="materialize-textarea"></textarea>
                     <label for="text">Write your answer here</label>
@@ -54,9 +54,13 @@
         <div class="col s12">
             <div class="card-panel" v-for="message in messages">
                 {{--Image--}}
-                <div class="chip" v-if="!message.teacher_id">
-                    <img src="{{asset('/uploads/avatars/'.Auth::user()->avatar)}}" alt="{{Auth::user()->getShortName()}}">
-                    {{Auth::user()->getShortName()}}
+                <div class="chip" v-if="!message.teacher">
+                    <img src="{{asset('/uploads/avatars/'.$student->avatar)}}" alt="{{$student->getShortName()}}">
+                    {{$student->getShortName()}}
+                </div>
+                <div class="chip" v-else>
+                    <img :src="'/uploads/avatars/' + message.teacher.avatar" alt="teacher">
+                    Teacher
                 </div>
                 <div class="chip">
                     @{{ message.created_at }}
@@ -76,9 +80,10 @@
             },
             created(){
                 //Get questions
-                axios.post('/team/{!! $team->name !!}/activity/api/getMessages/{!! $activity->id !!}')
+                axios.post('/team/{!! $team->name !!}/activity/api/getMessages/{!! $activity->id !!}/{!! $student->id !!}')
                     .then(response => {
                         this.messages = response.data
+                        console.log(response.data)
                     })
                     .catch(e => {
                         this.errors.push(e)

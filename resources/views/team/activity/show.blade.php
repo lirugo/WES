@@ -35,6 +35,9 @@
                         <small><blockquote class="m-b-0 m-t-5">End date - {{$activity->end_date}}</blockquote></small>
                     </div>
                     <div class="card-action p-l-0">
+                        @role(['teacher', 'manager'])
+                            <a href="{{ url('team/'.$team->name.'/activity/'.$discipline->name.'/pass/'.$activity->id.'/students') }}" class="btn btn-small indigo right waves-effect waves-light">Students</a>
+                        @endrole
                         @role('student')
                             @if($activity->isOpen())
                                 <a href="{{ url('team/'.$team->name.'/activity/'.$discipline->name.'/pass/'.$activity->id) }}" class="btn btn-small indigo right waves-effect waves-light">Open</a>

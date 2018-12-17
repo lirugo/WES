@@ -172,13 +172,14 @@ Route::get('/phpinfo', function () {
         Route::get('/{name}/activity', 'Activity\ActivityController@index');
         Route::get('/{name}/activity/create', 'Activity\ActivityController@create');
         Route::get('/{name}/activity/{discipline}', 'Activity\ActivityController@show');
-        Route::get('/{name}/activity/{discipline}/pass/{id}', 'Activity\ActivityController@pass');
-        Route::post('/{name}/activity/reply/{activityId}', 'Activity\ActivityController@answer')->name('team.activity.reply');
+        Route::get('/{name}/activity/{discipline}/pass/{id}/students', 'Activity\ActivityController@students');
+        Route::get('/{name}/activity/{discipline}/pass/{id}/{studentId?}', 'Activity\ActivityController@pass');
+        Route::post('/{name}/activity/reply/{activityId}/{studentId}', 'Activity\ActivityController@answer')->name('team.activity.reply');
         Route::post('/material/getFile/{name}', 'Activity\ActivityController@getFile')->name('team.activity.getFile');
         Route::post('/{name}/activity/store', 'Activity\ActivityController@store')->name('team.activity.store');
         Route::post('/{name}/activity/store/file', 'Activity\ActivityController@storeFile')->name('team.activity.store.file');
         //Activity API
-        Route::post('/{name}/activity/api/getMessages/{activityId}', 'Activity\ActivityController@getMessages');
+        Route::post('/{name}/activity/api/getMessages/{activityId}/{studentId}', 'Activity\ActivityController@getMessages');
         //Pretest API
         Route::put('/{name}/pretest/discipline/{discipline}/{pretestId}/question', 'Pretest\PretestController@putQuestion');
         Route::post('/{name}/pretest/discipline/{discipline}/{pretestId}/getStatistic', 'Pretest\PretestController@getStatistic');
