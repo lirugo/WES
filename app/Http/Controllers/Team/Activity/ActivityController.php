@@ -111,6 +111,15 @@ class ActivityController extends Controller
         else
             $student = User::find(Auth::user()->id);
 
+        //Access
+        if(Auth::user()->hasRole('student')){
+            if(Auth::user()->id != $studentId)
+                abort(403);
+        }else if(Auth::user()->hasRole('teacher')){
+            if(Auth::user()->id != $activity->teacher_id)
+                abort(403);
+        }
+
         return view('team.activity.pass')
             ->withTeam($team)
             ->withDiscipline($discipline)

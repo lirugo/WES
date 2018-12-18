@@ -58,6 +58,7 @@
                </div>
            </div>
            {{--New message--}}
+           @role(['teacher', 'student'])
            <div class="row m-b-0">
                <div class="col s12">
                    <div class="card-panel">
@@ -97,6 +98,7 @@
                    </div>
                </div>
            </div>
+           @endrole
            {{--Chat--}}
            <div class="row">
                <div class="col s12">

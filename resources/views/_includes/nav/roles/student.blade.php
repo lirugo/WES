@@ -21,6 +21,7 @@
                                 <li><a href="{{url('/team/'.$team->name.'/teachers')}}"><i class="material-icons">school</i>Teachers</a></li>
                                 <li><a href="{{url('/team/'.$team->name.'/material')}}"><i class="material-icons">import_contacts</i>Educational Materials</a></li>
                                 <li><a href="{{url('/team/'.$team->name.'/activity')}}"><i class="material-icons">home</i>Activity</a></li>
+                                <li><a href="#"><i class="material-icons">group</i>Group Work</a></li>
                                 <li><a href="{{url('/team/'.$team->name.'/pretest')}}"><i class="material-icons">border_color</i>Pretest</a></li>
                             </ul>
                         </div>
