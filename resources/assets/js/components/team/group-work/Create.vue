@@ -48,7 +48,7 @@
             var elem = document.querySelector('#team-group-work-modal-create');
             this.instance = M.Modal.init(elem);
         },
-        props: ['team_name', 'discipline_name', 'teacher_id'],
+        props: ['save_work'],
         data() {
             return {
                 instance: null,
@@ -58,24 +58,11 @@
                     description: null,
                     start_date: null,
                     end_date: null,
-                    teacher_id: this.teacher_id
                 },
             }
         },
         methods: {
             save(){
-                if (this.groupWork.title && this.groupWork.description) {
-                    axios.post('/team/'+this.team_name+'/group-work/'+this.discipline_name+'/store', this.groupWork)
-                        .then(response => {
-                            console.log(response.data)
-                        })
-                        .catch(e => {
-                            this.errors.push(e)
-                        })
-                    // Close modal
-                    this.instance.close()
-                }
-
                 this.errors = [];
 
                 if (!this.groupWork.title) {
@@ -83,6 +70,18 @@
                 }
                 if (!this.groupWork.description) {
                     this.errors.push('Description wrong or empty');
+                }
+
+                if (this.groupWork.title && this.groupWork.description) {
+                    this.save_work(this.groupWork)
+                    this.groupWork = {
+                        title: null,
+                            description: null,
+                            start_date: null,
+                            end_date: null,
+                    }
+                    // Close modal
+                    this.instance.close()
                 }
             }
         }

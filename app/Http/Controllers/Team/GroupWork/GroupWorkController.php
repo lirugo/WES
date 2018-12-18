@@ -45,14 +45,25 @@ class GroupWorkController extends Controller
         $groupWork = GroupWork::create([
             'team_id' => $team->id,
             'discipline_id' => $discipline->id,
-            'teacher_id' => $request->teacher_id,
+            'teacher_id' => Auth::user()->id,
             'name' => $request->title,
             'description' => $request->description,
-            'start_date' => new DateTime(),
-            'end_date' => new DateTime(),
+            'start_date' => '2018-12-18 17:00:00',
+            'end_date' => '2018-12-18 17:00:00',
         ]);
 
-        return $request->all();
+        return $groupWork;
+    }
+
+    public function getGroupWorks($team, $discipline){
+        $team = Team::where('name', $team)->first();
+        $discipline = Discipline::where('name', $discipline)->first();
+        $groupWorks = GroupWork::where([
+            'team_id' => $team->id,
+            'discipline_id' => $discipline->id,
+        ])->orderBy('id', 'DESC')->get();
+
+        return $groupWorks;
     }
 
 }

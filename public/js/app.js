@@ -1407,8 +1407,10 @@ Vue.component('widget-countdown', __webpack_require__(46));
 // Avatar Editor
 Vue.component('widget-avatar-cropper', __webpack_require__(52));
 
-//Group Work
+// Group Work
 Vue.component('group-work-create', __webpack_require__(78));
+// List
+Vue.component('group-work-list', __webpack_require__(81));
 /*
 |--------------------------------------------------------------------------
 | Custom scripts
@@ -48284,7 +48286,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.instance = M.Modal.init(elem);
     },
 
-    props: ['team_name', 'discipline_name', 'teacher_id'],
+    props: ['save_work'],
     data: function data() {
         return {
             instance: null,
@@ -48293,26 +48295,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 title: null,
                 description: null,
                 start_date: null,
-                end_date: null,
-                teacher_id: this.teacher_id
+                end_date: null
             }
         };
     },
 
     methods: {
         save: function save() {
-            var _this = this;
-
-            if (this.groupWork.title && this.groupWork.description) {
-                __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/team/' + this.team_name + '/group-work/' + this.discipline_name + '/store', this.groupWork).then(function (response) {
-                    console.log(response.data);
-                }).catch(function (e) {
-                    _this.errors.push(e);
-                });
-                // Close modal
-                this.instance.close();
-            }
-
             this.errors = [];
 
             if (!this.groupWork.title) {
@@ -48320,6 +48309,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
             if (!this.groupWork.description) {
                 this.errors.push('Description wrong or empty');
+            }
+
+            if (this.groupWork.title && this.groupWork.description) {
+                this.save_work(this.groupWork);
+                this.groupWork = {
+                    title: null,
+                    description: null,
+                    start_date: null,
+                    end_date: null
+                    // Close modal
+                };this.instance.close();
             }
         }
     }
@@ -48469,6 +48469,143 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-5e8bbd5e", module.exports)
+  }
+}
+
+/***/ }),
+/* 81 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(82)
+/* template */
+var __vue_template__ = __webpack_require__(83)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\team\\group-work\\List.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-69945b33", Component.options)
+  } else {
+    hotAPI.reload("data-v-69945b33", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 82 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    mounted: function mounted() {
+        console.log('Group work | list widget mounted.');
+    },
+
+    props: ['group_works'],
+    watch: {
+        group_works: function group_works(newVal, oldVal) {
+            this.group_works = newVal;
+        }
+    },
+    computed: {
+        sortedGroupWorks: function sortedGroupWorks() {
+            return this.group_works.sort(function (a, b) {
+                return -(a.id - b.id);
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 83 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "row" }, [
+      _c(
+        "div",
+        { staticClass: "col s12" },
+        _vm._l(_vm.sortedGroupWorks, function(work) {
+          return _c("div", { staticClass: "card-panel" }, [
+            _c("span", { staticClass: "card-title" }, [
+              _vm._v(_vm._s(work.name))
+            ]),
+            _vm._v(" "),
+            _c("p", [_vm._v(_vm._s(work.description))]),
+            _vm._v(" "),
+            _c("small", [
+              _c("blockquote", { staticClass: "m-b-0 m-t-15" }, [
+                _vm._v("Start date - " + _vm._s(work.start_date))
+              ])
+            ]),
+            _vm._v(" "),
+            _c("small", [
+              _c("blockquote", { staticClass: "m-b-0 m-t-5" }, [
+                _vm._v("End date - " + _vm._s(work.end_date))
+              ])
+            ])
+          ])
+        })
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-69945b33", module.exports)
   }
 }
 
