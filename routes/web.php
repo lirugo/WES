@@ -168,6 +168,10 @@ Route::get('/phpinfo', function () {
         Route::post('/{name}/pretest/store/file', 'Pretest\PretestController@storeFile')->name('team.pretest.store.file');
         Route::post('/{name}/pretest/discipline/{discipline}/{pretestId}/start', 'Pretest\PretestController@startPretest');
         Route::post('/{name}/pretest/discipline/{discipline}/{pretestId}/available', 'Pretest\PretestController@available');
+        //Group work
+        Route::get('/{name}/group-work', 'GroupWork\GroupWorkController@index');
+        Route::get('/{name}/group-work/{discipline}', 'GroupWork\GroupWorkController@show');
+        Route::post('/{name}/group-work/{discipline}/store', 'GroupWork\GroupWorkController@store');
         //Activity
         Route::get('/{name}/activity', 'Activity\ActivityController@index');
         Route::get('/{name}/activity/create', 'Activity\ActivityController@create');

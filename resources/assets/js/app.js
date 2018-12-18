@@ -11,6 +11,9 @@ Vue.component('widget-slug', require('./components/widget/Slug'));
 Vue.component('widget-countdown', require('./components/widget/Countdown'));
 // Avatar Editor
 Vue.component('widget-avatar-cropper', require('vue-image-crop-upload'));
+
+//Group Work
+Vue.component('group-work-create', require('./components/team/group-work/Create'));
 /*
 |--------------------------------------------------------------------------
 | Custom scripts

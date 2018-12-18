@@ -1406,6 +1406,9 @@ Vue.component('widget-slug', __webpack_require__(43));
 Vue.component('widget-countdown', __webpack_require__(46));
 // Avatar Editor
 Vue.component('widget-avatar-cropper', __webpack_require__(52));
+
+//Group Work
+Vue.component('group-work-create', __webpack_require__(78));
 /*
 |--------------------------------------------------------------------------
 | Custom scripts
@@ -48161,6 +48164,313 @@ document.addEventListener('DOMContentLoaded', function () {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 64 */,
+/* 65 */,
+/* 66 */,
+/* 67 */,
+/* 68 */,
+/* 69 */,
+/* 70 */,
+/* 71 */,
+/* 72 */,
+/* 73 */,
+/* 74 */,
+/* 75 */,
+/* 76 */,
+/* 77 */,
+/* 78 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(79)
+/* template */
+var __vue_template__ = __webpack_require__(80)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\team\\group-work\\Create.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-5e8bbd5e", Component.options)
+  } else {
+    hotAPI.reload("data-v-5e8bbd5e", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 79 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    mounted: function mounted() {
+        console.log('Group work | create widget mounted.');
+        //Init modal create
+        var elem = document.querySelector('#team-group-work-modal-create');
+        this.instance = M.Modal.init(elem);
+    },
+
+    props: ['team_name', 'discipline_name', 'teacher_id'],
+    data: function data() {
+        return {
+            instance: null,
+            errors: [],
+            groupWork: {
+                title: null,
+                description: null,
+                start_date: null,
+                end_date: null,
+                teacher_id: this.teacher_id
+            }
+        };
+    },
+
+    methods: {
+        save: function save() {
+            var _this = this;
+
+            if (this.groupWork.title && this.groupWork.description) {
+                __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/team/' + this.team_name + '/group-work/' + this.discipline_name + '/store', this.groupWork).then(function (response) {
+                    console.log(response.data);
+                }).catch(function (e) {
+                    _this.errors.push(e);
+                });
+                // Close modal
+                this.instance.close();
+            }
+
+            this.errors = [];
+
+            if (!this.groupWork.title) {
+                this.errors.push('Title wrong or empty');
+            }
+            if (!this.groupWork.description) {
+                this.errors.push('Description wrong or empty');
+            }
+        }
+    }
+});
+
+/***/ }),
+/* 80 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _vm._m(0),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "modal", attrs: { id: "team-group-work-modal-create" } },
+      [
+        _c("div", { staticClass: "modal-content" }, [
+          _c("h4", { staticClass: "center-align" }, [
+            _vm._v("Create Group Work")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row m-b-0" }, [
+            _vm.errors.length
+              ? _c("span", [
+                  _c("b", [_vm._v("Errors:")]),
+                  _vm._v(" "),
+                  _c(
+                    "ul",
+                    { staticClass: "m-b-0 m-t-0" },
+                    _vm._l(_vm.errors, function(error) {
+                      return _c("li", [_vm._v(_vm._s(error))])
+                    })
+                  )
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _c("div", { staticClass: "input-field col s12 m-b-0" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.groupWork.title,
+                    expression: "groupWork.title"
+                  }
+                ],
+                staticClass: "validate",
+                attrs: {
+                  placeholder: "Write title here",
+                  id: "title",
+                  name: "title",
+                  type: "text",
+                  required: ""
+                },
+                domProps: { value: _vm.groupWork.title },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.groupWork, "title", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "input-field col s12 m-b-0" }, [
+              _c("textarea", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.groupWork.description,
+                    expression: "groupWork.description"
+                  }
+                ],
+                staticClass: "materialize-textarea",
+                attrs: {
+                  id: "description",
+                  name: "description",
+                  placeholder: "Write description here",
+                  required: ""
+                },
+                domProps: { value: _vm.groupWork.description },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.groupWork, "description", $event.target.value)
+                  }
+                }
+              })
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "modal-footer" }, [
+          _c(
+            "a",
+            { staticClass: "modal-close waves-effect waves-green btn-flat" },
+            [_vm._v("Close")]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "waves-effect waves-green btn-flat",
+              on: { click: _vm.save }
+            },
+            [_vm._v("Create")]
+          )
+        ])
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "fixed-action-btn" }, [
+      _c(
+        "button",
+        {
+          staticClass:
+            "btn-floating btn-large waves-effect waves-light green tooltipped modal-trigger",
+          attrs: {
+            "data-target": "team-group-work-modal-create",
+            "data-position": "left",
+            "data-tooltip": "Create Group Work"
+          }
+        },
+        [_c("i", { staticClass: "large material-icons" }, [_vm._v("add")])]
+      )
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-5e8bbd5e", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
