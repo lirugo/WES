@@ -174,7 +174,7 @@ Route::get('/phpinfo', function () {
         Route::get('/{name}/activity/{discipline}', 'Activity\ActivityController@show');
         Route::get('/{name}/activity/{discipline}/pass/{id}/students', 'Activity\ActivityController@students');
         Route::get('/{name}/activity/{discipline}/pass/{id}/{studentId?}', 'Activity\ActivityController@pass');
-        Route::post('/material/getFile/{name}', 'Activity\ActivityController@getFile')->name('team.activity.getFile');
+        Route::post('/activity/getFile/{name}', 'Activity\ActivityController@getFile')->name('team.activity.getFile');
         Route::post('/{name}/activity/store', 'Activity\ActivityController@store')->name('team.activity.store');
         Route::post('/{name}/activity/store/file', 'Activity\ActivityController@storeFile')->name('team.activity.store.file');
         Route::post('/{name}/activity/{discipline}/pass/{activityId}/{studentId}', 'Activity\ActivityController@setMark')->name('team.activity.pass.mark');
