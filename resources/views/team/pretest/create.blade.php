@@ -144,10 +144,10 @@
                     const parent = this;
                     formData.append('file', document.getElementById('upload-' + index).files[0]);
                     axios.post('/team/{!! $team->name !!}/pretest/store/file', formData,
-                    ).then(function (response) {
-                        parent.inputs[index].nameFormServer = response.data
-                        parent.isUploading = false
-                    })
+                        ).then(function (response) {
+                            parent.inputs[index].nameFormServer = response.data
+                            parent.isUploading = false
+                        })
                         .catch(function () {
                             console.log('FAILURE!!');
                         });

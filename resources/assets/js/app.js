@@ -5,6 +5,8 @@ window.Vue = require('vue');
 window.Slug = require('slug');
 Slug.defaults.mode = "rfc3986";
 
+//Vue datepicker
+Vue.component('datepicker', require('vue-datepicker'));
 // Slug Editor
 Vue.component('widget-slug', require('./components/widget/Slug'));
 // Countdown

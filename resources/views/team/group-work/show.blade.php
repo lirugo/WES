@@ -36,6 +36,7 @@
                     axios.post('/team/{!! $team->name !!}/group-work/{!! $discipline->name !!}/store', groupWork)
                         .then(response => {
                             this.groupWorks.push(response.data)
+                            console.log(response.data)
                         })
                         .catch(e => {
                             this.errors.push(e)
