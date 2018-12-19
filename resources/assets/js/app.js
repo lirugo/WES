@@ -18,6 +18,8 @@ Vue.component('widget-avatar-cropper', require('vue-image-crop-upload'));
     Vue.component('group-work-create', require('./components/team/group-work/Create'));
     // List
     Vue.component('group-work-list', require('./components/team/group-work/List'));
+    // Row
+    Vue.component('group-work-row', require('./components/team/group-work/Row'));
 /*
 |--------------------------------------------------------------------------
 | Custom scripts

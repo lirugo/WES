@@ -1414,6 +1414,8 @@ Vue.component('widget-avatar-cropper', __webpack_require__(52));
 Vue.component('group-work-create', __webpack_require__(61));
 // List
 Vue.component('group-work-list', __webpack_require__(65));
+// Row
+Vue.component('group-work-row', __webpack_require__(210));
 /*
 |--------------------------------------------------------------------------
 | Custom scripts
@@ -48661,30 +48663,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
         console.log('Group work | list widget mounted.');
     },
-    data: function data() {
-        return {
-            csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        };
-    },
 
-    props: ['group_works'],
+    props: ['group_works', 'team_name', 'discipline_name'],
     watch: {
         group_works: function group_works(newVal, oldVal) {
             this.group_works = newVal;
@@ -48707,79 +48692,25 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "row" }, [
-      _c(
+  return _c(
+    "div",
+    { staticClass: "row" },
+    _vm._l(_vm.sortedGroupWorks, function(work) {
+      return _c(
         "div",
-        { staticClass: "col s12" },
-        _vm._l(_vm.sortedGroupWorks, function(work) {
-          return _c(
-            "div",
-            { staticClass: "card-panel" },
-            [
-              _c("span", { staticClass: "card-title" }, [
-                _vm._v(_vm._s(work.name))
-              ]),
-              _vm._v(" "),
-              _c("p", [_vm._v(_vm._s(work.description))]),
-              _vm._v(" "),
-              _vm._l(work.files, function(file) {
-                return _c("div", [
-                  _c(
-                    "form",
-                    {
-                      attrs: {
-                        action: "/team/group-work/getFile/" + file.file,
-                        method: "POST"
-                      }
-                    },
-                    [
-                      _c("input", {
-                        attrs: { type: "hidden", name: "_token" },
-                        domProps: { value: _vm.csrf }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass:
-                            "btn btn-small waves-effect waves-light indigo m-b-5",
-                          attrs: { type: "submit" }
-                        },
-                        [
-                          _vm._v(
-                            "\n                            " +
-                              _vm._s(file.name) +
-                              "\n                            "
-                          ),
-                          _c("i", { staticClass: "material-icons right" }, [
-                            _vm._v("file_download")
-                          ])
-                        ]
-                      )
-                    ]
-                  )
-                ])
-              }),
-              _vm._v(" "),
-              _c("small", [
-                _c("blockquote", { staticClass: "m-b-0 m-t-15" }, [
-                  _vm._v("Start date - " + _vm._s(work.start_date))
-                ])
-              ]),
-              _vm._v(" "),
-              _c("small", [
-                _c("blockquote", { staticClass: "m-b-0 m-t-5" }, [
-                  _vm._v("End date - " + _vm._s(work.end_date))
-                ])
-              ])
-            ],
-            2
-          )
-        })
+        [
+          _c("group-work-row", {
+            attrs: {
+              work: work,
+              team_name: _vm.team_name,
+              discipline_name: _vm.discipline_name
+            }
+          })
+        ],
+        1
       )
-    ])
-  ])
+    })
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -66884,6 +66815,196 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-2537a1f8", module.exports)
+  }
+}
+
+/***/ }),
+/* 210 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(211)
+/* template */
+var __vue_template__ = __webpack_require__(212)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\team\\group-work\\Row.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-63ea24d5", Component.options)
+  } else {
+    hotAPI.reload("data-v-63ea24d5", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 211 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        };
+    },
+
+    props: ['work', 'team_name', 'discipline_name']
+});
+
+/***/ }),
+/* 212 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "col s12" }, [
+      _c(
+        "div",
+        { staticClass: "card-panel" },
+        [
+          _c("span", { staticClass: "card-title" }, [
+            _vm._v(_vm._s(_vm.work.name))
+          ]),
+          _vm._v(" "),
+          _c("p", [_vm._v(_vm._s(_vm.work.description))]),
+          _vm._v(" "),
+          _vm._l(_vm.work.files, function(file) {
+            return _c("div", [
+              _c(
+                "form",
+                {
+                  attrs: {
+                    action: "/team/group-work/getFile/" + file.file,
+                    method: "POST"
+                  }
+                },
+                [
+                  _c("input", {
+                    attrs: { type: "hidden", name: "_token" },
+                    domProps: { value: _vm.csrf }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "btn btn-small waves-effect waves-light indigo m-b-5",
+                      attrs: { type: "submit" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(file.name) +
+                          "\n                        "
+                      ),
+                      _c("i", { staticClass: "material-icons right" }, [
+                        _vm._v("file_download")
+                      ])
+                    ]
+                  )
+                ]
+              )
+            ])
+          }),
+          _vm._v(" "),
+          _c("small", [
+            _c("blockquote", { staticClass: "m-b-0 m-t-15" }, [
+              _vm._v("Start date - " + _vm._s(_vm.work.start_date))
+            ])
+          ]),
+          _vm._v(" "),
+          _c("small", [
+            _c("blockquote", { staticClass: "m-b-0 m-t-5" }, [
+              _vm._v("End date - " + _vm._s(_vm.work.end_date))
+            ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "btn btn-small waves-effect right indigo",
+              attrs: {
+                href:
+                  "/team/" +
+                  _vm.team_name +
+                  "/group-work/" +
+                  _vm.discipline_name +
+                  "/" +
+                  _vm.work.id
+              }
+            },
+            [_vm._v("Open")]
+          )
+        ],
+        2
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-63ea24d5", module.exports)
   }
 }
 

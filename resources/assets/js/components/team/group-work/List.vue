@@ -1,23 +1,11 @@
 <template>
-    <div>
-        <div class="row">
-            <div class="col s12">
-                <div class="card-panel" v-for="work in sortedGroupWorks">
-                    <span class="card-title">{{work.name}}</span>
-                    <p>{{work.description}}</p>
-                    <div v-for="file in work.files">
-                        <form :action="'/team/group-work/getFile/' + file.file" method="POST">
-                            <input type="hidden" name="_token" :value="csrf">
-                            <button class="btn btn-small waves-effect waves-light indigo m-b-5" type="submit">
-                                {{file.name}}
-                                <i class="material-icons right">file_download</i>
-                            </button>
-                        </form>
-                    </div>
-                    <small><blockquote class="m-b-0 m-t-15">Start date - {{work.start_date}}</blockquote></small>
-                    <small><blockquote class="m-b-0 m-t-5">End date - {{work.end_date}}</blockquote></small>
-                </div>
-            </div>
+    <div class="row">
+        <div v-for="work in sortedGroupWorks">
+            <group-work-row
+                    :work="work"
+                    :team_name="team_name"
+                    :discipline_name="discipline_name"
+            ></group-work-row>
         </div>
     </div>
 </template>
@@ -27,12 +15,7 @@
         mounted() {
             console.log('Group work | list widget mounted.')
         },
-        data() {
-            return {
-                csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            }
-        },
-        props: ['group_works'],
+        props: ['group_works', 'team_name', 'discipline_name'],
         watch: {
             group_works: function(newVal, oldVal) {
                 this.group_works = newVal
