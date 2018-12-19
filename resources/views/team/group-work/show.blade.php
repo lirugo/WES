@@ -6,8 +6,10 @@
     {{--Show type activity--}}
     <div id="group-work">
         {{--Create--}}
+        @role('teacher')
         <group-work-create
             :save_work="saveWork"></group-work-create>
+        @endrole
 
         {{--Display--}}
         <group-work-list
