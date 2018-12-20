@@ -71,8 +71,14 @@
                             @{{ member.user.name.second_name + ' ' + member.user.name.name }}
                         </div>
                     </div>
+                    @if(Auth::user()->hasRole('student'))
+                    <div v-for="member in subteam.members">
+                        <a v-if="member.user.id == {{Auth::user()->id}}" :href="'/team/' + team.name + '/group-work/' + discipline.name + '/' + groupWork.id + '/' + subteam.id" class="waves-effect waves-light btn btn-small right indigo">Open</a>
+                    </div>
+                    @else
+                        <a :href="'/team/' + team.name + '/group-work/' + discipline.name + '/' + groupWork.id + '/' + subteam.id" class="waves-effect waves-light btn btn-small right indigo">Open</a>
+                    @endif
                     {{--Open--}}
-                    <a class="waves-effect waves-light btn btn-small right indigo">Open</a>
                 </div>
             </div>
         </div>
@@ -84,6 +90,9 @@
         new Vue({
             el:'#sub-teams',
             data: {
+                team: {!! $team !!},
+                discipline: {!! $discipline !!},
+                groupWork: {!! $groupWork !!},
                 newMember: null,
                 members: {!! $team->getStudents() !!},
                 subteam: {

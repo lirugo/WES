@@ -132,4 +132,28 @@ class GroupWorkController extends Controller
         return GroupWorkSubTeam::with('members')->where('group_work_id', $groupWorkId)->get();
     }
 
+    public function showSubTeam($team, $discipline, $groupWorkId, $subTeamId){
+        $team = Team::where('name', $team)->first();
+        $discipline = Discipline::where('name', $discipline)->first();
+        $groupWork = GroupWork::with(['files'])->find($groupWorkId);
+        $subTeam = GroupWorkSubTeam::find($subTeamId);
+
+        //Close access for student if he is not a member
+        if(Auth::user()->hasRole('student')){
+            $inc = false;
+            foreach($subTeam->members as $member){
+                if(Auth::user()->id == $member->user_id)
+                    $inc = true;
+            }
+            if(!$inc)
+                abort(403);
+        }
+
+        return view('team.group-work.subteam')
+            ->withTeam($team)
+            ->withDiscipline($discipline)
+            ->withGroupWork($groupWork)
+            ->withSubTeam($subTeam);
+    }
+
 }
