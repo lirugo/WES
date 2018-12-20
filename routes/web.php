@@ -178,6 +178,7 @@ Route::get('/phpinfo', function () {
         Route::post('/group-work/getFile/{name}', 'GroupWork\GroupWorkController@getFile');
         //Group work API
         Route::post('/{name}/group-work/{discipline}/getGroupWorks', 'GroupWork\GroupWorkController@getGroupWorks');
+        Route::post('/{name}/group-work/{discipline}/{groupWorkId}/getSubTeams', 'GroupWork\GroupWorkController@getSubTeams');
 
         //Activity
         Route::get('/{name}/activity', 'Activity\ActivityController@index');

@@ -124,7 +124,12 @@ class GroupWorkController extends Controller
                 'user_id' => $member['id']
             ]);
 
+        $subTeam = GroupWorkSubTeam::with('members')->find($subTeam->id);
         return $subTeam;
+    }
+
+    public function getSubTeams($team, $discipline, $groupWorkId){
+        return GroupWorkSubTeam::with('members')->where('group_work_id', $groupWorkId)->get();
     }
 
 }

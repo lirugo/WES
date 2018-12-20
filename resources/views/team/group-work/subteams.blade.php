@@ -57,22 +57,30 @@
         @endrole
 
         {{--Display teams--}}
+        <div class="row m-b-0">
+            <div class="col s12">
+                <div class="card-panel" v-for="subteam in sortedSubTeams">
+                    <div class="row m-b-0">
+                        {{--Name--}}
+                        <div class="input-field col s12">
+                            <input placeholder="Team Name" id="name" name="name" type="text" :value="subteam.name" class="validate" disabled>
+                        </div>
+                        {{--Show members--}}
+                        <div class="chip m-l-10" v-for="(member, index) in subteam.members">
+                            <img :src="'/uploads/avatars/' + member.user.avatar" alt="image">
+                            @{{ member.user.name.second_name + ' ' + member.user.name.name }}
+                        </div>
+                    </div>
+                    {{--Open--}}
+                    <a class="waves-effect waves-light btn btn-small right indigo">Open</a>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 
 @section('scripts')
     <script>
-        function removeMember(members, member) {
-            for (let i = 0; i < members.length; i++) {
-                let obj = members[i];
-                if (obj.id == member.id) {
-                    members.splice(i, 1);
-                    i--;
-                }
-            }
-            return members
-        }
-
         new Vue({
             el:'#sub-teams',
             data: {
@@ -91,6 +99,18 @@
                     this.newMember = null
                 }
             },
+            computed: {
+                sortedSubTeams() {
+                    return this.subteams.sort((a, b) => -(a.id - b.id))
+                }
+            },
+            created() {
+                //Send post for create subteam
+                axios.post('/team/{!! $team->name !!}/group-work/{!! $discipline->name !!}/{!! $groupWork->id !!}/getSubTeams')
+                    .then(response => {
+                        this.subteams = response.data
+                    })
+            },
             methods: {
                 excludeMember(index){
                     this.subteam.members.splice(index, 1)
@@ -100,7 +120,7 @@
                         //Send post for create subteam
                         axios.post('/team/{!! $team->name !!}/group-work/{!! $discipline->name !!}/{!! $groupWork->id !!}/storeSubTeam', this.subteam)
                             .then(response => {
-                                console.log(response.data)
+                                this.subteams.push(response.data)
                             })
                             .finally(() => {
                                 M.toast({html: 'Sub Team was successfully created', classes: 'green'})
