@@ -71,6 +71,7 @@
                             @{{ member.user.name.second_name + ' ' + member.user.name.name }}
                         </div>
                     </div>
+                    {{--Open--}}
                     @if(Auth::user()->hasRole('student'))
                     <div v-for="member in subteam.members">
                         <a v-if="member.user.id == {{Auth::user()->id}}" :href="'/team/' + team.name + '/group-work/' + discipline.name + '/' + groupWork.id + '/' + subteam.id" class="waves-effect waves-light btn btn-small right indigo">Open</a>
@@ -78,7 +79,6 @@
                     @else
                         <a :href="'/team/' + team.name + '/group-work/' + discipline.name + '/' + groupWork.id + '/' + subteam.id" class="waves-effect waves-light btn btn-small right indigo">Open</a>
                     @endif
-                    {{--Open--}}
                 </div>
             </div>
         </div>

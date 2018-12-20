@@ -180,6 +180,8 @@ Route::get('/phpinfo', function () {
         //Group work API
         Route::post('/{name}/group-work/{discipline}/getGroupWorks', 'GroupWork\GroupWorkController@getGroupWorks');
         Route::post('/{name}/group-work/{discipline}/{groupWorkId}/getSubTeams', 'GroupWork\GroupWorkController@getSubTeams');
+        Route::post('/{name}/group-work/{discipline}/{groupWorkId}/{subTeamId}/getMessages', 'GroupWork\GroupWorkController@getMessages');
+        Route::post('/{name}/group-work/{discipline}/{groupWorkId}/{subTeamId}/newMessage', 'GroupWork\GroupWorkController@newMessage');
 
         //Activity
         Route::get('/{name}/activity', 'Activity\ActivityController@index');

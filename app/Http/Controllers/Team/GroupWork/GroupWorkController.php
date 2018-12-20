@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Team\GroupWork;
 use App\Models\Team\GroupWorkFile;
 use App\Models\Team\GroupWorkSubTeam;
+use App\Models\Team\GroupWorkSubTeamChat;
 use App\Models\Team\GroupWorkSubTeamMembers;
 use App\Team;
 use Auth;
@@ -154,6 +155,22 @@ class GroupWorkController extends Controller
             ->withDiscipline($discipline)
             ->withGroupWork($groupWork)
             ->withSubTeam($subTeam);
+    }
+
+    public function getMessages($team, $discipline, $groupWorkId, $subTeamId){
+        $messages = GroupWorkSubTeamChat::with('author')->where('subteam_id', $subTeamId)->get();
+
+        return $messages;
+    }
+
+    public function newMessage(Request $request, $team, $discipline, $groupWorkId, $subTeamId){
+        $message = GroupWorkSubTeamChat::create([
+            'subteam_id' => $subTeamId,
+            'user_id' => Auth::user()->id,
+            'text' => $request->text
+        ]);
+        $message = GroupWorkSubTeamChat::with('author')->find($message->id);
+        return $message;
     }
 
 }

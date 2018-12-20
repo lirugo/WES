@@ -24,5 +24,61 @@
                 </div>
             </div>
         </div>
+        {{--Chat--}}
+        <div class="row" id="sub-team-chat">
+            <div class="col s12">
+                {{--Create message--}}
+                <div class="card-panel">
+                    <div class="input-field">
+                        <input id="text" name="text" placeholder="Write your message" type="text" v-model="message.text" class="validate">
+                    </div>
+                    <a class="waves-effect waves-light btn btn-small indigo right" @click="sendMessage">send</a>
+                </div>
+                {{--Show Chat--}}
+                <div class="card-panel" v-for="message in sortedMessages">
+                    <div class="chip">
+                        <img :src="'/uploads/avatars/' + message.author.avatar" alt="image">
+                        @{{ message.author.name.second_name + ' ' + message.author.name.name }}
+                    </div>
+                    <p class="card-text">@{{ message.text }}</p>
+                </div>
+            </div>
+        </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        new Vue({
+            el:'#sub-team-chat',
+            data: {
+                message: {
+                    text: null
+                },
+                messages: []
+            },
+            created(){
+                axios.post('/team/{!! $team->name !!}/group-work/{!! $discipline->name !!}/{!! $groupWork->id !!}/{!! $subTeam->id !!}/getMessages')
+                    .then(response => {
+                        this.messages = response.data
+                    })
+            },
+            computed: {
+                sortedMessages() {
+                    return this.messages.sort((a, b) => -(a.id - b.id))
+                }
+            },
+            methods: {
+                sendMessage(){
+                    if(this.message.text) {
+                        axios.post('/team/{!! $team->name !!}/group-work/{!! $discipline->name !!}/{!! $groupWork->id !!}/{!! $subTeam->id !!}/newMessage', this.message)
+                            .then(response => {
+                                this.messages.push(response.data)
+                                this.message.text = null
+                            })
+                    }
+                }
+            }
+        })
+    </script>
 @endsection
