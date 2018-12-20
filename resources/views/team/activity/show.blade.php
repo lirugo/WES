@@ -40,7 +40,7 @@
                         @endrole
                         @role('student')
                             @if($activity->isOpen())
-                                <a href="{{ url('team/'.$team->name.'/activity/'.$discipline->name.'/pass/'.$activity->id) }}" class="btn btn-small indigo right waves-effect waves-light">Open</a>
+                                <a href="{{ url('team/'.$team->name.'/activity/'.$discipline->name.'/pass/'.$activity->id.'/'.Auth::user()->id) }}" class="btn btn-small indigo right waves-effect waves-light">Open</a>
                             @endif
                         @endrole
                     </div>

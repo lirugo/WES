@@ -30,7 +30,7 @@
                                @if(count($activity->files))
                                    @foreach($activity->files as $file)
                                        {!! Form::open(['route' => ['team.activity.getFile', $file->file], 'method' => 'POST']) !!}
-                                       <button class="btn btn-small waves-effect waves-light indigo m-b-5" type="submit" name="action">{{$file->name}}
+                                       <button class="btn btn-small waves-effect waves-light indigo m-b-5" type="submit">{{$file->name}}
                                            <i class="material-icons right">file_download</i>
                                        </button>
                                        {!! Form::close() !!}
@@ -122,7 +122,7 @@
                            <div class="divider m-b-10"></div>
                            <div v-for="file in message.files">
                                <div class="row col m-r-10">
-                                   <form :action="'/team/material/getFile/'+file.file" method="POST">
+                                   <form :action="'/team/activity/getFile/'+file.file" method="POST">
                                        @csrf
                                        <button class="btn btn-small waves-effect waves-light indigo m-b-5" type="submit" name="action">
                                            @{{ file.name }}
