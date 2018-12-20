@@ -35,6 +35,10 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function name(){
+        return $this->hasOne(UserName::class)->where('language','en');
+    }
+
     public function getShortName(){
         $name = $this->names()->where('language', '=','en')->first();
         if(is_null($name->middle_name))

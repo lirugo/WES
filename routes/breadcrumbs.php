@@ -127,6 +127,10 @@
         $trail->parent('team-group-work', $team);
         $trail->push($discipline->display_name, url('/team/'.$team->name.'/group-work/'.$discipline->name));
     });
+    Breadcrumbs::for('team-group-work-show-sub-teams', function ($trail, $team, $discipline, $groupWork) {
+        $trail->parent('team-group-work-show', $team, $discipline);
+        $trail->push('Teams', url('/team/'.$team->name.'/group-work/'.$discipline->name.'/'.$groupWork->id));
+    });
     //Activity
     Breadcrumbs::for('team-activity', function ($trail, $team) {
         $trail->parent('team-show', $team);

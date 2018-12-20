@@ -6,9 +6,10 @@ use App\Discipline;
 use App\Http\Controllers\Controller;
 use App\Models\Team\GroupWork;
 use App\Models\Team\GroupWorkFile;
+use App\Models\Team\GroupWorkSubTeam;
+use App\Models\Team\GroupWorkSubTeamMembers;
 use App\Team;
 use Auth;
-use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -93,6 +94,37 @@ class GroupWorkController extends Controller
         ])->orderBy('id', 'DESC')->get();
 
         return $groupWorks;
+    }
+
+    public function subteams($team, $discipline, $groupWorkId){
+        $team = Team::where('name', $team)->first();
+        $discipline = Discipline::where('name', $discipline)->first();
+        $groupWork = GroupWork::with(['files'])->find($groupWorkId);
+        return view('team.group-work.subteams')
+            ->withTeam($team)
+            ->withDiscipline($discipline)
+            ->withGroupWork($groupWork);
+    }
+
+    public function storeSubTeam(Request $request, $team, $discipline, $groupWorkId){
+        $team = Team::where('name', $team)->first();
+        $discipline = Discipline::where('name', $discipline)->first();
+        $groupWork = GroupWork::with(['files'])->find($groupWorkId);
+
+        //Persist sub team
+        $subTeam = GroupWorkSubTeam::create([
+            'group_work_id' => $groupWork->id,
+            'name' => $request->name,
+        ]);
+
+        //Add members
+        foreach ($request->members as $member)
+            GroupWorkSubTeamMembers::create([
+                'subteam_id' => $subTeam->id,
+                'user_id' => $member['id']
+            ]);
+
+        return $subTeam;
     }
 
 }
