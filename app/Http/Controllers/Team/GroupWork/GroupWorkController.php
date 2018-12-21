@@ -11,6 +11,7 @@ use App\Models\Team\GroupWorkSubTeamChat;
 use App\Models\Team\GroupWorkSubTeamDeadline;
 use App\Models\Team\GroupWorkSubTeamMembers;
 use App\Team;
+use App\User;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -207,5 +208,30 @@ class GroupWorkController extends Controller
         Session::flash('success', 'Group Work was updated');
         return back();
 
+    }
+
+    public function removeMember($team, $discipline, $groupWorkId, $subTeamId, $memberId){
+        GroupWorkSubTeamMembers::where([
+            'subteam_id' => $subTeamId,
+            'user_id' => $memberId,
+        ])->delete();
+    }
+
+    public function newSubTeamMember($team, $discipline, $groupWorkId, $subTeamId, $memberId){
+        $user = User::find($memberId);
+
+        //Check on duplicate
+        if((count(GroupWorkSubTeamMembers::where([
+            'subteam_id' => $subTeamId,
+            'user_id' => $memberId,
+        ])->get())) != 0)
+           return 'duplicate';
+
+        $member = GroupWorkSubTeamMembers::create([
+            'subteam_id' => $subTeamId,
+            'user_id' => $memberId,
+        ]);
+        $member = GroupWorkSubTeamMembers::with('user')->find($member->id);
+        return $member;
     }
 }

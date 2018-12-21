@@ -188,6 +188,8 @@ Route::get('/phpinfo', function () {
         Route::post('/{name}/group-work/{discipline}/{groupWorkId}/getSubTeams', 'GroupWork\GroupWorkController@getSubTeams');
         Route::post('/{name}/group-work/{discipline}/{groupWorkId}/{subTeamId}/getMessages', 'GroupWork\GroupWorkController@getMessages');
         Route::post('/{name}/group-work/{discipline}/{groupWorkId}/{subTeamId}/newMessage', 'GroupWork\GroupWorkController@newMessage');
+        Route::post('/{name}/group-work/{discipline}/{groupWorkId}/{subTeamId}/removeMember/{memberId}', 'GroupWork\GroupWorkController@removeMember');
+        Route::post('/{name}/group-work/{discipline}/{groupWorkId}/{subTeamId}/newSubTeamMember/{memberId}', 'GroupWork\GroupWorkController@newSubTeamMember');
 
         //Activity
         Route::get('/{name}/activity', 'Activity\ActivityController@index');

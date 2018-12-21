@@ -127,7 +127,6 @@
                 }
             },
             created() {
-                //Send post for create subteam
                 axios.post('/team/{!! $team->name !!}/group-work/{!! $discipline->name !!}/{!! $groupWork->id !!}/getSubTeams')
                     .then(response => {
                         this.subteams = response.data
