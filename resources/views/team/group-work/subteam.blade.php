@@ -8,10 +8,17 @@
         <div class="row m-b-0">
             <div class="col s12">
                 <div class="card-panel hoverable">
+                    {!! Form::open(['url' => '/team/'.$team->name.'/group-work/'.$discipline->name.'/'.$groupWork->id.'/'.$subTeam->id.'/updateSubTeam']) !!}
                     <div class="row m-b-0">
                         {{--Name--}}
-                        <div class="input-field col s12">
+                        <div class="input-field col s12 m-b-0">
                             <input placeholder="Team Name" id="name" name="name" type="text" value="{{$subTeam->name}}" class="validate" disabled>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <input name="start_date" type="text" value="{{ json_decode($subTeam->getDeadline())->startDate }}" class="datepickerDefault">
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <input name="end_date" type="text" value="{{ json_decode($subTeam->getDeadline())->endDate }}" class="datepickerDefault">
                         </div>
                         {{--Show members--}}
                         @foreach($subTeam->members as $member)
@@ -21,6 +28,10 @@
                             </div>
                         @endforeach
                     </div>
+                    @if(Auth::user()->hasRole(['teacher', 'manager']))
+                        <button type="submit" class="waves-effect waves-light btn btn-small orange right">update</button>
+                    @endif
+                    {!! Form::close() !!}
                 </div>
             </div>
         </div>

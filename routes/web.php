@@ -128,7 +128,7 @@ Route::get('/phpinfo', function () {
 
 /*
 |--------------------------------------------------------------------------
-| Team CRUD route
+| Team route
 |--------------------------------------------------------------------------
 */
     Route::group([
@@ -142,10 +142,12 @@ Route::get('/phpinfo', function () {
         Route::get('/template/create', 'Template\TemplateController@create');
         Route::get('/template/{name}/edit', 'Template\TemplateController@edit');
         Route::get('/{name}', 'TeamController@show');
+
         //Marks
         Route::get('/{name}/mark', 'MarkController@index');
         Route::get('/{name}/mark/{discipline}', 'MarkController@show');
         Route::get('/{name}/mark/{discipline}/task/create', 'TaskController@create');
+
         //Pretest
         Route::get('/{name}/material', 'MaterialController@index');
         Route::get('/{name}/material/create', 'MaterialController@create');
@@ -168,11 +170,14 @@ Route::get('/phpinfo', function () {
         Route::post('/{name}/pretest/store/file', 'Pretest\PretestController@storeFile')->name('team.pretest.store.file');
         Route::post('/{name}/pretest/discipline/{discipline}/{pretestId}/start', 'Pretest\PretestController@startPretest');
         Route::post('/{name}/pretest/discipline/{discipline}/{pretestId}/available', 'Pretest\PretestController@available');
+
         //Group work
         Route::get('/{name}/group-work', 'GroupWork\GroupWorkController@index');
         Route::get('/{name}/group-work/{discipline}', 'GroupWork\GroupWorkController@show');
         Route::get('/{name}/group-work/{discipline}/{groupWorkId}', 'GroupWork\GroupWorkController@subteams');
         Route::get('/{name}/group-work/{discipline}/{groupWorkId}/{subTeamId}', 'GroupWork\GroupWorkController@showSubTeam');
+        Route::post('/{name}/group-work/{discipline}/{groupWorkId}/{subTeamId}/setSubTeamDeadline', 'GroupWork\GroupWorkController@setSubTeamDeadline');
+        Route::post('/{name}/group-work/{discipline}/{groupWorkId}/{subTeamId}/updateSubTeam', 'GroupWork\GroupWorkController@updateSubTeam');
         Route::post('/{name}/group-work/{discipline}/{groupWorkId}/storeSubTeam', 'GroupWork\GroupWorkController@storeSubTeam');
         Route::post('/{name}/group-work/{discipline}/store', 'GroupWork\GroupWorkController@store');
         Route::post('/{name}/group-work/store/file', 'GroupWork\GroupWorkController@storeFile');
@@ -196,6 +201,7 @@ Route::get('/phpinfo', function () {
         //Activity API
         Route::post('/{name}/activity/api/send/{activityId}/{studentId}', 'Activity\ActivityController@send');
         Route::post('/{name}/activity/api/getMessages/{activityId}/{studentId}', 'Activity\ActivityController@getMessages');
+
         //Pretest API
         Route::put('/{name}/pretest/discipline/{discipline}/{pretestId}/question', 'Pretest\PretestController@putQuestion');
         Route::post('/{name}/pretest/discipline/{discipline}/{pretestId}/getStatistic', 'Pretest\PretestController@getStatistic');
@@ -205,7 +211,6 @@ Route::get('/phpinfo', function () {
         Route::put('/{name}/pretest/discipline/{discipline}/{pretestId}/update}', 'Pretest\PretestController@update')->name('team.pretest.update');
         Route::put('/{name}/pretest/discipline/{discipline}/{pretestId}/updateEndDate}', 'Pretest\PretestController@updateEndDate')->name('team.pretest.updateEndDate');
         Route::delete('/{name}/pretest/discipline/{discipline}/{pretestId}/delete}', 'Pretest\PretestController@delete')->name('team.pretest.delete');
-
 
         Route::get('/{name}/students', 'Student\StudentController@index');
         Route::get('/{name}/teachers', 'Teacher\TeacherController@index');

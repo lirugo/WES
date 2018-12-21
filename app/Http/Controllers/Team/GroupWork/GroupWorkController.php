@@ -8,11 +8,13 @@ use App\Models\Team\GroupWork;
 use App\Models\Team\GroupWorkFile;
 use App\Models\Team\GroupWorkSubTeam;
 use App\Models\Team\GroupWorkSubTeamChat;
+use App\Models\Team\GroupWorkSubTeamDeadline;
 use App\Models\Team\GroupWorkSubTeamMembers;
 use App\Team;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Session;
 
 class GroupWorkController extends Controller
 {
@@ -52,8 +54,8 @@ class GroupWorkController extends Controller
             'teacher_id' => Auth::user()->id,
             'name' => $request->title,
             'description' => $request->description,
-            'start_date' => $request->start_date['time'].' 10:00:00',
-            'end_date' => $request->end_date['time'].' 18:00:00',
+            'start_date' => $request->start_date['time'].' 00:00:00',
+            'end_date' => $request->end_date['time'].' 00:00:00',
         ]);
 
         foreach ($request['files'] as $file)
@@ -171,6 +173,28 @@ class GroupWorkController extends Controller
         ]);
         $message = GroupWorkSubTeamChat::with('author')->find($message->id);
         return $message;
+    }
+
+    public function setSubTeamDeadline(Request $request, $team, $discipline, $groupWorkId, $subTeamId){
+        return 'usus';
+    }
+
+    public function updateSubTeam(Request $request, $team, $discipline, $groupWorkId, $subTeamId){
+        //Find existing deadline
+        $deadline = GroupWorkSubTeamDeadline::where('subteam_id', $subTeamId)->first();
+        //Or create new deadline
+        if($deadline == null) {
+            $deadline = new GroupWorkSubTeamDeadline();
+            $deadline->subteam_id = $subTeamId;
+        }
+
+        $deadline->start_date = $request->start_date.' 00:00:00';
+        $deadline->end_date = $request->end_date.' 00:00:00';
+        $deadline->save();
+
+        Session::flash('success', 'Sub Tean was updated');
+        return back();
+
     }
 
 }
