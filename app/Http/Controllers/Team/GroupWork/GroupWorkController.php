@@ -197,4 +197,15 @@ class GroupWorkController extends Controller
 
     }
 
+    public function updateGroupWork(Request $request, $team, $discipline, $groupWorkId){
+        $groupWork = GroupWork::find($groupWorkId);
+
+        $groupWork->start_date = $request->start_date.' 00:00:00';
+        $groupWork->end_date = $request->end_date.' 00:00:00';
+        $groupWork->save();
+
+        Session::flash('success', 'Group Work was updated');
+        return back();
+
+    }
 }

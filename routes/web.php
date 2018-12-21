@@ -176,6 +176,7 @@ Route::get('/phpinfo', function () {
         Route::get('/{name}/group-work/{discipline}', 'GroupWork\GroupWorkController@show');
         Route::get('/{name}/group-work/{discipline}/{groupWorkId}', 'GroupWork\GroupWorkController@subteams');
         Route::get('/{name}/group-work/{discipline}/{groupWorkId}/{subTeamId}', 'GroupWork\GroupWorkController@showSubTeam');
+        Route::post('/{name}/group-work/{discipline}/{groupWorkId}/updateGroupWork', 'GroupWork\GroupWorkController@updateGroupWork');
         Route::post('/{name}/group-work/{discipline}/{groupWorkId}/{subTeamId}/setSubTeamDeadline', 'GroupWork\GroupWorkController@setSubTeamDeadline');
         Route::post('/{name}/group-work/{discipline}/{groupWorkId}/{subTeamId}/updateSubTeam', 'GroupWork\GroupWorkController@updateSubTeam');
         Route::post('/{name}/group-work/{discipline}/{groupWorkId}/storeSubTeam', 'GroupWork\GroupWorkController@storeSubTeam');

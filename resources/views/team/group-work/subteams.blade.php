@@ -9,19 +9,32 @@
         <div class="row m-b-0">
             <div class="col s12">
                 <div class="card-panel">
-                    <span class="card-title">{{$groupWork->name}}</span>
-                    <p>{{$groupWork->description}}</p>
-                    @foreach($groupWork->files as $file)
-                        <form action="{{url('/team/group-work/getFile/'.$file->file)}}" method="POST">
-                            @csrf
-                            <button class="btn btn-small waves-effect waves-light indigo m-b-5" type="submit">
-                                {{$file->name}}
-                                <i class="material-icons right">file_download</i>
-                            </button>
-                        </form>
-                    @endforeach
-                    <small><blockquote class="m-b-0 m-t-15">Start date - {{$groupWork->start_date}}</blockquote></small>
-                    <small><blockquote class="m-b-0 m-t-5">End date - {{$groupWork->end_date}}</blockquote></small>
+                    <div class="row m-b-0">
+                        <span class="card-title">{{$groupWork->name}}</span>
+                        <p>{{$groupWork->description}}</p>
+                        <div class="row m-b-0">
+                        @foreach($groupWork->files as $file)
+                            <form action="{{url('/team/group-work/getFile/'.$file->file)}}" method="POST">
+                                @csrf
+                                <button class="btn btn-small waves-effect waves-light indigo m-l-10" type="submit">
+                                    {{$file->name}}
+                                    <i class="material-icons right">file_download</i>
+                                </button>
+                            </form>
+                        @endforeach
+                        </div>
+                        {!! Form::open(['url' => '/team/'.$team->name.'/group-work/'.$discipline->name.'/'.$groupWork->id.'/updateGroupWork']) !!}
+                        <div class="input-field col s12 m6">
+                            <input name="start_date" type="text" value="{{ \Carbon\Carbon::parse($groupWork->start_date)->format('Y-m-d') }}" class="datepickerDefault">
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <input name="end_date" type="text" value="{{ \Carbon\Carbon::parse($groupWork->end_date)->format('Y-m-d') }}" class="datepickerDefault">
+                        </div>
+                    @if(Auth::user()->hasRole(['teacher', 'manager']))
+                        <button type="submit" class="waves-effect waves-light btn btn-small orange right">update</button>
+                    @endif
+                    {!! Form::close() !!}
+                    </div>
                 </div>
             </div>
         </div>
@@ -73,9 +86,9 @@
                     </div>
                     {{--Open--}}
                     @if(Auth::user()->hasRole('student'))
-                    <div v-for="member in subteam.members">
-                        <a v-if="member.user.id == {{Auth::user()->id}}" :href="'/team/' + team.name + '/group-work/' + discipline.name + '/' + groupWork.id + '/' + subteam.id" class="waves-effect waves-light btn btn-small right indigo">Open</a>
-                    </div>
+                        <div v-for="member in subteam.members">
+                            <a v-if="member.user.id == {{Auth::user()->id}}" :href="'/team/' + team.name + '/group-work/' + discipline.name + '/' + groupWork.id + '/' + subteam.id" class="waves-effect waves-light btn btn-small right indigo">Open</a>
+                        </div>
                     @else
                         <a :href="'/team/' + team.name + '/group-work/' + discipline.name + '/' + groupWork.id + '/' + subteam.id" class="waves-effect waves-light btn btn-small right indigo">Open</a>
                     @endif
