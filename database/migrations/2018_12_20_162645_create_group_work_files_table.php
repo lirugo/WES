@@ -19,6 +19,8 @@ class CreateGroupWorkFilesTable extends Migration
             $table->foreign('group_work_id')->references('id')->on('teams_group_works')->onDelete('cascade');
             $table->integer('subteam_id')->unsigned()->nullable();
             $table->foreign('subteam_id')->references('id')->on('teams_group_works_sub_teams')->onDelete('cascade');
+            $table->integer('chat_id')->unsigned()->nullable();
+            $table->foreign('chat_id')->references('id')->on('teams_group_works_sub_teams_chats')->onDelete('cascade');
             $table->string('name');
             $table->string('file');
             $table->enum('type', ['group-work', 'sub-team', 'chat']);

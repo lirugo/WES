@@ -161,7 +161,7 @@ class GroupWorkController extends Controller
     }
 
     public function getMessages($team, $discipline, $groupWorkId, $subTeamId){
-        $messages = GroupWorkSubTeamChat::with('author')->where('subteam_id', $subTeamId)->get();
+        $messages = GroupWorkSubTeamChat::with('author', 'files')->where('subteam_id', $subTeamId)->get();
 
         return $messages;
     }
@@ -172,7 +172,16 @@ class GroupWorkController extends Controller
             'user_id' => Auth::user()->id,
             'text' => $request->text
         ]);
-        $message = GroupWorkSubTeamChat::with('author')->find($message->id);
+
+        foreach ($request['files'] as $file)
+            GroupWorkFile::create([
+                'chat_id' => $message->id,
+                'file' => $file['file'],
+                'name' => $file['name'],
+                'type' => 'sub-team',
+            ]);
+
+        $message = GroupWorkSubTeamChat::with('author', 'files')->find($message->id);
         return $message;
     }
 

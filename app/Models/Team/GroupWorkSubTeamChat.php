@@ -14,4 +14,8 @@ class GroupWorkSubTeamChat extends Model
     public function author(){
         return $this->hasOne(User::class, 'id', 'user_id')->with('name');
     }
+
+    public function files(){
+        return $this->hasMany(GroupWorkFile::class, 'chat_id', 'id');
+    }
 }
