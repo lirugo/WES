@@ -243,4 +243,15 @@ class GroupWorkController extends Controller
         $member = GroupWorkSubTeamMembers::with('user')->find($member->id);
         return $member;
     }
+
+    public function subTeamUpdateMark(Request $request, $team, $discipline, $groupWorkId, $subTeamId, $memberId){
+        $member = GroupWorkSubTeamMembers::where([
+            'subteam_id' => $subTeamId,
+            'user_id' => $memberId
+        ])->first();
+        $member->mark = $request->mark;
+        $member->save();
+        return $member;
+
+    }
 }

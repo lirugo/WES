@@ -19,6 +19,7 @@ class CreateGroupWorkSubTeamMembersTable extends Migration
             $table->foreign('subteam_id')->references('id')->on('teams_group_works_sub_teams')->onDelete('cascade');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->integer('mark')->default(0);
             $table->timestamps();
         });
     }

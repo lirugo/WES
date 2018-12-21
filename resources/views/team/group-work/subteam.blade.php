@@ -38,18 +38,36 @@
                     </div>
                     <div class="row m-b-0">
                         {{--Show members--}}
-                        @if(Auth::user()->hasRole('teacher'))
-                            <div class="chip m-l-10" v-for="member in members">
-                                <img :src="'/uploads/avatars/' + member.user.avatar" alt="image">
-                                @{{member.user.name.second_name + ' ' + member.user.name.name}}
-                                <i class="chip-icon material-icons" @click="removeMember(member.user.id)">close</i>
-                            </div>
-                        @else
-                            <div class="chip m-l-10" v-for="member in members">
-                                <img :src="'/uploads/avatars/' + member.user.avatar" alt="image">
-                                @{{member.user.name.second_name + ' ' + member.user.name.name}}
-                            </div>
-                        @endif
+                        <div class="col s12 m6">
+                            <table class="highlight responsive-table">
+                                <thead>
+                                <tr>
+                                    <th>Student</th>
+                                    <th>Mark</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="(member, index) in members">
+                                    <td>
+                                        <div class="hoverable chip m-l-10">
+                                        <img :src="'/uploads/avatars/' + member.user.avatar" alt="image">
+                                        @{{member.user.name.second_name + ' ' + member.user.name.name}}
+                                        @role('teacher')
+                                            <i class="chip-icon material-icons" @click="removeMember(member.user.id)">close</i>
+                                        @endrole
+                                        </div>
+                                    </td>
+                                    <td>
+                                        @if(Auth::user()->hasRole('teacher'))
+                                            <input type="number" placeholder="Set mark" v-model="member.mark" @change="updateMark(member)"/>
+                                        @else
+                                            <input type="number" placeholder="Set mark" v-model="member.mark" disabled/>
+                                        @endif
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     @if(Auth::user()->hasRole(['teacher', 'manager']))
                         <button type="submit" class="waves-effect waves-light btn btn-small orange right">update</button>
@@ -103,7 +121,7 @@
                     </div>
                     <p class="card-text">@{{ message.text }}</p>
                     {{--Files--}}
-                    <div class="m-b-25">
+                    <div class="m-b-25" v-if="message.files != 0">
                         <div class="divider m-b-10"></div>
                         <div v-for="file in message.files">
                             <div class="row col m-r-10">
@@ -192,13 +210,20 @@
                     formData.append('file', document.getElementById('upload-' + index).files[0]);
                     formData.append('label', 'subteam');
                     axios.post('/team/{!! $team->name !!}/group-work/store/file', formData,
-                        ).then(function (response) {
-                            parent.message.files[index].file = response.data
-                            parent.isUploading = false
-                        })
+                    ).then(function (response) {
+                        parent.message.files[index].file = response.data
+                        parent.isUploading = false
+                    })
                         .catch(function () {
                             console.log('FAILURE!!');
                         });
+                },
+                updateMark(member){
+                    axios.post('/team/{!! $team->name !!}/group-work/{!! $discipline->name !!}/{!! $groupWork->id !!}/{!! $subTeam->id !!}/subTeamUpdateMark/' + member.user.id, {'mark': member.mark})
+                        .finally(() => {
+                            M.toast({html: 'Mark was be updated', classes: 'green'})
+                        })
+
                 },
             }
         })

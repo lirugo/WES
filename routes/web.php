@@ -190,6 +190,7 @@ Route::get('/phpinfo', function () {
         Route::post('/{name}/group-work/{discipline}/{groupWorkId}/{subTeamId}/newMessage', 'GroupWork\GroupWorkController@newMessage');
         Route::post('/{name}/group-work/{discipline}/{groupWorkId}/{subTeamId}/removeMember/{memberId}', 'GroupWork\GroupWorkController@removeMember');
         Route::post('/{name}/group-work/{discipline}/{groupWorkId}/{subTeamId}/newSubTeamMember/{memberId}', 'GroupWork\GroupWorkController@newSubTeamMember');
+        Route::post('/{name}/group-work/{discipline}/{groupWorkId}/{subTeamId}/subTeamUpdateMark/{memberId}', 'GroupWork\GroupWorkController@subTeamUpdateMark');
 
         //Activity
         Route::get('/{name}/activity', 'Activity\ActivityController@index');
