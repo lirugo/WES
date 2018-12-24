@@ -101,7 +101,7 @@
         {{--Chat--}}
         <div class="row">
             <div class="col s12">
-                @if(!$subTeam->isFinished())
+                @if(!$subTeam->isFinished() && !$subTeam->hasMark(Auth::user()->id))
                 {{--Create message--}}
                 <div class="card-panel m-b-20">
                     <div class="input-field m-b-0">

@@ -4,6 +4,7 @@ namespace App\Models\Team;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Auth;
 
 class GroupWorkSubTeam extends Model
 {
@@ -43,5 +44,13 @@ class GroupWorkSubTeam extends Model
             return !$open;
 
         return false;
+    }
+
+    public function hasMark($studentId){
+        if(Auth::user()->hasRole('student')) {
+            $mark = $this->hasMany(GroupWorkSubTeamMembers::class, 'subteam_id', 'id')->where('user_id', $studentId)->first()->mark;
+            return $mark != 0;
+        }else
+            return false;
     }
 }
