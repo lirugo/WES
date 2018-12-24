@@ -27,6 +27,7 @@
                         </div>
                         {{--Add new member--}}
                         @role('teacher')
+                        @if(!$subTeam->isFinished())
                         <div class="input-field col s12 m4">
                             <select v-model="newMember">
                                 <option value="" disabled selected>Add members</option>
@@ -34,6 +35,7 @@
                             </select>
                             <span class="helper-text" data-error="wrong" data-success="right"></span>
                         </div>
+                        @endif
                         @endrole
                     </div>
                     <div class="row m-b-0">
@@ -59,7 +61,11 @@
                                     </td>
                                     <td>
                                         @if(Auth::user()->hasRole('teacher'))
-                                            <input type="number" placeholder="Set mark" v-model="member.mark" @change="updateMark(member)"/>
+                                            @if(!$subTeam->isFinished())
+                                                <input type="number" placeholder="Set mark" v-model="member.mark" @change="updateMark(member)"/>
+                                            @else
+                                            <input type="number" placeholder="Set mark" v-model="member.mark" disabled/>
+                                            @endif
                                         @else
                                             <input type="number" placeholder="Set mark" v-model="member.mark" disabled/>
                                         @endif
@@ -70,15 +76,32 @@
                         </div>
                     </div>
                     @if(Auth::user()->hasRole(['teacher', 'manager']))
-                        <button type="submit" class="waves-effect waves-light btn btn-small orange right">update</button>
+                        @if(!$subTeam->isFinished())
+                            <button type="submit" class="waves-effect waves-light btn btn-small orange right">update</button>
+                        @endif
                     @endif
                     {!! Form::close() !!}
+
+                    <br>
+                    {{--Button for finish sub team--}}
+                    @role('teacher')
+                    @if(!$subTeam->isFinished())
+                        {!! Form::open(['route' => ['team.group-work.subteam.finish', $team->name, $discipline->name, $groupWork->id, $subTeam->id]]) !!}
+                        <button type="submit" class="waves-effect waves-light btn btn-small red left tooltipped" data-position="bottom" data-tooltip="Press for closing sub team">Finish</button>
+                        {!! Form::close() !!}
+                    @endif
+                    @endrole
+                    {{--Show if sub team is closed--}}
+                    @if($subTeam->isFinished())
+                        <a href="#" class="waves-effect waves-light btn btn-small red left tooltipped" data-position="bottom" data-tooltip="That sub team was be closed"><i class="material-icons">lock</i></a>
+                    @endif
                 </div>
             </div>
         </div>
         {{--Chat--}}
         <div class="row">
             <div class="col s12">
+                @if(!$subTeam->isFinished())
                 {{--Create message--}}
                 <div class="card-panel m-b-20">
                     <div class="input-field m-b-0">
@@ -113,6 +136,7 @@
                                 class="material-icons">add</i></a>
                     <a class="waves-effect waves-light btn btn-small indigo right" @click="sendMessage">send</a>
                 </div>
+                @endif
                 {{--Show Chat--}}
                 <div class="card-panel" v-for="message in sortedMessages">
                     <div class="chip">

@@ -14,7 +14,7 @@
                         <p>{{$groupWork->description}}</p>
                         <div class="row m-b-0">
                         @foreach($groupWork->files as $file)
-                            <form action="{{url('/team/group-work/getFile/'.$file->file)}}" method="POST">
+                            <form action="{{url('/team/group-work/getFile/'.$file->filwe)}}" method="POST">
                                 @csrf
                                 <button class="btn btn-small waves-effect waves-light indigo m-l-10" type="submit">
                                     {{$file->name}}
@@ -31,15 +31,30 @@
                             <input name="end_date" type="text" value="{{ \Carbon\Carbon::parse($groupWork->end_date)->format('Y-m-d') }}" class="datepickerDefault">
                         </div>
                     @if(Auth::user()->hasRole(['teacher', 'manager']))
-                        <button type="submit" class="waves-effect waves-light btn btn-small orange right">update</button>
+                        @if(!$groupWork->isFinished())
+                            <button type="submit" class="waves-effect waves-light btn btn-small orange right">update</button>
+                        @endif
                     @endif
                     {!! Form::close() !!}
+
+                    @role('teacher')
+                        @if(!$groupWork->isFinished())
+                        {!! Form::open(['route' => ['team.group-work.finish', $team->name, $discipline->name, $groupWork->id]]) !!}
+                            <button type="submit" class="waves-effect waves-light btn btn-small red left tooltipped" data-position="bottom" data-tooltip="Press for closing group work">Finish</button>
+                        {!! Form::close() !!}
+                        @endif
+                    @endrole
+
+                    @if($groupWork->isFinished())
+                        <a href="#" class="waves-effect waves-light btn btn-small red left tooltipped" data-position="bottom" data-tooltip="That group work was be closed"><i class="material-icons">lock</i></a>
+                    @endif
                     </div>
                 </div>
             </div>
         </div>
         {{--Create team--}}
         @role('teacher')
+        @if(!$groupWork->isFinished())
         <div class="row m-b-0">
             <div class="col s12">
                 <div class="card-panel">
@@ -67,6 +82,7 @@
                 </div>
             </div>
         </div>
+        @endif
         @endrole
 
         {{--Display teams--}}

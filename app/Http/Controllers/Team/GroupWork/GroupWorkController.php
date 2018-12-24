@@ -254,4 +254,23 @@ class GroupWorkController extends Controller
         return $member;
 
     }
+
+    public function finishGroupWork($team, $discipline, $groupWorkId){
+        $groupWork = GroupWork::find($groupWorkId);
+
+        $groupWork->finished = true;
+        $groupWork->save();
+
+        Session::flash('success', 'Group Work was be closed');
+        return back();
+    }
+
+    public function finishSubTeam($team, $discipline, $groupWorkId, $subTeamId){
+        $subTeam = GroupWorkSubTeam::find($subTeamId);
+        $subTeam->finished = true;
+        $subTeam->save();
+
+        Session::flash('success', 'Sub Team was be closed');
+        return back();
+    }
 }
