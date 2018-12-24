@@ -16,15 +16,13 @@ class GroupWork extends Model
     }
 
     public function isFinished(){
-        $start = Carbon::now()->diffInMinutes($this->start_date, false) < 0;
         $end = Carbon::now()->diffInMinutes($this->end_date, false) > 0;
-        $open = ($start + $end) == 2;
 
         if($this->finished)
             return $this->finished;
 
-        if(!$open)
-            return !$open;
+        if(!$end)
+            return !$end;
 
         return false;
     }
