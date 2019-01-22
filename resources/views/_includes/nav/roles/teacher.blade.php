@@ -7,7 +7,7 @@
         <li>
             <ul class="collapsible">
                 @foreach(Auth::user()->teams() as $team)
-                    <li class="active">
+                    <li class="{{$team->name == Request::segment(2) ? 'active' : ''}}">
                         <div class="collapsible-header"><i class="material-icons">group</i>{{$team->display_name}}</div>
                         <div class="collapsible-body">
                             <ul>
