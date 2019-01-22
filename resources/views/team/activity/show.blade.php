@@ -47,11 +47,12 @@
                 </div>
             </div>
         @endforeach
+
+        @role('teacher')
+        {{--Link create page--}}
+        <div class="fixed-action-btn">
+            <a class="btn-floating btn-large waves-effect waves-light green" href="{{url('team/'.$team->name.'/activity/create')}}"><i class="material-icons">add</i></a>
+        </div>
+        @endrole
     </div>
-@endsection
-
-@section('scripts')
-    <script>
-
-    </script>
 @endsection
