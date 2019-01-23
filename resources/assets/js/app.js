@@ -5,6 +5,9 @@ window.Vue = require('vue');
 window.Slug = require('slug');
 Slug.defaults.mode = "rfc3986";
 
+import VueClipboard from 'vue-clipboard2'
+Vue.use(VueClipboard)
+
 //Vue datepicker
 Vue.component('datepicker', require('vue-datepicker'));
 // Slug Editor

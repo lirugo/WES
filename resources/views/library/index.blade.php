@@ -3,7 +3,7 @@
     {{ Breadcrumbs::render('library') }}
 @endsection
 @section('content')
-    <div class="row m-b-0">
+    <div class="row m-b-0" xmlns:v-clipboard="http://www.w3.org/1999/xhtml">
         <div class="col s12">
             <div class="card-panel p-b-10 p-t-10">
                 <a href="{{url('/library/?sort=asc')}}">New first</a> |
@@ -13,7 +13,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row" id="clipboard">
         @foreach($libraries as $library)
             <div class="col s12 m4 l4">
                 <div class="card">
@@ -46,9 +46,16 @@
                             {!! $library->description !!}
                         </p>
                     </div>
-
-                    <a class="btn-floating btn halfway-fab left waves-effect waves-light indigo" href="{{url('/library/'.$library->id)}}"><i class="material-icons">open_in_new</i></a>
-                    <a class="btn-floating btn halfway-fab right waves-effect waves-light indigo" href="{{url('/library/file/'.$library->file)}}" download><i class="material-icons">cloud_download</i></a>
+                    <a class="btn-floating btn left halfway-fab m-l-80 waves-effect waves-light indigo tooltipped"
+                       @click="copyToClipBoard({{ $library->id }})"
+                       data-position="bottom" data-tooltip="Copy to buffer"
+                       href="#"><i class="material-icons">content_copy</i></a>
+                    <a class="btn-floating btn halfway-fab left waves-effect waves-light indigo tooltipped"
+                       data-position="bottom" data-tooltip="Open"
+                       href="{{url('/library/'.$library->id)}}"><i class="material-icons">open_in_new</i></a>
+                    <a class="btn-floating btn halfway-fab right waves-effect waves-light indigo tooltipped"
+                       data-position="bottom" data-tooltip="Download file"
+                       href="{{url('/library/file/'.$library->file)}}" download><i class="material-icons">cloud_download</i></a>
                 </div>
             </div>
         @endforeach
@@ -72,4 +79,22 @@
         </div>
         @endrole
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        new Vue({
+            el: '#clipboard',
+            data: {
+              url: '{{url('/library/')}}'
+            },
+            methods: {
+                copyToClipBoard(libraryId){
+                    this.$copyText(this.url + '/' + libraryId).then(function (e) {
+                        M.toast({html: 'Copied to buffer!'})
+                    })
+                },
+            }
+        });
+    </script>
 @endsection
