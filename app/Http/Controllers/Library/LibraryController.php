@@ -61,7 +61,7 @@ class LibraryController extends Controller
         $library->year = $request->year;
         $library->image = $request->avatar;
         $filePath = Storage::disk('library')->put('/', $request->file);
-        $library->file =  basename($filePath);
+        $library->file =  basename($filePath).pathinfo($request->file->getClientOriginalName(), PATHINFO_EXTENSION);
         $library->save();
 
         foreach (json_decode($request->tags) as $tag){
