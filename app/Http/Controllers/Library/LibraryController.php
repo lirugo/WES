@@ -61,7 +61,7 @@ class LibraryController extends Controller
         $library->pages = $request->pages;
         $library->year = $request->year;
         $library->image = $request->avatar;
-        $filePath = Storage::disk('library')->put('/', $fileName);
+        $filePath = Storage::disk('library')->put('/', $request->file);
         $library->file =  basename($filePath).pathinfo($fileName, PATHINFO_EXTENSION);
         $library->save();
 
