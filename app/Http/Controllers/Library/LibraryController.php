@@ -53,6 +53,7 @@ class LibraryController extends Controller
      */
     public function store(StoreLibrary $request)
     {
+        $fileName = $request->file->getClientOriginalName();
         // Persist
         $library = new Library();
         $library->title = $request->title;
@@ -60,8 +61,8 @@ class LibraryController extends Controller
         $library->pages = $request->pages;
         $library->year = $request->year;
         $library->image = $request->avatar;
-        $filePath = Storage::disk('library')->put('/', $request->file);
-        $library->file =  basename($filePath).pathinfo($request->file->getClientOriginalName(), PATHINFO_EXTENSION);
+        $filePath = Storage::disk('library')->put('/', $fileName);
+        $library->file =  basename($filePath).pathinfo($fileName, PATHINFO_EXTENSION);
         $library->save();
 
         foreach (json_decode($request->tags) as $tag){
