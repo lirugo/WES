@@ -155,6 +155,10 @@ class LibraryController extends Controller
     }
 
     public function getFile($name){
+        $library = Library::where('file', $name)->first();
         $path = storage_path('/app/library/'.$name);
-        return response()->file($path);}
+        $info = pathinfo($path);
+
+        return response()->download($path, $library->title.'.'.$info['extension']);
+    }
 }
