@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\Team\TeamHeadman;
+use App\Models\Team\TeamLessonTime;
 use Auth;
 use Laratrust\Models\LaratrustTeam;
 
@@ -151,5 +152,9 @@ class Team extends LaratrustTeam
 
     public function isHeadman($id){
         return (boolean) count($this->hasOne(TeamHeadman::class, 'team_id', 'id')->where('student_id', $id)->get());
+    }
+
+    public function lessonsTime(){
+        return $this->hasMany(TeamLessonTime::class, 'team_id', 'id');
     }
 }

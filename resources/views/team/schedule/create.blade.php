@@ -48,27 +48,28 @@
                         <div class="input-field col s12 m6 l6">
                             <i class="material-icons prefix">date_range</i>
                             <input id="start_date" value="{{ old('start_date') }}" name="start_date" type="text" class="datepickerDefault" required>
-                            <label for="start_date">Start date</label>
+                            <label for="start_date">Select day</label>
                         </div>
                         <div class="input-field col s12 m6 l6">
                             <i class="material-icons prefix">access_time</i>
                             <select name="lesson">
-                                <option value="" disabled selected>Select lesson</option>
-                                <option value="1" selected>Lesson 1</option>
-                                <option value="1" selected>Lesson 2</option>
+                                <option value="" disabled selected>Select lecture</option>
+                                @foreach($team->lessonsTime as $time)
+                                <option value="{{$time->id}}">Lecture {{$time->position}} ({{\Carbon\Carbon::parse($time->start_time)->format('H:i')}} - {{\Carbon\Carbon::parse($time->end_time)->format('H:i')}})</option>
+                                @endforeach
                             </select>
-                            <label>Time for lesson</label>
+                            <label>Time for lecture</label>
                         </div>
                         <div class="input-field col s12 m6 l6">
                             <i class="material-icons prefix">devices_other</i>
-                            <select multiple name="tools">
+                            <select multiple name="tools[]">
                                 <option value="" disabled selected>Select tools for lesson</option>
-                                <option value="projector" selected>Projector</option>
-                                <option value="laptop">Laptop</option>
-                                <option value="markers">Markers</option>
-                                <option value="board">Board</option>
-                                <option value="flipcharts">Flipcharts</option>
-                                <option value="sound_speakers">Sound speakers</option>
+                                <option value="Projector" selected>Projector</option>
+                                <option value="Laptop">Laptop</option>
+                                <option value="Markers">Markers</option>
+                                <option value="Board">Board</option>
+                                <option value="Flipcharts">Flipcharts</option>
+                                <option value="Sound speakers">Sound speakers</option>
                             </select>
                             <label>Tools for lesson</label>
                         </div>
