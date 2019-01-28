@@ -6,6 +6,7 @@ use App\Discipline;
 use App\Http\Requests\StoreTeam;
 use App\Http\Requests\UpdateTeam;
 use App\Models\Team\TeamHeadman;
+use App\Models\Team\TeamLessonTime;
 use App\Permission;
 use App\Role;
 use App\Team;
@@ -72,6 +73,35 @@ class TeamController extends Controller
         $createAcl = Permission::where('name', 'create-acl')->first();
         $readAcl = Permission::where('name', 'read-acl')->first();
         $updateAcl = Permission::where('name', 'update-acl')->first();
+
+        //TODO:: trash remake it lesson time
+        TeamLessonTime::create([
+            'team_id' => $team->id,
+            'position' => 1,
+            'start_time' => $request->startTime_1,
+            'end_time' => $request->endTime_1,
+        ]);
+        if($request->startTime_2 && $request->startTime_2)
+        TeamLessonTime::create([
+            'team_id' => $team->id,
+            'position' => 2,
+            'start_time' => $request->startTime_2,
+            'end_time' => $request->endTime_2,
+        ]);
+        if($request->startTime_3 && $request->startTime_3)
+        TeamLessonTime::create([
+            'team_id' => $team->id,
+            'position' => 3,
+            'start_time' => $request->startTime_3,
+            'end_time' => $request->endTime_3,
+        ]);
+        if($request->startTime_4 && $request->startTime_4)
+        TeamLessonTime::create([
+            'team_id' => $team->id,
+            'position' => 4,
+            'start_time' => $request->startTime_4,
+            'end_time' => $request->endTime_4,
+        ]);
 
         // Attach manager to new team
         Auth::user()->attachRole($ownerGroup, $team);

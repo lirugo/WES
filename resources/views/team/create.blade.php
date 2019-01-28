@@ -5,9 +5,9 @@
 @section('content')
     {!! Form::open(['route' => 'team.store', 'method' => 'POST']) !!}
     {{--Name and General block--}}
-    <div class="row">
+    <div class="row" id="team-create">
         <div class="col s12">
-            <div class="card-panel hoverable" id="slug">
+            <div class="card-panel hoverable">
                 <div class="input-field m-b-0">
                     <i class="material-icons prefix">group</i>
                     {!! Form::text('display_name', null, ['class' => 'validate', 'name' => 'display_name', 'id' => 'display_name', 'v-model' => 'title', 'required']) !!}
@@ -31,6 +31,48 @@
                 </div>
             </div>
         </div>
+        {{--Add lesson time--}}
+        <div class="col s12">
+            <div class="card-panel hoverable" id="slug">
+                <p class="flow-text m-t-0 m-b-0">
+                    Set lessons time
+                </p>
+                <div class="row">
+                    <div class="input-field col s6 m2">
+                        <input type="text" class="timepicker" placeholder="End time" name="startTime_1" required>
+                        <span class="helper-text" data-error="wrong" data-success="right">Lesson 1</span>
+                    </div>
+                    <div class="input-field col s6 m2">
+                        <input type="text" class="timepicker" placeholder="End time" name="endTime_1" required>
+                        <span class="helper-text" data-error="wrong" data-success="right">Lesson 1</span>
+                    </div>
+                    <div class="input-field col s6 m2">
+                        <input type="text" class="timepicker" placeholder="End time" name="startTime_2" required>
+                        <span class="helper-text" data-error="wrong" data-success="right">Lesson 2</span>
+                    </div>
+                    <div class="input-field col s6 m2">
+                        <input type="text" class="timepicker" placeholder="End time" name="endTime_2" required>
+                        <span class="helper-text" data-error="wrong" data-success="right">Lesson 2</span>
+                    </div>
+                    <div class="input-field col s6 m2">
+                        <input type="text" class="timepicker" placeholder="End time" name="startTime_3" required>
+                        <span class="helper-text" data-error="wrong" data-success="right">Lesson 3</span>
+                    </div>
+                    <div class="input-field col s6 m2">
+                        <input type="text" class="timepicker" placeholder="End time" name="endTime_3" required>
+                        <span class="helper-text" data-error="wrong" data-success="right">Lesson 3</span>
+                    </div>
+                    <div class="input-field col s6 m2">
+                        <input type="text" class="timepicker" placeholder="End time" name="startTime_4">
+                        <span class="helper-text" data-error="wrong" data-success="right">Lesson 4</span>
+                    </div>
+                    <div class="input-field col s6 m2">
+                        <input type="text" class="timepicker" placeholder="End time" name="endTime_4">
+                        <span class="helper-text" data-error="wrong" data-success="right">Lesson 4</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     {{--Floating button--}}
     <div class="fixed-action-btn">
@@ -44,10 +86,12 @@
 @section('scripts')
     <script>
         new Vue({
-            el: '#slug',
+            el: '#team-create',
             data: {
                 template: '',
                 title: '',
+            },
+            methods: {
             }
         });
     </script>
