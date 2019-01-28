@@ -18,6 +18,12 @@
                                     <p>Hours - {{$discipline->hours}}</p>
                                 </div>
                             @endforeach
+                            @foreach($template->lessonsTime as $time)
+                                    <div class="input-field col s6 m3">
+                                        <input type="text" value="{{\Carbon\Carbon::parse($time->start_time)->format('H:i')}} - {{\Carbon\Carbon::parse($time->end_time)->format('H:i')}}" disabled>
+                                        <span class="helper-text" data-error="wrong" data-success="right">Lesson {{$time->position}}</span>
+                                    </div>
+                            @endforeach
                         </div>
                     </div>
                     <div class="card-action right-align">
