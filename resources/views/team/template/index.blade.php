@@ -10,19 +10,25 @@
                     <div class="card-content">
                         <span class="card-title center-align">{{$template->display_name}}</span>
                         <div class="row m-b-0">
+                            <ul class="collection">
                             @foreach($template->disciplines as $discipline)
-                                <div class="col s12 l6 m-b-20 card card-content hoverable height-200px">
-                                    <a href="#user"><img class="circle left m-r-10" width="100px" src="{{asset('/uploads/avatars/'.$discipline->getTeacher->avatar)}}"></a>
-                                    <p class="m-t-10">{{$discipline->getDiscipline->display_name}}</p>
-                                    <p>{{$discipline->getTeacher->getShortName()}}</p>
-                                    <p>Hours - {{$discipline->hours}}</p>
-                                </div>
+                                    <li class="collection-item avatar">
+                                        <img src="{{asset('/uploads/avatars/'.$discipline->getTeacher->avatar)}}" alt="" class="circle m-t-10">
+                                        <span class="title">{{$discipline->getDiscipline->display_name}}</span>
+                                        <p>
+                                            {{$discipline->getTeacher->getShortName()}}<br>
+                                            Hours - {{$discipline->hours}}
+                                        </p>
+                                    </li>
                             @endforeach
+                            </ul>
+                        </div>
+                        <div class="row m-b-0">
                             @foreach($template->lessonsTime as $time)
-                                    <div class="input-field col s6 m3">
-                                        <input type="text" value="{{\Carbon\Carbon::parse($time->start_time)->format('H:i')}} - {{\Carbon\Carbon::parse($time->end_time)->format('H:i')}}" disabled>
-                                        <span class="helper-text" data-error="wrong" data-success="right">Lesson {{$time->position}}</span>
-                                    </div>
+                                <div class="input-field col s6 m3">
+                                    <input type="text" value="{{\Carbon\Carbon::parse($time->start_time)->format('H:i')}} - {{\Carbon\Carbon::parse($time->end_time)->format('H:i')}}" disabled>
+                                    <span class="helper-text" data-error="wrong" data-success="right">Lesson {{$time->position}}</span>
+                                </div>
                             @endforeach
                         </div>
                     </div>
