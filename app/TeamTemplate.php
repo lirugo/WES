@@ -17,4 +17,8 @@ class TeamTemplate extends Model
     public function disciplines(){
         return $this->hasMany(TeamTemplateDiscipline::class, 'template_id', 'id');
     }
+
+    public function lessonsTime(){
+        return $this->hasMany(TeamTemplateLessonTime::class, 'template_id', 'id');
+    }
 }

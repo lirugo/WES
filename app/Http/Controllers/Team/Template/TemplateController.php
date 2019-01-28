@@ -7,6 +7,7 @@ use App\Http\Requests\StoreTeamTemplate;
 use App\Role;
 use App\TeamTemplate;
 use App\TeamTemplateDiscipline;
+use App\TeamTemplateLessonTime;
 use App\User;
 use Illuminate\Http\Request;
 use Session;
@@ -54,6 +55,36 @@ class TemplateController extends Controller
             'name' => $request->name,
             'display_name' => $request->display_name,
         ]);
+
+
+        //TODO:: trash remake it lesson time
+        TeamTemplateLessonTime::create([
+            'template_id' => $template->id,
+            'position' => 1,
+            'start_time' => $request->startTime_1,
+            'end_time' => $request->endTime_1,
+        ]);
+        if($request->startTime_2 && $request->startTime_2)
+            TeamTemplateLessonTime::create([
+                'template_id' => $template->id,
+                'position' => 2,
+                'start_time' => $request->startTime_2,
+                'end_time' => $request->endTime_2,
+            ]);
+        if($request->startTime_3 && $request->startTime_3)
+            TeamTemplateLessonTime::create([
+                'template_id' => $template->id,
+                'position' => 3,
+                'start_time' => $request->startTime_3,
+                'end_time' => $request->endTime_3,
+            ]);
+        if($request->startTime_4 && $request->startTime_4)
+            TeamTemplateLessonTime::create([
+                'template_id' => $template->id,
+                'position' => 4,
+                'start_time' => $request->startTime_4,
+                'end_time' => $request->endTime_4,
+            ]);
 
         // Show flash msg
         Session::flash('success', 'Team template was successfully created.');

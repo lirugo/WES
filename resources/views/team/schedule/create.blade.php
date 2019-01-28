@@ -52,19 +52,25 @@
                         </div>
                         <div class="input-field col s12 m6 l6">
                             <i class="material-icons prefix">access_time</i>
-                            <input id="start_time" value="{{ old('start_time') }}" name="start_time" type="text" class="timepicker" required>
-                            <label for="start_time">Start Time</label>
-                        </div>
-                        {{--End date&time picker--}}
-                        <div class="input-field col s12 m6 l6">
-                            <i class="material-icons prefix">date_range</i>
-                            <input id="end_date" value="{{ old('end_date') }}" name="end_date" type="text" class="datepickerDefault" required>
-                            <label for="end_date">End date</label>
+                            <select name="lesson">
+                                <option value="" disabled selected>Select lesson</option>
+                                <option value="1" selected>Lesson 1</option>
+                                <option value="1" selected>Lesson 2</option>
+                            </select>
+                            <label>Time for lesson</label>
                         </div>
                         <div class="input-field col s12 m6 l6">
-                            <i class="material-icons prefix">access_time</i>
-                            <input id="end_time" value="{{ old('end_time') }}" name="end_time" type="text" class="timepicker" required>
-                            <label for="end_time">End Time</label>
+                            <i class="material-icons prefix">devices_other</i>
+                            <select multiple name="tools">
+                                <option value="" disabled selected>Select tools for lesson</option>
+                                <option value="projector" selected>Projector</option>
+                                <option value="laptop">Laptop</option>
+                                <option value="markers">Markers</option>
+                                <option value="board">Board</option>
+                                <option value="flipcharts">Flipcharts</option>
+                                <option value="sound_speakers">Sound speakers</option>
+                            </select>
+                            <label>Tools for lesson</label>
                         </div>
                     </div>
                 </div>

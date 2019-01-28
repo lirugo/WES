@@ -31,48 +31,6 @@
                 </div>
             </div>
         </div>
-        {{--Add lesson time--}}
-        <div class="col s12">
-            <div class="card-panel hoverable" id="slug">
-                <p class="flow-text m-t-0 m-b-0">
-                    Set lessons time
-                </p>
-                <div class="row">
-                    <div class="input-field col s6 m2">
-                        <input type="text" class="timepicker" placeholder="End time" name="startTime_1" required>
-                        <span class="helper-text" data-error="wrong" data-success="right">Lesson 1</span>
-                    </div>
-                    <div class="input-field col s6 m2">
-                        <input type="text" class="timepicker" placeholder="End time" name="endTime_1" required>
-                        <span class="helper-text" data-error="wrong" data-success="right">Lesson 1</span>
-                    </div>
-                    <div class="input-field col s6 m2">
-                        <input type="text" class="timepicker" placeholder="End time" name="startTime_2" required>
-                        <span class="helper-text" data-error="wrong" data-success="right">Lesson 2</span>
-                    </div>
-                    <div class="input-field col s6 m2">
-                        <input type="text" class="timepicker" placeholder="End time" name="endTime_2" required>
-                        <span class="helper-text" data-error="wrong" data-success="right">Lesson 2</span>
-                    </div>
-                    <div class="input-field col s6 m2">
-                        <input type="text" class="timepicker" placeholder="End time" name="startTime_3" required>
-                        <span class="helper-text" data-error="wrong" data-success="right">Lesson 3</span>
-                    </div>
-                    <div class="input-field col s6 m2">
-                        <input type="text" class="timepicker" placeholder="End time" name="endTime_3" required>
-                        <span class="helper-text" data-error="wrong" data-success="right">Lesson 3</span>
-                    </div>
-                    <div class="input-field col s6 m2">
-                        <input type="text" class="timepicker" placeholder="End time" name="startTime_4">
-                        <span class="helper-text" data-error="wrong" data-success="right">Lesson 4</span>
-                    </div>
-                    <div class="input-field col s6 m2">
-                        <input type="text" class="timepicker" placeholder="End time" name="endTime_4">
-                        <span class="helper-text" data-error="wrong" data-success="right">Lesson 4</span>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
     {{--Floating button--}}
     <div class="fixed-action-btn">

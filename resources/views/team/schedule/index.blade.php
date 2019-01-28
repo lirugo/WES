@@ -39,7 +39,7 @@
                                         <td>{{$schedule->end_date}}</td>
                                         <td>
                                             {!! Form::open(['route' => ['team.schedule.delete', $team->name, $schedule->id]]) !!}
-                                            <button type="submit" class="waves-effect waves-light btn red"><i class="material-icons right">delete</i>Delete</button>
+                                            <button type="submit" class="waves-effect waves-light btn red"><i class="material-icons">delete</i></button>
                                             {!! Form::close() !!}
                                         </td>
                                     </tr>
@@ -52,7 +52,7 @@
                                         <td>{{$schedule->end_date}}</td>
                                         <td>
                                             {!! Form::open(['route' => ['team.schedule.delete', $team->name, $schedule->id]]) !!}
-                                            <button type="submit" class="waves-effect waves-light btn red"><i class="material-icons right">delete</i>Delete</button>
+                                            <button type="submit" class="waves-effect waves-light btn red"><i class="material-icons">delete</i></button>
                                             {!! Form::close() !!}
                                         </td>
                                     </tr>
