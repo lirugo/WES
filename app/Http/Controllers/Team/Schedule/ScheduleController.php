@@ -67,6 +67,11 @@ class ScheduleController extends Controller
     }
 
     public function store(Request $request, $name){
+        //Validate
+        $request->validate([
+            'start_date' => 'required|date|after:today',
+        ]);
+
         // Convert date
         $lesson = TeamLessonTime::find($request->lesson);
         $start = Carbon::parse(date('Y-m-d H:i', strtotime("$request->start_date, $lesson->start_time")));

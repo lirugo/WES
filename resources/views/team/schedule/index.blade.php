@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    @if(Auth::user()->hasRole(['administrator', 'top-manager', 'manager']))
+    @if(Auth::user()->hasRole(['administrator', 'top-manager', 'manager', 'teacher']))
         <div class="row">
             <div class="col s12">
                 <div class="card hoverable">
@@ -38,9 +38,12 @@
                                         <td>{{$schedule->start_date}}</td>
                                         <td>{{$schedule->end_date}}</td>
                                         <td>
-                                            {!! Form::open(['route' => ['team.schedule.delete', $team->name, $schedule->id]]) !!}
-                                            <button type="submit" class="waves-effect waves-light btn red"><i class="material-icons">delete</i></button>
-                                            {!! Form::close() !!}
+                                            {{--If start date - date now more than 14 day teacher can delete lecture--}}
+                                            @if(\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse($schedule->start_date), false) > 14)
+                                                {!! Form::open(['route' => ['team.schedule.delete', $team->name, $schedule->id]]) !!}
+                                                <button type="submit" class="waves-effect waves-light btn red"><i class="material-icons">delete</i></button>
+                                                {!! Form::close() !!}
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
