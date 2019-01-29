@@ -7,11 +7,13 @@ use App\Http\Requests\StoreTeam;
 use App\Http\Requests\UpdateTeam;
 use App\Models\Team\TeamHeadman;
 use App\Models\Team\TeamLessonTime;
+use App\Models\Team\TeamTeacherLessonHour;
 use App\Permission;
 use App\Role;
 use App\Team;
 use App\TeamDiscipline;
 use App\TeamTemplate;
+use App\TeamTemplateLessonTime;
 use App\User;
 use Illuminate\Http\Request;
 use Session;
@@ -60,6 +62,13 @@ class TeamController extends Controller
         foreach($template->disciplines as $discipline){
             // Find teacher
             $user = User::find($discipline->teacher_id);
+
+            TeamTeacherLessonHour::create([
+                'team_id' => $team->id,
+                'teacher_id' => $discipline->teacher_id,
+                'discipline_id' => $discipline->id,
+                'hours' => $discipline->hours,
+            ]);
 
             // Find role teacher
             $teacher = Role::where('name', 'teacher')->first();
