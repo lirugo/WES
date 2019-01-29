@@ -117,7 +117,7 @@
                     <p class="card-title m-t-10 m-b-0">{{$discipline->getTeacher->getShortName()}}</p>
                     <p class="card-title m-t-0 m-b-0">{{$discipline->getTeacher->email}}</p>
                     <p class="card-title m-t-0 m-b-0">{{$discipline->getTeacher->getPhone()}}</p>
-                    <p class="card-title m-t-0 m-b-0">Hours - {{$discipline->hours}}, left - </p>
+                    <p class="card-title m-t-0 m-b-0">Hours - {{$discipline->hours}}, left - {{$discipline->leftHours($discipline->getTeacher->id, 1, 1)}} </p>
                     @if(Auth::user()->hasRole(['top-manager', 'manager', 'teacher']))
                         <p class="card-title m-t-0">{{$discipline->getTeacher->getCountOfYear()}} years old</p>
                     @endif

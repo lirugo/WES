@@ -47,7 +47,7 @@
                             @else
                                 @foreach($team->schedules as $schedule)
                                     <tr>
-                                        <td>{{$schedule->title}}</td>
+                                        <td style="max-width: 500px;">{{$schedule->title}}</td>
                                         <td>{{$schedule->start_date}}</td>
                                         <td>{{$schedule->end_date}}</td>
                                         <td>

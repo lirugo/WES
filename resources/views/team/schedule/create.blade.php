@@ -73,6 +73,11 @@
                             </select>
                             <label>Tools for lesson</label>
                         </div>
+                        <div class="input-field col s12 m6 l6">
+                            <i class="material-icons prefix">format_align_justify</i>
+                            <input id="description" type="text" name="description" data-length="200">
+                            <label for="description">Title</label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -85,4 +90,13 @@
         </button>
     </div>
     {!! Form::close() !!}
+@endsection
+
+@section('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var textNeedCount = document.querySelectorAll('#description');
+            M.CharacterCounter.init(textNeedCount);
+        });
+    </script>
 @endsection

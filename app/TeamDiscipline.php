@@ -48,4 +48,8 @@ class TeamDiscipline extends Model
     public function pretests(){
         return $this->hasMany(Pretest::class, 'discipline_id', 'discipline_id');
     }
+
+    public function leftHours($teamId, $teacherId, $disciplineId){
+        return 2;
+    }
 }
