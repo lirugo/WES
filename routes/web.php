@@ -149,6 +149,7 @@ Route::get('/phpinfo', function () {
         Route::get('/{name}/mark/{discipline}/task/create', 'TaskController@create');
 
         //Pretest
+        Route::post('/{name}/discipline/{teamDisciplineId}/disable', 'TeamController@disciplineDisable');
         Route::get('/{name}/material', 'MaterialController@index');
         Route::get('/{name}/material/create', 'MaterialController@create');
         Route::get('/{name}/material/{discipline}', 'MaterialController@show');

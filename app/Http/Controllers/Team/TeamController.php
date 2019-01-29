@@ -178,4 +178,14 @@ class TeamController extends Controller
         Session::flash('success', 'Headman was been successfully updated');
         return back();
     }
+
+    public function disciplineDisable($team, $teamDisciplineId){
+        $teamDiscipline = TeamDiscipline::find($teamDisciplineId);
+        $disabled = $teamDiscipline->disabled;
+        $teamDiscipline->disabled = $disabled ? false : true;
+        $teamDiscipline->save();
+
+        Session::flash('success', 'Discipline updated');
+        return back();
+    }
 }
