@@ -110,7 +110,6 @@
             </div>
         </div>
         @foreach($team->disciplines as $discipline)
-            {{dd($discipline)}}
             <div class="col s12 l6">
                 <div class="card-panel hoverable height-200px">
                     <blockquote class="m-t-0">{{$discipline->getDiscipline->display_name}}</blockquote>
