@@ -63,13 +63,6 @@ class TeamController extends Controller
             // Find teacher
             $user = User::find($discipline->teacher_id);
 
-            TeamTeacherLessonHour::create([
-                'team_id' => $team->id,
-                'teacher_id' => $discipline->teacher_id,
-                'discipline_id' => $discipline->id,
-                'hours' => $discipline->hours,
-            ]);
-
             // Find role teacher
             $teacher = Role::where('name', 'teacher')->first();
 

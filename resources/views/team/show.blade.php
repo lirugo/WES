@@ -110,6 +110,7 @@
             </div>
         </div>
         @foreach($team->disciplines as $discipline)
+            {{dd($discipline)}}
             <div class="col s12 l6">
                 <div class="card-panel hoverable height-200px">
                     <blockquote class="m-t-0">{{$discipline->getDiscipline->display_name}}</blockquote>
@@ -117,7 +118,7 @@
                     <p class="card-title m-t-10 m-b-0">{{$discipline->getTeacher->getShortName()}}</p>
                     <p class="card-title m-t-0 m-b-0">{{$discipline->getTeacher->email}}</p>
                     <p class="card-title m-t-0 m-b-0">{{$discipline->getTeacher->getPhone()}}</p>
-                    <p class="card-title m-t-0 m-b-0">Hours - {{$discipline->hours}}</p>
+                    <p class="card-title m-t-0 m-b-0">Hours - {{$discipline->hours}}, left - </p>
                     @if(Auth::user()->hasRole(['top-manager', 'manager', 'teacher']))
                         <p class="card-title m-t-0">{{$discipline->getTeacher->getCountOfYear()}} years old</p>
                     @endif
@@ -150,7 +151,7 @@
 
     {{--Floating button--}}
     <div class="fixed-action-btn">
-        <a class="btn-floating btn-large red">
+        <a class="btn-floating btn-large red pulse">
             <i class="large material-icons">mode_edit</i>
         </a>
         <ul>
