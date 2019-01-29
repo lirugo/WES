@@ -45,11 +45,11 @@
                 </div>
             </div>
         </div>
-        <div class="col s12 l6">
-            <div class="card-panel hoverable">
+        <div class="col s12 l6 m-b-0 m-t-0">
+            <div class="card-panel hoverable m-b-0 m-t-0">
                 <div class="row m-b-0 m-t-0">
                     @foreach($team->lessonsTime as $time)
-                        <div class="input-field col s6 m4">
+                        <div class="input-field col s6 m4 m-b-0 m-t-0">
                             <input type="text" value="{{\Carbon\Carbon::parse($time->start_time)->format('H:i')}} - {{\Carbon\Carbon::parse($time->end_time)->format('H:i')}}" disabled>
                             <span class="helper-text" data-error="wrong" data-success="right">Lecture {{$time->position}}</span>
                         </div>
