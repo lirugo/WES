@@ -8,6 +8,7 @@ use App\Models\Team\TeamLessonTime;
 use App\Schedule;
 use App\ScheduleTool;
 use App\Team;
+use App\TeamDiscipline;
 use App\User;
 use Calendar;
 use Carbon\Carbon;
@@ -85,6 +86,17 @@ class ScheduleController extends Controller
 
         // Find Discipline
         $discipline = Discipline::find($request->discipline_id);
+        // Get Discipline for specific team
+        $teamDiscipline = TeamDiscipline::where([
+            'team_id' => $team->id,
+            'teacher_id' => $teacher->id,
+            'discipline_id' => $discipline->id,
+        ])->first();
+
+        // Check teacher have free hours
+        if($teamDiscipline->leftHours($team->id, $teacher->id, $discipline->id) <= 0){
+            return back()->withErrors('Teacher dont have free hours');
+        }
 
         $schdeule = Schedule::create([
                 'team_id' => $team->id,

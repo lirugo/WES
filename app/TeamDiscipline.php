@@ -49,7 +49,32 @@ class TeamDiscipline extends Model
         return $this->hasMany(Pretest::class, 'discipline_id', 'discipline_id');
     }
 
-    public function leftHours($teamId, $teacherId, $disciplineId){
-        return 2;
+    /**
+     * @DESC Get left count of lessons for teacher
+     * @param int $teamId
+     * @param int $teacherId
+     * @param int $disciplineId
+     * @return int
+     */
+    public function leftHours(int $teamId, int $teacherId, int $disciplineId) : int {
+        //Get max hours for teacher
+        $maxHours = TeamDiscipline::where([
+            'team_id' => $teamId,
+            'teacher_id' => $teacherId,
+            'discipline_id' => $disciplineId,
+        ])->first()->hours;
+
+        //Get count of set lessons multiply on 3
+        $lessonsHours = Schedule::where([
+            'team_id' => $teamId,
+            'teacher_id' => $teacherId,
+            'discipline_id' => $disciplineId,
+        ])->count() * 3;
+
+        //Get left hours
+        $leftHours = $maxHours - $lessonsHours;
+
+        //Return different
+        return $leftHours;
     }
 }

@@ -8,7 +8,7 @@
         <div class="col s12 m12 l12">
             <div class="card hoverable">
                 <div class="card-content">
-                    <div class="row">
+                    <div class="row m-b-0">
                         {{--Teacher--}}
                         <div class="input-field col s12 m6 l6">
                             <i class="material-icons prefix">school</i>
@@ -31,7 +31,7 @@
                                 <select name="discipline_id" required>
                                     <option value="" disabled>Choose a discipline</option>
                                     @foreach(Auth::user()->getTeacherDiscipline($team->name) as $discipline)
-                                        <option value="{{$discipline->getDiscipline->id}}" {{ old('discipline_id') == $discipline->getDiscipline->id ? 'selected="selected"' : '' }}>{{$discipline->getDiscipline->display_name}}</option>
+                                        <option value="{{$discipline->getDiscipline->id}}" {{ old('discipline_id') == $discipline->getDiscipline->id ? 'selected="selected"' : '' }}>{{$discipline->getDiscipline->display_name}} - {{$discipline->leftHours($team->id, Auth::user()->id, $discipline->getDiscipline->id)}} hours left</option>
                                     @endforeach
                                 </select>
                             @else
