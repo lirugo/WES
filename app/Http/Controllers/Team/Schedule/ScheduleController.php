@@ -3,19 +3,19 @@
 namespace App\Http\Controllers\Team\Schedule;
 
 use App\Discipline;
-use App\Http\Requests\StoreSchedule;
+use App\Http\Controllers\Controller;
 use App\Models\Team\TeamLessonTime;
 use App\Schedule;
 use App\ScheduleTool;
 use App\Team;
 use App\TeamDiscipline;
 use App\User;
+use Auth;
 use Calendar;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
-use Auth;
+use PDF;
 
 class ScheduleController extends Controller
 {
@@ -134,5 +134,13 @@ class ScheduleController extends Controller
         // Redirect back
         return redirect(url('/team/'.$team->name.'/schedule'));
 
+    }
+
+    public function pdf($teamName){
+        $team = Team::where('name', $teamName)->first();
+        $data = ['schedules' => $team->schedules];
+        $pdf = PDF::loadView('team.schedule.schedulePDF', $data);
+
+        return $pdf->download('Schedule '.$team->display_name.'.pdf');
     }
 }

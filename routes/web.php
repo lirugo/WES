@@ -222,6 +222,7 @@ Route::get('/phpinfo', function () {
         Route::get('/{name}/students', 'Student\StudentController@index');
         Route::get('/{name}/teachers', 'Teacher\TeacherController@index');
         Route::get('/{name}/schedule', 'Schedule\ScheduleController@index');
+        Route::get('/{name}/schedule/pdf', 'Schedule\ScheduleController@pdf');
         Route::get('/{name}/schedule/create', 'Schedule\ScheduleController@create');
         Route::get('/{name}/homework', 'HomeWork\HomeWorkController@index');
         Route::get('/{name}/homework/{discipline}', 'HomeWork\HomeWorkController@show');

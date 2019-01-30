@@ -72,6 +72,9 @@
             <a class="btn-floating btn-large red" href="{{url('/team/'.$team->name.'/schedule/create')}}">
                 <i class="large material-icons">add</i>
             </a>
+            <ul>
+                <li><a class="btn-floating orange tooltipped" data-position="left" data-tooltip="PDF" href="{{url('/team/'.$team->name.'/schedule/pdf')}}"><i class="material-icons">cloud_download</i></a></li>
+            </ul>
         </div>
     @endif
 
