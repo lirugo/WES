@@ -13,6 +13,7 @@ use App\Role;
 use App\Team;
 use App\TeamDiscipline;
 use App\TeamTemplate;
+use App\TeamTemplateDiscipline;
 use App\TeamTemplateLessonTime;
 use App\User;
 use Illuminate\Http\Request;
@@ -115,13 +116,15 @@ class TeamController extends Controller
 
         // Get all disciplines
         $disciplines = Discipline::all();
+        $teamTemplateDisciplines = TeamTemplateDiscipline::all();
 
         // Render View
         return view('team.show')
             ->withTeam($team)
             ->withStudents($students)
             ->withTeachers($teachers)
-            ->withDisciplines($disciplines);
+            ->withDisciplines($disciplines)
+            ->withTeamTemplateDisciplines($teamTemplateDisciplines);
     }
 
     public function studentDelete($teamId, $studentId){

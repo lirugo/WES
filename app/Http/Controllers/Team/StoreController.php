@@ -6,6 +6,7 @@ use App\Permission;
 use App\Role;
 use App\Team;
 use App\TeamDiscipline;
+use App\TeamTemplateDiscipline;
 use App\User;
 use Session;
 use Illuminate\Http\Request;
@@ -42,6 +43,24 @@ class StoreController extends Controller
         Session::flash('success', 'Student was successfully added to group.');
 
         // Return to manage
+        return back();
+    }
+
+    public function discipline(Request $request, $team){
+        //Get data
+        $team = Team::where('name', $team)->first();
+        $teamTemplateDisciplines = TeamTemplateDiscipline::find($request->teamTemplateDisciplines);
+
+        //Persist
+        TeamDiscipline::create([
+            'team_id' => $team->id,
+            'teacher_id' => $teamTemplateDisciplines->teacher_id,
+            'discipline_id' => $teamTemplateDisciplines->discipline_id,
+            'hours' => $teamTemplateDisciplines->hours,
+        ]);
+
+        //Redirect
+        Session::flash('success', 'Discipline was be added');
         return back();
     }
 }

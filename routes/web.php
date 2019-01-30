@@ -243,6 +243,7 @@ Route::get('/phpinfo', function () {
         Route::post('/store', 'TeamController@store')->name('team.store');
         Route::post('/{name}/student/{studentId}/delete', 'TeamController@studentDelete')->name('team.student.delete');
         Route::post('/{name}/student/store', 'StoreController@student')->name('team.student.store');
+        Route::post('/{name}/discipline/store', 'StoreController@discipline')->name('team.discipline.store');
         Route::post('/{name}/teacher/store', 'StoreController@teacher')->name('team.teacher.store');
         Route::post('/template/{name}/teacher/store', 'Template\TemplateController@teacher')->name('team.template.teacher.store');
         Route::post('/template/{teamId}/teacher/{disciplineId}/delete', 'Template\TemplateController@disciplineDelete')->name('team.template.discipline.delete');

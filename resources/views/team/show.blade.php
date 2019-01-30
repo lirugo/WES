@@ -141,6 +141,7 @@
         @if(Auth::user()->hasRole(['administrator', 'top-manage', 'manager']))
             <div class="row">
                 <div class="col s12 m6 l4">
+                    {{--Add new student--}}
                     <div class="card-panel hoverable">
                         {!! Form::open(['route' => ['team.student.store',$team->name], 'method' => 'POST']) !!}
                         <h5 class="center-align m-b-30">Add a new student</h5>
@@ -153,7 +154,25 @@
                             </select>
                             <label>All students</label>
                         </div>
-                        <button type="submit" class="indigo waves-effect waves-light btn right"><i class="material-icons right">add_circle_outline</i>Add a new student</button>
+                        <button type="submit" class="indigo waves-effect waves-light btn right"><i class="material-icons right">add</i>New student</button>
+                        {!! Form::close() !!}
+                    </div>
+                </div>
+                {{--Add new discipline--}}
+                <div class="col s12 m6 l8">
+                    <div class="card-panel hoverable">
+                        {!! Form::open(['route' => ['team.discipline.store',$team->name], 'method' => 'POST']) !!}
+                        <h5 class="center-align m-b-30">Add a new discipline</h5>
+                        <div class="input-field">
+                            <select class="icons" name="teamTemplateDisciplines" required>
+                                <option value="" disabled selected>Choose a new discipline</option>
+                                @foreach($teamTemplateDisciplines as $discipline)
+                                    <option value="{{$discipline->id}}">{{$discipline->getTeacher->getShortName()}} - {{$discipline->getDiscipline->display_name}} {{$discipline->hours}} hours</option>
+                                @endforeach
+                            </select>
+                            <label>All disciplines</label>
+                        </div>
+                        <button type="submit" class="indigo waves-effect waves-light btn right"><i class="material-icons right">add</i>New discipline</button>
                         {!! Form::close() !!}
                     </div>
                 </div>
