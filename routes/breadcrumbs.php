@@ -109,6 +109,10 @@
         $trail->parent('team');
         $trail->push($team->display_name, url('/team/'.$team->name));
     });
+    Breadcrumbs::for('team-show-setting', function ($trail, $team) {
+        $trail->parent('team-show', $team);
+        $trail->push('Setting', url('/team/'.$team->name));
+    });
     Breadcrumbs::for('team-teachers', function ($trail, $team) {
         $trail->parent('team-show', $team);
         $trail->push('Teachers', url('/team/'.$team->name.'/teachers'));

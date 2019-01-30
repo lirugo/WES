@@ -143,6 +143,9 @@ Route::get('/phpinfo', function () {
         Route::get('/template/{name}/edit', 'Template\TemplateController@edit');
         Route::get('/{name}', 'TeamController@show');
 
+        //Settings
+        Route::get('/{name}/setting', 'Setting\SettingController@index');
+
         //Marks
         Route::get('/{name}/mark', 'MarkController@index');
         Route::get('/{name}/mark/{discipline}', 'MarkController@show');
