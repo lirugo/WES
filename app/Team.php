@@ -35,7 +35,7 @@ class Team extends LaratrustTeam
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function disciplines(){
-        return $this->hasMany(TeamDiscipline::class);
+        return $this->hasMany(TeamDiscipline::class)->with('getTeacher', 'getDiscipline');
     }
 
     public function getDisciplines($userId){

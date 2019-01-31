@@ -47,6 +47,14 @@ class User extends Authenticatable
             return $name->second_name.' '.mb_substr($name->name,0,1).'. '.mb_substr($name->middle_name,0,1).'.';
     }
 
+    public function getFullName(){
+        $name = $this->names()->where('language', '=','en')->first();
+        if(is_null($name->middle_name))
+            return $name->second_name.' '.$name->name;
+        else
+            return $name->second_name.' '.$name->name.' '.$name->middle_name;
+    }
+
     public function getPhone(){
         $phone = $this->phones()->first();
         $dialling_code = $phone->diallingCode($phone->dialling_code_id)->dialling_code;

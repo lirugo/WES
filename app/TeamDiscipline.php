@@ -16,7 +16,7 @@ class TeamDiscipline extends Model
     }
 
     public function getTeacher(){
-        return $this->hasOne(User::class, 'id', 'teacher_id');
+        return $this->hasOne(User::class, 'id', 'teacher_id')->with('name');
     }
 
     public function team(){

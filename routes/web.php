@@ -145,6 +145,7 @@ Route::get('/phpinfo', function () {
 
         //Settings
         Route::get('/{name}/setting', 'Setting\SettingController@index');
+        Route::post('/{name}/setting/disciplines/update', 'Setting\SettingController@disciplinesUpdate');
 
         //Marks
         Route::get('/{name}/mark', 'MarkController@index');
