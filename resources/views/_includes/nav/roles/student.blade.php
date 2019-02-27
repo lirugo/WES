@@ -13,7 +13,7 @@
                             <ul>
                                 <li><a href="{{url('/team/'.$team->name)}}"><i class="material-icons">dashboard</i>Dashboard</a></li>
                                 <li><a href="{{url('/team/'.$team->name.'/schedule')}}"><i class="material-icons">schedule</i>Schedule</a></li>
-                                <li><a href="#"><i class="material-icons">bookmark_border</i>Marks</a></li>
+                                {{--<li><a href="#"><i class="material-icons">bookmark_border</i>Marks</a></li>--}}
                                 {{--<li><a href="#"><i class="material-icons">event</i>Events</a></li>--}}
                                 <li><a href="{{url('/team/'.$team->name.'/students')}}"><i class="material-icons">group</i>Students</a></li>
                                 {{--<li><a href="#"><i class="material-icons">message</i>Message</a></li>--}}
@@ -22,7 +22,7 @@
                                 <li><a href="{{url('/team/'.$team->name.'/material')}}"><i class="material-icons">import_contacts</i>Educational Materials</a></li>
                                 <li><a href="{{url('/team/'.$team->name.'/activity')}}"><i class="material-icons">home</i>Activity</a></li>
                                 <li><a href="{{url('/team/'.$team->name.'/group-work')}}"><i class="material-icons">group</i>Group Work</a></li>
-                                <li><a href="{{url('/team/'.$team->name.'/pretest')}}"><i class="material-icons">border_color</i>Pretest</a></li>
+                                <li><a href="{{url('/team/'.$team->name.'/pretest')}}"><i class="material-icons">border_color</i>Tests</a></li>
                             </ul>
                         </div>
                     </li>

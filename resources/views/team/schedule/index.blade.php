@@ -138,7 +138,7 @@
                                         <template v-for="event in eventsMap[date]">
                                             <!-- timed events -->
                                             <div
-                                                    :key="event.title"
+                                                    :key="event.id"
                                                     :style="{ top: timeToY(event.start_time) + 'px', height: minutesToPixels(event.duration) + 'px' }"
                                                     class="my-event with-time"
                                             >
