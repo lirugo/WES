@@ -16,8 +16,7 @@
                         <label for="name">Name</label>
                     </div>
                     <div class="input-field col s12">
-                        <textarea id="description" name="description" class="materialize-textarea" required></textarea>
-                        <label for="description">Description</label>
+                        <textarea id="description" name="description" class="materialize-textarea"></textarea>
                     </div>
                     <div class="input-field col s12" v-if="other" >
                         <input id="type_name" name="type_name" type="text" class="validate" required>
@@ -115,6 +114,24 @@
 @endsection
 
 @section('scripts')
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey={{env('TINY_MC_KEY')}}"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            height: 300,
+            menubar: false,
+            plugins: [
+                'advlist autolink lists charmap print preview anchor textcolor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime table contextmenu paste code help wordcount',
+                'link'
+            ],
+            toolbar: 'link insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat ',
+            content_css: [
+                '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+                '//www.tinymce.com/css/codepen.min.css']
+        });
+    </script>
     <script>
         new Vue({
             el: '#activity-create-form',
@@ -122,6 +139,7 @@
                 other: false,
                 type: String,
                 mark_in_journal: false,
+                links: [],
                 inputs: [
                     {
                         file: null,

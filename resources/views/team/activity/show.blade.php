@@ -19,7 +19,7 @@
                         @if($activity->type == 'other')
                             <span><small>{{$activity->type_name}}</small></span>
                         @endif
-                        <p><small>{{$activity->description}}</small></p>
+                        <p>{!! $activity->description !!}</p>
                         <div class="m-t-10">
                             @if(count($activity->files))
                                 @foreach($activity->files as $file)
