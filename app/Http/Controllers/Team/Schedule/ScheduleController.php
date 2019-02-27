@@ -25,27 +25,23 @@ class ScheduleController extends Controller
     }
 
     public function index($name){
-        $team = Team::where('name',$name)->first();
+        $team = Team::where('name', $name)->first();
 
         $events = [];
         $schedules = $team->getSchedule();
-        foreach ($schedules as $key => $value) {
-            $events[] = Calendar::event(
-                $value->title,
-                false,
-                new \DateTime($value->start_date),
-                new \DateTime($value->end_date),
-                null,
-                [
-                    'color' => '#3f51b5',
-                ]
-            );
+        foreach ($schedules as $schedule) {
+            $startDate =  Carbon::parse($schedule->start_date);
+            $endDate =  Carbon::parse($schedule->end_date);
+            $events[] = (object) [
+                'title' => $schedule->title,
+                'date' => $startDate->format('Y-m-d'),
+                'start_time' => $startDate->format('H:m'),
+                'end_time' => $endDate->format('H:m'),
+                'duration' => Carbon::parse($startDate->format('Y-m-d H:m'))->diffInMinutes($endDate->format('Y-m-d H:m')),
+                'tools' => $schedule->getTools(),
+                'open' => false,
+            ];
         }
-        $calendar = Calendar::addEvents($events)->setOptions([
-            'firstDay' => 1,
-            'timeFormat' => 'H:mm',
-            'axisFormat' => 'H:mm',
-        ]);
 
         // Get all teachers
         $teachers = User::whereRoleIs('teacher')->get();
@@ -53,7 +49,7 @@ class ScheduleController extends Controller
         $disciplines = Discipline::all();
 
         return view('team.schedule.index')
-            ->withCalendar($calendar)
+            ->withEvents($events)
             ->withTeachers($teachers)
             ->withTeam($team)
             ->withDisciplines($disciplines);
