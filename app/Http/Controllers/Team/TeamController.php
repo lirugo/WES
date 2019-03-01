@@ -30,6 +30,10 @@ class TeamController extends Controller
 
     public function index(){
         $teams = Auth::user()->teams();
+
+        if(Auth::user()->hasRole('top-manager'))
+            $teams = Team::all();
+
         return view('team.index')->withTeams($teams);
     }
 

@@ -185,6 +185,7 @@
                 <i class="large material-icons">mode_edit</i>
             </a>
             <ul>
+                <li><a class="btn-floating green tooltipped" data-position="left" data-tooltip="Marks" href="{{url('/team/'.$team->name.'/mark')}}"><i class="material-icons">bookmark_border</i></a></li>
                 <li><a class="btn-floating green tooltipped" data-position="left" data-tooltip="Group Work" href="{{url('/team/'.$team->name.'/group-work')}}"><i class="material-icons">group</i></a></li>
                 <li><a class="btn-floating green tooltipped" data-position="left" data-tooltip="Activity" href="{{url('/team/'.$team->name.'/activity')}}"><i class="material-icons">home</i></a></li>
                 <li><a class="btn-floating green tooltipped" data-position="left" data-tooltip="Educational Materials" href="{{url('/team/'.$team->name.'/material')}}"><i class="material-icons">import_contacts</i></a></li>

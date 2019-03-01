@@ -11,6 +11,7 @@ use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Collection;
 
 class MarkController extends Controller
 {
@@ -31,7 +32,7 @@ class MarkController extends Controller
 
     public function __construct()
     {
-        $this->middleware('role:administrator|top-manager|manager|teacher');
+        $this->middleware('role:administrator|top-manager|manager|teacher|student');
     }
 
     /**
@@ -41,12 +42,21 @@ class MarkController extends Controller
      */
     public function index($name)
     {
+        $common = [];
         // Get Team
         $team = Team::where('name', $name)->first();
         // Get Students
         $students = $team->getStudents();
         // Get all disciplines
         $disciplines = $team->disciplines;
+
+        //Validate access for user role
+        if(Auth::user()->hasRole('teacher')){
+            $disciplines = $team->getDisciplines(Auth::user()->id);
+        } else if(Auth::user()->hasRole('student')){
+            $students = new Collection();
+            $students->push(Auth::user());
+        }
 
         //Processing common data
         foreach ($disciplines as $disc){
@@ -76,7 +86,6 @@ class MarkController extends Controller
         //    "student" => "Bondar R."
         //    "mark" => 22
         //  ]
-
 
         // Return view
         return view('team.mark.common')->with([
@@ -117,6 +126,7 @@ class MarkController extends Controller
      */
     public function discipline($name, $discipline)
     {
+        $common = [];
         // Get Team
         $team = Team::where('name', $name)->first();
         // Get Discipline
@@ -129,7 +139,10 @@ class MarkController extends Controller
 
         // Get Students
         $students = $team->getStudents();
-
+        if(Auth::user()->hasRole('student')){
+            $students = new Collection();
+            $students->push(Auth::user());
+        }
         // Processing common data
         foreach ($students as $student){
             foreach ($activities as $act){
@@ -153,6 +166,10 @@ class MarkController extends Controller
         //    "actDate" => "25-01-2019"
         //    "mark" => 22
         // ]
+
+        if(empty($common)){
+            return back()->withErrors('Dont have any activity for that discipline yet...');
+        }
 
         // Return view
         return view('team.mark.discipline')->with([
