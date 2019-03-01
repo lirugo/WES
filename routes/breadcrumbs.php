@@ -203,6 +203,10 @@
         $trail->parent('team-show', $team);
         $trail->push('Marks', url('/team/'.$team->name.'/mark'));
     });
+    Breadcrumbs::for('team-mark-student', function ($trail, $team, $student) {
+        $trail->parent('team-mark', $team);
+        $trail->push($student->getShortName(), url('/team/'.$team->name.'/mark/student/'.$student->id));
+    });
     Breadcrumbs::for('team-mark-discipline', function ($trail, $team, $discipline) {
         $trail->parent('team-mark', $team);
         $trail->push($discipline->display_name, url('/team/'.$team->name.'/mark/'.$discipline->name));

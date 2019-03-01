@@ -149,6 +149,7 @@ Route::get('/phpinfo', function () {
 
         //Marks
         Route::get('/{name}/mark', 'MarkController@index');
+        Route::get('/{name}/mark/student/{studentId}', 'MarkController@student');
         Route::get('/{name}/mark/{discipline}', 'MarkController@show');
         Route::get('/{name}/mark/{discipline}/task/create', 'TaskController@create');
 

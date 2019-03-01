@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\Team\Pretest;
+use App\Models\Team\TeamActivity;
 use Illuminate\Database\Eloquent\Model;
 
 class TeamDiscipline extends Model
@@ -17,6 +18,10 @@ class TeamDiscipline extends Model
 
     public function getTeacher(){
         return $this->hasOne(User::class, 'id', 'teacher_id')->with('name');
+    }
+
+    public function getActivities(){
+        return $this->hasMany(TeamActivity::class, 'discipline_id', 'discipline_id')->where('team_id', $this->team_id);
     }
 
     public function team(){

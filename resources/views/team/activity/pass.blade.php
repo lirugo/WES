@@ -17,7 +17,7 @@
                             <span data-badge-caption="" class="new badge orange left">Max {{$activity->max_mark}} balls</span>
                         @endif
                         @if($activity->getMark($student->id))
-                           <span data-badge-caption="" class="new badge red right">Your mark -{{$activity->getMark($student->id)->mark}}</span>
+                           <span data-badge-caption="" class="new badge red right">Your mark {{$activity->getMark($student->id)->mark}}</span>
                         @endif
                        </div>
                        <div class="card-content">
@@ -25,7 +25,7 @@
                            @if($activity->type == 'other')
                                <span><small>{{$activity->type_name}}</small></span>
                            @endif
-                           <p><small>{{$activity->description}}</small></p>
+                           <p>{!! $activity->description !!}</p>
                            <div class="m-t-10">
                                @if(count($activity->files))
                                    @foreach($activity->files as $file)
