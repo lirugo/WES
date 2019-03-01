@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Team;
 
 use App\Discipline;
+use App\Models\Team\TeamActivity;
 use App\Team;
+use App\TeamDiscipline;
 use App\User;
 use Auth;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -59,8 +62,8 @@ class MarkController extends Controller
 
                 $common[] =  [
                     'discipline' => $disc->getDiscipline->display_name,
+                    'disciplineName' => $disc->getDiscipline->name,
                     'student' => $student->getShortName(),
-                    'studentId' => $student->id,
                     'mark' => $discMark
                 ];
             }
@@ -69,7 +72,7 @@ class MarkController extends Controller
         // Common example
         // 0 => [
         //    "discipline" => "Деловые и кросс-культурные коммуникации"
-        //    "studentId" => 37
+        //    "disciplineName" => "delovye-i-kross-kulturnye-kommunikacii"
         //    "student" => "Bondar R."
         //    "mark" => 22
         //  ]
@@ -112,16 +115,52 @@ class MarkController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function student($name, $studentId)
+    public function discipline($name, $discipline)
     {
         // Get Team
         $team = Team::where('name', $name)->first();
-        // Get Student
-        $student = User::find($studentId);
+        // Get Discipline
+        $discipline = Discipline::where('name', $discipline)->first();
+        // Get Activities
+        $activities = TeamActivity::where([
+            'team_id' => $team->id,
+            'discipline_id' => $discipline->id
+        ])->get();
 
-        return view('team.mark.student')->with([
+        // Get Students
+        $students = $team->getStudents();
+
+        // Processing common data
+        foreach ($students as $student){
+            foreach ($activities as $act){
+                $common[] = [
+                    'student' => $student->getShortName(),
+                    'studentId' => $student->id,
+                    'activityId' => $act->id,
+                    'activityName' => $act->name,
+                    'actDate' => Carbon::parse($act->start_date)->format('d-m-Y'),
+                    'mark' => $act->getMark($student->id) ? $act->getMark($student->id)->mark : 0,
+                ];
+            }
+        }
+
+        // Common example
+        // 0 => [
+        //    "student" => "Bondar R."
+        //    "studentId" => 37
+        //    "activityId" => 4
+        //    "activityName" => 37
+        //    "actDate" => "25-01-2019"
+        //    "mark" => 22
+        // ]
+
+        // Return view
+        return view('team.mark.discipline')->with([
+            'common' => $common,
+            'commonStudents' => $this->unique_array($common, 'student'),
+            'commonActDates' => $this->unique_array($common, 'actDate'),
             'team' => $team,
-            'student' => $student
+            'discipline' => $discipline
         ]);
     }
 
