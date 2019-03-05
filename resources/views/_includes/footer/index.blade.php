@@ -39,6 +39,10 @@
 
             {{--Feedback form--}}
             <a class="grey-text text-lighten-4 right m-r-10" href="#" @click="showPasswordReset()" id="feedback-modal"><i class="material-icons">announcement</i></a>
+            {{--Youtube--}}
+            <a class="grey-text text-lighten-4 right m-r-10" href="https://www.youtube.com/playlist?list=PLVhYd7lLjPq0SkCjKTIskEwpCYWTzmggn" @click="showPasswordReset()" id="feedback-modal">
+                <img src="{{url('/images/icon/youtube.svg')}}"/>
+            </a>
         </div>
     </div>
 </footer>
