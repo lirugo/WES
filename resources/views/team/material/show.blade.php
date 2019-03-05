@@ -22,7 +22,7 @@
                 </div>
             @endforeach
         </div>
-        @role('teacher')
+        @if(Auth::user()->hasRole(['manager', 'teacher']))
         {{--Floating button--}}
         <div class="fixed-action-btn">
             <a href="{{url('/team/'.$team->name.'/material/create')}}" class="btn-floating btn-large green tooltipped" data-position="left"
@@ -30,6 +30,6 @@
                 <i class="large material-icons">add</i>
             </a>
         </div>
-        @endrole
+        @endif
     </div>
 @endsection

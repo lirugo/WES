@@ -15,9 +15,16 @@
                     <div class="input-field col s12">
                         <select name="discipline_id" required>
                             <option value="" disabled>Choose a discipline</option>
-                            @foreach(Auth::user()->getTeacherDiscipline($team->name) as $discipline)
-                                <option value="{{$discipline->getDiscipline->id}}" {{ old('discipline_id') == $discipline->getDiscipline->id ? 'selected="selected"' : '' }}>{{$discipline->getDiscipline->display_name}}</option>
-                            @endforeach
+
+                            @if(Auth::user()->hasRole('teacher'))
+                                @foreach(Auth::user()->getTeacherDiscipline($team->name) as $discipline)
+                                    <option value="{{$discipline->getDiscipline->id}}" {{ old('discipline_id') == $discipline->getDiscipline->id ? 'selected="selected"' : '' }}>{{$discipline->getDiscipline->display_name}}</option>
+                                @endforeach
+                            @else
+                                @foreach($team->disciplines as $discipline)
+                                    <option value="{{$discipline->getDiscipline->id}}" {{ old('discipline_id') == $discipline->getDiscipline->id ? 'selected="selected"' : '' }}>{{$discipline->getDiscipline->display_name}}</option>
+                                @endforeach
+                            @endif
                         </select>
                     </div>
                     <div class="row m-b-0" v-for="(input, index) in inputs">
@@ -46,7 +53,7 @@
                 </div>
             </div>
         </div>
-        @if(Auth::user()->hasRole('teacher'))
+        @if(Auth::user()->hasRole(['manager', 'teacher']))
         {{--Floating button--}}
         <div class="fixed-action-btn">
             <button type="submit" class="btn-floating btn-large green tooltipped"
