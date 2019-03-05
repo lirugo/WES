@@ -6,7 +6,7 @@
     {{--Show type activity--}}
     <div class="row">
         @foreach($disciplines as $discipline)
-            <div class="col s12 m4">
+            <div class="col s12 m6">
                 <div class="card hoverable">
                     <div class="card-content">
                         <span class="card-title center-align">{{$discipline->getDiscipline->display_name}}</span>
