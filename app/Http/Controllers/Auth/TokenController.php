@@ -32,7 +32,6 @@ class TokenController extends Controller
         }
         else
         {
-            dd($key);
             $request->session()->forget('key');
             $request->session()->forget('user_id');
             return redirect(url('/'));
