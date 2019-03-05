@@ -34,7 +34,7 @@
                 </div>
             </div>
         </div>
-        <div class="col s12 m6">
+        <div class="col s12 m6 l4">
             <div class="card hoverable" id="avatar">
                 <div class="card-image">
                     <img :src="imgDataUrl">

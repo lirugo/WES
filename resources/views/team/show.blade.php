@@ -190,7 +190,7 @@
                 <li><a class="btn-floating green tooltipped" data-position="left" data-tooltip="Activity" href="{{url('/team/'.$team->name.'/activity')}}"><i class="material-icons">home</i></a></li>
                 <li><a class="btn-floating green tooltipped" data-position="left" data-tooltip="Educational Materials" href="{{url('/team/'.$team->name.'/material')}}"><i class="material-icons">import_contacts</i></a></li>
                 <li><a class="btn-floating blue tooltipped" data-position="left" data-tooltip="Schedule" href="{{url('/team/'.$team->name.'/schedule')}}"><i class="material-icons">access_time</i></a></li>
-                <li><a class="btn-floating orange tooltipped" data-position="left" data-tooltip="Pretest" href="{{url('/team/'.$team->name.'/pretest')}}"><i class="material-icons">border_color</i></a></li>
+                <li><a class="btn-floating orange tooltipped" data-position="left" data-tooltip="Test" href="{{url('/team/'.$team->name.'/pretest')}}"><i class="material-icons">border_color</i></a></li>
                 @if(Auth::user()->hasRole(['administrator', 'top-manager', 'manager']))
                     <li><a class="btn-floating red tooltipped" data-position="left" data-tooltip="Settings" href="{{url('/team/'.$team->name.'/setting')}}"><i class="material-icons">settings</i></a></li>
                 @endif
