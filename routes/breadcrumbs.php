@@ -159,7 +159,7 @@
     //Pretest
     Breadcrumbs::for('team-pretest', function ($trail, $team) {
         $trail->parent('team-show', $team);
-        $trail->push('Pretest', url('/team/'.$team->name.'/pretest'));
+        $trail->push('Test', url('/team/'.$team->name.'/pretest'));
     });
     Breadcrumbs::for('team-material', function ($trail, $team) {
         $trail->parent('team-show', $team);
