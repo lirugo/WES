@@ -2,11 +2,14 @@
 
 namespace App\Models\Team;
 
+use App\Discipline;
+use App\Team;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Pretest extends Model
 {
+
     protected $guarded = ['id'];
     public $timestamps = true;
 
@@ -54,5 +57,13 @@ class Pretest extends Model
     public function hasAccess($studentId){
         $access = $this->hasOne(PretestUserAccess::class, 'pretest_id', 'id')->where('user_id', '=', $studentId)->get();
         return (boolean) count($access) == 0;
+    }
+
+    public function team(){
+        return $this->belongsTo(Team::class);
+    }
+
+    public function discipline(){
+        return $this->belongsTo(Discipline::class);
     }
 }

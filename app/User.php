@@ -3,18 +3,19 @@
 namespace App;
 
 use App\Models\Team\PretestUserAnswer;
+use Auth;
 use Carbon\Carbon;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
+use Image;
 use Laratrust\Traits\LaratrustUserTrait;
 use MongoDB\Driver\Exception\Exception;
-use Image;
-use Auth;
 
 class User extends Authenticatable
 {
     use LaratrustUserTrait;
+    use Notifiable;
     use Notifiable;
 
     /**

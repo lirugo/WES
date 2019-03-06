@@ -11,6 +11,7 @@ use App\Models\Team\PretestFile;
 use App\Models\Team\PretestQuestion;
 use App\Models\Team\PretestUserAccess;
 use App\Models\Team\PretestUserAnswer;
+use App\Notifications\Team\NewPretest;
 use App\Team;
 use App\User;
 use ConsoleTVs\Charts\Classes\Chartjs\Chart;
@@ -71,6 +72,10 @@ class PretestController extends Controller
             'file' => $file->nameFormServer,
         ]);
 
+        foreach ($team->getMembers() as $member){
+            $member->notify(new NewPretest($pretest));
+        }
+
         Session::flash('success', 'Pretest was be successfully created');
         return redirect(url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name.'/'.$pretest->id));
     }
@@ -89,6 +94,7 @@ class PretestController extends Controller
         $team = Team::where('name', $team)->first();
         $discipline = Discipline::where('name', $discipline)->first();
         $pretest = Pretest::find($pretestId);
+
         // TODO:: Remake checking Access
         $access = 0;
         foreach ($team->getTeachers() as $teacher){
