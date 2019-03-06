@@ -35,9 +35,11 @@
                     </div>
                     <div class="card-content p-t-5">
                         @foreach($library->tags as $tag)
-                            <div class="chip">
-                                {{$tag->get->display_name}}
-                            </div>
+                            @if($tag->get)
+                                <div class="chip">
+                                    {{$tag->get->display_name}}
+                                </div>
+                            @endif
                         @endforeach
                     </div>
                     <div class="card-reveal">

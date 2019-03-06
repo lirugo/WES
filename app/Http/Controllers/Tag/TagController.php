@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Tag;
 
 use App\Http\Requests\StoreTag;
+use App\Models\Library\LibraryTag;
 use App\Models\Tag;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -31,6 +32,7 @@ class TagController extends Controller
     public function delete($id){
         // Delete
         Tag::find($id)->delete();
+        LibraryTag::where('tag_id', $id)->delete();
         // Flash
         Session::flash('success', 'Tag was successfully deleted');
         // Redirect
