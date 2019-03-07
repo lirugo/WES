@@ -7,7 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class NewPretest extends Notification
+class NotifPretest extends Notification
 {
     use Queueable;
 
@@ -57,8 +57,8 @@ class NewPretest extends Notification
     {
         return [
             'title' => 'Created new test',
-            'body' => '',
-            'url' => url('/team/'.$this->pretest->team->name.'/pretest/discipline/'.$this->pretest->discipline->name.'/'.$this->id),
+            'body' => 'In your team was be created new test. '.$this->pretest->name,
+            'url' => url('/team/'.$this->pretest->team->name.'/pretest/discipline/'.$this->pretest->discipline->name.'/'.$this->pretest->id),
         ];
     }
 }

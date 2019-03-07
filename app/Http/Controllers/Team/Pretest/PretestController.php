@@ -11,7 +11,7 @@ use App\Models\Team\PretestFile;
 use App\Models\Team\PretestQuestion;
 use App\Models\Team\PretestUserAccess;
 use App\Models\Team\PretestUserAnswer;
-use App\Notifications\Team\NewPretest;
+use App\Notifications\Team\NotifPretest;
 use App\Team;
 use App\User;
 use ConsoleTVs\Charts\Classes\Chartjs\Chart;
@@ -73,7 +73,7 @@ class PretestController extends Controller
         ]);
 
         foreach ($team->getMembers() as $member){
-            $member->notify(new NewPretest($pretest));
+            $member->notify(new NotifPretest($pretest));
         }
 
         Session::flash('success', 'Pretest was be successfully created');

@@ -13,6 +13,10 @@
         $trail->parent('changelog');
         $trail->push('Create', url('/chnagelog/create'));
     });
+//Change log
+    Breadcrumbs::for('notifications', function ($trail) {
+        $trail->push('Notifications', url('/notification'));
+    });
 
 //Tags
     Breadcrumbs::for('tag', function ($trail) {
