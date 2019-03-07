@@ -13,7 +13,7 @@ class UpdateTeamMarksTable extends Migration
      */
     public function up()
     {
-        Schema::table('team_marks', function (Blueprint $table) {
+        Schema::table('team_activity_marks', function (Blueprint $table) {
             $table->string('type')->after('id')->nullable();
         });
     }
@@ -25,7 +25,7 @@ class UpdateTeamMarksTable extends Migration
      */
     public function down()
     {
-        Schema::table('team_marks', function (Blueprint $table) {
+        Schema::table('team_activity_marks', function (Blueprint $table) {
             $table->dropColumn('type');
         });
     }
