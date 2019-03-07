@@ -11,7 +11,7 @@
                         <col width="200px">
                         <thead>
                         <tr>
-                            <td class="center-align">Students | Start date of activities</td>
+                            <td class="center-align">Students | Start date of activities and pretests</td>
                             @foreach($commonActDates as $d)
                                 <td class="center-align">
                                     <a href="#" class="tooltipped" data-position="top" data-tooltip="{{$d['activityName']}}">
@@ -33,9 +33,15 @@
                                 <?php $total = 0;?>
                                 @for($j=0; $j<count($commonActDates); $j++)
                                     <td class="center-align">
-                                        <a target="_blank" href="{{url('/team/'.$team->name.'/activity/'.$discipline->name.'/pass/'.$common[$i]['activityId'].'/'.$common[$i]['studentId'])}}">
-                                            {{$common[$i]['mark']}}
-                                        </a>
+                                        @if($common[$i]['type'] == 'activity')
+                                            <a target="_blank" href="{{url('/team/'.$team->name.'/activity/'.$discipline->name.'/pass/'.$common[$i]['activityId'].'/'.$common[$i]['studentId'])}}">
+                                                {{$common[$i]['mark']}}
+                                            </a>
+                                        @elseif($common[$i]['type'] == 'pretest')
+                                            <a target="_blank" href="{{url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name)}}">
+                                                {{$common[$i]['mark']}}
+                                            </a>
+                                        @endif
                                     </td>
                                     <?php
                                         $total += $common[$i]['mark'];

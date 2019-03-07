@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Team;
 
 use App\Discipline;
+use App\Models\Team\Pretest;
 use App\Models\Team\TeamActivity;
 use App\Team;
 use App\TeamDiscipline;
@@ -120,7 +121,14 @@ class MarkController extends Controller
         // Get Activities
         $activities = TeamActivity::where([
             'team_id' => $team->id,
-            'discipline_id' => $discipline->id
+            'discipline_id' => $discipline->id,
+            'mark_in_journal' => true,
+        ])->get();
+        // Get Pretests
+        $pretests = Pretest::where([
+            'team_id' => $team->id,
+            'discipline_id' => $discipline->id,
+            'mark_in_journal' => true,
         ])->get();
 
         // Get Students
@@ -133,6 +141,7 @@ class MarkController extends Controller
         foreach ($students as $student){
             foreach ($activities as $act){
                 $common[] = [
+                    'type' => 'activity',
                     'student' => $student->getShortName(),
                     'studentId' => $student->id,
                     'activityId' => $act->id,
@@ -141,7 +150,21 @@ class MarkController extends Controller
                     'mark' => $act->getMark($student->id) ? $act->getMark($student->id)->mark : 0,
                 ];
             }
+
+            foreach ($pretests as $test){
+                $common[] = [
+                    'type' => 'pretest',
+                    'student' => $student->getShortName(),
+                    'studentId' => $student->id,
+                    'activityId' => $test->id,
+                    'activityName' => $test->name,
+                    'actDate' => Carbon::parse($test->start_date)->format('d-m-Y'),
+                    'mark' => $test->getMark($student->id) ? $test->getMark($student->id)->mark : 0,
+                ];
+            }
         }
+
+//        dd($common);
 
         // Common example
         // 0 => [
@@ -160,8 +183,8 @@ class MarkController extends Controller
         // Return view
         return view('team.mark.discipline')->with([
             'common' => $common,
-            'commonStudents' => $this->unique_array($common, 'student'),
-            'commonActDates' => $this->unique_array($common, 'actDate'),
+            'commonStudents' => $this->unique_array($common, 'studentId'),
+            'commonActDates' => $this->unique_array($common, 'activityId'),
             'team' => $team,
             'discipline' => $discipline
         ]);
