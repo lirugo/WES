@@ -11,6 +11,7 @@ use App\Models\Team\PretestFile;
 use App\Models\Team\PretestQuestion;
 use App\Models\Team\PretestUserAccess;
 use App\Models\Team\PretestUserAnswer;
+use App\Models\Team\TeamActivityMark;
 use App\Notifications\Team\NotifPretest;
 use App\Team;
 use App\User;
@@ -198,6 +199,15 @@ class PretestController extends Controller
                 }
             }
         }
+
+        //Store mark in journal
+        TeamActivityMark::create([
+            'type' => 'pretest',
+            'student_id' => Auth::user()->id,
+            'activity_id' => $pretestId,
+            'mark' => $countAnswers
+        ]);
+
         $data['countAnswers'] = $countAnswers;
         return $data;
     }

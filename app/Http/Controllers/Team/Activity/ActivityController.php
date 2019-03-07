@@ -140,6 +140,7 @@ class ActivityController extends Controller
 
     public function setMark(Request $request, $team, $discipline, $activityId, $studentId){
         TeamActivityMark::create([
+            'type' => 'activity',
             'student_id' => $studentId,
             'activity_id' => $activityId,
             'mark' => $request->mark
