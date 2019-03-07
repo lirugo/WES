@@ -31,6 +31,9 @@ class TeamActivity extends Model
     }
 
     public function getMark($studentId){
-        return $this->hasOne(TeamActivityMark::class, 'activity_id', 'id')->where('student_id', '=', $studentId)->first();
+        return $this->hasOne(TeamActivityMark::class, 'activity_id', 'id')->where([
+            ['student_id', $studentId],
+            ['type', 'activity'],
+        ])->first();
     }
 }

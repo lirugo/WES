@@ -66,4 +66,11 @@ class Pretest extends Model
     public function discipline(){
         return $this->belongsTo(Discipline::class);
     }
+
+    public function getMark($studentId){
+        return $this->hasOne(TeamActivityMark::class, 'activity_id', 'id')->where([
+            ['student_id', $studentId],
+            ['type', 'pretest'],
+        ])->first();
+    }
 }

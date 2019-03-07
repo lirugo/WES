@@ -82,4 +82,21 @@ class TeamDiscipline extends Model
         //Return different
         return $leftHours;
     }
+
+    public function getMark($studentId){
+        $mark = 0;
+
+        //Marks from activity
+        foreach ($this->getActivities as $act){
+            if($act->mark_in_journal)
+                $mark += $act->getMark($studentId) ? $act->getMark($studentId)->mark : 0;
+        }
+        //Mark from pretest
+        foreach ($this->pretests as $test){
+            if($test->mark_in_journal)
+                $mark += $test->getMark($studentId) ? $test->getMark($studentId)->mark : 0;
+        }
+
+        return $mark;
+    }
 }

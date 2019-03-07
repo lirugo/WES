@@ -10,7 +10,7 @@
                     <table class="responsive-table">
                         <col width="150px">
                         @foreach($commonStudents as $s)
-                            <col width="45px">
+                            <col width="50px">
                         @endforeach
                         <thead>
                         <tr>
@@ -23,21 +23,21 @@
                         </tr>
                         </thead>
                         <tbody>
-                            @for($i=0; $i<count($common);)
-                                <tr>
-                                    <td>
-                                        <a href="{{url('/team/'.$team->name.'/mark/'.$common[$i]['disciplineName'])}}">
-                                            <small>{{$common[$i]['discipline']}}</small>
-                                        </a>
+                        @for($i=0; $i<count($common);)
+                            <tr>
+                                <td>
+                                    <a href="{{url('/team/'.$team->name.'/mark/'.$common[$i]['disciplineName'])}}">
+                                        <small>{{$common[$i]['discipline']}}</small>
+                                    </a>
+                                </td>
+                                @for($j=0; $j<count($commonStudents); $j++)
+                                    <td class="center-align">
+                                        {{$common[$i]['mark']}}
                                     </td>
-                                    @for($j=0; $j<count($commonStudents); $j++)
-                                        <td class="center-align">
-                                            {{$common[$i]['mark']}}
-                                        </td>
-                                        <?php $i++; ?>
-                                    @endfor
-                                </tr>
-                            @endfor
+                                    <?php $i++; ?>
+                                @endfor
+                            </tr>
+                        @endfor
                         </tbody>
                     </table>
                 </div>

@@ -58,40 +58,26 @@ class MarkController extends Controller
             $students->push(Auth::user());
         }
 
-        //Processing common data
         foreach ($disciplines as $disc){
             foreach ($students as $student){
-                //Mark for a discipline
-                $discMark = 0;
-                foreach ($disc->getActivities as $act){
-                    //If mark in journal
-                    if($act->mark_in_journal){
-                        $discMark += $act->getMark($student->id) ? $act->getMark($student->id)->mark : 0;
-                    }
-                }
-
-                $common[] =  [
+                $common[] = [
+                    'studentId' => $student->id,
+                    'disciplineId' => $disc->id,
+                    'student' => $student->getShortName(),
                     'discipline' => $disc->getDiscipline->display_name,
                     'disciplineName' => $disc->getDiscipline->name,
-                    'student' => $student->getShortName(),
-                    'mark' => $discMark
+                    'mark' => $disc->getMark($student->id),
                 ];
             }
         }
 
-        // Common example
-        // 0 => [
-        //    "discipline" => "Деловые и кросс-культурные коммуникации"
-        //    "disciplineName" => "delovye-i-kross-kulturnye-kommunikacii"
-        //    "student" => "Bondar R."
-        //    "mark" => 22
-        //  ]
 
+//        dd($common);
         // Return view
         return view('team.mark.common')->with([
             'common' => $common,
-            'commonStudents' => $this->unique_array($common, 'student'),
-            'commonDisciplines' => $this->unique_array($common, 'discipline'),
+            'commonStudents' => $this->unique_array($common, 'studentId'),
+            'commonDisciplines' => $this->unique_array($common, 'disciplineId'),
             'team' => $team,
             'disciplines' => $team->getDisciplines(Auth::user()->id)
         ]);
