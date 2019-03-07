@@ -78,6 +78,16 @@ class ActivityController extends Controller
             ['discipline_id' => $discipline->id]
         )->orderBy('id', 'DESC')->get();
 
+        if(Auth::user()->hasRole('teacher')){
+            $activities = null;
+            $activities = TeamActivity::where([
+                ['team_id', $team->id],
+                ['discipline_id', $discipline->id],
+                ['teacher_id', Auth::user()->id]
+            ])->orderBy('id', 'DESC')->get();
+        }
+
+
         return view('team.activity.show')
             ->withTeam($team)
             ->withDiscipline($discipline)
