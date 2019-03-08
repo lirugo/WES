@@ -12,7 +12,7 @@ use App\Models\Team\PretestQuestion;
 use App\Models\Team\PretestUserAccess;
 use App\Models\Team\PretestUserAnswer;
 use App\Models\Team\TeamActivityMark;
-use App\Notifications\Team\NotifPretest;
+use App\Notifications\Team\NotifNewPretest;
 use App\Team;
 use App\User;
 use ConsoleTVs\Charts\Classes\Chartjs\Chart;
@@ -75,9 +75,9 @@ class PretestController extends Controller
 
         //Send notification
         foreach ($team->getStudents() as $member){
-            $member->notify(new NotifPretest($pretest));
+            $member->notify(new NotifNewPretest($pretest));
         }
-        $team->getOwner()->notify(new NotifPretest($pretest));
+        $team->getOwner()->notify(new NotifNewPretest($pretest));
 
         Session::flash('success', 'Pretest was be successfully created');
         return redirect(url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name.'/'.$pretest->id));

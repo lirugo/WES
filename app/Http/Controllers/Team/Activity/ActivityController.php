@@ -8,6 +8,7 @@ use App\Models\Team\TeamActivity;
 use App\Models\Team\TeamActivityFile;
 use App\Models\Team\TeamActivityMark;
 use App\Models\Team\TeamActivityReply;
+use App\Notifications\Team\NotifNewActivity;
 use App\Team;
 use App\User;
 use Auth;
@@ -65,6 +66,13 @@ class ActivityController extends Controller
                     'name' => $file->file,
                     'file' => $file->nameFormServer,
                 ]);
+
+        //Send notification
+        foreach ($team->getStudents() as $member){
+            $member->notify(new NotifNewActivity($activity));
+        }
+        $team->getOwner()->notify(new NotifNewActivity($activity));
+
 
         Session::flash('success', 'Activity was be successfully created');
         return redirect(url('/team/'.$team->name.'/activity'));

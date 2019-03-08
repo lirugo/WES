@@ -2,6 +2,8 @@
 
 namespace App\Models\Team;
 
+use App\Discipline;
+use App\Team;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -35,5 +37,12 @@ class TeamActivity extends Model
             ['student_id', $studentId],
             ['type', 'activity'],
         ])->first();
+    }
+
+    public function team(){
+        return $this->belongsTo(Team::class);
+    }
+    public function discipline(){
+        return $this->belongsTo(Discipline::class);
     }
 }

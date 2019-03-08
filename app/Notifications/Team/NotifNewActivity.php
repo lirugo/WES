@@ -7,19 +7,20 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class NotifPretest extends Notification
+class NotifNewActivity extends Notification
 {
     use Queueable;
 
-    private $pretest;
+
+    private $activity;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($pretest)
+    public function __construct($activity)
     {
-        $this->pretest = $pretest;
+        $this->activity = $activity;
     }
 
     /**
@@ -56,9 +57,9 @@ class NotifPretest extends Notification
     public function toArray($notifiable)
     {
         return [
-            'title' => 'Created new test',
-            'body' => 'In your team was be created new test. '.$this->pretest->name,
-            'url' => url('/team/'.$this->pretest->team->name.'/pretest/discipline/'.$this->pretest->discipline->name),
+            'title' => 'Created new activity',
+            'body' => 'In your team was be created new activity. '.$this->activity->name,
+            'url' => url('/team/'.$this->activity->team->name.'/activity/'.$this->activity->discipline->name),
         ];
     }
 }
