@@ -32,3 +32,4 @@ Vue.component('widget-avatar-cropper', require('vue-image-crop-upload'));
 require ('./custom/preloader.js');
 // Materialize Options
 require ('./custom/materializeOptions.js');
+

@@ -223,12 +223,13 @@
 @section('scripts')
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script>
         new Vue({
             el: '#calendar',
             data: {
                 type: 'month',
-                start: '2019-02-27',
+                start: moment().format("YYYY-MM-DD"),
                 typeOptions: [
                     { text: 'Week', value: 'week' },
                     { text: 'Month', value: 'month' },
