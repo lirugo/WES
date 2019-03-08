@@ -75,9 +75,11 @@ class LibraryController extends Controller
             ]);
         }
 
-        $teachers = User::with(['roles' => function($q){
+        $teachers = User::whereHas(
+            'roles', function($q){
             $q->where('name', 'teacher');
-        }])->get();
+        }
+        )->get();
 
         //Send notification
         foreach ($teachers as $teacher)

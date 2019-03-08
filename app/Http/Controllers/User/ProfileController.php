@@ -85,9 +85,11 @@ class ProfileController extends Controller
         $user = Auth::user();
         $user->updateProfile($request);
 
-        $managers = User::with(['roles' => function($q){
+        $managers = User::whereHas(
+            'roles', function($q){
             $q->where('name', 'manager');
-        }])->get();
+        }
+        )->get();
 
         // Send notification
         foreach ($managers as $manager)
@@ -136,9 +138,11 @@ class ProfileController extends Controller
         $user->password = bcrypt($request->get('password'));
         $user->save();
 
-        $managers = User::with(['roles' => function($q){
+        $managers = User::whereHas(
+            'roles', function($q){
             $q->where('name', 'manager');
-        }])->get();
+        }
+        )->get();
 
         // Send notification
         foreach ($managers as $manager)
