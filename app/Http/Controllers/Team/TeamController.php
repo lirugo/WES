@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateTeam;
 use App\Models\Team\TeamHeadman;
 use App\Models\Team\TeamLessonTime;
 use App\Models\Team\TeamTeacherLessonHour;
+use App\Notifications\Team\NotifNewTeam;
 use App\Permission;
 use App\Role;
 use App\Team;
@@ -94,6 +95,18 @@ class TeamController extends Controller
         // Attach manager to new team
         Auth::user()->attachRole($ownerGroup, $team);
         Auth::user()->attachPermissions([$createAcl,$readAcl,$updateAcl], $team);
+
+
+        $topManagers = User::whereHas(
+            'roles', function($q){
+            $q->where('name', 'top-manager');
+            }
+        )->get();
+
+        // Send notification
+        foreach ($topManagers as $top)
+            $top->notify(new NotifNewTeam($team));
+
 
         // Show flash msg
         Session::flash('success', 'Team was successfully created. You owner this team');
