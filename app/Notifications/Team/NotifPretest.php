@@ -58,7 +58,7 @@ class NotifPretest extends Notification
         return [
             'title' => 'Created new test',
             'body' => 'In your team was be created new test. '.$this->pretest->name,
-            'url' => url('/team/'.$this->pretest->team->name.'/pretest/discipline/'.$this->pretest->discipline->name.'/'.$this->pretest->id),
+            'url' => url('/team/'.$this->pretest->team->name.'/pretest/discipline/'.$this->pretest->discipline->name),
         ];
     }
 }
