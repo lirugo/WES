@@ -73,9 +73,11 @@ class PretestController extends Controller
             'file' => $file->nameFormServer,
         ]);
 
-        foreach ($team->getMembers() as $member){
+        //Send notification
+        foreach ($team->getStudents() as $member){
             $member->notify(new NotifPretest($pretest));
         }
+        $team->getOwner()->notify(new NotifPretest($pretest));
 
         Session::flash('success', 'Pretest was be successfully created');
         return redirect(url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name.'/'.$pretest->id));
