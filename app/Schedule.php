@@ -17,7 +17,10 @@ class Schedule extends Model
             $tools[] = $tool->title;
         }
 
-
         return isset($tools) ? $tools : [];
+    }
+
+    public function team(){
+        return $this->belongsTo(Team::class);
     }
 }

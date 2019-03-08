@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Team\Schedule;
 use App\Discipline;
 use App\Http\Controllers\Controller;
 use App\Models\Team\TeamLessonTime;
+use App\Notifications\Team\NotifNewSchedule;
 use App\Schedule;
 use App\ScheduleTool;
 use App\Team;
@@ -115,6 +116,11 @@ class ScheduleController extends Controller
                 'schedule_id' => $schdeule->id,
                 'title' => $tool,
             ]);
+
+        //Send notification
+        foreach ($team->getStudents() as $member){
+            $member->notify(new NotifNewSchedule($schdeule));
+        }
 
         // Flash msg
         Session::flash('success', 'Schedule was updated.');
