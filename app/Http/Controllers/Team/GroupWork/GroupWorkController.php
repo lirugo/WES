@@ -10,6 +10,7 @@ use App\Models\Team\GroupWorkSubTeam;
 use App\Models\Team\GroupWorkSubTeamChat;
 use App\Models\Team\GroupWorkSubTeamDeadline;
 use App\Models\Team\GroupWorkSubTeamMembers;
+use App\Notifications\Team\NotifNewGroupWork;
 use App\Team;
 use App\User;
 use Auth;
@@ -66,6 +67,12 @@ class GroupWorkController extends Controller
                 'name' => $file['name'],
                 'type' => 'group-work',
             ]);
+
+        //Send notification
+        foreach ($team->getStudents() as $member){
+            $member->notify(new NotifNewGroupWork($groupWork));
+        }
+        $team->getOwner()->notify(new NotifNewGroupWork($groupWork));
 
         $groupWork = GroupWork::with(['files'])->find($groupWork->id);
         return $groupWork;

@@ -2,6 +2,8 @@
 
 namespace App\Models\Team;
 
+use App\Discipline;
+use App\Team;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -25,5 +27,14 @@ class GroupWork extends Model
             return !$end;
 
         return false;
+    }
+
+
+    public function team(){
+        return $this->belongsTo(Team::class);
+    }
+
+    public function discipline(){
+        return $this->belongsTo(Discipline::class);
     }
 }
