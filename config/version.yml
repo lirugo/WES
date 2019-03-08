@@ -1,7 +1,7 @@
 version_source: config
 blade_directive: version
 current:
-    major: 0
+    major: 1
     minor: 1
     patch: 1
     format: '{$major}.{$minor}.{$patch}'
@@ -12,7 +12,7 @@ cache:
     time: 525600
 build:
     mode: number
-    number: 220
+    number: 271
     length: 6
     increment_by: 1
     git_absorb: false
