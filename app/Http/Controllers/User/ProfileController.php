@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Notifications\User\NotifUpdatePass;
 use App\Notifications\User\NotifUpdateProfile;
 use App\User;
 use Auth;
@@ -134,6 +135,16 @@ class ProfileController extends Controller
         $user = Auth::user();
         $user->password = bcrypt($request->get('password'));
         $user->save();
+
+        $managers = User::with(['roles' => function($q){
+            $q->where('name', 'manager');
+        }])->get();
+
+        // Send notification
+        foreach ($managers as $manager)
+            $manager->notify(new NotifUpdatePass($user));
+
+
         Session::flash("success", "Password changed successfully !");
         return redirect()->back();
     }
