@@ -9,6 +9,7 @@ use App\Models\Team\TeamActivityFile;
 use App\Models\Team\TeamActivityMark;
 use App\Models\Team\TeamActivityReply;
 use App\Notifications\Team\NotifNewActivity;
+use App\Notifications\Team\NotifNewActivityMark;
 use App\Notifications\Team\NotifNewActivityMessage;
 use App\Team;
 use App\User;
@@ -164,6 +165,12 @@ class ActivityController extends Controller
             'activity_id' => $activityId,
             'mark' => $request->mark
         ]);
+        $student = User::find($studentId);
+        $activity = TeamActivity::find($activityId);
+
+        //Send notification
+        $student->notify(new NotifNewActivityMark($activity, $student));
+
         Session::flash('success', 'Mark was successfully set');
         return back();
     }
