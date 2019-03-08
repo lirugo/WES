@@ -7,6 +7,13 @@
         @foreach($pretests as $pretest)
             <div class="col s12 m6">
                 <div class="card hoverable">
+                    <div class="">
+                        @role('student')
+                            @if(!$pretest->isAvailable(Auth::user()->id))
+                                <span data-badge-caption="" class="new badge red right">Your mark {{$pretest->getMark(Auth::user()->id)->mark}}</span>
+                            @endif
+                        @endrole
+                    </div>
                     <div class="card-content p-b-10 p-t-10">
                         <span class="card-title">{{$pretest->name}}</span>
                         <p class="m-b-10">{{$pretest->description}}</p>
