@@ -9,6 +9,7 @@ use App\Models\Team\TeamActivityFile;
 use App\Models\Team\TeamActivityMark;
 use App\Models\Team\TeamActivityReply;
 use App\Notifications\Team\NotifNewActivity;
+use App\Notifications\Team\NotifNewActivityMessage;
 use App\Team;
 use App\User;
 use Auth;
@@ -185,6 +186,17 @@ class ActivityController extends Controller
                 'name' => $file[$i]['name'],
                 'file' => $file[$i]['file'],
             ]);
+        }
+
+        $activity = TeamActivity::find($activityId);
+        //Send notification
+        if(Auth::user()->hasRole('teacher')){
+            $student = User::find($studentId);
+            $student->notify(new NotifNewActivityMessage($activity, $student));
+        }elseif(Auth::user()->hasRole('student')){
+            $teacher = User::find($activity->teacher_id);
+            $student = User::find($studentId);
+            $teacher->notify(new NotifNewActivityMessage($activity, $student));
         }
 
         $message = TeamActivityReply::with(['teacher', 'files'])->find($message->id);
