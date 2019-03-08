@@ -7,6 +7,8 @@ use App\Models\Library\Library;
 use App\Models\Library\LibraryAuthor;
 use App\Models\Library\LibraryTag;
 use App\Models\Tag;
+use App\Notifications\NotifNewLibrary;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
@@ -72,6 +74,15 @@ class LibraryController extends Controller
                 'library_id' => $library->id
             ]);
         }
+
+        $teachers = $users = User::with(['roles' => function($q){
+            $q->where('name', 'teacher');
+        }])->get();
+
+        //Send notification
+        foreach ($teachers as $teacher)
+            $teacher->notify(new NotifNewLibrary($library));
+
         // Flash msg
         Session::flash('success', 'The library was successful replenished');
 
