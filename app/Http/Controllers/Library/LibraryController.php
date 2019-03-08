@@ -75,7 +75,7 @@ class LibraryController extends Controller
             ]);
         }
 
-        $teachers = $users = User::with(['roles' => function($q){
+        $teachers = User::with(['roles' => function($q){
             $q->where('name', 'teacher');
         }])->get();
 

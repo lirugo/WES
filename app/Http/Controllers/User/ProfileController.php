@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Notifications\User\NotifUpdateProfile;
+use App\User;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -81,6 +83,14 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         $user->updateProfile($request);
+
+        $managers = User::with(['roles' => function($q){
+            $q->where('name', 'manager');
+        }])->get();
+
+        // Send notification
+        foreach ($managers as $manager)
+            $manager->notify(new NotifUpdateProfile($user));
 
         // Show flash msg
         Session::flash('success', 'Profile was successfully updated.');

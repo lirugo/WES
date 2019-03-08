@@ -15,7 +15,9 @@
                             <p>
                                  {{array_values($notif->data)[1]}}
                             <br/>
-                            <a href="{{array_values($notif->data)[2]}}" class="">Open</a>
+                            @if(array_values($notif->data)[2])
+                                <a href="{{array_values($notif->data)[2]}}" class="">Open</a>
+                            @endif
                             </p>
 
                         <a href="#!" class="secondary-content"><i class="material-icons">remove_red_eye</i></a>
