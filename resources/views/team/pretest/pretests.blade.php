@@ -10,7 +10,9 @@
                     <div class="">
                         @role('student')
                             @if(!$pretest->isAvailable(Auth::user()->id))
-                                <span data-badge-caption="" class="new badge red right">Your mark {{$pretest->getMark(Auth::user()->id)->mark}}</span>
+                                @if($pretest->getMark(Auth::user()->id))
+                                    <span data-badge-caption="" class="new badge red right">Your mark {{$pretest->getMark(Auth::user()->id)->mark}}</span>
+                                @endif
                             @endif
                         @endrole
                     </div>
