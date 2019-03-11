@@ -83,18 +83,14 @@ class ActivityController extends Controller
     public function show($team, $discipline){
         $team = Team::where('name', $team)->first();
         $discipline = Discipline::where('name', $discipline)->first();
-        $activities = TeamActivity::where(
-            ['team_id' => $team->id],
-            ['discipline_id' => $discipline->id]
-        )->orderBy('id', 'DESC')->get();
+        $activities = TeamActivity::where('team_id', $team->id)
+            ->where('discipline_id', $discipline->id)->orderBy('id', 'DESC')->get();
 
         if(Auth::user()->hasRole('teacher')){
             $activities = null;
-            $activities = TeamActivity::where([
-                ['team_id', $team->id],
-                ['discipline_id', $discipline->id],
-                ['teacher_id', Auth::user()->id]
-            ])->orderBy('id', 'DESC')->get();
+            $activities = TeamActivity::here('team_id', $team->id)
+                ->where('discipline_id', $discipline->id)
+                ->where('teacher_id', Auth::user()->id)->orderBy('id', 'DESC')->get();
         }
 
 
