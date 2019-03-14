@@ -24,12 +24,12 @@ class ApiController extends Controller
 
     public function friends()
     {
-//        $users = auth()->user()->teams()->first()->getMembers();
+        $users = auth()->user()->teams()->first()->getMembers();
 
-        $users = new Collection();
-        $users->push(User::find(83));
-        $users->push(User::find(49));
-        $users->push(User::find(48));
+//        $users = new Collection();
+//        $users->push(User::find(83));
+//        $users->push(User::find(49));
+//        $users->push(User::find(48));
 
         return UserResource::collection($users);
     }
