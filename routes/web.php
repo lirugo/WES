@@ -40,6 +40,23 @@ Route::get('/phpinfo', function () {
 
 /*
 |--------------------------------------------------------------------------
+| Chat Route
+|--------------------------------------------------------------------------
+*/
+    Route::group(['middleware' => ['auth'], 'namespace' => 'Chat'], function () {
+        Route::get('/chat', 'ChatController@index');
+    });
+
+    Route::group(['middleware' => ['auth'], 'namespace' => 'Chat', 'prefix' => '/api/chat'], function () {
+        Route::get('/friends', 'ApiController@friends');
+        Route::get('/{session}/chats', 'ApiController@chats');
+
+        Route::post('/{session}/message', 'ApiController@messageStore');
+        Route::post('/session', 'SessionController@store');
+    });
+
+/*
+|--------------------------------------------------------------------------
 | Manage panel route
 |--------------------------------------------------------------------------
 */

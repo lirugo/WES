@@ -42,7 +42,6 @@
 
             @include('_includes.feedback.feedback')
         </div>
-
     </div>
 
     <!-- Default Scripts -->

@@ -5,6 +5,11 @@
         $trail->push('Manage', url('/manage'));
     });
 
+// Chat
+    Breadcrumbs::for('chat', function ($trail) {
+        $trail->push('Chat', url('/chat'));
+    });
+
 //Change log
     Breadcrumbs::for('changelog', function ($trail) {
         $trail->push('Change Log', url('/changelog'));

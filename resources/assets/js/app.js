@@ -8,6 +8,8 @@ Slug.defaults.mode = "rfc3986";
 import VueClipboard from 'vue-clipboard2'
 Vue.use(VueClipboard)
 
+Vue.use(require('vue-chat-scroll'))
+
 //Vue datepicker && timepicker
 Vue.component('datepicker', require('vue-datepicker'));
 // Slug Editor
@@ -23,6 +25,11 @@ Vue.component('widget-avatar-cropper', require('vue-image-crop-upload'));
     Vue.component('group-work-list', require('./components/team/group-work/List'));
     // Row
     Vue.component('group-work-row', require('./components/team/group-work/Row'));
+
+// Chat
+Vue.component('chat-component', require('./components/Chat/ChatComponent'));
+Vue.component('message-component', require('./components/Chat/MessageComponent'));
+
 /*
 |--------------------------------------------------------------------------
 | Custom scripts
@@ -32,4 +39,3 @@ Vue.component('widget-avatar-cropper', require('vue-image-crop-upload'));
 require ('./custom/preloader.js');
 // Materialize Options
 require ('./custom/materializeOptions.js');
-
