@@ -88,7 +88,7 @@ class ActivityController extends Controller
 
         if(Auth::user()->hasRole('teacher')){
             $activities = null;
-            $activities = TeamActivity::here('team_id', $team->id)
+            $activities = TeamActivity::where('team_id', $team->id)
                 ->where('discipline_id', $discipline->id)
                 ->where('teacher_id', Auth::user()->id)->orderBy('id', 'DESC')->get();
         }
