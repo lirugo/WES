@@ -63,10 +63,10 @@
             },
             openChat(friend){
                 // Close all chat
+                this.friends.forEach(friend => {
+                    friend.session ? friend.session.open = false : ''
+                })
                 if(friend.session){
-                    this.friends.forEach(friend => {
-                        friend.session ? friend.session.open = false : ''
-                    })
                     friend.session.open = true
                     friend.session.unreadCount = 0
                 }else{
@@ -91,9 +91,11 @@
 
             Echo.channel('Chat').listen("SessionEvent", e => {
                 let friend = this.friends.find(friend => friend.id === e.session_by)
-                if(friend) {
-                    friend.session = e.session
-                    this.listenForEverySession(friend)
+                if(!friend.session){
+                    if(e.session.users[1] == auth.id) {
+                        friend.session = e.session
+                        this.listenForEverySession(friend)
+                    }
                 }
             })
 

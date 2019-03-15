@@ -16,7 +16,7 @@
                         <label for="name">Name</label>
                     </div>
                     <div class="input-field col s12">
-                        <textarea id="description" name="description" class="materialize-textarea"></textarea>
+                        <textarea id="description" name="description" class="materialize-textarea" required></textarea>
                     </div>
                     <div class="input-field col s12" v-if="other" >
                         <input id="type_name" name="type_name" type="text" class="validate" required>

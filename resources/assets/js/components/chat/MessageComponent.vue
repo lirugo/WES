@@ -3,9 +3,6 @@
         <div class="card-action grey lighten-3">
             <span :class="{'red-text':session.block}">
                 {{ friend.name }}
-                <small v-if="isTyping">
-                    <i>is typing...</i>
-                </small>
                 <span v-if="session.block">(BLOCKED)</span>
             </span>
 
@@ -26,20 +23,28 @@
                 <i class="material-icons right icon-indigo">lock_open</i>
             </a>
         </div>
-        <div class="card-content chat-box p-b-0 p-t-0 p-l-0 p-r-0" v-chat-scroll>
-            <ul class="collection with-header m-t-0 m-b-0">
+        <div class="card-content p-b-0 p-t-0 p-l-0 p-r-0">
+            <ul class="collection with-header m-t-0 m-b-0 chat-box" v-chat-scroll>
                 <li class="collection-item"
-                    :class="{'right-align':chat.type == 0, 'grey lighten-3':chat.read_at != null}"
+                    :class="{'right-align':chat.type == 0, 'grey lighten-3':chat.read_at == null && chat.type == 0}"
                     v-for="chat in chats" :key="chat.id">
                     {{ chat.message }}
                     <br/>
-                    <span v-if="chat.read_at != null">
+                    <span v-if="chat.read_at">
                         <small>
                              read {{ chat.read_at }}
                         </small>
                     </span>
+                    <span v-else>
+                        <small>
+                             send {{ chat.send_at }}
+                        </small>
+                    </span>
                 </li>
             </ul>
+            <!--<small class="m-l-5" v-if="isTyping">-->
+                <!--<i>{{ friend.name }} is typing...</i>-->
+            <!--</small>-->
         </div>
         <div class="card-action p-t-0 p-b-0">
             <form @submit.prevent="send">
@@ -48,7 +53,14 @@
                     <input type="text" id="autocomplete-input" class="autocomplete"
                         :disabled="session.block ? true : false"
                         v-model="message">
-                    <label for="autocomplete-input">Type new message...</label>
+                    <label for="autocomplete-input">
+                        <span class="m-l-5" v-if="isTyping">
+                            <i>{{ friend.name }} is typing...</i>
+                        </span>
+                        <span v-else>
+                            Start typing new message...
+                        </span>
+                    </label>
                 </div>
             </form>
         </div>
@@ -94,7 +106,7 @@
                         message:this.message,
                         type: 0,
                         read_at: null,
-                        sent_at: 'Just Now'
+                        send_at: 'Just Now'
                     })
 
                     axios.post('/api/chat/' + this.friend.session.id + '/message', {
@@ -151,7 +163,7 @@
                 this.chats.push({
                     message: e.content,
                     type: 1,
-                    sent_at: 'Just Now'
+                    send_at: 'Just Now'
                 })
             })
 
@@ -164,7 +176,7 @@
                 this.isTyping = true
                 setTimeout(() => {
                     this.isTyping = false
-                }, 2000)
+                }, 3500)
             })
         },
     }
