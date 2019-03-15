@@ -15,7 +15,8 @@
     <script src='https://www.google.com/recaptcha/api.js'></script>
 
     <script>
-        window.authId = {!! auth()->id() !!}
+        window.auth = {!! auth()->user() !!};
+        window.authName = "{{ auth()->user()->getShortName() }}";
     </script>
 
     <!-- Styles -->

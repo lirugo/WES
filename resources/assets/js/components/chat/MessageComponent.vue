@@ -3,6 +3,9 @@
         <div class="card-action grey lighten-3">
             <span :class="{'red-text':session.block}">
                 {{ friend.name }}
+                <small v-if="isTyping">
+                    <i>is typing...</i>
+                </small>
                 <span v-if="session.block">(BLOCKED)</span>
             </span>
 
@@ -43,7 +46,7 @@
                 <div class="input-field">
                     <i class="material-icons prefix">textsms</i>
                     <input type="text" id="autocomplete-input" class="autocomplete"
-                        :disabled="session.block"
+                        :disabled="session.block ? true : false"
                         v-model="message">
                     <label for="autocomplete-input">Type new message...</label>
                 </div>
@@ -60,6 +63,7 @@
                 chats: [],
                 sessionBlocked: false,
                 message: '',
+                isTyping: false,
             }
         },
         computed: {
@@ -67,8 +71,18 @@
                 return this.friend.session;
             },
             can(){
-                return this.session.blocked_by == authId
+                return this.session.blocked_by == auth.id
             },
+        },
+        watch:{
+            message(value){
+                if(value){
+                    Echo.private('Chat.' + this.friend.session.id)
+                        .whisper('typing', {
+                            name: authName
+                        })
+                }
+            }
         },
         methods:{
             close(){
@@ -104,14 +118,14 @@
                 axios.post('/api/chat/' + this.friend.session.id + '/block')
                     .then(res => {
                         this.session.block = true
-                        console.log(res)
+                        this.session.blocked_by = auth.id
                     })
             },
             unBlock(){
                 axios.post('/api/chat/' + this.friend.session.id + '/unblock')
                     .then(res => {
                         this.session.block = false
-                        console.log(res)
+                        this.session.blocked_by = null
                     })
             },
             getAllMessages(){
@@ -143,6 +157,14 @@
 
             Echo.private('Chat.' + this.friend.session.id).listen('MsgRead', (e) => {
                 this.chats.forEach(chat => chat.id == e.chat.id ? chat.read_at = e.chat.read_at : '')
+            })
+
+
+            Echo.private('Chat.' + this.friend.session.id).listenForWhisper('typing', (e) => {
+                this.isTyping = true
+                setTimeout(() => {
+                    this.isTyping = false
+                }, 2000)
             })
         },
     }
