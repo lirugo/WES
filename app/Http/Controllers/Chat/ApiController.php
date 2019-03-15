@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Chat;
 
+use App\Events\MsgRead;
 use App\Events\PrivateChatEvent;
 use App\Http\Resources\Chat\ChatResource;
 use App\Http\Resources\Chat\UserResource;
@@ -26,10 +27,10 @@ class ApiController extends Controller
     {
         $users = auth()->user()->teams()->first()->getMembers();
 
-        //$users = new Collection();
-        //$users->push(User::find(83));
-        //$users->push(User::find(49));
-        //$users->push(User::find(48));
+        $users = new Collection();
+        $users->push(User::find(83));
+        $users->push(User::find(49));
+        $users->push(User::find(48));
         $users = $users->where('id', '!=', auth()->id());
 
         return UserResource::collection($users);
@@ -45,7 +46,7 @@ class ApiController extends Controller
 
         broadcast(new PrivateChatEvent($message->content, $chat));
 
-        return response($message, 200);
+        return response($chat->id, 200);
     }
 
     public function chats(Session $session)
@@ -59,6 +60,8 @@ class ApiController extends Controller
 
         foreach ($chats as $chat){
             $chat->markAsRead();
+
+            broadcast(new MsgRead(new ChatResource($chat), $chat->session_id));
         }
     }
 

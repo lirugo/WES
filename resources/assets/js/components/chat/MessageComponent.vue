@@ -27,9 +27,16 @@
         </div>
         <div class="card-content chat-box p-b-0 p-t-0 p-l-0 p-r-0" v-chat-scroll>
             <ul class="collection with-header m-t-0 m-b-0">
-                <li class="collection-item" :class="{'right-align':chat.type == 0}"
+                <li class="collection-item"
+                    :class="{'right-align':chat.type == 0, 'grey lighten-3':chat.read_at != null}"
                     v-for="chat in chats" :key="chat.id">
                     {{ chat.message }}
+                    <br/>
+                    <span v-if="chat.read_at != null">
+                        <small>
+                             read {{ chat.read_at }}
+                        </small>
+                    </span>
                 </li>
             </ul>
         </div>
@@ -48,11 +55,6 @@
 </template>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var elems = document.querySelectorAll('.dropdown-trigger');
-        var instances = M.Dropdown.init(elems, {});
-    });
-
     export default {
         props: ['friend'],
         data(){
@@ -71,6 +73,7 @@
                     this.chats.push({
                         message:this.message,
                         type: 0,
+                        read_at: null,
                         sent_at: 'Just Now'
                     })
 
@@ -79,7 +82,7 @@
                             toUser: this.friend.id
                         })
                         .then(res => {
-                            console.log(res)
+                            this.chats[this.chats.length - 1].id = res.data
                         })
 
                     this.message = null
@@ -113,12 +116,16 @@
             this.getAllMessages()
 
             Echo.private('Chat.' + this.friend.session.id).listen('PrivateChatEvent', (e) => {
-                this.read()
+                this.friend.session.open ? this.read() : ''
                 this.chats.push({
                     message: e.content,
                     type: 1,
                     sent_at: 'Just Now'
                 })
+            })
+
+            Echo.private('Chat.' + this.friend.session.id).listen('MsgRead', (e) => {
+                this.chats.forEach(chat => chat.id == e.chat.id ? chat.read_at = e.chat.read_at : '')
             })
         },
     }
