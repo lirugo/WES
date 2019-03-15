@@ -14,7 +14,7 @@ class SessionController extends Controller
 
         $session = Session::create([
             'user1_id' => auth()->id(),
-            'user2_id' => $request->id,
+            'user2_id' => $request->friendId,
         ]);
 
         $sessionResource = new SessionResource($session);

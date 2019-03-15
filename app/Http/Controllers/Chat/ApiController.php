@@ -26,6 +26,7 @@ class ApiController extends Controller
     public function friends()
     {
         $users = auth()->user()->teams()->first()->getMembers();
+        //TODO:: FIX IT IMPORTANT
 
 //        $users = new Collection();
 //        $users->push(User::find(83));

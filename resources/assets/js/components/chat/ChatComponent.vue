@@ -74,9 +74,8 @@
                 }
             },
             createSession(friend){
-                axios.post('/api/chat/session', friend)
+                axios.post('/api/chat/session', {friendId: friend.id})
                     .then(res => {
-                        console.log(res.data.data)
                         friend.session = res.data.data
                         friend.session.open = true
                     })
@@ -91,10 +90,11 @@
             this.getFriends()
 
             Echo.channel('Chat').listen("SessionEvent", e => {
-                console.log(e)
-                let friend = this.friends.find(friend => friend.id === e.session_by);
-                friend.session = e.session
-                this.listenForEverySession(friend)
+                let friend = this.friends.find(friend => friend.id === e.session_by)
+                if(friend) {
+                    friend.session = e.session
+                    this.listenForEverySession(friend)
+                }
             })
 
             Echo.join('Chat')
