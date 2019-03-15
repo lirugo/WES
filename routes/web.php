@@ -51,6 +51,7 @@ Route::get('/phpinfo', function () {
         Route::get('/friends', 'ApiController@friends');
         Route::get('/{session}/chats', 'ApiController@chats');
 
+        Route::post('/{session}/clear', 'ApiController@clear');
         Route::post('/{session}/read', 'ApiController@read');
         Route::post('/{session}/message', 'ApiController@messageStore');
         Route::post('/session', 'SessionController@store');

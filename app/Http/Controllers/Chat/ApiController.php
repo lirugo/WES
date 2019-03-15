@@ -65,16 +65,11 @@ class ApiController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function clear(Session $session)
     {
-        //
+        $session->deleteChats();
+        $session->chats->count() == 0 ? $session->deleteMessages() : '';
+        return response('OK', 200);
     }
 
     /**

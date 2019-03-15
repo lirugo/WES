@@ -10,20 +10,18 @@
             <a href="#" @click="close">
                 <i class="material-icons right icon-indigo">close</i>
             </a>
-            <!--Options-->
-            <!-- Dropdown Trigger -->
-            <div class="right">
-                <!--<a class='dropdown-trigger' href='#' data-target='dropdown1'>-->
-                    <!--<i class="material-icons right">apps</i>-->
-                <!--</a>-->
-
-                <!--&lt;!&ndash; Dropdown Structure &ndash;&gt;-->
-                <!--<ul id='dropdown1' class='dropdown-content'>-->
-                    <!--<li v-if="!sessionBlocked"><a href="#" @click="block" >Block</a></li>-->
-                    <!--<li v-if="sessionBlocked"><a href="#" @click="unBlock">UnBlock</a></li>-->
-                    <!--<li><a href="#" @click="clear">Clear</a></li>-->
-                <!--</ul>-->
-            </div>
+            <!--Clear btn-->
+            <a href="#" @click="clear">
+                <i class="material-icons right icon-indigo">delete</i>
+            </a>
+            <!--Block btn-->
+            <a href="#" @click="block" v-if="!sessionBlocked">
+                <i class="material-icons right icon-indigo">lock</i>
+            </a>
+            <!--UnBlock btn-->
+            <a href="#" @click="unBlock" v-if="sessionBlocked">
+                <i class="material-icons right icon-indigo">lock_open</i>
+            </a>
         </div>
         <div class="card-content chat-box p-b-0 p-t-0 p-l-0 p-r-0" v-chat-scroll>
             <ul class="collection with-header m-t-0 m-b-0">
@@ -89,7 +87,10 @@
                 }
             },
             clear(){
-                this.chats = []
+                axios.post('/api/chat/' + this.friend.session.id + '/clear')
+                    .then(res => {
+                        this.chats = []
+                    })
             },
             block(){
                 this.sessionBlocked = true
