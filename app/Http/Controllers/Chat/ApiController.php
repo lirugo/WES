@@ -27,10 +27,10 @@ class ApiController extends Controller
     {
         $users = auth()->user()->teams()->first()->getMembers();
 
-        $users = new Collection();
-        $users->push(User::find(83));
-        $users->push(User::find(49));
-        $users->push(User::find(48));
+//        $users = new Collection();
+//        $users->push(User::find(83));
+//        $users->push(User::find(49));
+//        $users->push(User::find(48));
         $users = $users->where('id', '!=', auth()->id());
 
         return UserResource::collection($users);
