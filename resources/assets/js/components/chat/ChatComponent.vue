@@ -84,7 +84,7 @@
                 Echo.private('Chat.' + friend.session.id).listen('PrivateChatEvent', (e) => {
                     friend.session.open ? '' : friend.session.unreadCount++
                 })
-            }
+            },
         },
         created() {
             this.getFriends()

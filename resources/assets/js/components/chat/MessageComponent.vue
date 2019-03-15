@@ -62,17 +62,6 @@
                 message: '',
             }
         },
-        created(){
-            this.getAllMessages()
-
-            Echo.private('Chat.' + this.friend.session.id).listen('PrivateChatEvent', (e) => {
-                this.chats.push({
-                    message: e.content,
-                    type: 1,
-                    sent_at: 'Just Now'
-                })
-            })
-        },
         methods:{
             close(){
                 this.$emit('close')
@@ -111,7 +100,27 @@
                         this.chats = res.data.data
                     })
             },
-        }
+            read(){
+                axios.post('/api/chat/' + this.friend.session.id + '/read')
+                    .then(res => {
+                        console.log(res)
+                    })
+            }
+        },
+        created(){
+            this.read()
+
+            this.getAllMessages()
+
+            Echo.private('Chat.' + this.friend.session.id).listen('PrivateChatEvent', (e) => {
+                this.read()
+                this.chats.push({
+                    message: e.content,
+                    type: 1,
+                    sent_at: 'Just Now'
+                })
+            })
+        },
     }
 </script>
 
