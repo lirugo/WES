@@ -14,6 +14,10 @@
     <!-- Google reCAPTCHA API -->
     <script src='https://www.google.com/recaptcha/api.js'></script>
 
+    <script>
+        window.authId = {!! auth()->id() !!}
+    </script>
+
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 

@@ -23,4 +23,18 @@ class Session extends Model
     public function deleteMessages(){
         $this->messages()->delete();
     }
+
+    public function block(){
+        $this->update([
+            'block' => true,
+            'blocked_by' => auth()->id(),
+        ]);
+    }
+
+    public function unBlock(){
+        $this->update([
+            'block' => false,
+            'blocked_by' => null,
+        ]);
+    }
 }

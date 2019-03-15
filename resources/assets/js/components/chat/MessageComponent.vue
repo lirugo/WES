@@ -1,9 +1,9 @@
 <template>
     <div class="card">
         <div class="card-action grey lighten-3">
-            <span :class="{'red-text':sessionBlocked}">
+            <span :class="{'red-text':session.block}">
                 {{ friend.name }}
-                <span v-if="sessionBlocked">(BLOCKED)</span>
+                <span v-if="session.block">(BLOCKED)</span>
             </span>
 
             <!--Close btn-->
@@ -15,11 +15,11 @@
                 <i class="material-icons right icon-indigo">delete</i>
             </a>
             <!--Block btn-->
-            <a href="#" @click="block" v-if="!sessionBlocked">
+            <a href="#" @click="block" v-if="!session.block">
                 <i class="material-icons right icon-indigo">lock</i>
             </a>
             <!--UnBlock btn-->
-            <a href="#" @click="unBlock" v-if="sessionBlocked">
+            <a href="#" @click="unBlock" v-if="session.block && can">
                 <i class="material-icons right icon-indigo">lock_open</i>
             </a>
         </div>
@@ -43,7 +43,7 @@
                 <div class="input-field">
                     <i class="material-icons prefix">textsms</i>
                     <input type="text" id="autocomplete-input" class="autocomplete"
-                        :disabled="sessionBlocked"
+                        :disabled="session.block"
                         v-model="message">
                     <label for="autocomplete-input">Type new message...</label>
                 </div>
@@ -61,6 +61,14 @@
                 sessionBlocked: false,
                 message: '',
             }
+        },
+        computed: {
+            session(){
+                return this.friend.session;
+            },
+            can(){
+                return this.session.blocked_by == authId
+            },
         },
         methods:{
             close(){
@@ -93,10 +101,18 @@
                     })
             },
             block(){
-                this.sessionBlocked = true
+                axios.post('/api/chat/' + this.friend.session.id + '/block')
+                    .then(res => {
+                        this.session.block = true
+                        console.log(res)
+                    })
             },
             unBlock(){
-                this.sessionBlocked = false
+                axios.post('/api/chat/' + this.friend.session.id + '/unblock')
+                    .then(res => {
+                        this.session.block = false
+                        console.log(res)
+                    })
             },
             getAllMessages(){
                 axios.get('/api/chat/' + this.friend.session.id + '/chats',)

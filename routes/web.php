@@ -52,6 +52,8 @@ Route::get('/phpinfo', function () {
         Route::get('/{session}/chats', 'ApiController@chats');
 
         Route::post('/{session}/clear', 'ApiController@clear');
+        Route::post('/{session}/unblock', 'BlockController@unblock');
+        Route::post('/{session}/block', 'BlockController@block');
         Route::post('/{session}/read', 'ApiController@read');
         Route::post('/{session}/message', 'ApiController@messageStore');
         Route::post('/session', 'SessionController@store');
