@@ -24,14 +24,14 @@ class Session extends Model
         $this->messages()->delete();
     }
 
-    public function block(){
+    public function blockChat(){
         $this->update([
             'block' => true,
             'blocked_by' => auth()->id(),
         ]);
     }
 
-    public function unBlock(){
+    public function unBlockChat(){
         $this->update([
             'block' => false,
             'blocked_by' => null,

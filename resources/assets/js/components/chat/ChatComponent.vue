@@ -76,6 +76,7 @@
             createSession(friend){
                 axios.post('/api/chat/session', friend)
                     .then(res => {
+                        console.log(res.data.data)
                         friend.session = res.data.data
                         friend.session.open = true
                     })

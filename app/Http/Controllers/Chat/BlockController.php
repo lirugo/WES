@@ -9,13 +9,13 @@ class BlockController extends Controller
 {
     public function block(Session $session)
     {
-        $session->block();
+        $session->blockChat();
         return response('OK', 201);
     }
 
     public function unBlock(Session $session)
     {
-        $session->unBlock();
+        $session->unBlockChat();
         return response('OK', 201);
     }
 }
