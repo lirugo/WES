@@ -40,8 +40,6 @@
 </template>
 
 <script>
-    import Echo from "laravel-echo"
-
     export default {
         data(){
             return {
