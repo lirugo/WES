@@ -86,10 +86,7 @@
                 })
             },
         },
-        created() {
-            console.log(Echo)
-            this.getFriends()
-
+        mounted(){
             Echo.channel('Chat').listen("SessionEvent", e => {
                 let friend = this.friends.find(friend => friend.id === e.session_by)
                 if(!friend){
@@ -119,6 +116,12 @@
                 .leaving((user) => {
                     this.friends.forEach(friend => user.id === friend.id ? friend.online = false : '')
                 })
+        },
+        created() {
+            console.log(Echo)
+            this.getFriends()
+
+
         },
     }
 </script>
