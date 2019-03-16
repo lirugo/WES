@@ -40,6 +40,8 @@
 </template>
 
 <script>
+    import Echo from "laravel-echo"
+
     export default {
         data(){
             return {
@@ -89,9 +91,7 @@
         created() {
             this.getFriends()
 
-            console.log(window.Echo)
-
-            Echo.channel('Chat').listen("SessionEvent", e => {
+            window.Echo.channel('Chat').listen("SessionEvent", e => {
                 let friend = this.friends.find(friend => friend.id === e.session_by)
                 if(!friend){
                     if(!friend.session){
@@ -103,7 +103,7 @@
                 }
             })
 
-            Echo.join('Chat')
+            window.Echo.join('Chat')
                 .here((users) => {
                     console.log('Presence channel')
                     this.friends.forEach(friend => {
