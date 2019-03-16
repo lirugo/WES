@@ -103,6 +103,7 @@
 
             Echo.join('Chat')
                 .here((users) => {
+                    console.log('Presence channel')
                     this.friends.forEach(friend => {
                         users.forEach(user => {
                             if(user.id === friend.id){

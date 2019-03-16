@@ -148,9 +148,6 @@
             },
             read(){
                 axios.post('/api/chat/' + this.friend.session.id + '/read')
-                    .then(res => {
-                        console.log(res)
-                    })
             }
         },
         created(){
