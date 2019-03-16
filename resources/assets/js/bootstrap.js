@@ -43,6 +43,5 @@ window.Echo = new Echo({
     broadcaster: 'pusher',
     key: '2c415d86d6b804a16153',
     cluster: 'mt1',
-    encrypted: true,
-    useTLS: false,
+    encrypted: false,
 });
