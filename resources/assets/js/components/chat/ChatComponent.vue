@@ -91,10 +91,12 @@
 
             Echo.channel('Chat').listen("SessionEvent", e => {
                 let friend = this.friends.find(friend => friend.id === e.session_by)
-                if(!friend.session){
-                    if(e.session.users[1] == auth.id) {
-                        friend.session = e.session
-                        this.listenForEverySession(friend)
+                if(!friend){
+                    if(!friend.session){
+                        if(e.session.users[1] == auth.id) {
+                            friend.session = e.session
+                            this.listenForEverySession(friend)
+                        }
                     }
                 }
             })
