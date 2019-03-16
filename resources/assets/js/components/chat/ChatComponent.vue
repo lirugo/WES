@@ -89,7 +89,7 @@
         created() {
             this.getFriends()
 
-            window.Echo.channel('Chat').listen("SessionEvent", e => {
+            Echo.channel('Chat').listen("SessionEvent", e => {
                 let friend = this.friends.find(friend => friend.id === e.session_by)
                 if(!friend){
                     if(!friend.session){
@@ -101,7 +101,7 @@
                 }
             })
 
-            window.Echo.join('Chat')
+            Echo.join('Chat')
                 .here((users) => {
                     console.log('Presence channel')
                     this.friends.forEach(friend => {
