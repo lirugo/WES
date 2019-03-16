@@ -44,4 +44,5 @@ window.Echo = new Echo({
     key: '2c415d86d6b804a16153',
     cluster: 'mt1',
     encrypted: true,
+    useTLS: false,
 });
