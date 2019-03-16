@@ -87,6 +87,7 @@
             },
         },
         created() {
+            console.log(Echo)
             this.getFriends()
 
             Echo.channel('Chat').listen("SessionEvent", e => {
