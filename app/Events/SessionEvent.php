@@ -2,9 +2,7 @@
 
 namespace App\Events;
 
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -36,6 +34,6 @@ class SessionEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('Chat');
+        return new PresenceChannel('Chat');
     }
 }
