@@ -27,8 +27,8 @@ Vue.component('widget-avatar-cropper', require('vue-image-crop-upload'));
     Vue.component('group-work-row', require('./components/team/group-work/Row'));
 
 // Chat
-Vue.component('chat-component', require('./components/Chat/ChatComponent'));
-Vue.component('message-component', require('./components/Chat/MessageComponent'));
+Vue.component('chat-component', require('./components/chat/ChatComponent'));
+Vue.component('message-component', require('./components/chat/MessageComponent'));
 
 /*
 |--------------------------------------------------------------------------
