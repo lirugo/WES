@@ -89,6 +89,8 @@
         created() {
             this.getFriends()
 
+            console.log(window.Echo)
+
             Echo.channel('Chat').listen("SessionEvent", e => {
                 let friend = this.friends.find(friend => friend.id === e.session_by)
                 if(!friend){
