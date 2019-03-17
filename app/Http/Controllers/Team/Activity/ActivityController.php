@@ -209,10 +209,10 @@ class ActivityController extends Controller
     public function getMessages($team, $activityId, $studentId){
         //Check access
         //Get messages
-        $messages = TeamActivityReply::with(['teacher', 'files'])->where(
-            ['student_id' => $studentId],
-            ['activity_id' => $activityId]
-        )->orderBy('id', 'DESC')->get();
+        $messages = TeamActivityReply::with(['teacher', 'files'])
+            ->where('student_id', $studentId)
+            ->where('activity_id', $activityId)
+        ->orderBy('id', 'DESC')->get();
         //Return messages
         return $messages;
     }
