@@ -184,7 +184,7 @@ class MarkController extends Controller
         return view('team.mark.discipline')->with([
             'common' => $common,
             'commonStudents' => $this->unique_array($common, 'studentId'),
-            'commonActDates' => $this->unique_array($common, 'activityId'),
+            'commonActDates' => $this->unique_array($common, 'activityName'),
             'team' => $team,
             'discipline' => $discipline
         ]);

@@ -25,7 +25,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @for($i=0; $i<count($common);)
+                        @for($i=0; $i<count($commonStudents);)
                             <tr>
                                 <td>
                                     <small>{{$common[$i]['student']}}</small>
