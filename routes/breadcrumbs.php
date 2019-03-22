@@ -110,6 +110,11 @@
     Breadcrumbs::for('team', function ($trail) {
         $trail->push('Groups', url('/team'));
     });
+
+    Breadcrumbs::for('team-common-file-create', function ($trail, $team) {
+        $trail->parent('team-show', $team);
+        $trail->push('Common File Create', url('/team/'.$team->name));
+    });
     Breadcrumbs::for('team-create', function ($trail) {
         $trail->parent('team');
         $trail->push('Create', url('/team/create'));

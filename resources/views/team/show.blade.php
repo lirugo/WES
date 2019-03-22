@@ -60,6 +60,23 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="col s12">
+                <div class="card-panel indigo white-text m-b-0">
+                    <h6 class="card-title m-t-0 m-b-0 center-align">Common files</h6>
+                </div>
+            </div>
+            <div class="col s12">
+                <div class="card-panel m-b-0">
+                    @if(count($team->commonFiles) == 0)
+                        <small>No any common file yet...</small>
+                    @endif
+                    @foreach($team->commonFiles as $file)
+                        <a href="{{url('/team/'.$team->name.'/common/file/'.$file->file)}}" class="waves-effect waves-light btn indigo m-b-5">{{$file->title}}<i class="material-icons right">file_download</i></a>
+                    @endforeach
+                </div>
+            </div>
+        </div>
         {{--Display students of this group--}}
         <div class="row">
             <div class="col s12">
@@ -185,6 +202,10 @@
                 <i class="large material-icons">mode_edit</i>
             </a>
             <ul>
+                @role('manager')
+                <li><a class="btn-floating green tooltipped" data-position="left" data-tooltip="Common file" href="{{url('/team/'.$team->name.'/common/file/create')}}"><i class="material-icons">attach_file</i></a></li>
+                @endrole
+
                 <li><a class="btn-floating green tooltipped" data-position="left" data-tooltip="Marks" href="{{url('/team/'.$team->name.'/mark')}}"><i class="material-icons">bookmark_border</i></a></li>
                 <li><a class="btn-floating green tooltipped" data-position="left" data-tooltip="Group Work" href="{{url('/team/'.$team->name.'/group-work')}}"><i class="material-icons">group</i></a></li>
                 <li><a class="btn-floating green tooltipped" data-position="left" data-tooltip="Activity" href="{{url('/team/'.$team->name.'/activity')}}"><i class="material-icons">home</i></a></li>

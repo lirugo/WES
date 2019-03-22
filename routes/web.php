@@ -177,6 +177,10 @@ Route::get('/phpinfo', function () {
         Route::get('/{name}/setting', 'Setting\SettingController@index');
         Route::post('/{name}/setting/disciplines/update', 'Setting\SettingController@disciplinesUpdate');
 
+        //Common file
+        Route::get('/{name}/common/file/create', 'Common\FileController@create');
+        Route::get('/{name}/common/file/{file}', 'Common\FileController@getFile');
+        Route::post('/{name}/common/file/store', 'Common\FileController@store')->name('team.common.file.store');
         //Marks
         Route::get('/{name}/mark', 'MarkController@index');
         Route::get('/{name}/mark/{discipline}', 'MarkController@discipline');

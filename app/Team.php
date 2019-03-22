@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Team\CommonFile;
 use App\Models\Team\TeamHeadman;
 use App\Models\Team\TeamLessonTime;
 use Auth;
@@ -156,5 +157,9 @@ class Team extends LaratrustTeam
 
     public function lessonsTime(){
         return $this->hasMany(TeamLessonTime::class, 'team_id', 'id');
+    }
+
+    public function commonFiles(){
+        return $this->hasMany(CommonFile::class);
     }
 }
