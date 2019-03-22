@@ -180,6 +180,7 @@ Route::get('/phpinfo', function () {
         //Common file
         Route::get('/{name}/common/file/create', 'Common\FileController@create');
         Route::get('/{name}/common/file/{file}', 'Common\FileController@getFile');
+        Route::delete('/{name}/common/file/{file}', 'Common\FileController@delete');
         Route::post('/{name}/common/file/store', 'Common\FileController@store')->name('team.common.file.store');
         //Marks
         Route::get('/{name}/mark', 'MarkController@index');

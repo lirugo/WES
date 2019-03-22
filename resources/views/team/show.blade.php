@@ -72,7 +72,15 @@
                         <small>No any common file yet...</small>
                     @endif
                     @foreach($team->commonFiles as $file)
-                        <a href="{{url('/team/'.$team->name.'/common/file/'.$file->file)}}" class="waves-effect waves-light btn indigo m-b-5">{{$file->title}}<i class="material-icons right">file_download</i></a>
+                        <a href="{{url('/team/'.$team->name.'/common/file/'.$file->file)}}" class="waves-effect waves-light btn indigo m-b-5">
+                            {{$file->title}}
+                            <i class="material-icons right">file_download</i>
+                        </a>
+                        @role('manager')
+                            <button @click="removeCommonFile('{{ $file->file }}')" class="waves-effect waves-light btn red darken-1 m-b-5 m-r-10">
+                                <i class="material-icons">close</i>
+                            </button>
+                        @endrole
                     @endforeach
                 </div>
             </div>
@@ -226,6 +234,14 @@
             mounted(){
                 console.log('Team dashboard mounted')
             },
+            methods: {
+                removeCommonFile(file){
+                    axios.delete('/team/{!! $team->name !!}/common/file/' + file)
+                        .then(res => {
+                            location.reload();
+                        })
+                }
+            }
         })
     </script>
 @endsection

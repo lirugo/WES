@@ -33,6 +33,13 @@ class FileController extends Controller
         return redirect(url('/team/'.$team->name));
     }
 
+    public function delete($team, $file){
+        $team = Team::where('name', $team)->first();
+        CommonFile::where('file', $file)->first()->delete();
+
+        return 'OK';
+    }
+
     public function getFile($team, $file){
         $common = CommonFile::where('file', $file)->first();
         $path = storage_path('/app/common/file/'.$file);
