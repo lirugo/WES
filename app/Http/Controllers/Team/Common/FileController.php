@@ -35,7 +35,7 @@ class FileController extends Controller
 
     public function getFile($team, $file){
         $common = CommonFile::where('file', $file)->first();
-        $path = storage_path('/common-file/'.$file);
+        $path = storage_path('/app/common/file/'.$file);
         $info = pathinfo($path);
 
         return response()->download($path, $common->title.'.'.$info['extension']);
