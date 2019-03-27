@@ -59,6 +59,23 @@ class StoreController extends Controller
             'hours' => $teamTemplateDisciplines->hours,
         ]);
 
+        foreach ($team->getTeachers() as $teacher){
+            $count = 0;
+            if($teacher->id == $teamTemplateDisciplines->teacher_id)
+                $count++;
+        }
+
+        if($count == 0){
+            $teacher = User::find($teamTemplateDisciplines->teacher_id);
+
+            // Find role teacher
+            $roleTeacher = Role::where('name', 'teacher')->first();
+
+            // Attach role for teacher in team
+            $teacher->attachRole($roleTeacher, $team);
+        }
+
+
         //Redirect
         Session::flash('success', 'Discipline was be added');
         return back();
