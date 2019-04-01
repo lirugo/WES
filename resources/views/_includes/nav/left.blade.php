@@ -36,7 +36,7 @@
         {{-- Settings --}}
         <li><div class="divider"></div></li>
         <li><a class="subheader">Settings</a></li>
-        <li><a href="#!"><i class="material-icons">settings</i>Settings</a></li>
+        <li><a href="{{url('/user/settings')}}"><i class="material-icons">settings</i>Settings</a></li>
         <li><a href="{{url('/user/profile')}}"><i class="material-icons">assignment_ind</i>Profile</a></li>
     </ul>
 @endauth

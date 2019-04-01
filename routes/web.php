@@ -72,10 +72,16 @@ Route::get('/phpinfo', function () {
 | User route
 |--------------------------------------------------------------------------
 */
-    Route::get('/user/profile', 'User\ProfileController@index');
-    Route::post('/user/profile/update', 'User\ProfileController@update')->name('user.profile.update');
-    Route::post('/user/profile/setAvatar', 'User\ProfileController@setAvatar')->name('user.profile.setAvatar');
-    Route::post('/user/profile/resetPassword', 'User\ProfileController@resetPassword')->name('user.profile.resetPassword');
+Route::group(['middleware' => ['auth'], 'namespace' => 'User', 'prefix' => 'user'], function () {
+    //Settings
+    Route::get('/settings', 'SettingsController@index');
+    Route::post('/settings', 'SettingsController@update');
+    //Profile
+    Route::get('/profile', 'ProfileController@index');
+    Route::post('/profile/update', 'ProfileController@update')->name('user.profile.update');
+    Route::post('/profile/setAvatar', 'ProfileController@setAvatar')->name('user.profile.setAvatar');
+    Route::post('/profile/resetPassword', 'ProfileController@resetPassword')->name('user.profile.resetPassword');
+});
 
 /*
 |--------------------------------------------------------------------------

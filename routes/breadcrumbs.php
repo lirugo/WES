@@ -53,6 +53,10 @@
         $trail->parent('user');
         $trail->push('Profile', url('/user/profile'));
     });
+    Breadcrumbs::for('user-settings', function ($trail) {
+        $trail->parent('user');
+        $trail->push('Settings', url('/user/settings'));
+    });
 
 // News
     Breadcrumbs::for('news', function ($trail) {
