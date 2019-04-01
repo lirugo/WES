@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\User;
 use App\UserSettingNotification;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -14,6 +15,7 @@ class SettingsController extends Controller
     }
 
     public function update(Request $request){
+        //Notifications
         //New or update
         $userSettNotif = UserSettingNotification::where('user_id', auth()->id())->first();
         if($userSettNotif == null){
@@ -37,6 +39,11 @@ class SettingsController extends Controller
         $userSettNotif->email_update_activity = $request->email_update_activity == 'on' ? true : false;
 
         $userSettNotif->save();
+
+        //Language
+        $user = User::find(auth()->id());
+        $user->language = $request->language;
+        $user->save();
 
         Session::flash('success', 'User setting was be updated');
         return back();
