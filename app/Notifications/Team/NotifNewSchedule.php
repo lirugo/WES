@@ -30,20 +30,20 @@ class NotifNewSchedule extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', Auth()->user()->settingNotifications->email_update_schedule ? 'mail' : ''];
     }
 
     /**
      * Get the mail representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
+     * @return MailMessage
      */
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
+                    ->line('Your schedule was be updated')
+                    ->action('Open page', url('/team/'.$this->schedule->team->name.'/schedule'))
                     ->line('Thank you for using our application!');
     }
 

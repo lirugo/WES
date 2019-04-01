@@ -31,20 +31,20 @@ class NotifNewActivityMark extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', Auth()->user()->settingNotifications->email_new_mark ? 'mail' : ''];
     }
 
     /**
      * Get the mail representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
+     * @return MailMessage
      */
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
+                    ->line('User '. Auth()->user()->getShortName() .  ' get new mark')
+                    ->action('Open page', url('/team/'.$this->activity->team->name.'/activity/'.$this->activity->discipline->name.'/pass/'.$this->activity->id.'/'.$this->student->id))
                     ->line('Thank you for using our application!');
     }
 

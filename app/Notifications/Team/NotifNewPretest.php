@@ -30,7 +30,7 @@ class NotifNewPretest extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', Auth()->user()->settingNotifications->email_new_test ? 'mail' : ''];
     }
 
     /**
@@ -42,8 +42,8 @@ class NotifNewPretest extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
+                    ->line('Created new test')
+                    ->action('Open page', url('/team/'.$this->pretest->team->name.'/pretest/discipline/'.$this->pretest->discipline->name))
                     ->line('Thank you for using our application!');
     }
 

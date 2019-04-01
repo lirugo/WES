@@ -31,7 +31,7 @@ class NotifNewActivity extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', Auth()->user()->settingNotifications->email_new_activity ? 'mail' : ''];
     }
 
     /**
@@ -43,9 +43,9 @@ class NotifNewActivity extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->line('Created new activity')
+            ->action('Open page', url('/team/'.$this->activity->team->name.'/activity/'.$this->activity->discipline->name))
+            ->line('Thank you for using our application!');
     }
 
     /**

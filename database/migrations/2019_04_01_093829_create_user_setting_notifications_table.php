@@ -20,7 +20,7 @@ class CreateUserSettingNotificationsTable extends Migration
 
             //SMS
             $table->boolean('sms_new_mark')->defailt(false);
-            $table->boolean('sms_new_chat_message')->defailt(false);
+            $table->boolean('sms_new_activity_message')->defailt(false);
             $table->boolean('sms_new_activity')->defailt(false);
             $table->boolean('sms_new_test')->defailt(false);
             $table->boolean('sms_update_schedule')->defailt(false);
@@ -28,7 +28,7 @@ class CreateUserSettingNotificationsTable extends Migration
 
             //EMAIL
             $table->boolean('email_new_mark')->defailt(false);
-            $table->boolean('email_new_chat_message')->defailt(false);
+            $table->boolean('email_new_activity_message')->defailt(false);
             $table->boolean('email_new_activity')->defailt(false);
             $table->boolean('email_new_test')->defailt(false);
             $table->boolean('email_update_schedule')->defailt(false);

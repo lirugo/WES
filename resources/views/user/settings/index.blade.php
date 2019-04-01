@@ -24,14 +24,14 @@
                                         </label>
                                         <label class="left m-r-10">
                                             EMAIL
-                                            <input type="checkbox" name="email_new_mark" {{Auth()->user()->settingNotifications->email_new_mark ? 'checked' : ''}}>
+                                            <input type="checkbox" name="email_new_mark" {{isset(Auth()->user()->settingNotifications) && Auth()->user()->settingNotifications->email_new_mark ? 'checked' : ''}}>
                                             <span class="lever"></span>
                                         </label>
                                     </div>
                                 </li>
                                 <li class="collection-item">
                                     <div class="switch">
-                                        New chat message
+                                        New activity message
                                         <label class="left m-r-10">
                                             SMS
                                             <input type="checkbox" name="sms_new_chat_message" disabled>
@@ -39,7 +39,7 @@
                                         </label>
                                         <label class="left m-r-10">
                                             EMAIL
-                                            <input type="checkbox" name="email_new_chat_message" {{Auth()->user()->settingNotifications->email_new_chat_message ? 'checked' : ''}}>
+                                            <input type="checkbox" name="email_new_activity_message" {{isset(Auth()->user()->settingNotifications) && Auth()->user()->settingNotifications->email_new_activity_message ? 'checked' : ''}}>
                                             <span class="lever"></span>
                                         </label>
                                     </div>
@@ -54,7 +54,7 @@
                                         </label>
                                         <label class="left m-r-10">
                                             EMAIL
-                                            <input type="checkbox" name="email_new_test" {{Auth()->user()->settingNotifications->email_new_test ? 'checked' : ''}}>
+                                            <input type="checkbox" name="email_new_test" {{isset(Auth()->user()->settingNotifications) && Auth()->user()->settingNotifications->email_new_test ? 'checked' : ''}}>
                                             <span class="lever"></span>
                                         </label>
                                     </div>
@@ -69,7 +69,7 @@
                                         </label>
                                         <label class="left m-r-10">
                                             EMAIL
-                                            <input type="checkbox" name="email_new_activity" {{Auth()->user()->settingNotifications->email_new_activity ? 'checked' : ''}}>
+                                            <input type="checkbox" name="email_new_activity" {{isset(Auth()->user()->settingNotifications) && Auth()->user()->settingNotifications->email_new_activity ? 'checked' : ''}}>
                                             <span class="lever"></span>
                                         </label>
                                     </div>
@@ -84,7 +84,7 @@
                                         </label>
                                         <label class="left m-r-10">
                                             EMAIL
-                                            <input type="checkbox" name="email_update_schedule" {{Auth()->user()->settingNotifications->email_update_schedule ? 'checked' : ''}}>
+                                            <input type="checkbox" name="email_update_schedule" {{isset(Auth()->user()->settingNotifications) && Auth()->user()->settingNotifications->email_update_schedule ? 'checked' : ''}}>
                                             <span class="lever"></span>
                                         </label>
                                     </div>
@@ -99,7 +99,7 @@
                                         </label>
                                         <label class="left m-r-10">
                                             EMAIL
-                                            <input type="checkbox" name="email_update_activity" {{Auth()->user()->settingNotifications->email_update_activity ? 'checked' : ''}}>
+                                            <input type="checkbox" name="email_update_activity" {{isset(Auth()->user()->settingNotifications) && Auth()->user()->settingNotifications->email_update_activity ? 'checked' : ''}}>
                                             <span class="lever"></span>
                                         </label>
                                     </div>
