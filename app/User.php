@@ -624,4 +624,8 @@ class User extends Authenticatable
     public function pretestAnswers(){
         return $this->hasMany(PretestUserAnswer::class, 'user_id', 'id');
     }
+
+    public function settingNotifications(){
+        return $this->hasOne(UserSettingNotification::class);
+    }
 }

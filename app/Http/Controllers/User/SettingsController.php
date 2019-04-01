@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\UserSettingNotification;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Session;
@@ -13,7 +14,29 @@ class SettingsController extends Controller
     }
 
     public function update(Request $request){
-        dd($request->all());
+        //New or update
+        $userSettNotif = UserSettingNotification::where('user_id', auth()->id())->first();
+        if($userSettNotif == null){
+            $userSettNotif = new UserSettingNotification();
+            $userSettNotif->user_id = auth()->id();
+        }
+
+        //SMS
+        $userSettNotif->sms_new_mark = $request->sms_new_mark == 'on' ? true : false;
+        $userSettNotif->sms_new_chat_message = $request->sms_new_chat_message == 'on' ? true : false;
+        $userSettNotif->sms_new_activity = $request->sms_new_activity == 'on' ? true : false;
+        $userSettNotif->sms_new_test = $request->sms_new_test == 'on' ? true : false;
+        $userSettNotif->sms_update_schedule = $request->sms_update_schedule == 'on' ? true : false;
+        $userSettNotif->sms_update_activity = $request->sms_update_activity == 'on' ? true : false;
+        //EMAIL
+        $userSettNotif->email_new_mark = $request->email_new_mark == 'on' ? true : false;
+        $userSettNotif->email_new_chat_message = $request->email_new_chat_message == 'on' ? true : false;
+        $userSettNotif->email_new_activity = $request->email_new_activity == 'on' ? true : false;
+        $userSettNotif->email_new_test = $request->email_new_test == 'on' ? true : false;
+        $userSettNotif->email_update_schedule = $request->email_update_schedule == 'on' ? true : false;
+        $userSettNotif->email_update_activity = $request->email_update_activity == 'on' ? true : false;
+
+        $userSettNotif->save();
 
         Session::flash('success', 'User setting was be updated');
         return back();

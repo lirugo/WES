@@ -16,30 +16,15 @@
                             <ul class="collection">
                                 <li class="collection-item">
                                     <div class="switch">
-                                        Update schedule
+                                        New mark
                                         <label class="left m-r-10">
                                             SMS
-                                            <input type="checkbox" name="sms_update_schedule">
+                                            <input type="checkbox" name="sms_new_mark" disabled>
                                             <span class="lever"></span>
                                         </label>
                                         <label class="left m-r-10">
                                             EMAIL
-                                            <input type="checkbox" name="email_update_schedule">
-                                            <span class="lever"></span>
-                                        </label>
-                                    </div>
-                                </li>
-                                <li class="collection-item">
-                                    <div class="switch">
-                                        New marks
-                                        <label class="left m-r-10">
-                                            SMS
-                                            <input type="checkbox" name="sms_new_mark">
-                                            <span class="lever"></span>
-                                        </label>
-                                        <label class="left m-r-10">
-                                            EMAIL
-                                            <input type="checkbox" name="email_new_mark">
+                                            <input type="checkbox" name="email_new_mark" {{Auth()->user()->settingNotifications->email_new_mark ? 'checked' : ''}}>
                                             <span class="lever"></span>
                                         </label>
                                     </div>
@@ -49,60 +34,72 @@
                                         New chat message
                                         <label class="left m-r-10">
                                             SMS
-                                            <input type="checkbox" name="sms_new_chat_message">
+                                            <input type="checkbox" name="sms_new_chat_message" disabled>
                                             <span class="lever"></span>
                                         </label>
                                         <label class="left m-r-10">
                                             EMAIL
-                                            <input type="checkbox" name="email_new_chat_message">
+                                            <input type="checkbox" name="email_new_chat_message" {{Auth()->user()->settingNotifications->email_new_chat_message ? 'checked' : ''}}>
                                             <span class="lever"></span>
                                         </label>
                                     </div>
-
-                                </li>
-                                <li class="collection-item">
-                                    <div class="switch">
-                                        New activity
-                                        <label class="left m-r-10">
-                                            SMS
-                                            <input type="checkbox" name="sms_new_activity">
-                                            <span class="lever"></span>
-                                        </label>
-                                        <label class="left m-r-10">
-                                            EMAIL
-                                            <input type="checkbox" name="email_new_activity">
-                                            <span class="lever"></span>
-                                        </label>
-                                    </div>
-
-                                </li>
-                                <li class="collection-item">
-                                    <div class="switch">
-                                        Update activity
-                                        <label class="left m-r-10">
-                                            SMS
-                                            <input type="checkbox" name="sms_update_activity">
-                                            <span class="lever"></span>
-                                        </label>
-                                        <label class="left m-r-10">
-                                            EMAIL
-                                            <input type="checkbox" name="email_update_activity">
-                                            <span class="lever"></span>
-                                        </label>
-                                    </div>
-
                                 </li>
                                 <li class="collection-item">
                                     <div class="switch">
                                         New test
                                         <label class="left m-r-10">
                                             SMS
-                                            <input type="checkbox" name="sms_new_test">
+                                            <input type="checkbox" name="sms_new_test" disabled>
                                             <span class="lever"></span>
                                         </label>
                                         <label class="left m-r-10">
                                             EMAIL
-                                            <input type="checkbox" name="email_new_test">
+                                            <input type="checkbox" name="email_new_test" {{Auth()->user()->settingNotifications->email_new_test ? 'checked' : ''}}>
+                                            <span class="lever"></span>
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="collection-item">
+                                    <div class="switch">
+                                        New activity
+                                        <label class="left m-r-10">
+                                            SMS
+                                            <input type="checkbox" name="sms_new_activity" disabled>
+                                            <span class="lever"></span>
+                                        </label>
+                                        <label class="left m-r-10">
+                                            EMAIL
+                                            <input type="checkbox" name="email_new_activity" {{Auth()->user()->settingNotifications->email_new_activity ? 'checked' : ''}}>
+                                            <span class="lever"></span>
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="collection-item">
+                                    <div class="switch">
+                                        Update schedule
+                                        <label class="left m-r-10">
+                                            SMS
+                                            <input type="checkbox" name="sms_update_schedule" disabled>
+                                            <span class="lever"></span>
+                                        </label>
+                                        <label class="left m-r-10">
+                                            EMAIL
+                                            <input type="checkbox" name="email_update_schedule" {{Auth()->user()->settingNotifications->email_update_schedule ? 'checked' : ''}}>
+                                            <span class="lever"></span>
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="collection-item">
+                                    <div class="switch">
+                                        Update activity
+                                        <label class="left m-r-10">
+                                            SMS
+                                            <input type="checkbox" name="sms_update_activity" disabled>
+                                            <span class="lever"></span>
+                                        </label>
+                                        <label class="left m-r-10">
+                                            EMAIL
+                                            <input type="checkbox" name="email_update_activity" {{Auth()->user()->settingNotifications->email_update_activity ? 'checked' : ''}}>
                                             <span class="lever"></span>
                                         </label>
                                     </div>
