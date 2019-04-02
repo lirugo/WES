@@ -19,7 +19,7 @@
     @role('administrator')
         {{--Floating button--}}
         <div class="fixed-action-btn">
-            <a class="btn-floating btn-large green tooltipped" href="{{url('/changelog/create')}}" data-position="left" data-tooltip="Add Log">
+            <a class="btn-floating btn-large green tooltipped" href="{{url('/changelog/create')}}" data-position="left" data-tooltip="@lang('app.Add Log')">
                 <i class="large material-icons">add</i>
             </a>
         </div>

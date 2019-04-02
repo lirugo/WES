@@ -116,11 +116,11 @@
                                     <div class="switch">
                                         Default language
                                         <label class="left m-r-10">
-                                            <input class="with-gap" name="language" value="en" type="radio" {{Auth()->user()->language == 'en' ? 'checked' : ''}} />
+                                            <input class="with-gap" name="language" value="en" type="radio" {{Session::get('locale') == 'en' ? 'checked' : ''}} disabled/>
                                             <span>EN</span>
                                         </label>
                                         <label class="left m-r-10">
-                                            <input class="with-gap" name="language" value="ua" type="radio" {{Auth()->user()->language == 'ua' ? 'checked' : ''}} />
+                                            <input class="with-gap" name="language" value="ua" type="radio" {{Session::get('locale') == 'ua' ? 'checked' : ''}} disabled/>
                                             <span>UA</span>
                                         </label>
                                     </div>

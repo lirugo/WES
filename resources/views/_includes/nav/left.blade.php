@@ -11,12 +11,12 @@
                 <a href="#email"><span class="white-text email">{{Auth::user()->email}}</span></a>
             </div>
         </li>
-        <li><a href="{{url('/manage')}}"><i class="material-icons">apps</i>Main</a></li>
-        <li><a href="{{url('/news')}}"><i class="material-icons">new_releases</i>News</a></li>
-        <li><a href="{{url('/notification')}}"><i class="material-icons">notifications</i>Notifications</a></li>
-        <li><a href="{{url('/chat')}}"><i class="material-icons">chat</i>Chat</a></li>
-        <li><a href="{{url('/library')}}"><i class="material-icons">library_books</i>Library</a></li>
-        <li><a href="{{url('/changelog')}}"><i class="material-icons">turned_in</i>Change Log</a></li>
+        <li><a href="{{url('/manage')}}"><i class="material-icons">apps</i>@lang('app.Main')</a></li>
+        <li><a href="{{url('/news')}}"><i class="material-icons">new_releases</i>@lang('app.News')</a></li>
+        <li><a href="{{url('/notification')}}"><i class="material-icons">notifications</i>@lang('app.Notifications')</a></li>
+        <li><a href="{{url('/chat')}}"><i class="material-icons">chat</i>@lang('app.Chat')</a></li>
+        <li><a href="{{url('/library')}}"><i class="material-icons">library_books</i>@lang('app.Library')</a></li>
+        <li><a href="{{url('/changelog')}}"><i class="material-icons">turned_in</i>@lang('app.Change Log')</a></li>
 
         {{-- Administrator --}}
         @include('_includes.nav.roles.administrator')
@@ -35,8 +35,8 @@
 
         {{-- Settings --}}
         <li><div class="divider"></div></li>
-        <li><a class="subheader">Settings</a></li>
-        <li><a href="{{url('/user/settings')}}"><i class="material-icons">settings</i>Settings</a></li>
-        <li><a href="{{url('/user/profile')}}"><i class="material-icons">assignment_ind</i>Profile</a></li>
+        <li><a class="subheader">@lang('app.Settings')</a></li>
+        <li><a href="{{url('/user/settings')}}"><i class="material-icons">settings</i>@lang('app.Settings')</a></li>
+        <li><a href="{{url('/user/profile')}}"><i class="material-icons">assignment_ind</i>@lang('app.Profile')</a></li>
     </ul>
 @endauth

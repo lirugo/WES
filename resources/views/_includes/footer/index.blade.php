@@ -26,7 +26,7 @@
     </div>
     <div class="footer-copyright indigo darken-2">
         <div class="container">
-            © {{date("Y")}} All rights reserved
+            © {{date("Y")}} @lang('app.All rights reserved')
 
             {{--Docs pdf link--}}
             @if(Auth::user()->hasRole('manager'))

@@ -11,8 +11,8 @@
                 </div>
                 <div class="card-stacked">
                     <div class="card-content">
-                        <span class="new badge blue" data-badge-caption="year">{{$library->year}}</span>
-                        <span class="new badge green" data-badge-caption="pages">{{$library->pages}}</span>
+                        <span class="new badge blue" data-badge-caption="@lang('app.year')">{{$library->year}}</span>
+                        <span class="new badge green" data-badge-caption="@lang('app.pages')">{{$library->pages}}</span>
                         <span class="new badge red" data-badge-caption="">PDF</span>
                     <span class="card-title">{{$library->title}}</span>
                         |
@@ -43,15 +43,15 @@
                     {!! Form::open(['route' => ['library.author.update', $library->id]]) !!}
                     <span class="card-title center-align">Add Author</span>
                     <div class="input-field">
-                        <input placeholder="Second Name" id="second_name" name="second_name" type="text" class="validate" required>
+                        <input placeholder="@lang('app.Second Name')" id="second_name" name="second_name" type="text" class="validate" required>
                     </div>
                     <div class="input-field">
-                        <input placeholder="Name" id="name" name="name" type="text" class="validate" required>
+                        <input placeholder="@lang('app.Name')" id="name" name="name" type="text" class="validate" required>
                     </div>
                     <div class="input-field">
-                        <input placeholder="Middle Name" id="middle_name" name="middle_name" type="text" class="validate" required>
+                        <input placeholder="@lang('app.Middle Name')" id="middle_name" name="middle_name" type="text" class="validate" required>
                     </div>
-                    <button class="btn indigo waves-effect waves-light" type="submit">Add
+                    <button class="btn indigo waves-effect waves-light" type="submit">@lang('app.Add')
                         <i class="material-icons right">send</i>
                     </button>
                     {!! Form::close() !!}

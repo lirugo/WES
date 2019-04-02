@@ -13,7 +13,7 @@
                 <div class="input-field m-b-0">
                     <i class="material-icons prefix">title</i>
                     {!! Form::text('title', null, ['class' => 'validate', 'name' => 'title', 'id' => 'title', 'v-model' => 'title', 'required']) !!}
-                    <label for="title">Title</label>
+                    <label for="title">@lang('app.Title')</label>
                 </div>
                 <div class="input-field">
                     <textarea name="body"></textarea>
@@ -23,7 +23,7 @@
     </div>
     {{--Floating button--}}
     <div class="fixed-action-btn">
-        <button type="submit" class="btn-floating btn-large green tooltipped" data-position="left" data-tooltip="Save">
+        <button type="submit" class="btn-floating btn-large green tooltipped" data-position="left" data-tooltip="@lang('app.Save')">
             <i class="large material-icons">save</i>
         </button>
     </div>

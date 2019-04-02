@@ -3,16 +3,16 @@
     {{ Breadcrumbs::render('library') }}
 @endsection
 @section('content')
-    <div class="row m-b-0" xmlns:v-clipboard="http://www.w3.org/1999/xhtml">
-        <div class="col s12">
-            <div class="card-panel p-b-10 p-t-10">
-                <a href="{{url('/library/?sort=asc')}}">New first</a> |
-                <a href="{{url('/library/?sort=desc')}}">Old first</a> |
-                <a href="{{url('/library/?sort=a-z')}}">Title A-Z</a> |
-                <a href="{{url('/library/?sort=z-a')}}">Title Z-A</a> |
-            </div>
-        </div>
-    </div>
+{{--    <div class="row m-b-0" xmlns:v-clipboard="http://www.w3.org/1999/xhtml">--}}
+{{--        <div class="col s12">--}}
+{{--            <div class="card-panel p-b-10 p-t-10">--}}
+{{--                <a href="{{url('/library/?sort=asc')}}">New first</a> |--}}
+{{--                <a href="{{url('/library/?sort=desc')}}">Old first</a> |--}}
+{{--                <a href="{{url('/library/?sort=a-z')}}">Title A-Z</a> |--}}
+{{--                <a href="{{url('/library/?sort=z-a')}}">Title Z-A</a> |--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
     <div class="row" id="clipboard">
         @foreach($libraries as $library)
             <div class="col s12 m4 l4">
@@ -29,8 +29,8 @@
                         </small>
                     </div>
                     <div class="card-content p-t-0">
-                        <span class="new badge blue" data-badge-caption="year">{{$library->year}}</span>
-                        <span class="new badge green" data-badge-caption="pages">{{$library->pages}}</span>
+                        <span class="new badge blue" data-badge-caption="@lang('app.year')">{{$library->year}}</span>
+                        <span class="new badge green" data-badge-caption="@lang('app.pages')">{{$library->pages}}</span>
                         <span class="new badge red" data-badge-caption="">PDF</span>
                     </div>
                     <div class="card-content p-t-5">
@@ -65,7 +65,7 @@
     @if(count($libraries) == 0)
         <div class="row">
             <div class="col s12">
-                So far there is nothing here...
+                @lang('app.So far there is nothing here...')
             </div>
         </div>
     @endif
@@ -76,7 +76,7 @@
                 <i class="large material-icons">add</i>
             </a>
             <ul>
-                <li><a class="btn-floating green tooltipped" data-position="left" data-tooltip="Tags" href="{{url('/tag')}}"><i class="material-icons">visibility</i></a></li>
+                <li><a class="btn-floating green tooltipped" data-position="left" data-tooltip="@lang('app.Tags')" href="{{url('/tag')}}"><i class="material-icons">visibility</i></a></li>
             </ul>
         </div>
         @endrole

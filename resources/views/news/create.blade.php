@@ -11,9 +11,9 @@
         <div class="col s12 m12 l12">
             <div class="card hoverable">
                 <div class="card-content">
-                    <span class="card-title center-align">Create a news</span>
-                    <button type="submit" class="indigo waves-effect waves-light btn right tooltipped" data-tooltip="You sure? All data is correct?" data-position="top"><i class="material-icons right">send</i>Create news</button>
-                    <a href="{{url('/news')}}" class="indigo waves-effect waves-light btn left m-r-10 tooltipped" data-tooltip="Information will be lost!" data-position="top"><i class="material-icons left">apps</i>Back to news</a>
+                    <span class="card-title center-align">@lang('app.Create a news')</span>
+                    <button type="submit" class="indigo waves-effect waves-light btn right tooltipped" data-tooltip="@lang('app.You sure? All data is correct?')" data-position="top"><i class="material-icons right">send</i>@lang('app.Create news')</button>
+                    <a href="{{url('/news')}}" class="indigo waves-effect waves-light btn left m-r-10 tooltipped" data-tooltip="@lang('app.Information will be lost!')" data-position="top"><i class="material-icons left">apps</i>@lang('app.Back to news')</a>
                 </div>
             </div>
         </div>
@@ -25,7 +25,7 @@
                 <div class="input-field m-b-0">
                     <i class="material-icons prefix">title</i>
                     {!! Form::text('title', null, ['class' => 'validate', 'name' => 'title', 'id' => 'title', 'v-model' => 'title', 'required']) !!}
-                    <label for="title">Title</label>
+                    <label for="title">@lang('app.Title')</label>
                 </div>
                 <widget-slug url="{{url('/')}}" subdirectory="/team/" :title="title"></widget-slug>
                 <div class="input-field">

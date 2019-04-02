@@ -1,9 +1,9 @@
 <html>
 <head></head>
-<title>Feedback</title>
+<title>@lang('app.Feedback')</title>
 <body>
-    <p>User - {{$user->getShortName()}}</p>
-    <p>Title - {{$title}}</p>
-    <p>Body - {{$body}}</p>
+    <p>@lang('app.User') - {{$user->getShortName()}}</p>
+    <p>@lang('app.Title') - {{$title}}</p>
+    <p>@lang('app.Body') - {{$body}}</p>
 </body>
 </html>

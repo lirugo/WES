@@ -10,7 +10,7 @@
                 <div class="input-field">
                     <i class="material-icons prefix">title</i>
                     <input id="title" name="title" type="text" class="validate" required value="{{ old('title') }}">
-                    <label for="title">Title of Book</label>
+                    <label for="title">@lang('app.Title of Book')</label>
                 </div>
                 <div class="input-field">
                     <textarea name="description">{!! old('description') !!}</textarea>
@@ -19,12 +19,12 @@
                     <div class="input-field col s12 m6">
                         <i class="material-icons prefix">pages</i>
                         <input id="pages" name="pages" type="number" value="{{ old('pages') }}" min="10" max="100000" class="validate" required>
-                        <label for="pages">Pages</label>
+                        <label for="pages">@lang('app.Pages')</label>
                     </div>
                     <div class="input-field col s12 m6">
                         <i class="material-icons prefix">date_range</i>
                         <input id="year" name="year" type="number" value="{{ old('year') }}" min="1000" max="{{date('Y')}}" class="validate" required>
-                        <label for="year">Year</label>
+                        <label for="year">@lang('app.Year')</label>
                     </div>
                 </div>
                 <input id="tags" name="tags" type="hidden">
@@ -61,11 +61,11 @@
                     <div class="input-field">
                         <div class="file-field">
                             <div class="btn indigo">
-                                <span>Book</span>
+                                <span>@lang('app.Book')</span>
                                 <input type="file" name="file" accept="application/pdf" required>
                             </div>
                             <div class="file-path-wrapper">
-                                <input class="file-path validate" type="text" placeholder="Upload only PDF">
+                                <input class="file-path validate" type="text" placeholder="@lang('app.Upload only PDF')">
                             </div>
                         </div>
                     </div>
@@ -75,7 +75,7 @@
     </div>
     {{--Floating button--}}
     <div class="fixed-action-btn">
-        <button type="submit" class="btn-floating btn-large green tooltipped" data-position="left" data-tooltip="Add Book">
+        <button type="submit" class="btn-floating btn-large green tooltipped" data-position="left" data-tooltip="@lang('app.Add Book')">
             <i class="large material-icons">add</i>
         </button>
     </div>

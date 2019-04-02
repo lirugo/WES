@@ -11,24 +11,24 @@
                 <div class="input-field">
                     <i class="material-icons prefix">group</i>
                     {!! Form::text('display_name', $discipline->display_name, ['class' => 'validate', 'id' => 'display_name', 'required']) !!}
-                    <label for="display_name">Displaying Name</label>
+                    <label for="display_name">@lang('app.Displaying Name')</label>
                 </div>
                 <div class="input-field">
                     <i class="material-icons prefix">attachment</i>
                     {!! Form::text('name', $discipline->name, ['class' => 'validate', 'id' => 'name', 'required', 'disabled']) !!}
-                    <label for="name">Name</label>
+                    <label for="name">@lang('app.Name')</label>
                 </div>
                 <div class="input-field">
                     <i class="material-icons prefix">format_align_justify</i>
                     {!! Form::textarea('description', $discipline->description, ['class' => 'validate materialize-textarea', 'id' => 'description', 'required']) !!}
-                    <label for="description">Description</label>
+                    <label for="description">@lang('app.Description')</label>
                 </div>
             </div>
         </div>
     </div>
     {{--Floating button--}}
     <div class="fixed-action-btn">
-        <button type="submit" class="btn-floating btn-large green tooltipped" data-position="left" data-tooltip="Save">
+        <button type="submit" class="btn-floating btn-large green tooltipped" data-position="left" data-tooltip="@lang('app.Save')">
             <i class="large material-icons">save</i>
         </button>
     </div>

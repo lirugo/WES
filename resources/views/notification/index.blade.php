@@ -16,7 +16,7 @@
                                  {{array_values($notif->data)[1]}}
                             <br/>
                             @if(array_values($notif->data)[2])
-                                <a href="{{array_values($notif->data)[2]}}" class="">Open</a>
+                                <a href="{{array_values($notif->data)[2]}}" class="">@lang('app.Open')</a>
                             @endif
                             </p>
 

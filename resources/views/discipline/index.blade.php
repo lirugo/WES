@@ -12,7 +12,7 @@
                         <p>{{$discipline->description}}</p>
                     </div>
                     <div class="card-action right-align">
-                        <a href="{{url('/discipline/'.$discipline->name.'/edit')}}" class="indigo waves-effect waves-light btn-small right">Edit</a>
+                        <a href="{{url('/discipline/'.$discipline->name.'/edit')}}" class="indigo waves-effect waves-light btn-small right">@lang('app.Edit')</a>
                     </div>
                 </div>
             </div>
@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="col s12">
                     <div class="card-panel orange white-text">
-                        <h5 class="center-align m-t-0 m-b-0-">Sorry, but you do not have any discipline...</h5>
+                        <h5 class="center-align m-t-0 m-b-0-">@lang('app.Sorry, but you do not have any discipline...')</h5>
                     </div>
                 </div>
             </div>
