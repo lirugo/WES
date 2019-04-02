@@ -47,22 +47,27 @@
             <!--</small>-->
         </div>
         <div class="card-action p-t-0 p-b-0">
-            <form @submit.prevent="send">
                 <div class="input-field">
-                    <i class="material-icons prefix">textsms</i>
-                    <input type="text" id="autocomplete-input" class="autocomplete"
-                        :disabled="session.block ? true : false"
-                        v-model="message">
-                    <label for="autocomplete-input">
-                        <span class="m-l-5" v-if="isTyping">
-                            <i>{{ friend.name }} is typing...</i>
-                        </span>
-                        <span v-else>
-                            Start typing new message...
-                        </span>
-                    </label>
+                    <div class="file-field input-field">
+                        <a class="waves-effect waves-light btn btn-small indigo" @click="send">
+                            <i class="material-icons">send</i>
+                        </a>
+                        <div class="file-path-wrapper">
+                            <textarea type="text" id="autocomplete-input" class="materialize-textarea"
+                                      :disabled="session.block ? true : false"
+                                      v-model="message"
+                            ></textarea>
+<!--                            <label for="autocomplete-input">-->
+<!--                                <span class="m-l-5" v-if="isTyping">-->
+<!--                                    <i>{{ friend.name }} is typing...</i>-->
+<!--                                </span>-->
+<!--                                <span v-else>-->
+<!--                                    Start typing new message...-->
+<!--                                </span>-->
+<!--                            </label>-->
+                        </div>
+                    </div>
                 </div>
-            </form>
         </div>
     </div>
 </template>
@@ -74,7 +79,7 @@
             return {
                 chats: [],
                 sessionBlocked: false,
-                message: '',
+                message: null,
                 isTyping: false,
             }
         },
@@ -101,21 +106,20 @@
                 this.$emit('close')
             },
             send(){
-                {
+                if(this.message != null){
                     this.chats.push({
                         message:this.message,
                         type: 0,
                         read_at: null,
                         send_at: 'Just Now'
                     })
-
-                    axios.post('/api/chat/' + this.friend.session.id + '/message', {
-                            message: this.message,
-                            toUser: this.friend.id
-                        })
-                        .then(res => {
-                            this.chats[this.chats.length - 1].id = res.data
-                        })
+                        axios.post('/api/chat/' + this.friend.session.id + '/message', {
+                                message: this.message,
+                                toUser: this.friend.id
+                            })
+                            .then(res => {
+                                this.chats[this.chats.length - 1].id = res.data
+                            })
 
                     this.message = null
                 }
