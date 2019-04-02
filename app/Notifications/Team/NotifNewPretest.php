@@ -12,14 +12,16 @@ class NotifNewPretest extends Notification
     use Queueable;
 
     private $pretest;
+    private $user;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($pretest)
+    public function __construct($pretest, $user)
     {
         $this->pretest = $pretest;
+        $this->user = $user;
     }
 
     /**
@@ -30,7 +32,14 @@ class NotifNewPretest extends Notification
      */
     public function via($notifiable)
     {
-        return ['database', Auth()->user()->settingNotifications->email_new_test ? 'mail' : ''];
+        $types = [];
+        array_push($types, 'database');
+
+        if(!is_null($this->user->settingNotifications))
+            if($this->user->settingNotifications->email_new_test)
+                array_push($types, 'mail');
+
+        return $types;
     }
 
     /**

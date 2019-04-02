@@ -12,15 +12,17 @@ class NotifNewActivityMessage extends Notification
 
     private $activity;
     private $student;
+    private $user;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($activity, $student)
+    public function __construct($activity, $student, $user)
     {
         $this->activity = $activity;
         $this->student = $student;
+        $this->user = $user;
     }
 
     /**
@@ -31,7 +33,14 @@ class NotifNewActivityMessage extends Notification
      */
     public function via($notifiable)
     {
-        return ['database', Auth()->user()->settingNotifications->email_new_activity_message ? 'mail' : ''];
+        $types = [];
+        array_push($types, 'database');
+
+        if(!is_null($this->user->settingNotifications))
+            if($this->user->settingNotifications->email_new_activity_message)
+                array_push($types, 'mail');
+
+        return $types;
     }
 
     /**

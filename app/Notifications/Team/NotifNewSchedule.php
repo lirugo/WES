@@ -12,14 +12,16 @@ class NotifNewSchedule extends Notification
     use Queueable;
 
     private $schedule;
+    private $user;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($schedule)
+    public function __construct($schedule, $user)
     {
         $this->schedule = $schedule;
+        $this->user = $user;
     }
 
     /**
@@ -30,7 +32,14 @@ class NotifNewSchedule extends Notification
      */
     public function via($notifiable)
     {
-        return ['database', Auth()->user()->settingNotifications->email_update_schedule ? 'mail' : ''];
+        $types = [];
+        array_push($types, 'database');
+
+        if(!is_null($this->user->settingNotifications))
+            if($this->user->settingNotifications->email_update_schedule)
+                array_push($types, 'mail');
+
+        return $types;
     }
 
     /**

@@ -71,9 +71,9 @@ class ActivityController extends Controller
 
         //Send notification
         foreach ($team->getStudents() as $member){
-            $member->notify(new NotifNewActivity($activity));
+            $member->notify(new NotifNewActivity($activity, $member));
         }
-        $team->getOwner()->notify(new NotifNewActivity($activity));
+        $team->getOwner()->notify(new NotifNewActivity($activity, $team->getOwner()));
 
 
         Session::flash('success', 'Activity was be successfully created');
@@ -195,11 +195,11 @@ class ActivityController extends Controller
         //Send notification
         if(Auth::user()->hasRole('teacher')){
             $student = User::find($studentId);
-            $student->notify(new NotifNewActivityMessage($activity, $student));
+            $student->notify(new NotifNewActivityMessage($activity, $student, $student));
         }elseif(Auth::user()->hasRole('student')){
             $teacher = User::find($activity->teacher_id);
             $student = User::find($studentId);
-            $teacher->notify(new NotifNewActivityMessage($activity, $student));
+            $teacher->notify(new NotifNewActivityMessage($activity, $student, $teacher));
         }
 
         $message = TeamActivityReply::with(['teacher', 'files'])->find($message->id);

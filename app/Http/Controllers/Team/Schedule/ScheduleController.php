@@ -122,7 +122,7 @@ class ScheduleController extends Controller
 
         //Send notification
         foreach ($team->getStudents() as $member){
-            $member->notify(new NotifNewSchedule($schdeule));
+            $member->notify(new NotifNewSchedule($schdeule, $member));
         }
 
         // Flash msg

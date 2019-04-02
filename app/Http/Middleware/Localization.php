@@ -17,8 +17,12 @@ class Localization
      */
     public function handle($request, Closure $next)
     {
-        Session::put('locale', Auth()->user()->language);
-        App::setLocale(Auth()->user()->language);
+        if(Auth()->user()){
+            Session::put('locale', Auth()->user()->language);
+            App::setLocale(Auth()->user()->language);
+        }
+        else
+            App::setLocale('en');
 
         return $next($request);
     }

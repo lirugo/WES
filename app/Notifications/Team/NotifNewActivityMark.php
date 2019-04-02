@@ -31,7 +31,14 @@ class NotifNewActivityMark extends Notification
      */
     public function via($notifiable)
     {
-        return ['database', Auth()->user()->settingNotifications->email_new_mark ? 'mail' : ''];
+        $types = [];
+        array_push($types, 'database');
+
+        if(!is_null($this->student->settingNotifications))
+            if($this->student->settingNotifications->email_new_mark)
+                array_push($types, 'mail');
+
+        return $types;
     }
 
     /**

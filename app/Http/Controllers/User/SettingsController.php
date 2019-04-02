@@ -41,9 +41,9 @@ class SettingsController extends Controller
         $userSettNotif->save();
 
         //Language
-        $user = User::find(auth()->id());
-        $user->language = $request->language;
-        $user->save();
+//        $user = User::find(auth()->id());
+//        $user->language = $request->language;
+//        $user->save();
 
         Session::flash('success', 'User setting was be updated');
         return back();
