@@ -61,7 +61,7 @@ class TeamDiscipline extends Model
      * @param int $disciplineId
      * @return int
      */
-    public function leftHours(int $teamId, int $teacherId, int $disciplineId) : int {
+    public function leftHours($teamId, $teacherId, $disciplineId) {
         //Get max hours for teacher
         $maxHours = TeamDiscipline::where([
             'team_id' => $teamId,

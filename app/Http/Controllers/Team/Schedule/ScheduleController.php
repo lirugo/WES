@@ -97,6 +97,9 @@ class ScheduleController extends Controller
         ])->first();
 
         // Check teacher have free hours
+        if(is_null($teamDiscipline))
+            return back()->withErrors('Teacher dont have that discipline');
+
         if($teamDiscipline->leftHours($team->id, $teacher->id, $discipline->id) <= 0){
             return back()->withErrors('Teacher dont have free hours');
         }
