@@ -56,6 +56,8 @@
                             <textarea type="text" id="autocomplete-input" class="materialize-textarea"
                                       :disabled="session.block ? true : false"
                                       v-model="message"
+                                      autocomplete="off"
+                                      spellcheck="false"
                             ></textarea>
 <!--                            <label for="autocomplete-input">-->
 <!--                                <span class="m-l-5" v-if="isTyping">-->
