@@ -13,7 +13,15 @@
         </li>
         <li><a href="{{url('/manage')}}"><i class="material-icons">apps</i>@lang('app.Main')</a></li>
         <li><a href="{{url('/news')}}"><i class="material-icons">new_releases</i>@lang('app.News')</a></li>
-        <li><a href="{{url('/notification')}}"><i class="material-icons">notifications</i>@lang('app.Notifications')</a></li>
+        <li>
+            <a href="{{url('/notification')}}">
+                <i class="material-icons">notifications</i>
+                @lang('app.Notifications')
+                @if(count(Auth::user()->unreadNotifications) > 0)
+                    <span class="badge new red">{{count(Auth::user()->unreadNotifications)}}</span>
+                @endif
+            </a>
+        </li>
         <li><a href="{{url('/chat')}}"><i class="material-icons">chat</i>@lang('app.Chat')</a></li>
         <li><a href="{{url('/library')}}"><i class="material-icons">library_books</i>@lang('app.Library')</a></li>
         <li><a href="{{url('/changelog')}}"><i class="material-icons">turned_in</i>@lang('app.Change Log')</a></li>

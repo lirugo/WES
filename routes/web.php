@@ -36,6 +36,7 @@ Route::get('/phpinfo', function () {
 */
     Route::group(['middleware' => ['auth'], 'namespace' => 'Notification'], function () {
         Route::get('/notification', 'NotificationController@index');
+        Route::post('/notification/markall', 'NotificationController@markAll');
     });
 
 /*
