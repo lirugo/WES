@@ -67,7 +67,7 @@ class NotifNewActivity extends Notification
     {
         return [
             'title' => 'Created new activity',
-            'body' => 'In your team was be created new activity. '.$this->activity->name,
+            'body' => 'In your team was created new activity. '.$this->activity->name,
             'url' => url('/team/'.$this->activity->team->name.'/activity/'.$this->activity->discipline->name),
         ];
     }
