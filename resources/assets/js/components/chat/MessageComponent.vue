@@ -59,15 +59,15 @@
                                       autocomplete="off"
                                       spellcheck="false"
                             ></textarea>
-<!--                            <label for="autocomplete-input">-->
-<!--                                <span class="m-l-5" v-if="isTyping">-->
-<!--                                    <i>{{ friend.name }} is typing...</i>-->
-<!--                                </span>-->
-<!--                                <span v-else>-->
-<!--                                    Start typing new message...-->
-<!--                                </span>-->
-<!--                            </label>-->
                         </div>
+                        <small>
+                            <span class="m-l-5" v-if="isTyping">
+                                <i>{{ friend.name }} is typing...</i>
+                            </span>
+                            <span v-else>
+                                Start typing new message...
+                            </span>
+                        </small>
                     </div>
                 </div>
         </div>
