@@ -10,6 +10,6 @@ class PretestUserAnswer extends Model
     public $timestamps = false;
 
     public function isAnswer(){
-        return (boolean) $this->hasOne(PretestAnswer::class, 'id', 'pretest_answer_id')->first()->is_answer;
+        return (boolean) $this->hasOne(PretestAnswer::class, 'id', 'pretest_answer_id')->first() ? $this->hasOne(PretestAnswer::class, 'id', 'pretest_answer_id')->first()->is_answer : false;
     }
 }
