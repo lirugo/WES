@@ -5,6 +5,9 @@ window.Vue = require('vue');
 window.Slug = require('slug');
 Slug.defaults.mode = "rfc3986";
 
+// import Vuex from 'vuex'
+// Vue.use(Vuex)
+
 import VueClipboard from 'vue-clipboard2'
 Vue.use(VueClipboard)
 
@@ -29,6 +32,12 @@ Vue.component('widget-avatar-cropper', require('vue-image-crop-upload'));
 // Chat
 Vue.component('chat-component', require('./components/chat/ChatComponent'));
 Vue.component('message-component', require('./components/chat/MessageComponent'));
+//Conversations
+Vue.component('conversations-dashboard', require('./components/conversations/ConversationsDashboard'));
+Vue.component('conversations', require('./components/conversations/Conversations'));
+Vue.component('conversation-reply-form', require('./components/conversations/ConversationReplyForm'));
+Vue.component('conversation-form', require('./components/conversations/ConversationForm'));
+Vue.component('conversation', require('./components/conversations/Conversation'));
 
 /*
 |--------------------------------------------------------------------------
@@ -39,3 +48,10 @@ Vue.component('message-component', require('./components/chat/MessageComponent')
 require ('./custom/preloader.js');
 // Materialize Options
 require ('./custom/materializeOptions.js');
+
+// import store from './store/index'
+
+// const app = new Vue({
+//     el: '#app',
+//     store
+// })

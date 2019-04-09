@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Conversation\Conversation;
 use App\Models\Team\PretestUserAnswer;
 use Auth;
 use Carbon\Carbon;
@@ -627,5 +628,13 @@ class User extends Authenticatable
 
     public function settingNotifications(){
         return $this->hasOne(UserSettingNotification::class);
+    }
+
+    public function conversations(){
+        return $this->belongsToMany(Conversation::class)->whereNull('parent_id')->orderByDesc('last_reply');
+    }
+
+    public function isInConversation(Conversation $conversation){
+        return $this->conversations->contains($conversation);
     }
 }

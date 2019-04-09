@@ -17,6 +17,14 @@
     <script>
         window.auth = {!! auth()->user() !!};
         window.authName = "{{ auth()->user()->getShortName() }}";
+
+        window.Laravel = <?php
+            echo json_encode([
+            'user' => [
+                'id' => auth() ? auth()->id() : null,
+                ]
+            ])
+        ?>;
     </script>
 
     <!-- Styles -->

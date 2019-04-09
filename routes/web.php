@@ -62,6 +62,24 @@ Route::get('/phpinfo', function () {
 
 /*
 |--------------------------------------------------------------------------
+| Chat Route (Conversations chat#2)
+|--------------------------------------------------------------------------
+*/
+
+Route::group(['middleware' => ['auth'], 'namespace' => 'Chat'], function () {
+    Route::get('/conversations', 'ChatController@conversations');
+    Route::get('/conversations/{conversation}', 'ChatController@show');
+});
+
+Route::group(['middleware' => ['auth'], 'namespace' => 'API', 'prefix' => 'api'], function () {
+    Route::get('/conversations', 'ConversationController@index');
+    Route::post('/conversations', 'ConversationController@store');
+    Route::get('/conversations/{conversation}', 'ConversationController@show');
+    Route::post('/conversations/{conversation}/reply', 'ConversationReplyController@store');
+});
+
+/*
+|--------------------------------------------------------------------------
 | Manage panel route
 |--------------------------------------------------------------------------
 */
