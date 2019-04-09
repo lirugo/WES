@@ -22,7 +22,7 @@
                 @endif
             </a>
         </li>
-        <li><a href="{{url('/chat')}}"><i class="material-icons">chat</i>@lang('app.Chat')</a></li>
+        <li><a href="{{url('/conversations')}}"><i class="material-icons">chat</i>@lang('app.Chat')</a></li>
         <li><a href="{{url('/library')}}"><i class="material-icons">library_books</i>@lang('app.Library')</a></li>
         <li><a href="{{url('/changelog')}}"><i class="material-icons">turned_in</i>@lang('app.Change Log')</a></li>
 
