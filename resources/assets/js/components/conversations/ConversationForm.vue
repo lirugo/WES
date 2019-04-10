@@ -64,15 +64,16 @@
                 this.selectedUsers.forEach(u => {
                     this.recipients.push(u.id)
                 })
+
                 axios.post('/api/conversations', {
-                    body: this.body,
-                    recipients: this.recipients
-                })
+                        body: this.body,
+                        recipients: this.recipients
+                    })
                     .then(res => {
                         this.selectedUsers = []
                         this.recipients = []
                         this.body = null
-                        console.log(res)
+                        console.log('SEND POST')
                         this.$emit('createConversation', {
                             id: res.data.data.id,
                         })

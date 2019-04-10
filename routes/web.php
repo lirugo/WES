@@ -72,8 +72,8 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Chat'], function () {
 });
 
 Route::group(['middleware' => ['auth'], 'namespace' => 'API', 'prefix' => 'api'], function () {
-    Route::get('/conversations', 'ConversationController@index');
     Route::post('/conversations', 'ConversationController@store');
+    Route::get('/conversations', 'ConversationController@index');
     Route::get('/conversations/{conversation}', 'ConversationController@show');
     Route::post('/conversations/{conversation}/reply', 'ConversationReplyController@store');
 });
