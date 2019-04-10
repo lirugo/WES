@@ -51,7 +51,7 @@ class NotifNewSchedule extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('Your schedule was be updated')
+                    ->line('Your schedule was updated')
                     ->action('Open page', url('/team/'.$this->schedule->team->name.'/schedule'))
                     ->line('Thank you for using our application!');
     }
