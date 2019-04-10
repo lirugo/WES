@@ -64,7 +64,7 @@
                 this.selectedUsers.forEach(u => {
                     this.recipients.push(u.id)
                 })
-                axios.post('/api/conversations/', {
+                axios.post('/api/conversations', {
                     body: this.body,
                     recipients: this.recipients
                 })
