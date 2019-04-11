@@ -6,6 +6,7 @@
 
 @section('content')
     <form action="{{url('/user/settings')}}" method="POST">
+        {{ csrf_field() }}
         <div class="row m-t-20">
             <div class="col s12 md6">
                 <ul class="collapsible popout">
@@ -19,7 +20,7 @@
                                         New mark
                                         <label class="left m-r-10">
                                             SMS
-                                            <input type="checkbox" name="sms_new_mark" disabled>
+                                            <input type="checkbox" name="sms_new_mark" {{isset(Auth()->user()->settingNotifications) && Auth()->user()->settingNotifications->sms_new_mark ? 'checked' : ''}}>
                                             <span class="lever"></span>
                                         </label>
                                         <label class="left m-r-10">
@@ -34,7 +35,7 @@
                                         New activity message
                                         <label class="left m-r-10">
                                             SMS
-                                            <input type="checkbox" name="sms_new_chat_message" disabled>
+                                            <input type="checkbox" name="sms_new_activity_message" {{isset(Auth()->user()->settingNotifications) && Auth()->user()->settingNotifications->sms_new_activity_message ? 'checked' : ''}}>
                                             <span class="lever"></span>
                                         </label>
                                         <label class="left m-r-10">
@@ -49,7 +50,7 @@
                                         New test
                                         <label class="left m-r-10">
                                             SMS
-                                            <input type="checkbox" name="sms_new_test" disabled>
+                                            <input type="checkbox" name="sms_new_test" {{isset(Auth()->user()->settingNotifications) && Auth()->user()->settingNotifications->sms_new_test ? 'checked' : ''}}>
                                             <span class="lever"></span>
                                         </label>
                                         <label class="left m-r-10">
@@ -64,7 +65,7 @@
                                         New activity
                                         <label class="left m-r-10">
                                             SMS
-                                            <input type="checkbox" name="sms_new_activity" disabled>
+                                            <input type="checkbox" name="sms_new_activity" {{isset(Auth()->user()->settingNotifications) && Auth()->user()->settingNotifications->sms_new_activity ? 'checked' : ''}}>
                                             <span class="lever"></span>
                                         </label>
                                         <label class="left m-r-10">
@@ -79,7 +80,7 @@
                                         Update schedule
                                         <label class="left m-r-10">
                                             SMS
-                                            <input type="checkbox" name="sms_update_schedule" disabled>
+                                            <input type="checkbox" name="sms_update_schedule" {{isset(Auth()->user()->settingNotifications) && Auth()->user()->settingNotifications->sms_update_schedule ? 'checked' : ''}}>
                                             <span class="lever"></span>
                                         </label>
                                         <label class="left m-r-10">
@@ -94,7 +95,7 @@
                                         Update activity
                                         <label class="left m-r-10">
                                             SMS
-                                            <input type="checkbox" name="sms_update_activity" disabled>
+                                            <input type="checkbox" name="sms_update_activity" {{isset(Auth()->user()->settingNotifications) && Auth()->user()->settingNotifications->sms_update_activity ? 'checked' : ''}}>
                                             <span class="lever"></span>
                                         </label>
                                         <label class="left m-r-10">

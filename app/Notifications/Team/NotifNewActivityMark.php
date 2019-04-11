@@ -2,6 +2,7 @@
 
 namespace App\Notifications\Team;
 
+use App\Services\SmsService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -37,6 +38,11 @@ class NotifNewActivityMark extends Notification
         if(!is_null($this->student->settingNotifications))
             if($this->student->settingNotifications->email_new_mark)
                 array_push($types, 'mail');
+
+        //Send sms notification
+        if(!is_null($this->student->settingNotifications))
+            if($this->student->settingNotifications->sms_new_mark)
+                SmsService::sendSmsNotification($this->student->getPhone(), 'SE-IIB, You have new mark');
 
         return $types;
     }

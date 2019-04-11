@@ -22,7 +22,6 @@ class SettingsController extends Controller
             $userSettNotif = new UserSettingNotification();
             $userSettNotif->user_id = auth()->id();
         }
-
         //SMS
         $userSettNotif->sms_new_mark = $request->sms_new_mark == 'on' ? true : false;
         $userSettNotif->sms_new_activity_message = $request->sms_new_activity_message == 'on' ? true : false;

@@ -2,6 +2,7 @@
 
 namespace App\Notifications\User;
 
+use App\Services\SmsService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -30,6 +31,10 @@ class NotifUpdatePass extends Notification
      */
     public function via($notifiable)
     {
+
+        //Send sms notification
+        SmsService::sendSmsNotification($this->user->getPhone(), 'SE-IIB, Your password was updated');
+
         return ['database'];
     }
 

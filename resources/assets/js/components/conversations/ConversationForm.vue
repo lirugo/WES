@@ -73,7 +73,7 @@
                         this.selectedUsers = []
                         this.recipients = []
                         this.body = null
-                        console.log('SEND POST')
+                        // console.log('SEND POST')
                         this.$emit('createConversation', {
                             id: res.data.data.id,
                         })

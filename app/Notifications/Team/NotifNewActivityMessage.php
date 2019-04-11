@@ -2,6 +2,7 @@
 
 namespace App\Notifications\Team;
 
+use App\Services\SmsService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
@@ -39,6 +40,12 @@ class NotifNewActivityMessage extends Notification
         if(!is_null($this->user->settingNotifications))
             if($this->user->settingNotifications->email_new_activity_message)
                 array_push($types, 'mail');
+
+
+        //Send sms notification
+        if(!is_null($this->user->settingNotifications))
+            if($this->user->settingNotifications->sms_new_activity_message)
+                SmsService::sendSmsNotification($this->user->getPhone(), 'SE-IIB, You have new message in activity');
 
         return $types;
     }

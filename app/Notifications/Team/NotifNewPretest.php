@@ -2,6 +2,7 @@
 
 namespace App\Notifications\Team;
 
+use App\Services\SmsService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -38,6 +39,12 @@ class NotifNewPretest extends Notification
         if(!is_null($this->user->settingNotifications))
             if($this->user->settingNotifications->email_new_test)
                 array_push($types, 'mail');
+
+
+        //Send sms notification
+        if(!is_null($this->user->settingNotifications))
+            if($this->user->settingNotifications->sms_new_test)
+                SmsService::sendSmsNotification($this->user->getPhone(), 'SE-IIB, New test was created');
 
         return $types;
     }
