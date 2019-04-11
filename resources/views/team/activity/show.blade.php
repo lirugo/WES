@@ -13,6 +13,11 @@
                         @if($activity->mark_in_journal)
                             <span data-badge-caption="" class="new badge orange left">Max {{$activity->max_mark}} balls</span>
                         @endif
+                        @role('student')
+                            @if($activity->getMark(auth()->id()))
+                                <span data-badge-caption="" class="new badge red right">Your mark {{$activity->getMark(auth()->id())->mark}}</span>
+                            @endif
+                        @endrole
                     </div>
                     <div class="card-content">
                         <p class="card-title m-b-0">{{$activity->name}}</p>

@@ -42,6 +42,7 @@ class TeamActivity extends Model
     public function team(){
         return $this->belongsTo(Team::class);
     }
+
     public function discipline(){
         return $this->belongsTo(Discipline::class);
     }
