@@ -5,6 +5,7 @@
 @section('content')
     <div class="row">
         <form action="{{url('/notification/markall')}}" method="POST">
+            @csrf
             <button type="submit" class="waves-effect waves-light btn btn-small indigo m-t-10 m-l-10">mark all as read</button>
         </form>
         <div class="col s12 m6">
