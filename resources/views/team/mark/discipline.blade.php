@@ -33,6 +33,9 @@
                         </thead>
                         <tbody>
                         @foreach($team->getStudents() as $student)
+                            <?php
+                                $total = 0;
+                            ?>
                             <tr>
                                 <td>
                                     <small>{{$student->getShortName()}} - {{$student->id}}</small>
@@ -41,6 +44,11 @@
                                     <td class="center-align">
                                         <a target="_blank" href="{{url('/team/'.$team->name.'/activity/'.$discipline->name.'/pass/'.$act->id.'/'.$student->id)}}">
                                             {{$act->getMark($student->id) ? $act->getMark($student->id)->mark : '-'}}
+                                            @if($act->getMark($student->id))
+                                                <?php
+                                                $total += $act->getMark($student->id)->mark;
+                                                ?>
+                                            @endif
                                         </a>
                                     </td>
                                 @endforeach
@@ -48,10 +56,15 @@
                                     <td class="center-align">
                                         <a target="_blank" href="{{url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name)}}">
                                             {{$test->getMark($student->id) ? $test->getMark($student->id)->mark : '-'}}
+                                            @if($test->getMark($student->id))
+                                            <?php
+                                                $total += $test->getMark($student->id)->mark;
+                                            ?>
+                                            @endif
                                         </a>
                                     </td>
                                 @endforeach
-                                <td class="center-align">total</td>
+                                <td class="center-align">{{$total}}</td>
                             </tr>
                         @endforeach
                         </tbody>
