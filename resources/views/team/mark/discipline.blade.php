@@ -38,7 +38,7 @@
                             ?>
                             <tr>
                                 <td>
-                                    <small>{{$student->getShortName()}} - {{$student->id}}</small>
+                                    <small>{{$student->getShortName()}}</small>
                                 </td>
                                 @foreach($activities as $act)
                                     <td class="center-align">
