@@ -12,10 +12,17 @@
                         <thead>
                         <tr>
                             <td class="center-align">Students | Start date of activities and pretests</td>
-                            @foreach($commonActDates as $d)
+                            @foreach($activities as $act)
                                 <td class="center-align">
-                                    <a href="#" class="tooltipped" data-position="top" data-tooltip="{{$d['activityName']}}">
-                                        <small>{{$d['actDate']}}</small>
+                                    <a href="#" class="tooltipped" data-position="top" data-tooltip="{{$act->name}}">
+                                        <small>{{\Carbon\Carbon::parse($act->start_date)->format('d-m-Y')}}</small>
+                                    </a>
+                                </td>
+                            @endforeach
+                            @foreach($pretests as $test)
+                                <td class="center-align">
+                                    <a href="#" class="tooltipped" data-position="top" data-tooltip="{{$test->name}}">
+                                        <small>{{\Carbon\Carbon::parse($test->start_date)->format('d-m-Y')}}</small>
                                     </a>
                                 </td>
                             @endforeach
@@ -25,34 +32,28 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @for($i=0; $i<count($commonStudents);)
+                        @foreach($team->getStudents() as $student)
                             <tr>
                                 <td>
-                                    <small>{{$common[$i]['student']}}</small>
+                                    <small>{{$student->getShortName()}} - {{$student->id}}</small>
                                 </td>
-                                <?php $total = 0;?>
-                                @for($j=0; $j<count($commonActDates); $j++)
+                                @foreach($activities as $act)
                                     <td class="center-align">
-                                        @if($common[$i]['type'] == 'activity')
-                                            <a target="_blank" href="{{url('/team/'.$team->name.'/activity/'.$discipline->name.'/pass/'.$common[$i]['activityId'].'/'.$common[$i]['studentId'])}}">
-                                                {{$common[$i]['mark']}}
-                                            </a>
-                                        @elseif($common[$i]['type'] == 'pretest')
-                                            <a target="_blank" href="{{url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name)}}">
-                                                {{$common[$i]['mark']}}
-                                            </a>
-                                        @endif
+                                        <a target="_blank" href="{{url('/team/'.$team->name.'/activity/'.$discipline->name.'/pass/'.$act->id.'/'.$student->id)}}">
+                                            {{$act->getMark($student->id) ? $act->getMark($student->id)->mark : '-'}}
+                                        </a>
                                     </td>
-                                    <?php
-                                        $total += $common[$i]['mark'];
-                                        $i++;
-                                    ?>
-                                    @if(($j + 1) >= count($commonActDates))
-                                        <td class="center-align">{{$total}}</td>
-                                    @endif
-                                @endfor
+                                @endforeach
+                                @foreach($pretests as $test)
+                                    <td class="center-align">
+                                        <a target="_blank" href="{{url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name)}}">
+                                            {{$test->getMark($student->id) ? $test->getMark($student->id)->mark : '-'}}
+                                        </a>
+                                    </td>
+                                @endforeach
+                                <td class="center-align">total</td>
                             </tr>
-                        @endfor
+                        @endforeach
                         </tbody>
                     </table>
                 </div>

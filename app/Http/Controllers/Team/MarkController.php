@@ -184,7 +184,9 @@ class MarkController extends Controller
             'commonStudents' => $this->unique_array($common, 'studentId'),
             'commonActDates' => $this->unique_array($common, 'activityName'),
             'team' => $team,
-            'discipline' => $discipline
+            'discipline' => $discipline,
+            'activities' => $activities,
+            'pretests' => $pretests,
         ]);
     }
 

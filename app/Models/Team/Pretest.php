@@ -71,6 +71,6 @@ class Pretest extends Model
         return $this->hasOne(TeamActivityMark::class, 'activity_id', 'id')->where([
             ['student_id', $studentId],
             ['type', 'pretest'],
-        ])->first();
+        ])->orderByDesc('id')->first();
     }
 }

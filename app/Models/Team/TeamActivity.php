@@ -36,7 +36,7 @@ class TeamActivity extends Model
         return $this->hasOne(TeamActivityMark::class, 'activity_id', 'id')->where([
             ['student_id', $studentId],
             ['type', 'activity'],
-        ])->first();
+        ])->orderByDesc('id')->first();
     }
 
     public function team(){
