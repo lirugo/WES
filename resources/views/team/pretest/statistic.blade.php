@@ -14,35 +14,42 @@
                 <table class="striped responsive-table">
                     <thead>
                     <tr>
-                        <th>#</th>
                         <th>Name</th>
                         <th v-for="index in countQuestions">
-                           Quest @{{ index }}
+                            Quest @{{ index }}
                         </th>
                         <th>Total</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="(student, index) in statistic" v-if="student.passed">
-                        <td>@{{ index + 1 }}</td>
-                        <td>@{{ student.shortName }}</td>
-                        <td v-for="question in student.questions">
-                            <i class="material-icons" v-if="question.hasAnswer">done</i>
-                            <i class="material-icons" v-else>close</i>
-                        </td>
-                        <th>@{{ student.countAnswers }}</th>
-                    </tr>
+                    @foreach($students as $student)
+                        <tr>
+                            <td>{{ $student->shortName }}</td>
+                            @foreach($student->questions as $question)
+                                <td>
+                                    @if($question->hasAnswer)
+                                        <i class="material-icons">done</i>
+                                    @elseif(!$student->passed)
+                                        <i class="material-icons">remove</i>
+                                    @else
+                                        <i class="material-icons">close</i>
+                                    @endif
+                                </td>
+                            @endforeach
+                            <th>{{ $student->countAnswers }}</th>
+                        </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
         @if(Auth::user()->hasRole('manager'))
-        <div class="fixed-action-btn">
-            <a href="{{url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name.'/'.$pretest->id.'/access')}}" class="btn-floating btn-large orange tooltipped" data-position="left"
-               data-tooltip="Access">
-                <i class="large material-icons">lock</i>
-            </a>
-        </div>
+            <div class="fixed-action-btn">
+                <a href="{{url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name.'/'.$pretest->id.'/access')}}" class="btn-floating btn-large orange tooltipped" data-position="left"
+                   data-tooltip="Access">
+                    <i class="large material-icons">lock</i>
+                </a>
+            </div>
         @endif
     </div>
 @endsection
@@ -54,13 +61,16 @@
         new Vue({
             el: '#statistic',
             data: {
-                statistic: [],
+                statistic: {!! $students !!},
                 countQuestions: [],
+            },
+            computed: {
             },
             mounted() {
                 axios.post('/team/{!! $team->name !!}/pretest/discipline/{!! $discipline->name !!}/{!! $pretest->id !!}/getStatistic')
                     .then(response => {
                         this.statistic = response.data
+                        console.log(response.data)
                         this.countQuestions = response.data[0].questions.length
                     })
                     .catch(e => {

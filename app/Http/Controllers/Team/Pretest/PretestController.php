@@ -259,11 +259,43 @@ class PretestController extends Controller
         $chart->labels($labels);
         $chart->dataset('Answers', 'bar', $data);
 
+
+        //Statistics
+        $pretest = Pretest::find($pretestId);
+
+        $students = $team->getStudents();
+
+        foreach ($students as $student){
+            $countAnswers = 0;
+            $passed = false;
+            $questions = $pretest->questions;
+            $quests = new Collection();
+            foreach ($questions as $question){
+                if(count($student->pretestAnswers) != 0)
+                    $passed = true;
+                $hasAnswer = false;
+                foreach ($question->rightAnswers() as $answer){
+                    foreach ($student->pretestAnswers as $studentAnswer) {
+                        if ($studentAnswer->pretest_answer_id == $answer->id){
+                            $hasAnswer = true;
+                        }
+                    }
+                }
+                if($hasAnswer)
+                    $countAnswers++;
+                $quests->push((object) ['questionId' => $question->id, 'hasAnswer' => $hasAnswer]);
+            }
+            $student->passed = $passed;
+            $student->shortName = $student->getShortName();
+            $student->countAnswers = $countAnswers;
+            $student->questions = $quests;
+        }
         return view('team.pretest.statistic')
             ->withTeam($team)
             ->withDiscipline($discipline)
             ->withPretest($pretest)
-            ->withChart($chart);
+            ->withChart($chart)
+            ->withStudents($students);
     }
 
     public function getStatistic($team, $discipline, $pretestId){
