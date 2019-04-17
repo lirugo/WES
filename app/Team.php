@@ -83,7 +83,10 @@ class Team extends LaratrustTeam
      * @return mixed
      */
     public function getStudents(){
-        $users = User::with('rolesTeams', 'name')->whereRoleIs('student')->get();
+        $users = User::with(['rolesTeams', 'name'])->whereRoleIs('student')->get();
+
+        //By ABC sort
+        $users = $users->sortBy('name.second_name');
 
         foreach ($users as $key => $user){
             $count = 0;

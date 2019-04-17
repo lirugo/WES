@@ -72,8 +72,6 @@ class MarkController extends Controller
             }
         }
 
-
-//        dd($common);
         // Return view
         return view('team.mark.common')->with([
             'common' => $common,
