@@ -29,8 +29,6 @@
                                 <td>
                                     @if($question->hasAnswer)
                                         <i class="material-icons">done</i>
-                                    @elseif(!$student->passed)
-                                        <i class="material-icons">remove</i>
                                     @else
                                         <i class="material-icons">close</i>
                                     @endif

@@ -271,7 +271,7 @@ class PretestController extends Controller
             $questions = $pretest->questions;
             $quests = new Collection();
             foreach ($questions as $question){
-                if(count($student->pretestAnswers) != 0)
+                if(count($student->pretestAnswers) > 0)
                     $passed = true;
                 $hasAnswer = false;
                 foreach ($question->rightAnswers() as $answer){
