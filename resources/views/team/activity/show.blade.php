@@ -14,9 +14,9 @@
                             <span data-badge-caption="" class="new badge orange left">Max {{$activity->max_mark}} balls</span>
                         @endif
                         @role('student')
-                            @if($activity->getMark(auth()->id()))
-                                <span data-badge-caption="" class="new badge red right">Your mark {{$activity->getMark(auth()->id())->mark}}</span>
-                            @endif
+                        @if($activity->getMark(auth()->id()))
+                            <span data-badge-caption="" class="new badge red right">Your mark {{$activity->getMark(auth()->id())->mark}}</span>
+                        @endif
                         @endrole
                     </div>
                     <div class="card-content">
@@ -44,9 +44,7 @@
                             <a href="{{ url('team/'.$team->name.'/activity/'.$discipline->name.'/pass/'.$activity->id.'/students') }}" class="btn btn-small indigo right waves-effect waves-light">Students</a>
                         @endrole
                         @role('student')
-                            @if($activity->isOpen())
-                                <a href="{{ url('team/'.$team->name.'/activity/'.$discipline->name.'/pass/'.$activity->id.'/'.Auth::user()->id) }}" class="btn btn-small indigo right waves-effect waves-light">Open</a>
-                            @endif
+                            <a href="{{ url('team/'.$team->name.'/activity/'.$discipline->name.'/pass/'.$activity->id.'/'.Auth::user()->id) }}" class="btn btn-small indigo right waves-effect waves-light">Open</a>
                         @endrole
                     </div>
                 </div>
