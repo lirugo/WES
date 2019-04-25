@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Notification;
 
 use App\Http\Controllers\Controller;
 use Auth;
+use Illuminate\Notifications\Notification;
 use Session;
 
 class NotificationController extends Controller
@@ -18,5 +19,9 @@ class NotificationController extends Controller
         }
         Session::flash('success', 'Notification was be updated');
         return back();
+    }
+
+    public function markasread($id){
+        auth()->user()->unreadNotifications->where('id', $id)->markAsRead();
     }
 }

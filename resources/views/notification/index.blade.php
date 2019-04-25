@@ -3,7 +3,7 @@
     {{ Breadcrumbs::render('notifications') }}
 @endsection
 @section('content')
-    <div class="row">
+    <div class="row" id="notification">
         <form action="{{url('/notification/markall')}}" method="POST">
             @csrf
             <button type="submit" class="waves-effect waves-light btn btn-small indigo m-t-10 m-l-10">mark all as read</button>
@@ -24,7 +24,7 @@
                                 {{array_values($notif->data)[1]}}
                                 <br/>
                                 @if(array_values($notif->data)[2])
-                                    <a href="{{array_values($notif->data)[2]}}" class="">@lang('app.Open')</a>
+                                    <a href="{{array_values($notif->data)[2]}}" @click.prevent="markAsRead({{json_encode($notif->id)}}, {{json_encode(array_values($notif->data)[2])}})">@lang('app.Open')</a>
                                 @endif
                             </p>
                         </li>
@@ -55,4 +55,23 @@
             </ul>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        new Vue({
+            el: '#notification',
+            methods: {
+                markAsRead(id, url){
+                    axios.post('/notification/markasread/'+id, {id:id})
+                        .then(res => {
+                            console.log(res)
+                        })
+                        .finally(() => {
+                            window.location.replace(url)
+                        })
+                }
+            }
+        })
+    </script>
 @endsection
