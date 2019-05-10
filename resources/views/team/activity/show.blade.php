@@ -36,15 +36,46 @@
                                 @endforeach
                             @endif
                         </div>
-                        <small><blockquote class="m-b-0 m-t-15">Start date - {{$activity->start_date}}</blockquote></small>
-                        <small><blockquote class="m-b-0 m-t-5">End date - {{$activity->end_date}}</blockquote></small>
+                        @if(Auth()->user()->hasRole('teacher'))
+                            <form action="{{ url('team/'.$team->name.'/activity/'.$discipline->name.'/pass/'.$activity->id.'/update')}}" method="POST">
+                                @csrf
+                                <div class="row m-b-0">
+                                    {{--Start date&time picker--}}
+                                    <div class="input-field col s12 m6 l6 p-b-0 m-b-0">
+                                        <i class="material-icons prefix">date_range</i>
+                                        <input id="start_date" value="{{ \Carbon\Carbon::parse($activity->start_date)->format('Y-m-d') }}" name="start_date" type="text" class="datepickerDefault" required>
+                                        <label for="start_date">Start date</label>
+                                    </div>
+                                    <div class="input-field col s12 m6 l6 p-b-0 m-b-0">
+                                        <i class="material-icons prefix">access_time</i>
+                                        <input id="start_time" value="{{ \Carbon\Carbon::parse($activity->start_date)->format('H:i') }}" name="start_time" type="text" class="timepicker" required>
+                                        <label for="start_time">Start Time</label>
+                                    </div>
+                                    {{--End date&time picker--}}
+                                    <div class="input-field col s12 m6 l6 p-b-0 m-b-0">
+                                        <i class="material-icons prefix">date_range</i>
+                                        <input id="end_date" value="{{ \Carbon\Carbon::parse($activity->end_date)->format('Y-m-d') }}" name="end_date" type="text" class="datepickerDefault" required>
+                                        <label for="end_date">End date</label>
+                                    </div>
+                                    <div class="input-field col s12 m6 l6 p-b-0 m-b-0">
+                                        <i class="material-icons prefix">access_time</i>
+                                        <input id="end_time" value="{{ \Carbon\Carbon::parse($activity->end_date)->format('H:i') }}" name="end_time" type="text" class="timepicker" required>
+                                        <label for="end_time">End Time</label>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-small orange">Update</button>
+                            </form>
+                        @else
+                            <small><blockquote class="m-b-0 m-t-15">Start date - {{$activity->start_date}}</blockquote></small>
+                            <small><blockquote class="m-b-0 m-t-5">End date - {{$activity->end_date}}</blockquote></small>
+                        @endif
                     </div>
                     <div class="card-action p-l-0">
                         @role(['teacher', 'manager'])
-                            <a href="{{ url('team/'.$team->name.'/activity/'.$discipline->name.'/pass/'.$activity->id.'/students') }}" class="btn btn-small indigo right waves-effect waves-light">Students</a>
+                        <a href="{{ url('team/'.$team->name.'/activity/'.$discipline->name.'/pass/'.$activity->id.'/students') }}" class="btn btn-small indigo right waves-effect waves-light">Students</a>
                         @endrole
                         @role('student')
-                            <a href="{{ url('team/'.$team->name.'/activity/'.$discipline->name.'/pass/'.$activity->id.'/'.Auth::user()->id) }}" class="btn btn-small indigo right waves-effect waves-light">Open</a>
+                        <a href="{{ url('team/'.$team->name.'/activity/'.$discipline->name.'/pass/'.$activity->id.'/'.Auth::user()->id) }}" class="btn btn-small indigo right waves-effect waves-light">Open</a>
                         @endrole
                     </div>
                 </div>

@@ -14,6 +14,7 @@ use App\Notifications\Team\NotifNewActivityMessage;
 use App\Team;
 use App\User;
 use Auth;
+use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -152,6 +153,21 @@ class ActivityController extends Controller
             ->withTeam($team)
             ->withDiscipline($discipline)
             ->withActivity($activity);
+    }
+
+    public function update($team, $discipline, $activityId, Request $request){
+        $team = Team::where('name', $team)->first();
+        $discipline = Discipline::where('name', $discipline)->first();
+        $activity = TeamActivity::find($activityId);
+
+        $startDate = Carbon::parse($request->start_date.' '.$request->start_time);
+        $activity->start_date = $startDate;
+        $endDate = Carbon::parse($request->end_date.' '.$request->end_time);
+        $activity->end_date = $endDate;
+        $activity->save();
+
+        Session::flash('success', 'Activity was be updated');
+        return back();
     }
 
     public function setMark(Request $request, $team, $discipline, $activityId, $studentId){

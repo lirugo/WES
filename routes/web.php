@@ -264,6 +264,7 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'User', 'prefix' => 'user
         Route::get('/{name}/activity', 'Activity\ActivityController@index');
         Route::get('/{name}/activity/create', 'Activity\ActivityController@create');
         Route::get('/{name}/activity/{discipline}', 'Activity\ActivityController@show');
+        Route::post('/{name}/activity/{discipline}/pass/{id}/update', 'Activity\ActivityController@update');
         Route::get('/{name}/activity/{discipline}/pass/{id}/students', 'Activity\ActivityController@students');
         Route::get('/{name}/activity/{discipline}/pass/{id}/{studentId?}', 'Activity\ActivityController@pass');
         Route::post('/activity/getFile/{name}', 'Activity\ActivityController@getFile')->name('team.activity.getFile');

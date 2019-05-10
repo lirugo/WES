@@ -380,16 +380,16 @@ class PretestController extends Controller
 
     public function update(Request $request, $team, $discipline, $pretestId) {
         $pretest = Pretest::find($pretestId);
-        if($pretest->isEditable()) {
-            $pretest->time = $request->time;
-            $pretest->name = $request->name;
-            $pretest->description = $request->description;
+//        if($pretest->isEditable()) {
+//            $pretest->time = $request->time;
+//            $pretest->name = $request->name;
+//            $pretest->description = $request->description;
             $pretest->start_date = new DateTime($request->start_date . ' ' . $request->start_time);
             $pretest->end_date = new DateTime($request->end_date . ' ' . $request->end_time);
-            $pretest->mark_in_journal = $request->mark_in_journal == 'on' ? true : false;
+//            $pretest->mark_in_journal = $request->mark_in_journal == 'on' ? true : false;
             $pretest->save();
             Session::flash('success', 'Pretest has been successfully updated');
-        }else Session::flash('errors', 'Deny');
+//        }else Session::flash('errors', 'Deny');
 
         return back();
     }

@@ -64,9 +64,9 @@
                         <span>Mark in Journal</span>
                     </label>
                 </p>
-                @if($pretest->isEditable())
-                    <button type="submit" class="btn btn-small right orange">Update</button>
-                @endif
+{{--                @if($pretest->isEditable())--}}
+                    <button type="submit" class="btn btn-small right orange">Update Deadline</button>
+{{--                @endif--}}
             </div>
         </div>
     {!! Form::close() !!}
