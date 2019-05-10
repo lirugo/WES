@@ -85,7 +85,7 @@
                                 <div class="chip m-l-10" v-for="(member, index) in subteam.members">
                                     <img :src="'/uploads/avatars/' + member.avatar" alt="image">
                                     @{{ member.name.second_name + ' ' + member.name.name }}
-                                    <i class="material-icons chip-icon" @click="excludeMember(index)">close</i>
+{{--                                    <i class="material-icons chip-icon" @click="excludeMember(index)">close</i>--}}
                                 </div>
                             </div>
                             {{--Create--}}
