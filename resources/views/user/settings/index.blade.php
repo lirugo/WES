@@ -32,6 +32,21 @@
                                 </li>
                                 <li class="collection-item">
                                     <div class="switch">
+                                        New group work
+                                        <label class="left m-r-10">
+                                            SMS
+                                            <input type="checkbox" name="sms_new_group_work" {{isset(Auth()->user()->settingNotifications) && Auth()->user()->settingNotifications->sms_new_group_work ? 'checked' : ''}}>
+                                            <span class="lever"></span>
+                                        </label>
+                                        <label class="left m-r-10">
+                                            EMAIL
+                                            <input type="checkbox" name="email_new_group_work" {{isset(Auth()->user()->settingNotifications) && Auth()->user()->settingNotifications->email_new_group_work ? 'checked' : ''}}>
+                                            <span class="lever"></span>
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="collection-item">
+                                    <div class="switch">
                                         New activity message
                                         <label class="left m-r-10">
                                             SMS

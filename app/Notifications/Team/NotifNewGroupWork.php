@@ -2,6 +2,7 @@
 
 namespace App\Notifications\Team;
 
+use App\Services\SmsService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -12,14 +13,16 @@ class NotifNewGroupWork extends Notification
     use Queueable;
 
     private $groupWork;
+    private $user;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($groupWork)
+    public function __construct($groupWork, $user)
     {
         $this->groupWork = $groupWork;
+        $this->user = $user;
     }
 
     /**
@@ -30,7 +33,19 @@ class NotifNewGroupWork extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        $types = [];
+        array_push($types, 'database');
+
+        if(!is_null($this->user->settingNotifications))
+            if($this->user->settingNotifications->email_new_group_work)
+                array_push($types, 'mail');
+
+        //Send sms notification
+        if(!is_null($this->user->settingNotifications))
+            if($this->user->settingNotifications->sms_new_group_work)
+                SmsService::sendSmsNotification($this->user->getPhone(), 'SE-IIB, You have new group work');
+
+        return $types;
     }
 
     /**
@@ -42,9 +57,9 @@ class NotifNewGroupWork extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->line('Created new group work')
+            ->action('Open page', url('/team/'.$this->groupWork->team->name.'/group-work/'.$this->groupWork->discipline->name.'/'.$this->groupWork->id))
+            ->line('Thank you for using our application!');
     }
 
     /**

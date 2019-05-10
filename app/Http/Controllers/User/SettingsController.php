@@ -24,6 +24,7 @@ class SettingsController extends Controller
         }
         //SMS
         $userSettNotif->sms_new_mark = $request->sms_new_mark == 'on' ? true : false;
+        $userSettNotif->sms_new_group_work = $request->sms_new_group_work == 'on' ? true : false;
         $userSettNotif->sms_new_activity_message = $request->sms_new_activity_message == 'on' ? true : false;
         $userSettNotif->sms_new_activity = $request->sms_new_activity == 'on' ? true : false;
         $userSettNotif->sms_new_test = $request->sms_new_test == 'on' ? true : false;
@@ -31,6 +32,7 @@ class SettingsController extends Controller
         $userSettNotif->sms_update_activity = $request->sms_update_activity == 'on' ? true : false;
         //EMAIL
         $userSettNotif->email_new_mark = $request->email_new_mark == 'on' ? true : false;
+        $userSettNotif->email_new_group_work = $request->email_new_group_work == 'on' ? true : false;
         $userSettNotif->email_new_activity_message = $request->email_new_activity_message == 'on' ? true : false;
         $userSettNotif->email_new_activity = $request->email_new_activity == 'on' ? true : false;
         $userSettNotif->email_new_test = $request->email_new_test == 'on' ? true : false;

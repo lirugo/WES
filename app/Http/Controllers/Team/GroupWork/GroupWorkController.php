@@ -70,9 +70,9 @@ class GroupWorkController extends Controller
 
         //Send notification
         foreach ($team->getStudents() as $member){
-            $member->notify(new NotifNewGroupWork($groupWork));
+            $member->notify(new NotifNewGroupWork($groupWork, $member));
         }
-        $team->getOwner()->notify(new NotifNewGroupWork($groupWork));
+        $team->getOwner()->notify(new NotifNewGroupWork($groupWork, $team->getOwner()));
 
         $groupWork = GroupWork::with(['files'])->find($groupWork->id);
         return $groupWork;

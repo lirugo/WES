@@ -84,13 +84,13 @@
 
                     <br>
                     {{--Button for finish sub team--}}
-                    @role('teacher')
-                    @if(!$subTeam->isFinished())
-                        {!! Form::open(['route' => ['team.group-work.subteam.finish', $team->name, $discipline->name, $groupWork->id, $subTeam->id]]) !!}
-                        <button type="submit" class="waves-effect waves-light btn btn-small red left tooltipped" data-position="bottom" data-tooltip="Press for closing sub team">Finish</button>
-                        {!! Form::close() !!}
-                    @endif
-                    @endrole
+{{--                    @role('teacher')--}}
+{{--                    @if(!$subTeam->isFinished())--}}
+{{--                        {!! Form::open(['route' => ['team.group-work.subteam.finish', $team->name, $discipline->name, $groupWork->id, $subTeam->id]]) !!}--}}
+{{--                        <button type="submit" class="waves-effect waves-light btn btn-small red left tooltipped" data-position="bottom" data-tooltip="Press for closing sub team">Finish</button>--}}
+{{--                        {!! Form::close() !!}--}}
+{{--                    @endif--}}
+{{--                    @endrole--}}
                     {{--Show if sub team is closed--}}
                     @if($subTeam->isFinished())
                         <a href="#" class="waves-effect waves-light btn btn-small red left tooltipped" data-position="bottom" data-tooltip="That sub team was be closed"><i class="material-icons">lock</i></a>
