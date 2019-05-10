@@ -111,10 +111,36 @@ class GroupWorkController extends Controller
         $team = Team::where('name', $team)->first();
         $discipline = Discipline::where('name', $discipline)->first();
         $groupWork = GroupWork::with(['files'])->find($groupWorkId);
+
+        $students = [];
+        foreach ($team->getStudents() as $student){
+            array_push($students, $student);
+        }
+
+        $subteams = GroupWorkSubTeam::with('members')->where('group_work_id', $groupWorkId)->get();
+        foreach($subteams as $subteam){
+            foreach($subteam->members as $member){
+                foreach($students as $student){
+                    if($student->id == $member->user_id){
+                        if (($key = array_search($student, $students)) !== false) {
+                            unset($students[$key]);
+                        }
+                    }
+                }
+            }
+        }
+
+        $studentsNew = [];
+        foreach ($students as $student){
+            $student->getName = $student->getShortName();
+            array_push($studentsNew, $student);
+        }
+
         return view('team.group-work.subteams')
             ->withTeam($team)
             ->withDiscipline($discipline)
-            ->withGroupWork($groupWork);
+            ->withGroupWork($groupWork)
+            ->withStudents($studentsNew);
     }
 
     public function storeSubTeam(Request $request, $team, $discipline, $groupWorkId){
@@ -238,10 +264,10 @@ class GroupWorkController extends Controller
 
         //Check on duplicate
         if((count(GroupWorkSubTeamMembers::where([
-            'subteam_id' => $subTeamId,
-            'user_id' => $memberId,
-        ])->get())) != 0)
-           return 'duplicate';
+                'subteam_id' => $subTeamId,
+                'user_id' => $memberId,
+            ])->get())) != 0)
+            return 'duplicate';
 
         $member = GroupWorkSubTeamMembers::create([
             'subteam_id' => $subTeamId,

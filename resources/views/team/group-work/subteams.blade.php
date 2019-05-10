@@ -5,125 +5,140 @@
 @section('content')
     {{--Show type activity--}}
     <div id="sub-teams">
-        {{--GroupWorks--}}
-        <div class="row m-b-0">
-            <div class="col s12">
-                <div class="card-panel">
-                    <div class="row m-b-0">
-                        <span class="card-title">{{$groupWork->name}}</span>
-                        <p>{{$groupWork->description}}</p>
+        <v-app class="grey lighten-3">
+            <v-container fluid ma-0 pa-0>
+            {{--GroupWorks--}}
+            <div class="row m-b-0">
+                <div class="col s12">
+                    <div class="card-panel">
                         <div class="row m-b-0">
-                        @foreach($groupWork->files as $file)
-                            <form action="{{url('/team/group-work/getFile/'.$file->filwe)}}" method="POST">
-                                @csrf
-                                <button class="btn btn-small waves-effect waves-light indigo m-l-10" type="submit">
-                                    {{$file->name}}
-                                    <i class="material-icons right">file_download</i>
-                                </button>
-                            </form>
-                        @endforeach
+                            <span class="card-title">{{$groupWork->name}}</span>
+                            <p>{{$groupWork->description}}</p>
+                            <div class="row m-b-0">
+                                @foreach($groupWork->files as $file)
+                                    <form action="{{url('/team/group-work/getFile/'.$file->filwe)}}" method="POST">
+                                        @csrf
+                                        <button class="btn btn-small waves-effect waves-light indigo m-l-10" type="submit">
+                                            {{$file->name}}
+                                            <i class="material-icons right">file_download</i>
+                                        </button>
+                                    </form>
+                                @endforeach
+                            </div>
+                            {!! Form::open(['url' => '/team/'.$team->name.'/group-work/'.$discipline->name.'/'.$groupWork->id.'/updateGroupWork']) !!}
+                            <div class="input-field col s12 m6">
+                                <input name="start_date" type="text" value="{{ \Carbon\Carbon::parse($groupWork->start_date)->format('Y-m-d') }}" class="datepickerDefault">
+                            </div>
+                            <div class="input-field col s12 m6">
+                                <input name="end_date" type="text" value="{{ \Carbon\Carbon::parse($groupWork->end_date)->format('Y-m-d') }}" class="datepickerDefault">
+                            </div>
+                            @if(Auth::user()->hasRole(['teacher', 'manager']))
+                                @if(!$groupWork->isFinished())
+                                    <button type="submit" class="waves-effect waves-light btn btn-small orange right">update</button>
+                                @endif
+                            @endif
+                            {!! Form::close() !!}
+
+                            @role('teacher')
+                            @if(!$groupWork->isFinished())
+                                {!! Form::open(['route' => ['team.group-work.finish', $team->name, $discipline->name, $groupWork->id]]) !!}
+                                <button type="submit" class="waves-effect waves-light btn btn-small red left tooltipped" data-position="bottom" data-tooltip="Press for closing group work">Finish</button>
+                                {!! Form::close() !!}
+                            @endif
+                            @endrole
+
+                            @if($groupWork->isFinished())
+                                <a href="#" class="waves-effect waves-light btn btn-small red left tooltipped" data-position="bottom" data-tooltip="That group work was be closed"><i class="material-icons">lock</i></a>
+                            @endif
                         </div>
-                        {!! Form::open(['url' => '/team/'.$team->name.'/group-work/'.$discipline->name.'/'.$groupWork->id.'/updateGroupWork']) !!}
-                        <div class="input-field col s12 m6">
-                            <input name="start_date" type="text" value="{{ \Carbon\Carbon::parse($groupWork->start_date)->format('Y-m-d') }}" class="datepickerDefault">
+                    </div>
+                </div>
+            </div>
+            {{--Create team--}}
+            @role('teacher')
+            @if(!$groupWork->isFinished())
+                <div class="row m-b-0">
+                    <div class="col s12">
+                        <div class="card-panel">
+                            <div class="row m-b-0">
+                                {{--Name--}}
+                                <div class="input-field col s12 m8">
+                                    <input placeholder="Team Name" id="name" name="name" type="text" v-model="subteam.name" class="validate">
+                                </div>
+                                {{--Select members--}}
+                                <div class="input-field col s12 m4">
+                                    <v-select
+                                            v-model="newMember"
+                                            :items="members"
+                                            item-text="getName"
+                                            return-object
+                                            item-avatar=""
+                                            label="Students"
+                                    >
+                                    </v-select>
+                                    {{--                            <select v-model="newMember" id="mySelect">--}}
+                                    {{--                                <option value="" disabled selected>Add members</option>--}}
+                                    {{--                                <option :value="member" v-for="(member, index) in members" id="option-11" :data-icon="'/uploads/avatars/'+member.avatar">@{{ member.name.second_name + ' ' + member.name.name }}</option>--}}
+                                    {{--                            </select>--}}
+                                </div>
+                                {{--                        Show members--}}
+                                <div class="chip m-l-10" v-for="(member, index) in subteam.members">
+                                    <img :src="'/uploads/avatars/' + member.avatar" alt="image">
+                                    @{{ member.name.second_name + ' ' + member.name.name }}
+                                    <i class="material-icons chip-icon" @click="excludeMember(index)">close</i>
+                                </div>
+                            </div>
+                            {{--Create--}}
+                            <a class="waves-effect waves-light btn btn-small right green" @click="createSubTeam"><i class="material-icons right">add</i>Create</a>
                         </div>
-                        <div class="input-field col s12 m6">
-                            <input name="end_date" type="text" value="{{ \Carbon\Carbon::parse($groupWork->end_date)->format('Y-m-d') }}" class="datepickerDefault">
+                    </div>
+                </div>
+            @endif
+            @endrole
+            {{--Display teams--}}
+            <div class="row m-b-0">
+                <div class="col s12">
+                    <div class="card-panel" v-for="subteam in sortedSubTeams">
+                        <div class="row m-b-0">
+                            {{--Name--}}
+                            <div class="input-field col s12">
+                                <input placeholder="Team Name" id="name" name="name" type="text" :value="subteam.name" class="validate" disabled>
+                            </div>
+                            {{--Show members--}}
+                            <div class="chip m-l-10" v-for="(member, index) in subteam.members">
+                                <img :src="'/uploads/avatars/' + member.user.avatar" alt="image">
+                                @{{ member.user.name.second_name + ' ' + member.user.name.name }}
+                            </div>
                         </div>
-                    @if(Auth::user()->hasRole(['teacher', 'manager']))
-                        @if(!$groupWork->isFinished())
-                            <button type="submit" class="waves-effect waves-light btn btn-small orange right">update</button>
+                        {{--Open--}}
+                        @if(Auth::user()->hasRole('student'))
+                            <div v-for="member in subteam.members">
+                                <a v-if="member.user.id == {{Auth::user()->id}}" :href="'/team/' + team.name + '/group-work/' + discipline.name + '/' + groupWork.id + '/' + subteam.id" class="waves-effect waves-light btn btn-small right indigo">Open</a>
+                            </div>
+                        @else
+                            <a :href="'/team/' + team.name + '/group-work/' + discipline.name + '/' + groupWork.id + '/' + subteam.id" class="waves-effect waves-light btn btn-small right indigo">Open</a>
                         @endif
-                    @endif
-                    {!! Form::close() !!}
-
-                    @role('teacher')
-                        @if(!$groupWork->isFinished())
-                        {!! Form::open(['route' => ['team.group-work.finish', $team->name, $discipline->name, $groupWork->id]]) !!}
-                            <button type="submit" class="waves-effect waves-light btn btn-small red left tooltipped" data-position="bottom" data-tooltip="Press for closing group work">Finish</button>
-                        {!! Form::close() !!}
-                        @endif
-                    @endrole
-
-                    @if($groupWork->isFinished())
-                        <a href="#" class="waves-effect waves-light btn btn-small red left tooltipped" data-position="bottom" data-tooltip="That group work was be closed"><i class="material-icons">lock</i></a>
-                    @endif
                     </div>
                 </div>
             </div>
-        </div>
-        {{--Create team--}}
-        @role('teacher')
-        @if(!$groupWork->isFinished())
-        <div class="row m-b-0">
-            <div class="col s12">
-                <div class="card-panel">
-                    <div class="row m-b-0">
-                        {{--Name--}}
-                        <div class="input-field col s12 m8">
-                            <input placeholder="Team Name" id="name" name="name" type="text" v-model="subteam.name" class="validate">
-                        </div>
-                        {{--Select members--}}
-                        <div class="input-field col s12 m4">
-                            <select v-model="newMember">
-                                <option value="" disabled selected>Add members</option>
-                                <option :value="member" v-for="member in members" :data-icon="'/uploads/avatars/'+member.avatar">@{{ member.name.second_name + ' ' + member.name.name }}</option>
-                            </select>
-                        </div>
-                        {{--Show members--}}
-                        <div class="chip m-l-10" v-for="(member, index) in subteam.members">
-                            <img :src="'/uploads/avatars/' + member.avatar" alt="image">
-                            @{{ member.name.second_name + ' ' + member.name.name }}
-                            <i class="material-icons chip-icon" @click="excludeMember(index)">close</i>
-                        </div>
-                    </div>
-                    {{--Create--}}
-                    <a class="waves-effect waves-light btn btn-small right green" @click="createSubTeam"><i class="material-icons right">add</i>Create</a>
-                </div>
-            </div>
-        </div>
-        @endif
-        @endrole
-
-        {{--Display teams--}}
-        <div class="row m-b-0">
-            <div class="col s12">
-                <div class="card-panel" v-for="subteam in sortedSubTeams">
-                    <div class="row m-b-0">
-                        {{--Name--}}
-                        <div class="input-field col s12">
-                            <input placeholder="Team Name" id="name" name="name" type="text" :value="subteam.name" class="validate" disabled>
-                        </div>
-                        {{--Show members--}}
-                        <div class="chip m-l-10" v-for="(member, index) in subteam.members">
-                            <img :src="'/uploads/avatars/' + member.user.avatar" alt="image">
-                            @{{ member.user.name.second_name + ' ' + member.user.name.name }}
-                        </div>
-                    </div>
-                    {{--Open--}}
-                    @if(Auth::user()->hasRole('student'))
-                        <div v-for="member in subteam.members">
-                            <a v-if="member.user.id == {{Auth::user()->id}}" :href="'/team/' + team.name + '/group-work/' + discipline.name + '/' + groupWork.id + '/' + subteam.id" class="waves-effect waves-light btn btn-small right indigo">Open</a>
-                        </div>
-                    @else
-                        <a :href="'/team/' + team.name + '/group-work/' + discipline.name + '/' + groupWork.id + '/' + subteam.id" class="waves-effect waves-light btn btn-small right indigo">Open</a>
-                    @endif
-                </div>
-            </div>
-        </div>
+            </v-container>
+        </v-app>
     </div>
 @endsection
 
 @section('scripts')
+    <link href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
     <script>
         new Vue({
             el:'#sub-teams',
             data: {
+                items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
                 team: {!! $team !!},
                 discipline: {!! $discipline !!},
                 groupWork: {!! $groupWork !!},
                 newMember: null,
-                members: {!! $team->getStudents() !!},
+                members: {!! json_encode($students) !!},
                 subteam: {
                     name: null,
                     members: []
@@ -132,8 +147,12 @@
             },
             watch: {
                 newMember(){
-                    if(this.newMember)
+                    if(this.newMember) {
+                        this.members = this.members.filter(member => {
+                            return member.id != this.newMember.id;
+                        })
                         this.subteam.members.push(this.newMember)
+                    }
                     this.newMember = null
                 }
             },
@@ -149,6 +168,9 @@
                     })
             },
             methods: {
+                excludeStudent(){
+                    document.getElementsByClassName("option-1")[0].style.display =  "none";
+                },
                 excludeMember(index){
                     this.subteam.members.splice(index, 1)
                 },
