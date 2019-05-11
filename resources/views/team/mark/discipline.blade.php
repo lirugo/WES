@@ -32,7 +32,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($team->getStudents() as $student)
+                        @foreach($students as $student)
                             <?php
                                 $total = 0;
                             ?>

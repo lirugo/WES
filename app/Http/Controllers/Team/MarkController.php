@@ -58,7 +58,6 @@ class MarkController extends Controller
             $students = new Collection();
             $students->push(Auth::user());
         }
-
         foreach ($disciplines as $disc){
             foreach ($students as $student){
                 $common[] = [
@@ -187,6 +186,7 @@ class MarkController extends Controller
             'discipline' => $discipline,
             'activities' => $activities,
             'pretests' => $pretests,
+            'students' => $students,
         ]);
     }
 
