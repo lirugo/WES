@@ -199,6 +199,10 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'User', 'prefix' => 'user
         Route::get('/template/{name}/edit', 'Template\TemplateController@edit');
         Route::get('/{name}', 'TeamController@show');
 
+        //All courses
+        Route::get('/{name}/courses', 'CoursesController@disciplines');
+        Route::get('/{name}/courses/{discipline}', 'CoursesController@course');
+
         //Settings
         Route::get('/{name}/setting', 'Setting\SettingController@index');
         Route::post('/{name}/setting/disciplines/update', 'Setting\SettingController@disciplinesUpdate');

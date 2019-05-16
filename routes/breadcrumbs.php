@@ -157,7 +157,18 @@
         $trail->parent('team-group-work-show-sub-teams', $team, $discipline, $groupWork);
         $trail->push('Team', url('/team/'.$team->name.'/group-work/'.$discipline->name.'/'.$groupWork->id.'/'.$subTeam->id));
     });
-    //Activity
+
+//Courses
+    Breadcrumbs::for('team-courses', function ($trail, $team) {
+        $trail->parent('team-show', $team);
+        $trail->push('All Courses', url('/team/'.$team->name.'/courses'));
+    });
+    Breadcrumbs::for('team-courses-course', function ($trail, $team, $discipline) {
+        $trail->parent('team-courses', $team);
+        $trail->push($discipline->display_name, url('/team/'.$team->name.'/courses/'.$discipline->name));
+    });
+
+//Activity
     Breadcrumbs::for('team-activity', function ($trail, $team) {
         $trail->parent('team-show', $team);
         $trail->push('Activity', url('/team/'.$team->name.'/activity'));

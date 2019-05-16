@@ -52,6 +52,7 @@ return [
         'Activity' => 'Activity',
         'Group Work' => 'Group Work',
         'Tests' => 'Tests',
+        'All Courses' => 'All Courses',
 
         //User teacher
         'Teacher' => 'Teacher',

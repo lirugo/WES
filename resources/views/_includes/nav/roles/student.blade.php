@@ -11,6 +11,7 @@
                         <div class="collapsible-header"><i class="material-icons">group</i>{{$team->display_name}}</div>
                         <div class="collapsible-body">
                             <ul>
+                                <li><a href="{{url('/team/'.$team->name.'/courses')}}"><i class="material-icons">business_center</i>@lang('app.All Courses')</a></li>
                                 <li><a href="{{url('/team/'.$team->name)}}"><i class="material-icons">dashboard</i>@lang('app.Dashboard')</a></li>
                                 <li><a href="{{url('/team/'.$team->name.'/schedule')}}"><i class="material-icons">schedule</i>@lang('app.Schedule')</a></li>
                                 <li><a href="{{url('/team/'.$team->name.'/mark')}}"><i class="material-icons">bookmark_border</i>@lang('app.Marks')</a></li>
