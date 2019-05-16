@@ -2,7 +2,7 @@
 
 // Manage
     Breadcrumbs::for('manage', function ($trail) {
-        $trail->push('Manage', url('/manage'));
+        $trail->push('Manage Panel', url('/manage'));
     });
 
 // Chat
