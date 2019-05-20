@@ -14,7 +14,7 @@
                     </button>
                     {!! Form::close() !!}
                     <p><blockquote>Uploaded - {{$material->created_at->diffForHumans()}}</blockquote></p>
-                    @if(Auth::user()->hasRole('teacher'))
+                    @if(Auth::user()->hasRole('teacher') || Auth::user()->hasRole('manager'))
                         {!! Form::open(['route' => ['team.material.delete', $material->id]]) !!}
                             <button type="submit" class="waves-effect waves-light btn btn-small red right"><i class="material-icons">delete</i></button>
                         {!! Form::close() !!}

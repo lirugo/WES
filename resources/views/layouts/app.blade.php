@@ -17,6 +17,8 @@
     <script>
         window.auth = {!! auth()->user() !!};
         window.authName = "{{ auth()->user()->getShortName() }}";
+        window.authManager = "{{ Auth::user()->hasRole('manager') }}";
+        window.authTeacher = "{{ Auth::user()->hasRole('teacher') }}";
 
         window.Laravel = <?php
             echo json_encode([

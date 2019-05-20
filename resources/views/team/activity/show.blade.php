@@ -72,17 +72,21 @@
                     </div>
                     <div class="card-action p-l-0">
                         @role(['teacher', 'manager'])
-                        <a href="{{ url('team/'.$team->name.'/activity/'.$discipline->name.'/pass/'.$activity->id.'/students') }}" class="btn btn-small indigo right waves-effect waves-light">Students</a>
+                            {!! Form::open(['route' => ['team.activity.delete', $activity->id], 'method' => 'POST']) !!}
+                            <button type="submit" class="waves-effect waves-light btn btn-small red right"><i class="material-icons">delete</i></button>
+                            {!! Form::close() !!}
+
+                            <a href="{{ url('team/'.$team->name.'/activity/'.$discipline->name.'/pass/'.$activity->id.'/students') }}" class="btn btn-small indigo left m-l-20 waves-effect waves-light">Students</a>
                         @endrole
                         @role('student')
-                        <a href="{{ url('team/'.$team->name.'/activity/'.$discipline->name.'/pass/'.$activity->id.'/'.Auth::user()->id) }}" class="btn btn-small indigo right waves-effect waves-light">Open</a>
+                            <a href="{{ url('team/'.$team->name.'/activity/'.$discipline->name.'/pass/'.$activity->id.'/'.Auth::user()->id) }}" class="btn btn-small indigo right waves-effect waves-light">Open</a>
                         @endrole
                     </div>
                 </div>
             </div>
         @endforeach
 
-        @role('teacher')
+        @role(['teacher', 'manager'])
         {{--Link create page--}}
         <div class="fixed-action-btn">
             <a class="btn-floating btn-large waves-effect waves-light green" href="{{url('team/'.$team->name.'/activity/create')}}"><i class="material-icons">add</i></a>

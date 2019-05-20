@@ -54,7 +54,7 @@
             </div>
         @endforeach
 
-        @role('teacher')
+        @role(['teacher', 'manager'])
         {{--Floating button--}}
         <div class="fixed-action-btn">
             <a href="{{url('/team/'.$team->name.'/pretest/create')}}" class="btn-floating btn-large green tooltipped" data-position="left"

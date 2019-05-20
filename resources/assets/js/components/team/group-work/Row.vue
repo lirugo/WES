@@ -16,6 +16,7 @@
                 <small><blockquote class="m-b-0 m-t-15">Start date - {{work.start_date}}</blockquote></small>
                 <small><blockquote class="m-b-0 m-t-5">End date - {{work.end_date}}</blockquote></small>
                 <a :href="'/team/'+team_name+'/group-work/'+discipline_name+'/' + work.id" class="btn btn-small waves-effect right indigo">Open</a>
+                <a v-if="isManager || isTeacher" :href="'/team/'+team_name+'/group-work/'+discipline_name+'/' + work.id + '/delete'" class="btn btn-small waves-effect right red m-r-10">Delete</a>
             </div>
         </div>
     </div>
@@ -25,7 +26,9 @@
     export default {
         data() {
             return {
-                csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                isManager: window.authManager,
+                isTeacher: window.authTeacher,
             }
         },
         props: ['work', 'team_name', 'discipline_name'],

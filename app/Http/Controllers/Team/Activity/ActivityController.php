@@ -70,11 +70,14 @@ class ActivityController extends Controller
                     'file' => $file->nameFormServer,
                 ]);
 
-        //Send notification
-        foreach ($team->getStudents() as $member){
-            $member->notify(new NotifNewActivity($activity, $member));
+        //Send AppServiceProvider
+        try {
+            foreach ($team->getStudents() as $member) {
+                $member->notify(new NotifNewActivity($activity, $member));
+            }
+            $team->getOwner()->notify(new NotifNewActivity($activity, $team->getOwner()));
+        } catch (\Exception $e) {
         }
-        $team->getOwner()->notify(new NotifNewActivity($activity, $team->getOwner()));
 
 
         Session::flash('success', 'Activity was be successfully created');
@@ -99,6 +102,13 @@ class ActivityController extends Controller
             ->withTeam($team)
             ->withDiscipline($discipline)
             ->withActivities($activities);
+    }
+
+    public function delete($activity){
+        $activity = TeamActivity::find($activity);
+        $activity->delete();
+        Session::flash('success', "Deleted");
+        return back();
     }
 
     public function storeFile(Request $request, $name)

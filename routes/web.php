@@ -245,6 +245,7 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'User', 'prefix' => 'user
         Route::get('/{name}/group-work', 'GroupWork\GroupWorkController@index');
         Route::get('/{name}/group-work/{discipline}', 'GroupWork\GroupWorkController@show');
         Route::get('/{name}/group-work/{discipline}/{groupWorkId}', 'GroupWork\GroupWorkController@subteams');
+        Route::get('/{name}/group-work/{discipline}/{groupWorkId}/delete', 'GroupWork\GroupWorkController@delete');
         Route::get('/{name}/group-work/{discipline}/{groupWorkId}/{subTeamId}', 'GroupWork\GroupWorkController@showSubTeam');
         Route::post('/{name}/group-work/{discipline}/{groupWorkId}/updateGroupWork', 'GroupWork\GroupWorkController@updateGroupWork');
         Route::post('/{name}/group-work/{discipline}/{groupWorkId}/finish', 'GroupWork\GroupWorkController@finishGroupWork')->name('team.group-work.finish');
@@ -265,6 +266,7 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'User', 'prefix' => 'user
         Route::post('/{name}/group-work/{discipline}/{groupWorkId}/{subTeamId}/subTeamUpdateMark/{memberId}', 'GroupWork\GroupWorkController@subTeamUpdateMark');
 
         //Activity
+        Route::post('/{id}/activity/delete', 'Activity\ActivityController@delete')->name('team.activity.delete');
         Route::get('/{name}/activity', 'Activity\ActivityController@index');
         Route::get('/{name}/activity/create', 'Activity\ActivityController@create');
         Route::get('/{name}/activity/{discipline}', 'Activity\ActivityController@show');

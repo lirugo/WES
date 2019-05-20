@@ -69,10 +69,13 @@ class GroupWorkController extends Controller
             ]);
 
         //Send notification
-        foreach ($team->getStudents() as $member){
-            $member->notify(new NotifNewGroupWork($groupWork, $member));
+        try {
+            foreach ($team->getStudents() as $member) {
+                $member->notify(new NotifNewGroupWork($groupWork, $member));
+            }
+            $team->getOwner()->notify(new NotifNewGroupWork($groupWork, $team->getOwner()));
+        } catch (\Exception $e) {
         }
-        $team->getOwner()->notify(new NotifNewGroupWork($groupWork, $team->getOwner()));
 
         $groupWork = GroupWork::with(['files'])->find($groupWork->id);
         return $groupWork;
@@ -197,6 +200,13 @@ class GroupWorkController extends Controller
         $messages = GroupWorkSubTeamChat::with('author', 'files')->where('subteam_id', $subTeamId)->get();
 
         return $messages;
+    }
+
+    public function delete($team, $dicipline, $groupWorkId){
+        $work = GroupWork::find($groupWorkId);
+        $work->delete();
+        Session::flash('success', 'Deleted');
+        return back();
     }
 
     public function newMessage(Request $request, $team, $discipline, $groupWorkId, $subTeamId){

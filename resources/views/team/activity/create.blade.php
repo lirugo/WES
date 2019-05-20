@@ -34,9 +34,16 @@
                     <div class="input-field col s12 m6">
                         <select name="discipline_id" required>
                             <option value="" disabled>Choose a discipline</option>
+                            @role('teacher')
                             @foreach(Auth::user()->getTeacherDiscipline($team->name) as $discipline)
                                 <option value="{{$discipline->getDiscipline->id}}" {{ old('discipline_id') == $discipline->getDiscipline->id ? 'selected="selected"' : '' }}>{{$discipline->getDiscipline->display_name}}</option>
                             @endforeach
+                            @endrole
+                            @role('manager')
+                            @foreach($team->disciplines as $discipline)
+                                <option value="{{$discipline->getDiscipline->id}}" {{ old('discipline_id') == $discipline->getDiscipline->id ? 'selected="selected"' : '' }}>{{$discipline->getDiscipline->display_name}}</option>
+                            @endforeach
+                            @endrole
                         </select>
                     </div>
                     <div class="input-field col s12 m6 m-b-15">
