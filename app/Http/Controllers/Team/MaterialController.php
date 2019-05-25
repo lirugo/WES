@@ -273,4 +273,11 @@ class MaterialController extends Controller
         Session::flash('success', 'Education material link was be successfully deleted');
         return back();
     }
+
+    public function categoryDelete($id){
+        Category::find($id)->delete();
+
+        Session::flash('success', 'Education material link was be successfully deleted');
+        return back();
+    }
 }

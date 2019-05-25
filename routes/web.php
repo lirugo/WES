@@ -241,6 +241,7 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'User', 'prefix' => 'user
         Route::post('/material/delete/{id}', 'MaterialController@delete')->name('team.material.delete');
         Route::post('/link/delete/{id}', 'MaterialController@linkDelete')->name('team.link.delete');
         Route::post('/video/delete/{id}', 'MaterialController@videoDelete')->name('team.video.delete');
+        Route::post('/category/delete/{id}', 'MaterialController@categoryDelete')->name('team.category.delete');
         Route::post('/{name}/material/{discipline}/store', 'MaterialController@store')->name('team.material.store');
         Route::post('/{name}/material/{discipline}/{fileId}/update', 'MaterialController@update')->name('team.material.update');
         Route::post('/{name}/material/{discipline}/category/store', 'MaterialController@categoryStore')->name('team.material.category.store');

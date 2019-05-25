@@ -35,6 +35,11 @@
         <div class="col s12 m8">
             @foreach($categories as $category)
                 <div class="card-panel p-t-10">
+                    @role(['teacher', 'manager'])
+                    {!! Form::open(['route' => ['team.category.delete', $category->id]]) !!}
+                    <button type="submit" class="waves-effect waves-light btn btn-small red right m-t-5" style=""><i class="material-icons">delete</i></button>
+                    {!! Form::close() !!}
+                    @endrole
                     <h6 class="center">{{$category->name}}</h6>
                     <hr>
                     <div class="row m-b-0 m-t-0">
@@ -88,8 +93,8 @@
             @endforeach
         </div>
 
-        {{--    Show links--}}
         <div class="col s12 m4">
+        {{--    Show links--}}
             <ul class="collection with-header">
                 <li class="collection-header"><h6 class="center">Links</h6></li>
                 @foreach($links as $link)
@@ -100,16 +105,14 @@
                             {!! Form::close() !!}
                         @endif
                         <a href="{{$link->link}}" class="collection-item p-l-0 p-r-0" target="_blank">{{$link->name}}
-                            <span data-badge-caption="" class="new badge grey left m-r-10">{{$material->public_date}}</span>
+                            <span data-badge-caption="" class="new badge grey left m-r-10">{{$link->public_date}}</span>
                         </a>
                     </div>
 
                 @endforeach
             </ul>
-        </div>
 
-        {{-- Show Video--}}
-        <div class="col s12 m4">
+            {{-- Show Video--}}
             <div class="card-panel p-t-10">
                 <h6 class="center">Video</h6>
                 <hr>
