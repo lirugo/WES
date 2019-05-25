@@ -12,7 +12,7 @@
                 <div class="input-field">
                     <i class="material-icons prefix">
                         <i class="material-icons prefix">insert_link</i></i>
-                    <input placeholder="Enter link" name="link" type="text" class="validate" required>
+                    <input placeholder="Enter link" title="Past URL from youtube, liveleak, vimeo, dailymotion, gametrailers, ign, vine, coub, kickstarter, ustream, twitchArchive, twitchArchiveChapter, twitch, html5video, gfycat, web.tv" name="link" type="text" class="validate" required>
                 </div>
 {{--                <div class="input-field">--}}
 {{--                    <i class="material-icons prefix">date_range</i>--}}
