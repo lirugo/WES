@@ -12,6 +12,7 @@ use App\Notifications\Team\NotifNewActivity;
 use App\Notifications\Team\NotifNewActivityMark;
 use App\Notifications\Team\NotifNewActivityMessage;
 use App\Team;
+use App\TeamDiscipline;
 use App\User;
 use Auth;
 use Carbon\Carbon;
@@ -48,6 +49,15 @@ class ActivityController extends Controller
     public function store(Request $request, $team) {
         $team = Team::where('name', $team)->first();
         $discipline = Discipline::find($request->discipline_id);
+        $teamDiscipline = TeamDiscipline::where('team_id', $team->id)
+            ->where('discipline_id', $discipline->id)
+            ->first();
+
+//        Validate if have free points
+        $leftMarks = $teamDiscipline->leftMarks() - $request->max_mark;
+        if($leftMarks < 0)
+            return back()->withErrors('Maximum points for all activities 100. Now you have left '.$teamDiscipline->leftMarks().' points');
+
         $activity = TeamActivity::create([
             'team_id' => $team->id,
             'discipline_id' => $discipline->id,

@@ -99,4 +99,12 @@ class TeamDiscipline extends Model
 
         return $mark;
     }
+
+    public function leftMarks(){
+        $marks = 100;
+        foreach ($this->getActivities as $act){
+            $marks -= $act->max_mark;
+        }
+        return $marks;
+    }
 }
