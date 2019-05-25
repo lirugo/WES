@@ -27,6 +27,7 @@ class CreateTeamEducationMaterialTable extends Migration
             $table->string('name');
             $table->enum('type', ['public', 'staff']);
             $table->string('file_name');
+            $table->date('public_date');
 
             $table->timestamps();
         });

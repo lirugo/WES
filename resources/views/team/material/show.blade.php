@@ -10,11 +10,11 @@
                 <div class="row m-b-0 m-t-0">
                     @foreach($materials as $material)
                         <div class="col s12 m6 m-b-5 m-t-5">
-{{--                            @if(Auth::user()->hasRole('teacher') || Auth::user()->hasRole('manager'))--}}
-{{--                                {!! Form::open(['route' => ['team.material.delete', $material->id]]) !!}--}}
-{{--                                <button type="submit" class="waves-effect waves-light btn btn-small red left m-r-5"><i class="material-icons">delete</i></button>--}}
-{{--                                {!! Form::close() !!}--}}
-{{--                            @endif--}}
+                            {{--                            @if(Auth::user()->hasRole('teacher') || Auth::user()->hasRole('manager'))--}}
+                            {{--                                {!! Form::open(['route' => ['team.material.delete', $material->id]]) !!}--}}
+                            {{--                                <button type="submit" class="waves-effect waves-light btn btn-small red left m-r-5"><i class="material-icons">delete</i></button>--}}
+                            {{--                                {!! Form::close() !!}--}}
+                            {{--                            @endif--}}
                             {!! Form::open(['url' => '/team/material/getFile/'.$material->file, 'method' => 'POST']) !!}
                             <button type="submit" class="btn btn-small indigo waves-effect p-b-5">
                                 <i class="material-icons left">cloud_download</i>
@@ -37,23 +37,51 @@
                     <h6 class="center">{{$category->name}}</h6>
                     <hr>
                     <div class="row m-b-0 m-t-0">
-                        @foreach($category->materials() as $material)
-                            <div class="col s12 m-b-5 m-t-5">
-                                @if(Auth::user()->hasRole('teacher') || Auth::user()->hasRole('manager'))
-                                    {!! Form::open(['route' => ['team.material.delete', $material->id]]) !!}
-                                    <button type="submit" class="waves-effect waves-light btn btn-small red right m-l-5"><i class="material-icons">delete</i></button>
+                        {{--ONLY PUBLIC FOR STUDENTS--}}
+                        @if(Auth()->user()->hasRole('student'))
+                            @foreach($category->getMaterials() as $material)
+                                <div class="col s12 m-b-5 m-t-5">
+                                    {!! Form::open(['url' => '/team/material/getMaterialFile/'.$material->file_name, 'method' => 'POST']) !!}
+                                    {{$material->name}}
+                                    <button type="submit" class="btn btn-small green waves-effect p-b-5 right">
+                                        <i class="material-icons">file_download</i>
+                                    </button>
                                     {!! Form::close() !!}
-                                @endif
-
-                                {!! Form::open(['url' => '/team/material/getMaterialFile/'.$material->file_name, 'method' => 'POST']) !!}
-                                {{$material->name}}
-                                <button type="submit" class="btn btn-small green waves-effect p-b-5 right">
-                                    <i class="material-icons">file_download</i>
-                                </button>
-                                {{--                                <small>{{$material->created_at->diffForHumans()}}</small>--}}
-                                {!! Form::close() !!}
-                            </div>
-                        @endforeach
+                                </div>
+                            @endforeach
+                        @else
+                            @foreach($category->getAllMaterials() as $material)
+                                <div class="col s12 m-b-5 m-t-5">
+                                    @role('teacher')
+                                    <a href="{{url('/team/'.$team->name.'/material/'.$discipline->name.'/'.$material->id.'/edit')}}" class="btn btn-small orange right m-l-5">
+                                        <i class="material-icons">edit</i>
+                                    </a>
+                                    @endrole
+                                    @if(Auth::user()->hasRole('teacher') || Auth::user()->hasRole('manager'))
+                                        {!! Form::open(['route' => ['team.material.delete', $material->id]]) !!}
+                                        <button type="submit" class="waves-effect waves-light btn btn-small red right m-l-5"><i class="material-icons">delete</i></button>
+                                        {!! Form::close() !!}
+                                    @endif
+                                    {!! Form::open(['url' => '/team/material/getMaterialFile/'.$material->file_name, 'method' => 'POST']) !!}
+                                    {{$material->name}}
+                                    <button type="submit" class="btn btn-small green waves-effect p-b-5 right">
+                                        <i class="material-icons">file_download</i>
+                                    </button>
+                                    <span data-badge-caption="" class="new badge grey left m-l-5">{{$material->public_date}}</span>
+                                    @if($material->type == 'staff')
+                                        <span data-badge-caption="" class="new badge orange darken-3 left m-l-5">Staff</span>
+                                    @else
+                                        <span data-badge-caption="" class="new badge orange left m-l-5">Public</span>
+                                    @endif
+                                    @if($material->public_date < \Carbon\Carbon::now())
+                                        <span data-badge-caption="" class="new badge green left m-l-5 m-r-10">Published</span>
+                                    @else
+                                        <span data-badge-caption="" class="new badge red left m-l-5 m-r-10">Not published</span>
+                                    @endif
+                                    {!! Form::close() !!}
+                                </div>
+                            @endforeach
+                        @endif
                     </div>
                 </div>
             </div>

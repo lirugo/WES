@@ -24,8 +24,8 @@
                     </div>
                     <div class="input-field  m-b-0">
                         <i class="material-icons prefix">date_range</i>
-                        <input id="start_date" value="{{ old('start_date') }}" name="start_date" type="text" class="datepickerDefault" required>
-                        <label for="start_date">Date of publication</label>
+                        <input id="public_date" value="{{ old('public_date') }}" name="public_date" type="text" class="datepickerDefault" required>
+                        <label for="public_date">Date of publication</label>
                     </div>
                     <div class="file-field input-field  m-b-0">
                         <div class="btn indigo">

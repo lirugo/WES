@@ -44,6 +44,19 @@ class MaterialController extends Controller
             ->withCategories($categories);
     }
 
+    public function edit($team, $discipline, $fileId){
+        $team = Team::where('name', $team)->first();
+        $discipline = Discipline::where('name', $discipline)->first();
+        $categories = Category::where('team_id', $team->id)->where('discipline_id', $discipline->id)->orderBy('name')->get();
+        $material = EducationMaterial::find($fileId);
+
+        return view('team.material.edit')
+            ->withTeam($team)
+            ->withDiscipline($discipline)
+            ->withCategories($categories)
+            ->withMaterial($material);
+    }
+
     public function categoryCreate($team, $discipline){
         if(Auth::user()->hasRole('student'))
             abort(403);
@@ -76,9 +89,28 @@ class MaterialController extends Controller
             'name' => $request->name,
             'type' => $request->type == 'on' ? 'public' : 'staff',
             'file_name' => $fileName,
+            'public_date' => $request->public_date,
         ]);
 
         Session::flash('success', 'Education material was be successfully created');
+        return redirect(url('/team/'.$team->name.'/material/'.$discipline->name));
+    }
+
+    public function update(Request $request, $team, $discipline, $fileId)
+    {
+        if(Auth::user()->hasRole('student'))
+            abort(403);
+
+        $team = Team::where('name', $team)->first();
+        $discipline = Discipline::where('name', $discipline)->first();
+        $category = Category::find($request->category_id);
+        $material = EducationMaterial::find($fileId);
+
+        $material->public_date = $request->public_date;
+        $material->type = $request->type == 'on' ? 'public' : 'staff';
+        $material->save();
+
+        Session::flash('success', 'Education material was be successfully updated');
         return redirect(url('/team/'.$team->name.'/material/'.$discipline->name));
     }
 
