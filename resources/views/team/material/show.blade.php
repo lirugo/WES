@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('breadcrumbs')
-    {{ Breadcrumbs::render('team-material-show', $team) }}
+    {{ Breadcrumbs::render('team-material-discipline', $team, $discipline) }}
 @endsection
 @section('content')
     {{--    OLD EDUCATION MATERIALS--}}
@@ -33,9 +33,20 @@
         {{--Floating button--}}
         <div class="fixed-action-btn">
             <a href="{{url('/team/'.$team->name.'/material/create')}}" class="btn-floating btn-large green tooltipped" data-position="left"
-               data-tooltip="Upload Material">
+               data-tooltip="Add New Material">
                 <i class="large material-icons">add</i>
             </a>
+            <ul>
+                <li><a class="btn-floating green tooltipped" data-position="left"
+                       data-tooltip="Add New Category"
+                       href="{{url('/team/'.$team->name.'/material/'.$discipline->name.'/category/create')}}"><i class="material-icons">merge_type</i></a></li>
+                <li><a class="btn-floating green tooltipped" data-position="left"
+                       data-tooltip="Add New Link"
+                       href="#"><i class="material-icons">insert_link</i></a></li>
+                <li><a class="btn-floating green tooltipped" data-position="left"
+                       data-tooltip="Add New Video"
+                       href="#"><i class="material-icons">ondemand_video</i></a></li>
+            </ul>
         </div>
     @endif
 @endsection

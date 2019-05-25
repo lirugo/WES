@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Team;
 
 use App\Discipline;
 use App\Http\Controllers\Controller;
+use App\Models\Team\EducationMaterial\Category;
 use App\Models\Team\TeamMaterials;
 use App\Team;
 use Auth;
@@ -38,8 +39,22 @@ class MaterialController extends Controller
             ->withTeam($team);
     }
 
+    public function categoryCreate($team, $discipline){
+        if(Auth::user()->hasRole('student'))
+            abort(403);
+
+        $team = Team::where('name', $team)->first();
+        $discipline = Discipline::where('name', $discipline)->first();
+        return view('team.material.categoryCreate')
+            ->withTeam($team)
+            ->withDiscipline($discipline);
+    }
+
     public function store(Request $request, $name)
     {
+        if(Auth::user()->hasRole('student'))
+            abort(403);
+
         $team = Team::where('name', $name)->first();
         $discipline = Discipline::find($request->discipline_id);
 
@@ -54,6 +69,25 @@ class MaterialController extends Controller
 
         Session::flash('success', 'Education material was be successfully created');
         return redirect(url('/team/'.$team->name.'/material'));
+    }
+
+    public function categoryStore(Request $request, $team, $discipline)
+    {
+        if(Auth::user()->hasRole('student'))
+            abort(403);
+
+        $team = Team::where('name', $team)->first();
+        $discipline = Discipline::where('name', $discipline)->first();
+
+        Category::create([
+            'team_id' => $team->id,
+            'discipline_id' => $discipline->id,
+            'user_id' => auth()->id(),
+            'name' => $request->name,
+        ]);
+
+        Session::flash('success', 'Education material category was be successfully created');
+        return redirect(url('/team/'.$team->name.'/material/'.$discipline->name));
     }
 
     public function storeFile(Request $request, $name)

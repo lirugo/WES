@@ -206,6 +206,14 @@
         $trail->parent('team-material', $team);
         $trail->push('Create', url('/team/'.$team->name.'/material/create'));
     });
+    Breadcrumbs::for('team-material-discipline', function ($trail, $team, $discpline) {
+        $trail->parent('team-material', $team);
+        $trail->push($discpline->display_name, url('/team/'.$team->name.'/material/'.$discpline->name));
+    });
+    Breadcrumbs::for('team-material-category-create', function ($trail, $team, $discpline) {
+        $trail->parent('team-material-discipline', $team, $discpline);
+        $trail->push('Create Category', url('/team/'.$team->name.'/material/'.$discpline->name.'/category/create'));
+    });
     Breadcrumbs::for('team-material-show', function ($trail, $team) {
         $trail->parent('team-material', $team);
         $trail->push('Show', url('/team/'.$team->name.'/material/show'));
