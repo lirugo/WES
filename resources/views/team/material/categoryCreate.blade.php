@@ -10,7 +10,7 @@
             <div class="card-panel">
                 <h6 class="center-align">Add Education Material Category</h6>
                 <div class="input-field ">
-                    <input placeholder="Enter education material category name" name="name" type="text" class="validate">
+                    <input placeholder="Enter education material category name" name="name" type="text" class="validate" required>
                 </div>
             </div>
         </div>

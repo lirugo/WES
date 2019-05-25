@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     {{--    OLD EDUCATION MATERIALS--}}
-    <div class="row">
+    <div class="row m-b-0 m-t-0">
         <div class="col s12">
             <div class="card-panel">
                 <div class="row m-b-0 m-t-0">
@@ -29,10 +29,21 @@
         </div>
     </div>
 
+{{--    Show categories--}}
+    <div class="row">
+    @foreach($categories as $category)
+            <div class="col s12">
+                <div class="card-panel">
+                    <h6 class="center">{{$category->name}}</h6>
+                </div>
+            </div>
+    @endforeach
+    </div>
+
     @if(Auth::user()->hasRole(['manager', 'teacher']))
         {{--Floating button--}}
         <div class="fixed-action-btn">
-            <a href="{{url('/team/'.$team->name.'/material/create')}}" class="btn-floating btn-large green tooltipped" data-position="left"
+            <a href="{{url('/team/'.$team->name.'/material/'.$discipline->name.'/create')}}" class="btn-floating btn-large green tooltipped" data-position="left"
                data-tooltip="Add New Material">
                 <i class="large material-icons">add</i>
             </a>

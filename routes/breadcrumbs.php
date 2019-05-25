@@ -202,8 +202,8 @@
         $trail->parent('team-pretest', $team);
         $trail->push('Create', url('/team/'.$team->name.'/pretest/create'));
     });
-    Breadcrumbs::for('team-material-create', function ($trail, $team) {
-        $trail->parent('team-material', $team);
+    Breadcrumbs::for('team-material-create', function ($trail, $team, $dicpline) {
+        $trail->parent('team-material-discipline', $team, $dicpline);
         $trail->push('Create', url('/team/'.$team->name.'/material/create'));
     });
     Breadcrumbs::for('team-material-discipline', function ($trail, $team, $discpline) {

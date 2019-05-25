@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Team;
 use App\Discipline;
 use App\Http\Controllers\Controller;
 use App\Models\Team\EducationMaterial\Category;
+use App\Models\Team\EducationMaterial\EducationMaterial;
 use App\Models\Team\TeamMaterials;
 use App\Team;
 use Auth;
@@ -33,10 +34,14 @@ class MaterialController extends Controller
             ->withDisciplines($disciplines);
     }
 
-    public function create($team){
+    public function create($team, $discipline){
         $team = Team::where('name', $team)->first();
+        $discipline = Discipline::where('name', $discipline)->first();
+        $categories = Category::where('team_id', $team->id)->where('discipline_id', $discipline->id)->orderBy('name')->get();
         return view('team.material.create')
-            ->withTeam($team);
+            ->withTeam($team)
+            ->withDiscipline($discipline)
+            ->withCategories($categories);
     }
 
     public function categoryCreate($team, $discipline){
@@ -50,22 +55,28 @@ class MaterialController extends Controller
             ->withDiscipline($discipline);
     }
 
-    public function store(Request $request, $name)
+    public function store(Request $request, $team, $discipline)
     {
         if(Auth::user()->hasRole('student'))
             abort(403);
 
-        $team = Team::where('name', $name)->first();
-        $discipline = Discipline::find($request->discipline_id);
+        $team = Team::where('name', $team)->first();
+        $discipline = Discipline::where('name', $discipline)->first();
+        $category = Category::find($request->category_id);
 
-        foreach (json_decode($request->inputs) as $file)
-            TeamMaterials::create([
-                'user_id' => Auth::user()->id,
-                'team_id' => $team->id,
-                'discipline_id' => $discipline->id,
-                'name' => $file->file,
-                'file' => $file->nameFormServer,
-            ]);
+        //Save file
+        $filePath = Storage::disk('material')->put(DIRECTORY_SEPARATOR, $request->file);
+        $fileName = basename($filePath);
+        //Save record to db
+        EducationMaterial::create([
+            'user_id' => auth()->id(),
+            'team_id' => $team->id,
+            'discipline_id' => $discipline->id,
+            'category_id' => $category->id,
+            'name' => $request->name,
+            'type' => $request->name == 'on' ? 'public' : 'staff',
+            'file_name' => $fileName,
+        ]);
 
         Session::flash('success', 'Education material was be successfully created');
         return redirect(url('/team/'.$team->name.'/material'));
@@ -93,7 +104,7 @@ class MaterialController extends Controller
     public function storeFile(Request $request, $name)
     {
         if ($request->hasFile('file')) {
-            $filePath = Storage::disk('material')->put('/', $request->file);
+            $filePath = Storage::disk('material')->put(DIRECTORY_SEPARATOR, $request->file);
             return basename($filePath);
         } else
             return false;
@@ -107,11 +118,13 @@ class MaterialController extends Controller
             ['team_id', $team->id],
             ['discipline_id', $discipline->id],
         ])->orderBy('id','DESC')->get();
+        $categories = Category::where('team_id', $team->id)->where('discipline_id', $discipline->id)->orderBy('name')->get();
 
         return view('team.material.show')
             ->withTeam($team)
             ->withDiscipline($discipline)
-            ->withMaterials($materials);
+            ->withMaterials($materials)
+            ->withCategories($categories);
 
     }
 

@@ -78,7 +78,7 @@ return [
 
         'material' => [
             'driver' => 'local',
-            'root' => storage_path('app/material/'),
+            'root' => storage_path('app'.DIRECTORY_SEPARATOR.'material'.DIRECTORY_SEPARATOR),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'private',
         ],

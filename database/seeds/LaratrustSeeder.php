@@ -73,7 +73,7 @@ class LaratrustSeeder extends Seeder
             $user->phones()->create([
                 'user_id' => $user->id,
                 'dialling_code_id' => 1,
-                'phone_number' => '93 880 76 73',
+                'phone_number' => '67 417 13 32',
             ]);
 
             $user->attachRole($role);

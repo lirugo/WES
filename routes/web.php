@@ -220,7 +220,7 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'User', 'prefix' => 'user
         //Pretest
         Route::post('/{name}/discipline/{teamDisciplineId}/disable', 'TeamController@disciplineDisable');
         Route::get('/{name}/material', 'MaterialController@index');
-        Route::get('/{name}/material/create', 'MaterialController@create');
+        Route::get('/{name}/material/{discipline}/create', 'MaterialController@create');
         Route::get('/{name}/material/{discipline}/category/create', 'MaterialController@categoryCreate');
         Route::get('/{name}/material/{discipline}', 'MaterialController@show');
         Route::get('/{name}/pretest', 'Pretest\PretestController@index');
@@ -235,7 +235,7 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'User', 'prefix' => 'user
         Route::post('/pretest/getFile/{name}', 'Pretest\PretestController@getFile')->name('team.pretest.getFile');
         Route::post('/material/getFile/{name}', 'MaterialController@getFile')->name('team.material.getFile');
         Route::post('/material/delete/{id}', 'MaterialController@delete')->name('team.material.delete');
-        Route::post('/{name}/material/store', 'MaterialController@store')->name('team.material.store');
+        Route::post('/{name}/material/{discipline}/store', 'MaterialController@store')->name('team.material.store');
         Route::post('/{name}/material/{discipline}/category/store', 'MaterialController@categoryStore')->name('team.material.category.store');
         Route::post('/{name}/material/store/file', 'MaterialController@storeFile')->name('team.material.store.file');
         Route::post('/{name}/pretest/store', 'Pretest\PretestController@store')->name('team.pretest.store');

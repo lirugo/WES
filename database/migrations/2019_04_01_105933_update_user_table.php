@@ -25,7 +25,7 @@ class UpdateUserTable extends Migration
      */
     public function down()
     {
-        Schema::table('team_activity_marks', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('language');
         });
     }
