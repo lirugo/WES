@@ -6,9 +6,11 @@ use App\Discipline;
 use App\Http\Controllers\Controller;
 use App\Models\Team\EducationMaterial\Category;
 use App\Models\Team\EducationMaterial\EducationMaterial;
+use App\Models\Team\EducationMaterial\Link;
 use App\Models\Team\TeamMaterials;
 use App\Team;
 use Auth;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Session;
@@ -64,6 +66,17 @@ class MaterialController extends Controller
         $team = Team::where('name', $team)->first();
         $discipline = Discipline::where('name', $discipline)->first();
         return view('team.material.categoryCreate')
+            ->withTeam($team)
+            ->withDiscipline($discipline);
+    }
+
+    public function linkCreate($team, $discipline){
+        if(Auth::user()->hasRole('student'))
+            abort(403);
+
+        $team = Team::where('name', $team)->first();
+        $discipline = Discipline::where('name', $discipline)->first();
+        return view('team.material.linkCreate')
             ->withTeam($team)
             ->withDiscipline($discipline);
     }
@@ -133,6 +146,27 @@ class MaterialController extends Controller
         return redirect(url('/team/'.$team->name.'/material/'.$discipline->name));
     }
 
+    public function linkStore (Request $request, $team, $discipline)
+    {
+        if(Auth::user()->hasRole('student'))
+            abort(403);
+
+        $team = Team::where('name', $team)->first();
+        $discipline = Discipline::where('name', $discipline)->first();
+
+        Link::create([
+            'team_id' => $team->id,
+            'discipline_id' => $discipline->id,
+            'user_id' => auth()->id(),
+            'name' => $request->name,
+            'link' => $request->link,
+            'public_date' => $request->public_date,
+        ]);
+
+        Session::flash('success', 'Education material link was be successfully created');
+        return redirect(url('/team/'.$team->name.'/material/'.$discipline->name));
+    }
+
     public function storeFile(Request $request, $name)
     {
         if ($request->hasFile('file')) {
@@ -151,12 +185,20 @@ class MaterialController extends Controller
             ['discipline_id', $discipline->id],
         ])->orderBy('id','DESC')->get();
         $categories = Category::where('team_id', $team->id)->where('discipline_id', $discipline->id)->orderBy('name')->get();
+        $links = Link::where('team_id', $team->id)->where('discipline_id', $discipline->id)
+            ->orderBy('name');
+
+        if(Auth::user()->hasRole('teacher'))
+            $links = $links->get();
+        else
+            $links = $links->where('public_date', '<', Carbon::now())->get();
 
         return view('team.material.show')
             ->withTeam($team)
             ->withDiscipline($discipline)
             ->withMaterials($materials)
-            ->withCategories($categories);
+            ->withCategories($categories)
+            ->withLinks($links);
 
     }
 
@@ -180,6 +222,13 @@ class MaterialController extends Controller
         EducationMaterial::find($id)->delete();
 
         Session::flash('success', 'Education material was be successfully deleted');
+        return back();
+    }
+
+    public function linkDelete ($id){
+        Link::find($id)->delete();
+
+        Session::flash('success', 'Education material link was be successfully deleted');
         return back();
     }
 }

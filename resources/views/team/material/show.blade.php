@@ -31,13 +31,13 @@
 
     {{--    Show categories--}}
     <div class="row">
-        @foreach($categories as $category)
-            <div class="col s12">
+        <div class="col s12 m8">
+            @foreach($categories as $category)
                 <div class="card-panel p-t-10">
                     <h6 class="center">{{$category->name}}</h6>
                     <hr>
                     <div class="row m-b-0 m-t-0">
-                        {{--ONLY PUBLIC FOR STUDENTS--}}
+                        {{--                        ONLY PUBLIC FOR STUDENTS--}}
                         @if(Auth()->user()->hasRole('student'))
                             @foreach($category->getMaterials() as $material)
                                 <div class="col s12 m-b-5 m-t-5">
@@ -84,8 +84,28 @@
                         @endif
                     </div>
                 </div>
-            </div>
-        @endforeach
+            @endforeach
+        </div>
+
+
+        {{--    Show links--}}
+        <div class="col s12 m4">
+            <ul class="collection with-header">
+                <li class="collection-header"><h6 class="center">Links</h6></li>
+                @foreach($links as $link)
+                    <div class="collection m-t-0 m-b-0 p-l-0 p-r-0">
+                        @if(Auth::user()->hasRole('teacher') || Auth::user()->hasRole('manager'))
+                            {!! Form::open(['route' => ['team.link.delete', $link->id]]) !!}
+                            <button type="submit" class="waves-effect waves-light btn btn-small red right m-r-10 m-t-5" style=""><i class="material-icons">delete</i></button>
+                            {!! Form::close() !!}
+                        @endif
+                        <a href="{{$link->link}}" class="collection-item p-l-0 p-r-0" target="_blank">{{$link->name}}
+                            <span data-badge-caption="" class="new badge grey left m-r-10">{{$material->public_date}}</span>
+                        </a>
+                    </div>
+                @endforeach
+            </ul>
+        </div>
     </div>
 
     @if(Auth::user()->hasRole(['manager', 'teacher']))
@@ -101,7 +121,7 @@
                        href="{{url('/team/'.$team->name.'/material/'.$discipline->name.'/category/create')}}"><i class="material-icons">merge_type</i></a></li>
                 <li><a class="btn-floating green tooltipped" data-position="left"
                        data-tooltip="Add New Link"
-                       href="#"><i class="material-icons">insert_link</i></a></li>
+                       href="{{url('/team/'.$team->name.'/material/'.$discipline->name.'/link/create')}}"><i class="material-icons">insert_link</i></a></li>
                 <li><a class="btn-floating green tooltipped" data-position="left"
                        data-tooltip="Add New Video"
                        href="#"><i class="material-icons">ondemand_video</i></a></li>
