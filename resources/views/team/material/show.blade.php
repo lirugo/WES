@@ -2,6 +2,7 @@
 @section('breadcrumbs')
     {{ Breadcrumbs::render('team-material-discipline', $team, $discipline) }}
 @endsection
+
 @section('content')
     {{--    OLD EDUCATION MATERIALS--}}
     <div class="row m-b-0 m-t-0">
@@ -87,7 +88,6 @@
             @endforeach
         </div>
 
-
         {{--    Show links--}}
         <div class="col s12 m4">
             <ul class="collection with-header">
@@ -103,8 +103,27 @@
                             <span data-badge-caption="" class="new badge grey left m-r-10">{{$material->public_date}}</span>
                         </a>
                     </div>
+
                 @endforeach
             </ul>
+        </div>
+
+        {{-- Show Video--}}
+        <div class="col s12 m4">
+            <div class="card-panel p-t-10">
+                <h6 class="center">Video</h6>
+                <hr>
+                @foreach($videos as $video)
+                    @role(['teacher', 'manager'])
+                    {!! Form::open(['route' => ['team.video.delete', $video->id]]) !!}
+                    <button type="submit" class="waves-effect waves-light btn red m-t-5" style="width: 100%;"><i class="material-icons">delete</i></button>
+                    {!! Form::close() !!}
+                    @endrole
+                    <div class="resp-container m-b-10">
+                        {!! $video->getVideoHtmlAttribute() !!}
+                    </div>
+                @endforeach
+            </div>
         </div>
     </div>
 
@@ -124,7 +143,7 @@
                        href="{{url('/team/'.$team->name.'/material/'.$discipline->name.'/link/create')}}"><i class="material-icons">insert_link</i></a></li>
                 <li><a class="btn-floating green tooltipped" data-position="left"
                        data-tooltip="Add New Video"
-                       href="#"><i class="material-icons">ondemand_video</i></a></li>
+                       href="{{url('/team/'.$team->name.'/material/'.$discipline->name.'/video/create')}}"><i class="material-icons">ondemand_video</i></a></li>
             </ul>
         </div>
     @endif

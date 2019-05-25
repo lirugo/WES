@@ -172,6 +172,7 @@ return [
         * Maddhatter Laravel-fullcalendar
         */
         MaddHatter\LaravelFullcalendar\ServiceProvider::class,
+        Cohensive\Embed\EmbedServiceProvider::class,
     ],
 
     /*
@@ -231,6 +232,7 @@ return [
         */
         'Image' => Intervention\Image\Facades\Image::class,
         'Calendar' => MaddHatter\LaravelFullcalendar\Facades\Calendar::class,
+        'Embed' => Cohensive\Embed\Facades\Embed::class,
     ],
 
 ];
