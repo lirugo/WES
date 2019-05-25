@@ -16,15 +16,23 @@ class ChatController extends Controller
 
     public function conversations(){
         $team = Auth::user()->teams()->first();
+        if($team)
+            $users = UserResource::collection($team->getMembers());
+        else
+            $users = null;
         return view('chat.conversations')
-            ->withUsers(UserResource::collection($team->getMembers()));
+            ->withUsers($users);
     }
 
     public function show(Conversation $conversation){
         $this->authorize('show', $conversation);
         $team = Auth::user()->teams()->first();
+        if($team)
+            $users = UserResource::collection($team->getMembers());
+        else
+            $users = null;
         return view('chat.conversations')
             ->withConversation($conversation)
-            ->withUsers(UserResource::collection($team->getMembers()));
+            ->withUsers($users);
     }
 }
