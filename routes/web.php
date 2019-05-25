@@ -234,6 +234,7 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'User', 'prefix' => 'user
         Route::post('/{name}/setHeadman', 'TeamController@setHeadman')->name('team.setHeadman');
         Route::post('/pretest/getFile/{name}', 'Pretest\PretestController@getFile')->name('team.pretest.getFile');
         Route::post('/material/getFile/{name}', 'MaterialController@getFile')->name('team.material.getFile');
+        Route::post('/material/getMaterialFile/{name}', 'MaterialController@getMaterialFile')->name('team.material.getMaterialFile');
         Route::post('/material/delete/{id}', 'MaterialController@delete')->name('team.material.delete');
         Route::post('/{name}/material/{discipline}/store', 'MaterialController@store')->name('team.material.store');
         Route::post('/{name}/material/{discipline}/category/store', 'MaterialController@categoryStore')->name('team.material.category.store');

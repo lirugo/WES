@@ -65,7 +65,7 @@ class MaterialController extends Controller
         $category = Category::find($request->category_id);
 
         //Save file
-        $filePath = Storage::disk('material')->put(DIRECTORY_SEPARATOR, $request->file);
+        $filePath = Storage::disk('material')->put('/', $request->file);
         $fileName = basename($filePath);
         //Save record to db
         EducationMaterial::create([
@@ -74,12 +74,12 @@ class MaterialController extends Controller
             'discipline_id' => $discipline->id,
             'category_id' => $category->id,
             'name' => $request->name,
-            'type' => $request->name == 'on' ? 'public' : 'staff',
+            'type' => $request->type == 'on' ? 'public' : 'staff',
             'file_name' => $fileName,
         ]);
 
         Session::flash('success', 'Education material was be successfully created');
-        return redirect(url('/team/'.$team->name.'/material'));
+        return redirect(url('/team/'.$team->name.'/material/'.$discipline->name));
     }
 
     public function categoryStore(Request $request, $team, $discipline)
@@ -136,8 +136,16 @@ class MaterialController extends Controller
         return response()->download($path, $file->name.'.'.$info['extension']);
     }
 
+    public function getMaterialFile($name){
+        $file = EducationMaterial::where('file_name', $name)->first();
+        $path = storage_path('/app/material/'.$name);
+        $info = pathinfo($path);
+
+        return response()->download($path, $file->name.'.'.$info['extension']);
+    }
+
     public function delete($id){
-        TeamMaterials::find($id)->delete();
+        EducationMaterial::find($id)->delete();
 
         Session::flash('success', 'Education material was be successfully deleted');
         return back();

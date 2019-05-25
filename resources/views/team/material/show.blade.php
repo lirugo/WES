@@ -10,17 +10,17 @@
                 <div class="row m-b-0 m-t-0">
                     @foreach($materials as $material)
                         <div class="col s12 m6 m-b-5 m-t-5">
-                            @if(Auth::user()->hasRole('teacher') || Auth::user()->hasRole('manager'))
-                                {!! Form::open(['route' => ['team.material.delete', $material->id]]) !!}
-                                <button type="submit" class="waves-effect waves-light btn btn-small red left m-r-5"><i class="material-icons">delete</i></button>
-                                {!! Form::close() !!}
-                            @endif
+{{--                            @if(Auth::user()->hasRole('teacher') || Auth::user()->hasRole('manager'))--}}
+{{--                                {!! Form::open(['route' => ['team.material.delete', $material->id]]) !!}--}}
+{{--                                <button type="submit" class="waves-effect waves-light btn btn-small red left m-r-5"><i class="material-icons">delete</i></button>--}}
+{{--                                {!! Form::close() !!}--}}
+{{--                            @endif--}}
                             {!! Form::open(['url' => '/team/material/getFile/'.$material->file, 'method' => 'POST']) !!}
                             <button type="submit" class="btn btn-small indigo waves-effect p-b-5">
                                 <i class="material-icons left">cloud_download</i>
                                 <span class="m-l-5">{{$material->name}}</span>
                             </button>
-                            <small>{{$material->created_at->diffForHumans()}}</small>
+                            {{--                            <small>{{$material->created_at->diffForHumans()}}</small>--}}
                             {!! Form::close() !!}
                         </div>
                     @endforeach
@@ -29,15 +29,35 @@
         </div>
     </div>
 
-{{--    Show categories--}}
+    {{--    Show categories--}}
     <div class="row">
-    @foreach($categories as $category)
+        @foreach($categories as $category)
             <div class="col s12">
-                <div class="card-panel">
+                <div class="card-panel p-t-10">
                     <h6 class="center">{{$category->name}}</h6>
+                    <hr>
+                    <div class="row m-b-0 m-t-0">
+                        @foreach($category->materials() as $material)
+                            <div class="col s12 m-b-5 m-t-5">
+                                @if(Auth::user()->hasRole('teacher') || Auth::user()->hasRole('manager'))
+                                    {!! Form::open(['route' => ['team.material.delete', $material->id]]) !!}
+                                    <button type="submit" class="waves-effect waves-light btn btn-small red right m-l-5"><i class="material-icons">delete</i></button>
+                                    {!! Form::close() !!}
+                                @endif
+
+                                {!! Form::open(['url' => '/team/material/getMaterialFile/'.$material->file_name, 'method' => 'POST']) !!}
+                                {{$material->name}}
+                                <button type="submit" class="btn btn-small green waves-effect p-b-5 right">
+                                    <i class="material-icons">file_download</i>
+                                </button>
+                                {{--                                <small>{{$material->created_at->diffForHumans()}}</small>--}}
+                                {!! Form::close() !!}
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
-    @endforeach
+        @endforeach
     </div>
 
     @if(Auth::user()->hasRole(['manager', 'teacher']))
