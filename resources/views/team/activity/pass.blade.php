@@ -44,7 +44,7 @@
                                {!! Form::open(['route' => ['team.activity.pass.mark', $team->name, $discipline->name, $activity->id, $student->id]]) !!}
                                    <div class="row m-b-0">
                                        <div class="input-field col s6 m3">
-                                           <input type="number" min="0" max="{{$activity->isOpen() ? $activity->max_mark : $activity->max_mark - ($activity->max_mark / 100 * 20) }}" name="mark" class="validate" required placeholder="Set mark for {{$student->getShortName()}}"/>
+                                           <input type="number" min="0" max="{{  $activity->max_mark }}" name="mark" class="validate" required placeholder="Set mark for {{$student->getShortName()}}"/>
                                        </div>
                                        <div class="input-field col s6 m3">
                                            <button type="submit" class="btn btn-small indigo">Set</button>
