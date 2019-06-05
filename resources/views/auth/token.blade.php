@@ -9,7 +9,8 @@
                         <div class="row m-b-0">
                             {!! Form::open(['route' => 'auth.token', 'method' => 'POST']) !!}
                             <div class="input-field col s12">
-                                <input id="key" name="key" type="password" class="validate" required>
+                                <input id="key" name="key" type="password" class="validate" required autocomplete="off" readonly
+                                       onfocus="this.removeAttribute('readonly');">
                                 <label for="key">Enter Your Key From SMS</label>
                             </div>
                                 <button class="btn waves-effect waves-light grey lighten-5 indigo-text right" type="submit" name="action">Check key

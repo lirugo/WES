@@ -90,3 +90,9 @@ i.icon-indigo {
   height: 100%;
   border: 0;
 }
+
+.show-on-mobile { display: none; }
+/* Smartphone Portrait and Landscape */
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 480px){ .show-on-mobile { display: inline; }}
