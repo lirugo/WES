@@ -114,8 +114,6 @@ return [
     'English lvl' => 'English lvl',
     'Choose English lvl' => 'Choose English lvl',
     'language' => 'language',
-    '' => '',
-    '' => '',
 
     //Library
     'Title of Book' => 'Title of Book',
@@ -128,7 +126,6 @@ return [
     'year' => 'year',
     'So far there is nothing here...' => 'So far there is nothing here...',
     'Tags' => 'Tags',
-    'Add' => 'Add',
 
     //Manage
     'Welcome ur login in, as' => 'Welcome ur login in, as',
@@ -154,10 +151,8 @@ return [
     'Select a gender of student' => 'Select a gender of student',
     'Male' => 'Male',
     'Female' => 'Female',
-    'Social networks' => 'Social networks',
     'Email' => 'Email',
     'Phone' => 'Phone',
-    'Created at' => 'Created at',
     'Sorry, but you do not have any groups...' => 'Sorry, but you do not have any groups...',
 
     //News
@@ -167,7 +162,6 @@ return [
     'Back to news' => 'Back to news',
     'Information will be lost!' => 'Information will be lost!',
     'Sorry, but you do not have any news...' => 'Sorry, but you do not have any news...',
-    'Open' => 'Open',
 
     //Student
     'Russian language' => 'Russian language',
@@ -203,13 +197,11 @@ return [
     'Teacher status' => 'Teacher status',
     'Choose disciplines for teacher' => 'Choose disciplines for teacher',
     'Can teach in English' => 'Can teach in English',
-    'Select social' => 'Select social',
     'URL' => 'URL',
     'Language' => 'Language',
     'Degree' => 'Degree',
     'Country Code' => 'Country Code',
     'Update Profile' => 'Update Profile',
-    'Name of the educational institution' => 'Name of the educational institution',
     'Job' => 'Job',
     'Reset Password' => 'Reset Password',
     'Old Password' => 'Old Password',
@@ -228,9 +220,4 @@ return [
     'SMS' => 'SMS',
     'EMAIL' => 'EMAIL',
     'Save Settings' => 'Save Settings',
-    '' => '',
-    '' => '',
-    '' => '',
-    '' => '',
-    '' => '',
 ];
