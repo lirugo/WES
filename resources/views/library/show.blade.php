@@ -41,7 +41,7 @@
             <div class="card">
                 <div class="card-content">
                     {!! Form::open(['route' => ['library.author.update', $library->id]]) !!}
-                    <span class="card-title center-align">Add Author</span>
+                    <span class="card-title center-align">@lang('app.Add Author')</span>
                     <div class="input-field">
                         <input placeholder="@lang('app.Second Name')" id="second_name" name="second_name" type="text" class="validate" required>
                     </div>

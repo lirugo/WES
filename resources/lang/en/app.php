@@ -1,8 +1,7 @@
 <?php
 
 return [
-
-    //Feedback
+     //Feedback
     'Feedback' => 'Feedback',
     'We’ll be very grateful to know about problems in the work of the educational platform!' => 'We’ll be very grateful to know about problems in the work of the educational platform!',
     'Title' => 'Title',
@@ -82,7 +81,41 @@ return [
 
     //Emails
     'User' => 'User',
-    'Body' => 'Body',
+
+    //Login
+    'Email not correct' => 'Email not correct',
+    'All is OK' => 'All is OK',
+    'Enter Your Email' => 'Enter Your Email',
+    'Enter Your Password' => 'Enter Your Password',
+    'Minimum 6 chars at least 1 number and 1 capital letter' => 'Minimum 6 chars at least 1 number and 1 capital letter',
+    'Sign in' => 'Sign in',
+    'Enter Your Key From SMS' => 'Enter Your Key From SMS',
+    'Check key' => 'Check key',
+
+    //Others
+    'Add Author' => 'Add Author',
+    'Manage Panel' => 'Manage Panel',
+    'No content yet...' => 'No content yet...',
+
+    //Notifications
+    'Unread' => 'Unread',
+    'Nothing new...' => 'Nothing new...',
+    'mark all as read' => 'mark all as read',
+    'Read' => 'Read',
+
+    //Student
+    'Created at' => 'Created at',
+    'Open' => 'Open',
+    'Sorry, but you do not have any free students...' => 'Sorry, but you do not have any free students...',
+    'Add' => 'Add',
+    'Select social' => 'Select social',
+    'Not have any social links.' => 'Not have any social links.',
+    'Social networks' => 'Social networks',
+    'English lvl' => 'English lvl',
+    'Choose English lvl' => 'Choose English lvl',
+    'language' => 'language',
+    '' => '',
+    '' => '',
 
     //Library
     'Title of Book' => 'Title of Book',
@@ -176,8 +209,25 @@ return [
     'Degree' => 'Degree',
     'Country Code' => 'Country Code',
     'Update Profile' => 'Update Profile',
-    '' => '',
-    '' => '',
+    'Name of the educational institution' => 'Name of the educational institution',
+    'Job' => 'Job',
+    'Reset Password' => 'Reset Password',
+    'Old Password' => 'Old Password',
+
+
+    //Setting
+    'New mark' => 'New mark',
+    'New activity' => 'New activity',
+    'New test' => 'New test',
+    'New activity message' => 'New activity message',
+    'New group work' => 'New group work',
+    'Update schedule' => 'Update schedule',
+    'Update activity' => 'Update activity',
+    'General Settings' => 'General Settings',
+    'Default language' => 'Default language',
+    'SMS' => 'SMS',
+    'EMAIL' => 'EMAIL',
+    'Save Settings' => 'Save Settings',
     '' => '',
     '' => '',
     '' => '',

@@ -12,19 +12,19 @@
                 <ul class="collapsible popout">
                     {{--                    Notifications--}}
                     <li class="active">
-                        <div class="collapsible-header"><i class="material-icons">notifications</i>Notifications</div>
+                        <div class="collapsible-header"><i class="material-icons">notifications</i>@lang('app.Notifications')</div>
                         <div class="collapsible-body p-t-0 p-b-0 p-l-0 p-r-0">
                             <ul class="collection">
                                 <li class="collection-item">
                                     <div class="switch">
-                                        New mark
+                                        @lang('app.New mark')
                                         <label class="left m-r-10">
-                                            SMS
+                                            @lang('app.SMS')
                                             <input type="checkbox" name="sms_new_mark" {{isset(Auth()->user()->settingNotifications) && Auth()->user()->settingNotifications->sms_new_mark ? 'checked' : ''}}>
                                             <span class="lever"></span>
                                         </label>
                                         <label class="left m-r-10">
-                                            EMAIL
+                                            @lang('app.EMAIL')
                                             <input type="checkbox" name="email_new_mark" {{isset(Auth()->user()->settingNotifications) && Auth()->user()->settingNotifications->email_new_mark ? 'checked' : ''}}>
                                             <span class="lever"></span>
                                         </label>
@@ -32,14 +32,14 @@
                                 </li>
                                 <li class="collection-item">
                                     <div class="switch">
-                                        New group work
+                                        @lang('app.New group work')
                                         <label class="left m-r-10">
-                                            SMS
+                                            @lang('app.SMS')
                                             <input type="checkbox" name="sms_new_group_work" {{isset(Auth()->user()->settingNotifications) && Auth()->user()->settingNotifications->sms_new_group_work ? 'checked' : ''}}>
                                             <span class="lever"></span>
                                         </label>
                                         <label class="left m-r-10">
-                                            EMAIL
+                                            @lang('app.EMAIL')
                                             <input type="checkbox" name="email_new_group_work" {{isset(Auth()->user()->settingNotifications) && Auth()->user()->settingNotifications->email_new_group_work ? 'checked' : ''}}>
                                             <span class="lever"></span>
                                         </label>
@@ -47,14 +47,14 @@
                                 </li>
                                 <li class="collection-item">
                                     <div class="switch">
-                                        New activity message
+                                        @lang('app.New activity message')
                                         <label class="left m-r-10">
-                                            SMS
+                                            @lang('app.SMS')
                                             <input type="checkbox" name="sms_new_activity_message" {{isset(Auth()->user()->settingNotifications) && Auth()->user()->settingNotifications->sms_new_activity_message ? 'checked' : ''}}>
                                             <span class="lever"></span>
                                         </label>
                                         <label class="left m-r-10">
-                                            EMAIL
+                                            @lang('app.EMAIL')
                                             <input type="checkbox" name="email_new_activity_message" {{isset(Auth()->user()->settingNotifications) && Auth()->user()->settingNotifications->email_new_activity_message ? 'checked' : ''}}>
                                             <span class="lever"></span>
                                         </label>
@@ -62,14 +62,14 @@
                                 </li>
                                 <li class="collection-item">
                                     <div class="switch">
-                                        New test
+                                        @lang('app.New test')
                                         <label class="left m-r-10">
-                                            SMS
+                                            @lang('app.SMS')
                                             <input type="checkbox" name="sms_new_test" {{isset(Auth()->user()->settingNotifications) && Auth()->user()->settingNotifications->sms_new_test ? 'checked' : ''}}>
                                             <span class="lever"></span>
                                         </label>
                                         <label class="left m-r-10">
-                                            EMAIL
+                                            @lang('app.EMAIL')
                                             <input type="checkbox" name="email_new_test" {{isset(Auth()->user()->settingNotifications) && Auth()->user()->settingNotifications->email_new_test ? 'checked' : ''}}>
                                             <span class="lever"></span>
                                         </label>
@@ -77,14 +77,14 @@
                                 </li>
                                 <li class="collection-item">
                                     <div class="switch">
-                                        New activity
+                                        @lang('app.New activity')
                                         <label class="left m-r-10">
-                                            SMS
+                                            @lang('app.SMS')
                                             <input type="checkbox" name="sms_new_activity" {{isset(Auth()->user()->settingNotifications) && Auth()->user()->settingNotifications->sms_new_activity ? 'checked' : ''}}>
                                             <span class="lever"></span>
                                         </label>
                                         <label class="left m-r-10">
-                                            EMAIL
+                                            @lang('app.EMAIL')
                                             <input type="checkbox" name="email_new_activity" {{isset(Auth()->user()->settingNotifications) && Auth()->user()->settingNotifications->email_new_activity ? 'checked' : ''}}>
                                             <span class="lever"></span>
                                         </label>
@@ -92,14 +92,14 @@
                                 </li>
                                 <li class="collection-item">
                                     <div class="switch">
-                                        Update schedule
+                                        @lang('app.Update schedule')
                                         <label class="left m-r-10">
-                                            SMS
+                                            @lang('app.SMS')
                                             <input type="checkbox" name="sms_update_schedule" {{isset(Auth()->user()->settingNotifications) && Auth()->user()->settingNotifications->sms_update_schedule ? 'checked' : ''}}>
                                             <span class="lever"></span>
                                         </label>
                                         <label class="left m-r-10">
-                                            EMAIL
+                                            @lang('app.EMAIL')
                                             <input type="checkbox" name="email_update_schedule" {{isset(Auth()->user()->settingNotifications) && Auth()->user()->settingNotifications->email_update_schedule ? 'checked' : ''}}>
                                             <span class="lever"></span>
                                         </label>
@@ -107,14 +107,14 @@
                                 </li>
                                 <li class="collection-item">
                                     <div class="switch">
-                                        Update activity
+                                        @lang('app.Update activity')
                                         <label class="left m-r-10">
-                                            SMS
+                                            @lang('app.SMS')
                                             <input type="checkbox" name="sms_update_activity" {{isset(Auth()->user()->settingNotifications) && Auth()->user()->settingNotifications->sms_update_activity ? 'checked' : ''}}>
                                             <span class="lever"></span>
                                         </label>
                                         <label class="left m-r-10">
-                                            EMAIL
+                                            @lang('app.EMAIL')
                                             <input type="checkbox" name="email_update_activity" {{isset(Auth()->user()->settingNotifications) && Auth()->user()->settingNotifications->email_update_activity ? 'checked' : ''}}>
                                             <span class="lever"></span>
                                         </label>
@@ -125,12 +125,12 @@
                     </li>
                     {{--                    General settings--}}
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">language</i>General Settings</div>
+                        <div class="collapsible-header"><i class="material-icons">language</i>@lang('app.General Settings')</div>
                         <div class="collapsible-body p-t-0 p-b-0 p-l-0 p-r-0">
                             <ul class="collection">
                                 <li class="collection-item">
                                     <div class="switch">
-                                        Default language
+                                        @lang('app.Default language')
                                         <label class="left m-r-10">
                                             <input class="with-gap" name="language" value="en" type="radio" {{Session::get('locale') == 'en' ? 'checked' : ''}} disabled/>
                                             <span>EN</span>
@@ -150,7 +150,7 @@
 
         {{--Floating button--}}
         <div class="fixed-action-btn">
-            <button type="submit" class="btn-floating btn-large green tooltipped pulse" data-position="left" data-tooltip="Save Settings">
+            <button type="submit" class="btn-floating btn-large green tooltipped pulse" data-position="left" data-tooltip="@lang('app.Save Settings')">
                 <i class="large material-icons">save</i>
             </button>
         </div>

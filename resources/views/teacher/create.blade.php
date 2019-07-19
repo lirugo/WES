@@ -257,7 +257,7 @@
                     <div class="input-field col s12 m4 l4">
                         <i class="material-icons prefix">insert_link</i>
                         {!! Form::text('social_linkedin', null, ['class' => 'validate', 'id' => 'social_linkedin']) !!}
-                        <label for="social_linkedin">Linkedin</label>
+                        <label for="social_linkedin">LinkedIn</label>
                     </div>
                 </div>
             </div>

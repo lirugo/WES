@@ -11,9 +11,9 @@
                             <div class="input-field col s12">
                                 <input id="key" name="key" type="password" class="validate" required autocomplete="off" readonly
                                        onfocus="this.removeAttribute('readonly');">
-                                <label for="key">Enter Your Key From SMS</label>
+                                <label for="key">@lang('app.Enter Your Key From SMS')</label>
                             </div>
-                                <button class="btn waves-effect waves-light grey lighten-5 indigo-text right" type="submit" name="action">Check key
+                                <button class="btn waves-effect waves-light grey lighten-5 indigo-text right" type="submit" name="action">@lang('app.Check key')
                                     <i class="material-icons right">send</i>
                                 </button>
                             {!! Form::close() !!}

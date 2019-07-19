@@ -12,14 +12,14 @@
                             <div class="input-field col s12 m-b-0">
                                 <i class="material-icons prefix">email</i>
                                 {!! Form::email('email', null, ['class' => 'validate', 'id' => 'email', 'required', 'autofocus']) !!}
-                                {!! Form::label('email', 'Enter Your Email', ['class' => 'active']) !!}
-                                <span class="helper-text" data-error="Email not correct" data-success="All is OK"></span>
+                                {!! Form::label('email', trans('app.Enter Your Email'), ['class' => 'active']) !!}
+                                <span class="helper-text" data-error="@lang('app.Email not correct')" data-success="@lang('app.All is OK')"></span>
                             </div>
                             <div class="input-field col s12 m-b-0">
                                 <i class="material-icons prefix">vpn_key</i>
                                 {!! Form::password('password', ['id' => 'password', 'required']) !!}
-                                {!! Form::label('password', 'Enter Your Password') !!}
-                                <span class="helper-text" data-error="Minimum 6 chars at least 1 number and 1 capital letter" data-success="All is OK"></span>
+                                {!! Form::label('password', trans('app.Enter Your Password')) !!}
+                                <span class="helper-text" data-error="@lang('app.Minimum 6 chars at least 1 number and 1 capital letter')" data-success="@lang('app.All is OK')"></span>
                             </div>
                             {{--<div class="input-field col s12 m-b-30">--}}
                                 {{--<div class="g-recaptcha right" data-sitekey="{{env('GOOGLE_CAPTCHA_KEY')}}"></div>--}}
@@ -29,7 +29,7 @@
                                     {{--<input type="checkbox" />--}}
                                     {{--<span>Remember Me?</span>--}}
                                 {{--</label>--}}
-                                <button class="btn waves-effect waves-light grey lighten-5 indigo-text right" type="submit" name="action">Sign in
+                                <button class="btn waves-effect waves-light grey lighten-5 indigo-text right" type="submit" name="action">@lang('app.Sign in')
                                     <i class="material-icons right">send</i>
                                 </button>
                             </div>

@@ -6,12 +6,12 @@
     <div class="row" id="notification">
         <form action="{{url('/notification/markall')}}" method="POST">
             @csrf
-            <button type="submit" class="waves-effect waves-light btn btn-small indigo m-t-10 m-l-10">mark all as read</button>
+            <button type="submit" class="waves-effect waves-light btn btn-small indigo m-t-10 m-l-10">@lang('app.mark all as read')</button>
         </form>
         <div class="col s12 m6">
-            <blockquote>Unread</blockquote>
+            <blockquote>@lang('app.Unread')</blockquote>
             @if(count(Auth::user()->unreadNotifications) == 0)
-                <small>Nothing new...</small>
+                <small>@lang('app.Nothing new...')</small>
             @else
                 <ul class="collection">
                     @foreach(Auth::user()->unreadNotifications as $notif)
@@ -33,7 +33,7 @@
             @endif
         </div>
         <div class="col s12 m6">
-            <blockquote>Read</blockquote>
+            <blockquote>@lang('app.Read')</blockquote>
             <ul class="collection">
                 @foreach(Auth::user()->notifications  as $notif)
                     <li class="collection-item avatar">

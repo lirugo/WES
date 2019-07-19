@@ -9,9 +9,9 @@
         <div class="col s12">
             <div class="card white">
                 <div class="card-content">
-                    <span class="card-title">Manage Panel</span>
+                    <span class="card-title">@lang('app.Manage Panel')</span>
                     <p>
-                         No content yet...
+                         @lang('app.No content yet...')
                     </p>
                 </div>
             </div>

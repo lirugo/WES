@@ -15,9 +15,9 @@
                         <span class="card-title center-align"></span>
                         <p></p>
                         <div class="divider m-t-10 m-b-10"></div>
-                        <blockquote class="m-b-0 m-t-5"><small>Email - {{$manager->email}}</small></blockquote>
-                        <blockquote class="m-b-0 m-t-5"><small>Phone - {{$manager->getPhone()}}</small></blockquote>
-                        <blockquote class="m-b-0 m-t-5"><small>Created at - {{$manager->created_at->format('Y-m-d')}}</small></blockquote>
+                        <blockquote class="m-b-0 m-t-5"><small>@lang('app.Email') - {{$manager->email}}</small></blockquote>
+                        <blockquote class="m-b-0 m-t-5"><small>@lang('app.Phone') - {{$manager->getPhone()}}</small></blockquote>
+                        <blockquote class="m-b-0 m-t-5"><small>@lang('app.Created at') - {{$manager->created_at->format('Y-m-d')}}</small></blockquote>
                     </div>
                     {{--<div class="card-action right-align">--}}
                         {{--<a href="" class="indigo waves-effect waves-light btn-small right">Edit</a>--}}
@@ -30,7 +30,7 @@
             <div class="row">
                 <div class="col s12">
                     <div class="card-panel orange white-text">
-                        <h5 class="center-align m-t-0 m-b-0-">Sorry, but you do not have any groups...</h5>
+                        <h5 class="center-align m-t-0 m-b-0-">@lang('app.Sorry, but you do not have any groups...')</h5>
                     </div>
                 </div>
             </div>
