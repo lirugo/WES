@@ -132,11 +132,11 @@
                                     <div class="switch">
                                         @lang('app.Default language')
                                         <label class="left m-r-10">
-                                            <input class="with-gap" name="language" value="en" type="radio" {{Session::get('locale') == 'en' ? 'checked' : ''}} disabled/>
+                                            <input class="with-gap" name="language" value="en" type="radio" {{Session::get('locale') == 'en' ? 'checked' : ''}}/>
                                             <span>EN</span>
                                         </label>
                                         <label class="left m-r-10">
-                                            <input class="with-gap" name="language" value="ua" type="radio" {{Session::get('locale') == 'ua' ? 'checked' : ''}} disabled/>
+                                            <input class="with-gap" name="language" value="ua" type="radio" {{Session::get('locale') == 'ua' ? 'checked' : ''}}/>
                                             <span>UA</span>
                                         </label>
                                     </div>
