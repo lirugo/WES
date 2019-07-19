@@ -8,14 +8,14 @@
         <div class="row" xmlns:v-on="http://www.w3.org/1999/xhtml">
             <div class="col s12 l6">
                 <div class="card-panel">
-                    <h6 class="center-align">Upload Education Materials</h6>
+                    <h6 class="center-align">@lang('app.Upload Education Materials')</h6>
                     <div class="row m-b-0 m-t-0">
                     <div class="input-field col s12 m-b-0 m-t-0">
                         <input placeholder="Enter education material name" name="name" type="text" class="validate" required>
                     </div>
                         <div class="input-field col s12 m-b-0 m-t-0">
                             <select name="category_id" required>
-                                <option value="" disabled>Choose a category</option>
+                                <option value="" disabled>@lang('app.Choose a category')</option>
                                 @foreach($categories as $category)
                                     <option value="{{$category->id}}" {{ old('$category') == $category->id ? 'selected="selected"' : '' }}>{{$category->name}}</option>
                                 @endforeach
@@ -25,21 +25,21 @@
                     <div class="input-field  m-b-0">
                         <i class="material-icons prefix">date_range</i>
                         <input id="public_date" value="{{ old('public_date') }}" name="public_date" type="text" class="datepickerDefault" required>
-                        <label for="public_date">Date of publication</label>
+                        <label for="public_date">@lang('app.Date of publication')</label>
                     </div>
                     <div class="file-field input-field  m-b-0">
                         <div class="btn indigo">
-                            <span>File</span>
+                            <span>@lang('app.File')</span>
                             <input type="file" name="file">
                         </div>
                         <div class="file-path-wrapper">
-                            <input class="file-path validate" type="text" placeholder="Upload file">
+                            <input class="file-path validate" type="text" placeholder="@lang('app.Upload file')">
                         </div>
                     </div>
                     <p>
                         <label class="right">
                             <input type="checkbox" name="type"/>
-                            <span>Public Material</span>
+                            <span>@lang('app.Public Material')</span>
                         </label>
                     </p>
                     </br>
@@ -51,7 +51,7 @@
             <div class="fixed-action-btn">
                 <button type="submit" class="btn-floating btn-large green tooltipped"
                         data-position="left"
-                        data-tooltip="Save">
+                        data-tooltip="@lang('app.Save')">
                     <i class="large material-icons">save</i>
                 </button>
             </div>

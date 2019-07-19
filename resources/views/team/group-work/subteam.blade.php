@@ -15,25 +15,25 @@
                     <div class="row m-b-0">
                         {{--Name--}}
                         <div class="input-field col s12 m-b-0">
-                            <input placeholder="Team Name" id="name" name="name" type="text" value="{{$subTeam->name}}" class="validate" disabled>
+                            <input placeholder="@lang('app.Team Name')" id="name" name="name" type="text" value="{{$subTeam->name}}" class="validate" disabled>
                         </div>
                         <div class="input-field col s12 m4">
                             <input name="start_date" type="text" value="{{ json_decode($subTeam->getDeadline())->startDate }}" class="datepickerDefault" {{Auth::user()->hasRole(['teacher', 'manager']) ? '' : 'disabled'}}>
-                            <span class="helper-text" data-error="wrong" data-success="right">Start Date</span>
+                            <span class="helper-text" data-error="wrong" data-success="right">@lang('app.Start Date')</span>
                         </div>
                         <div class="input-field col s12 m4">
                             <input name="end_date" type="text" value="{{ json_decode($subTeam->getDeadline())->endDate }}" class="datepickerDefault" {{Auth::user()->hasRole(['teacher', 'manager']) ? '' : 'disabled'}}>
-                            <span class="helper-text" data-error="wrong" data-success="right">End Date</span>
+                            <span class="helper-text" data-error="wrong" data-success="right">@lang('app.End Date')</span>
                         </div>
                         {{--Add new member--}}
                         @role('teacher')
                         @if(!$subTeam->isFinished())
                         <div class="input-field col s12 m4">
                             <select v-model="newMember">
-                                <option value="" disabled selected>Add members</option>
+                                <option value="" disabled selected>@lang('app.Add members')</option>
                                 <option :value="student" v-for="student in students" :data-icon="'/uploads/avatars/'+student.avatar">@{{ student.name.second_name + ' ' + student.name.name }}</option>
                             </select>
-                            <span class="helper-text" data-error="wrong" data-success="right"></span>
+                            <span class="helper-text" data-error="@lang('app.wrong')" data-success="@lang('app.All is OK')"></span>
                         </div>
                         @endif
                         @endrole
@@ -44,8 +44,8 @@
                             <table class="highlight responsive-table">
                                 <thead>
                                 <tr>
-                                    <th>Student</th>
-                                    <th>Mark</th>
+                                    <th>@lang('app.Student')</th>
+                                    <th>@lang('app.Mark')</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -62,12 +62,12 @@
                                     <td>
                                         @if(Auth::user()->hasRole('teacher'))
                                             @if(!$subTeam->isFinished())
-                                                <input type="number" placeholder="Set mark" v-model="member.mark" @change="updateMark(member)"/>
+                                                <input type="number" placeholder="@lang('app.Set mark')" v-model="member.mark" @change="updateMark(member)"/>
                                             @else
-                                            <input type="number" placeholder="Set mark" v-model="member.mark" disabled/>
+                                            <input type="number" placeholder="@lang('app.Set mark')" v-model="member.mark" disabled/>
                                             @endif
                                         @else
-                                            <input type="number" placeholder="Set mark" v-model="member.mark" disabled/>
+                                            <input type="number" placeholder="@lang('app.Set mark')" v-model="member.mark" disabled/>
                                         @endif
                                     </td>
                                 </tr>
@@ -77,7 +77,7 @@
                     </div>
                     @if(Auth::user()->hasRole(['teacher', 'manager']))
                         @if(!$subTeam->isFinished())
-                            <button type="submit" class="waves-effect waves-light btn btn-small orange right">update</button>
+                            <button type="submit" class="waves-effect waves-light btn btn-small orange right">@lang('app.update')</button>
                         @endif
                     @endif
                     {!! Form::close() !!}
@@ -93,7 +93,7 @@
 {{--                    @endrole--}}
                     {{--Show if sub team is closed--}}
                     @if($subTeam->isFinished())
-                        <a href="#" class="waves-effect waves-light btn btn-small red left tooltipped" data-position="bottom" data-tooltip="That sub team was be closed"><i class="material-icons">lock</i></a>
+                        <a href="#" class="waves-effect waves-light btn btn-small red left tooltipped" data-position="bottom" data-tooltip="@lang('app.That sub team was be closed')"><i class="material-icons">lock</i></a>
                     @endif
                 </div>
             </div>
@@ -105,14 +105,14 @@
                 {{--Create message--}}
                 <div class="card-panel m-b-20">
                     <div class="input-field m-b-0">
-                        <input id="text" name="text" placeholder="Write your message" type="text" v-model="message.text" class="validate">
+                        <input id="text" name="text" placeholder="@lang('app.Write your message')" type="text" v-model="message.text" class="validate">
                     </div>
                     {{--Attach files--}}
                     <div class="row m-b-0">
                         <div v-for="(file, index) in message.files">
                             <div class="col s10 input-field m-b-0">
                                 <i class="material-icons prefix">attachment</i>
-                                <input placeholder="Write name of file" name="file" id="file" type="text" v-model="message.files[index].name"
+                                <input placeholder="@lang('app.Write name of file')" name="file" id="file" type="text" v-model="message.files[index].name"
                                        class="validate" required>
                             </div>
                             <div class="input-field col s2 m-b-0">
@@ -120,21 +120,21 @@
                             </div>
                             <div class="col s12 file-field input-field m-b-0">
                                 <div class="btn indigo">
-                                    <span>File</span>
+                                    <span>@lang('app.File')</span>
                                     <input type="file" :id="'upload-'+index" required>
                                 </div>
                                 <div class="file-path-wrapper">
-                                    <input class="file-path validate" placeholder="Upload file" @change="uploadFile(index)"
+                                    <input class="file-path validate" placeholder="@lang('app.Upload file')" @change="uploadFile(index)"
                                            type="text">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <a class="btn-floating waves-effect waves-light red left tooltipped"
-                       data-position="right" data-tooltip="Add more files"
+                       data-position="right" data-tooltip="@lang('app.Add more files')"
                        @click="addRow"><i
                                 class="material-icons">add</i></a>
-                    <a class="waves-effect waves-light btn btn-small indigo right" @click="sendMessage">send</a>
+                    <a class="waves-effect waves-light btn btn-small indigo right" @click="sendMessage">@lang('app.send')</a>
                 </div>
                 @endif
                 {{--Show Chat--}}

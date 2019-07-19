@@ -11,11 +11,11 @@
                     <div>
                         <span data-badge-caption="" class="new badge left m-l-0">{{$activity->getType()}}</span>
                         @if($activity->mark_in_journal)
-                            <span data-badge-caption="" class="new badge orange left">Max {{$activity->max_mark}} balls</span>
+                            <span data-badge-caption="" class="new badge orange left">@lang('app.Max') {{$activity->max_mark}} @lang('app.balls')</span>
                         @endif
                         @role('student')
                         @if($activity->getMark(auth()->id()))
-                            <span data-badge-caption="" class="new badge red right">Your mark {{$activity->getMark(auth()->id())->mark}}</span>
+                            <span data-badge-caption="" class="new badge red right">@lang('app.Your mark') {{$activity->getMark(auth()->id())->mark}}</span>
                         @endif
                         @endrole
                     </div>
@@ -44,30 +44,30 @@
                                     <div class="input-field col s12 m6 l6 p-b-0 m-b-0">
                                         <i class="material-icons prefix">date_range</i>
                                         <input id="start_date" value="{{ \Carbon\Carbon::parse($activity->start_date)->format('Y-m-d') }}" name="start_date" type="text" class="datepickerDefault" required>
-                                        <label for="start_date">Start date</label>
+                                        <label for="start_date">@lang('app.Start date')</label>
                                     </div>
                                     <div class="input-field col s12 m6 l6 p-b-0 m-b-0">
                                         <i class="material-icons prefix">access_time</i>
                                         <input id="start_time" value="{{ \Carbon\Carbon::parse($activity->start_date)->format('H:i') }}" name="start_time" type="text" class="timepicker" required>
-                                        <label for="start_time">Start Time</label>
+                                        <label for="start_time">@lang('app.Start Time')</label>
                                     </div>
                                     {{--End date&time picker--}}
                                     <div class="input-field col s12 m6 l6 p-b-0 m-b-0">
                                         <i class="material-icons prefix">date_range</i>
                                         <input id="end_date" value="{{ \Carbon\Carbon::parse($activity->end_date)->format('Y-m-d') }}" name="end_date" type="text" class="datepickerDefault" required>
-                                        <label for="end_date">End date</label>
+                                        <label for="end_date">@lang('app.End date')</label>
                                     </div>
                                     <div class="input-field col s12 m6 l6 p-b-0 m-b-0">
                                         <i class="material-icons prefix">access_time</i>
                                         <input id="end_time" value="{{ \Carbon\Carbon::parse($activity->end_date)->format('H:i') }}" name="end_time" type="text" class="timepicker" required>
-                                        <label for="end_time">End Time</label>
+                                        <label for="end_time">@lang('app.End Time')</label>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-small orange">Update</button>
+                                <button type="submit" class="btn btn-small orange">@lang('app.Update')</button>
                             </form>
                         @else
-                            <small><blockquote class="m-b-0 m-t-15">Start date - {{$activity->start_date}}</blockquote></small>
-                            <small><blockquote class="m-b-0 m-t-5">End date - {{$activity->end_date}}</blockquote></small>
+                            <small><blockquote class="m-b-0 m-t-15">@lang('app.Start date') - {{$activity->start_date}}</blockquote></small>
+                            <small><blockquote class="m-b-0 m-t-5">@lang('app.End date') - {{$activity->end_date}}</blockquote></small>
                         @endif
                     </div>
                     <div class="card-action p-l-0">
@@ -76,10 +76,10 @@
                             <button type="submit" class="waves-effect waves-light btn btn-small red right"><i class="material-icons">delete</i></button>
                             {!! Form::close() !!}
 
-                            <a href="{{ url('team/'.$team->name.'/activity/'.$discipline->name.'/pass/'.$activity->id.'/students') }}" class="btn btn-small indigo left m-l-20 waves-effect waves-light">Students</a>
+                            <a href="{{ url('team/'.$team->name.'/activity/'.$discipline->name.'/pass/'.$activity->id.'/students') }}" class="btn btn-small indigo left m-l-20 waves-effect waves-light">@lang('app.Students')</a>
                         @endrole
                         @role('student')
-                            <a href="{{ url('team/'.$team->name.'/activity/'.$discipline->name.'/pass/'.$activity->id.'/'.Auth::user()->id) }}" class="btn btn-small indigo right waves-effect waves-light">Open</a>
+                            <a href="{{ url('team/'.$team->name.'/activity/'.$discipline->name.'/pass/'.$activity->id.'/'.Auth::user()->id) }}" class="btn btn-small indigo right waves-effect waves-light">@lang('app.Open')</a>
                         @endrole
                     </div>
                 </div>

@@ -11,7 +11,7 @@
                     <div class="input-field m-b-0">
                         <i class="material-icons prefix">title</i>
                         {!! Form::text('display_name', null, ['class' => 'validate', 'name' => 'display_name', 'id' => 'display_name', 'v-model' => 'title', 'required']) !!}
-                        <label for="display_name">Display Name</label>
+                        <label for="display_name">@lang('app.Display Name')</label>
                     </div>
                     <widget-slug url="{{url('/')}}" subdirectory="/team/{{$team->name}}/homework/{{$discipline->getDiscipline->name}}/" :title="title"></widget-slug>
                     <div class="input-field">
@@ -20,11 +20,11 @@
                     <div class="input-field col s12 m4 l4">
                         <div class="file-field">
                             <div class="btn indigo">
-                                <span>File</span>
+                                <span>@lang('app.File')</span>
                                 <input type="file" name="file[]" required multiple>
                             </div>
                             <div class="file-path-wrapper">
-                                <input class="file-path validate" type="text" placeholder="Upload files">
+                                <input class="file-path validate" type="text" placeholder="@lang('app.Upload files')">
                             </div>
                         </div>
                     </div>
@@ -32,14 +32,14 @@
                     <div class="input-field col s12 m4 l4">
                         <i class="material-icons prefix">date_range</i>
                         <input id="end_date" value="{{ old('end_date') }}" name="end_date" type="text" class="datepickerDefault" required>
-                        <label for="end_date">End Date Assignment</label>
+                        <label for="end_date">@lang('app.End Date Assignment')</label>
                     </div>
                     <div class="input-field col s12 m4 l4">
                         <i class="material-icons prefix">access_time</i>
                         <input id="end_time" value="{{ old('end_time') }}" name="end_time" type="text" class="timepicker" required>
-                        <label for="end_time">End Time Assignment</label>
+                        <label for="end_time">@lang('app.End Time Assignment')</label>
                     </div>
-                    <button class="btn waves-effect waves-light indigo" type="submit">Set Home Work
+                    <button class="btn waves-effect waves-light indigo" type="submit">@lang('app.Set Home Work')
                         <i class="material-icons right">send</i>
                     </button>
                 {!! Form::close() !!}

@@ -12,16 +12,16 @@
                         <div class="input-field">
                             <i class="material-icons prefix">title</i>
                             <input id="title" name="title" type="text" class="validate" required value="{{ old('title') }}">
-                            <label for="title">Title</label>
+                            <label for="title">@lang('app.Title')</label>
                         </div>
                         <div class="input-field">
                             <div class="file-field">
                                 <div class="btn indigo">
-                                    <span>Common File</span>
+                                    <span>@lang('app.Common File')</span>
                                     <input type="file" name="file" accept="application/pdf" required>
                                 </div>
                                 <div class="file-path-wrapper">
-                                    <input class="file-path validate" type="text" placeholder="Upload only PDF">
+                                    <input class="file-path validate" type="text" placeholder="@lang('app.Upload only PDF')">
                                 </div>
                             </div>
                         </div>

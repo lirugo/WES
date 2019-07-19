@@ -160,9 +160,9 @@
                                     <table class="striped">
                                         <thead>
                                         <tr>
-                                            <th>Title</th>
-                                            <th>Start Date</th>
-                                            <th>End Date</th>
+                                            <th>@lang('app.Title')(</th>
+                                            <th>@lang('app.Start Date')</th>
+                                            <th>@lang('app.End Date')</th>
                                             <th></th>
                                         </tr>
                                         </thead>

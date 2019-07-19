@@ -11,7 +11,7 @@
                         <col width="200px">
                         <thead>
                         <tr>
-                            <td class="center-align">Students | Start date of activities and pretests</td>
+                            <td class="center-align">@lang('app.Students') | @lang('app.Start date of activities and pretests')</td>
                             @foreach($activities as $act)
                                 <td class="center-align">
                                     <a href="#" class="tooltipped" data-position="top" data-tooltip="{{$act->name}}">
@@ -27,7 +27,7 @@
                                 </td>
                             @endforeach
                             <td class="center-align">
-                                <small>Total</small>
+                                <small>@lang('app.Total')</small>
                             </td>
                         </tr>
                         </thead>

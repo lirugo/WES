@@ -13,18 +13,18 @@
                 <div class="row m-b-0">
                     <div class="input-field col s12">
                         <input id="name" name="name" type="text" class="validate" required>
-                        <label for="name">Name</label>
+                        <label for="name">@lang('app.Name')</label>
                     </div>
                     <div class="input-field col s12">
                         <textarea id="description" name="description" class="materialize-textarea"></textarea>
                     </div>
                     <div class="input-field col s12" v-if="other" >
                         <input id="type_name" name="type_name" type="text" class="validate" required>
-                        <label for="type_name">Other type</label>
+                        <label for="type_name">@lang('app.Other type')</label>
                     </div>
                     <div class="input-field col s12 m6">
                         <select name="type" required v-model="type">
-                            <option value="" disabled>Type of Activity</option>
+                            <option value="" disabled>@lang('app.Type of Activity')</option>
                             @foreach (config('activity') as $key => $name)
                                 <option value="{{ $key }}"{{ old('type') == $key ? 'selected="selected"' : '' }}>{{ $name }}</option>
                             @endforeach
@@ -33,7 +33,7 @@
                     {{--Discipline--}}
                     <div class="input-field col s12 m6">
                         <select name="discipline_id" required>
-                            <option value="" disabled>Choose a discipline</option>
+                            <option value="" disabled>@lang('app.Choose a discipline')</option>
                             @role('teacher')
                             @foreach(Auth::user()->getTeacherDiscipline($team->name) as $discipline)
                                 <option value="{{$discipline->getDiscipline->id}}" {{ old('discipline_id') == $discipline->getDiscipline->id ? 'selected="selected"' : '' }}>{{$discipline->getDiscipline->display_name}}</option>
@@ -50,12 +50,12 @@
                         <input disabled/>
                         <label>
                             <input type="checkbox" name="mark_in_journal" @click="mark_in_journal ? mark_in_journal=false : mark_in_journal=true" />
-                            <span>Mark in Journal</span>
+                            <span>@lang('app.Mark in Journal')</span>
                         </label>
                     </div>
                     <div class="input-field col s12 m6" v-if="mark_in_journal">
                         <input id="max_mark" name="max_mark" type="number" min="1" max="50" class="validate" required>
-                        <label for="max_mark">Max Mark</label>
+                        <label for="max_mark">@lang('app.Max Mark')</label>
                     </div>
                 </div>
                 <div class="row m-b-0">
@@ -63,23 +63,23 @@
                     <div class="input-field col s12 m6 l6">
                         <i class="material-icons prefix">date_range</i>
                         <input id="start_date" value="{{ old('start_date') }}" name="start_date" type="text" class="datepickerDefault" required>
-                        <label for="start_date">Start date</label>
+                        <label for="start_date">@lang('app.Start date')</label>
                     </div>
                     <div class="input-field col s12 m6 l6">
                         <i class="material-icons prefix">access_time</i>
                         <input id="start_time" value="{{ old('start_time') }}" name="start_time" type="text" class="timepicker" required>
-                        <label for="start_time">Start Time</label>
+                        <label for="start_time">@lang('app.Start Time')</label>
                     </div>
                     {{--End date&time picker--}}
                     <div class="input-field col s12 m6 l6">
                         <i class="material-icons prefix">date_range</i>
                         <input id="end_date" value="{{ old('end_date') }}" name="end_date" type="text" class="datepickerDefault" required>
-                        <label for="end_date">End date</label>
+                        <label for="end_date">@lang('app.End date')</label>
                     </div>
                     <div class="input-field col s12 m6 l6">
                         <i class="material-icons prefix">access_time</i>
                         <input id="end_time" value="{{ old('end_time') }}" name="end_time" type="text" class="timepicker" required>
-                        <label for="end_time">End Time</label>
+                        <label for="end_time">@lang('app.End Time')</label>
                     </div>
                 </div>
 
@@ -92,11 +92,11 @@
         </div>
         <div class="col s12 m6">
             <div class="card-panel">
-                <h6 class="center-align">Upload Education Materials</h6>
+                <h6 class="center-align">@lang('app.Upload Education Materials')</h6>
                 <div class="row m-b-0" v-for="(input, index) in inputs">
                     <div class="input-field col s10 m-b-0">
                         <i class="material-icons prefix">attachment</i>
-                        <input placeholder="Write name of education material" name="file" id="file" type="text"
+                        <input placeholder="@lang('app.Write name of education material')" name="file" id="file" type="text"
                                v-model="input.file" class="validate" required>
                     </div>
                     <div class="input-field col s2">

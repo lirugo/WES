@@ -77,14 +77,14 @@
                                     </button>
                                     <span data-badge-caption="" class="new badge grey left m-l-5">{{$material->public_date}}</span>
                                     @if($material->type == 'staff')
-                                        <span data-badge-caption="" class="new badge orange darken-3 left m-l-5">Staff</span>
+                                        <span data-badge-caption="" class="new badge orange darken-3 left m-l-5">@lang('app.Staff')</span>
                                     @else
-                                        <span data-badge-caption="" class="new badge orange left m-l-5">Public</span>
+                                        <span data-badge-caption="" class="new badge orange left m-l-5">@lang('app.Public')</span>
                                     @endif
                                     @if($material->public_date < \Carbon\Carbon::now())
-                                        <span data-badge-caption="" class="new badge green left m-l-5 m-r-10">Published</span>
+                                        <span data-badge-caption="" class="new badge green left m-l-5 m-r-10">@lang('app.Published')</span>
                                     @else
-                                        <span data-badge-caption="" class="new badge red left m-l-5 m-r-10">Not published</span>
+                                        <span data-badge-caption="" class="new badge red left m-l-5 m-r-10">@lang('app.Not published')</span>
                                     @endif
                                     {!! Form::close() !!}
                                 </div>

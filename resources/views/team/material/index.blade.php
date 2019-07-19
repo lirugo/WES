@@ -12,7 +12,7 @@
                         <p>{{$discipline->getDiscipline->description}}</p>
                     </div>
                     <div class="card-action right-align">
-                        <a href="{{url('/team/'.$team->name.'/material/'.$discipline->getDiscipline->name)}}" class="indigo waves-effect waves-light btn-small right">Open</a>
+                        <a href="{{url('/team/'.$team->name.'/material/'.$discipline->getDiscipline->name)}}" class="indigo waves-effect waves-light btn-small right">@lang('app.Open')</a>
                     </div>
                 </div>
             </div>

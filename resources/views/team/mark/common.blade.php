@@ -14,7 +14,7 @@
                         @endforeach
                         <thead>
                         <tr>
-                            <td class="center-align">Disciplines | Students</td>
+                            <td class="center-align">@lang('app.Disciplines') | @lang('app.Students')</td>
                             @foreach($commonStudents as $s)
                                 <td class="center-align">
                                     <small>{{$s['student']}}</small>

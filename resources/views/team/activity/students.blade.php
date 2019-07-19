@@ -12,7 +12,7 @@
                         <span class="card-title center-align">{{$student->getShortName()}}</span>
                     </div>
                     <div class="card-action">
-                        <a href="{{url('team/'.$team->name.'/activity/'.$discipline->name.'/pass/'.$activity->id.'/'.$student->id)}}" class=" waves-effect waves-light btn-small right indigo">Open</a>
+                        <a href="{{url('team/'.$team->name.'/activity/'.$discipline->name.'/pass/'.$activity->id.'/'.$student->id)}}" class=" waves-effect waves-light btn-small right indigo">@lang('app.Open')</a>
                     </div>
                 </div>
             </div>

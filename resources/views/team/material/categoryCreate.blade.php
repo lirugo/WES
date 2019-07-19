@@ -8,9 +8,9 @@
     <div class="row">
         <div class="col s12 l6">
             <div class="card-panel">
-                <h6 class="center-align">Add Education Material Category</h6>
+                <h6 class="center-align">@lang('app.Add Education Material Category')</h6>
                 <div class="input-field ">
-                    <input placeholder="Enter education material category name" name="name" type="text" class="validate" required>
+                    <input placeholder="@lang('app.Enter education material category name')" name="name" type="text" class="validate" required>
                 </div>
             </div>
         </div>

@@ -14,10 +14,10 @@
                     <div>
                         <span data-badge-caption="" class="new badge left m-l-0">{{$activity->getType()}}</span>
                         @if($activity->mark_in_journal)
-                            <span data-badge-caption="" class="new badge orange left">Max {{$activity->max_mark}} balls</span>
+                            <span data-badge-caption="" class="new badge orange left">@lang('app.Max') {{$activity->max_mark}} @lang('app.balls')</span>
                         @endif
                         @if($activity->getMark($student->id))
-                           <span data-badge-caption="" class="new badge red right">Your mark {{$activity->getMark($student->id)->mark}}</span>
+                           <span data-badge-caption="" class="new badge red right">@lang('app.Your mark') {{$activity->getMark($student->id)->mark}}</span>
                         @endif
                        </div>
                        <div class="card-content">
@@ -37,17 +37,17 @@
                                    @endforeach
                                @endif
                            </div>
-                           <small><blockquote class="m-b-0 m-t-15">Start date - {{$activity->start_date}}</blockquote></small>
-                           <small><blockquote class="m-b-0 m-t-5">End date - {{$activity->end_date}}</blockquote></small>
+                           <small><blockquote class="m-b-0 m-t-15">@lang('app.Start date') - {{$activity->start_date}}</blockquote></small>
+                           <small><blockquote class="m-b-0 m-t-5">@lang('app.End date') - {{$activity->end_date}}</blockquote></small>
                            @if($activity->getMark($student->id) == null)
                                @role('teacher')
                                {!! Form::open(['route' => ['team.activity.pass.mark', $team->name, $discipline->name, $activity->id, $student->id]]) !!}
                                    <div class="row m-b-0">
                                        <div class="input-field col s6 m3">
-                                           <input type="number" min="0" max="{{  $activity->max_mark }}" name="mark" class="validate" required placeholder="Set mark for {{$student->getShortName()}}"/>
+                                           <input type="number" min="0" max="{{  $activity->max_mark }}" name="mark" class="validate" required placeholder="@lang('app.Set mark for') {{$student->getShortName()}}"/>
                                        </div>
                                        <div class="input-field col s6 m3">
-                                           <button type="submit" class="btn btn-small indigo">Set</button>
+                                           <button type="submit" class="btn btn-small indigo">@lang('app.Set')</button>
                                        </div>
                                    </div>
                                {!! Form::close() !!}
@@ -65,14 +65,14 @@
                        {{--Text of answer--}}
                        <div class="input-field m-b-0">
                            <textarea id="text" name="text" class="materialize-textarea" v-model="message.text" required></textarea>
-                           <label for="text">Write your answer here</label>
+                           <label for="text">@lang('app.Write your answer here')</label>
                        </div>
                        {{--Attach files--}}
                        <div class="row m-b-0">
                            <div v-for="(file, index) in message.files">
                                <div class="col s10 input-field m-b-0">
                                    <i class="material-icons prefix">attachment</i>
-                                   <input placeholder="Write name of file" name="file" id="file" type="text" v-model="message.files[index].name"
+                                   <input placeholder="@lang('app.Write name of file')" name="file" id="file" type="text" v-model="message.files[index].name"
                                           class="validate" required>
                                </div>
                                <div class="input-field col s2 m-b-0">
@@ -80,11 +80,11 @@
                                </div>
                                <div class="col s12 file-field input-field m-b-0">
                                    <div class="btn indigo">
-                                       <span>File</span>
+                                       <span>@lang('app.File')</span>
                                        <input type="file" :id="'upload-'+index" required>
                                    </div>
                                    <div class="file-path-wrapper">
-                                       <input class="file-path validate" placeholder="Upload file" @change="uploadFile(index)"
+                                       <input class="file-path validate" placeholder="@lang('app.Upload file')" @change="uploadFile(index)"
                                               type="text">
                                    </div>
                                </div>
@@ -94,7 +94,7 @@
                           data-position="right" data-tooltip="Add more files"
                           @click="addRow"><i
                                    class="material-icons">add</i></a>
-                       <button type="submit" class="btn btn-small right indigo waves-effect waves-light" @click="send">Send</button>
+                       <button type="submit" class="btn btn-small right indigo waves-effect waves-light" @click="send">@lang('app.Send')</button>
                    </div>
                </div>
            </div>
@@ -110,7 +110,7 @@
                        </div>
                        <div class="chip" v-else>
                            <img :src="'/uploads/avatars/' + message.teacher.avatar" alt="teacher">
-                           Teacher
+                           @lang('app.Teacher')
                        </div>
                        <div class="chip">
                            @{{ message.created_at }}

@@ -10,27 +10,27 @@
                 <div class="row m-b-0">
                     <div class="input-field col s12 m8">
                         <select name="discipline_id" disabled>
-                            <option value="" disabled>Choose a discipline</option>
+                            <option value="" disabled>@lang('app.Choose a discipline')</option>
                             <option value="{{$discipline->id}}">{{$discipline->display_name}}</option>
                         </select>
-                        <label for="discipline_id">Discipline</label>
+                        <label for="discipline_id">@lang('app.Discipline')</label>
                     </div>
                     <div class="input-field col s12 m4">
                         {!! Form::number('time', $pretest->time, ['placeholder' => 'Minutes', 'min' => 0, 'max' => 480, 'required']) !!}
-                        <label for="time">Min for that test</label>
+                        <label for="time">@lang('app.Min for that test')</label>
                     </div>
                 </div>
                 <div class="input-field">
                     <i class="material-icons prefix">title</i>
                     <input placeholder="Write name of pretest" name="name" id="name" type="text" class="validate"
                            value="{{$pretest->name}}" required>
-                    <label for="name">Name</label>
+                    <label for="name">@lang('app.Name')</label>
                 </div>
                 <div class="input-field">
                     <i class="material-icons prefix">format_align_justify</i>
                     <textarea placeholder="Write description of pretest" name="description" id="description" type="text"
                               class="materialize-textarea" required>{{$pretest->description}}</textarea>
-                    <label for="description">Description</label>
+                    <label for="description">@lang('app.Description')</label>
                 </div>
                 <div class="row">
                     {{--Start date&time picker--}}
@@ -38,34 +38,34 @@
                         <i class="material-icons prefix">date_range</i>
                         <input id="start_date" value="{{Carbon\Carbon::parse($pretest->start_date)->format('Y-m-d')}}" name="start_date" type="text"
                                class="datepickerDefault" required>
-                        <label for="start_date">Start date</label>
+                        <label for="start_date">@lang('app.Start date')</label>
                     </div>
                     <div class="input-field col s6">
                         <input id="start_time" value="{{Carbon\Carbon::parse($pretest->start_date)->format('H:i')}}" name="start_time" type="text"
                                class="timepicker" required>
-                        <label for="start_time">Time</label>
+                        <label for="start_time">@lang('app.Time')</label>
                     </div>
                     {{--End date&time picker--}}
                     <div class="input-field col s6">
                         <i class="material-icons prefix">date_range</i>
                         <input id="end_date" value="{{Carbon\Carbon::parse($pretest->end_date)->format('Y-m-d')}}" name="end_date" type="text"
                                class="datepickerDefault" required>
-                        <label for="end_date">End date</label>
+                        <label for="end_date">@lang('app.End date')</label>
                     </div>
                     <div class="input-field col s6">
                         <input id="end_time" value="{{Carbon\Carbon::parse($pretest->end_date)->format('H:i')}}" name="end_time" type="text"
                                class="timepicker" required>
-                        <label for="end_time">Time</label>
+                        <label for="end_time">@lang('app.Time')</label>
                     </div>
                 </div>
                 <p>
                     <label>
                         <input type="checkbox" name="mark_in_journal" {{$pretest->mark_in_journal ? 'checked' : ''}}/>
-                        <span>Mark in Journal</span>
+                        <span>@lang('app.Mark in Journal')</span>
                     </label>
                 </p>
 {{--                @if($pretest->isEditable())--}}
-                    <button type="submit" class="btn btn-small right orange">Update Deadline</button>
+                    <button type="submit" class="btn btn-small right orange">@lang('app.Update Deadline')</button>
 {{--                @endif--}}
             </div>
         </div>
@@ -89,17 +89,17 @@
         <div class="col s12">
             <div class="card-panel">
                 <div>
-                    <input type="text" placeholder="Write the question" v-model="question.name" required/>
+                    <input type="text" placeholder="@lang('app.Write the question')" v-model="question.name" required/>
                     <div v-for="(answer, index) in question.answers">
                         <div class="row m-b-0 m-t-0">
                             <a class="btn-floating btn-small waves-effect waves-light red left m-t-10" @click="deleteAnswer(answer, index)"><i class="material-icons">delete</i></a>
                             <div class="input-field col s8 m9 m-b-0 m-t-0">
-                                <input type="text" v-model="question.answers[index].answer" placeholder="Write the answer" required/>
+                                <input type="text" v-model="question.answers[index].answer" placeholder="@lang('app.Write the answer')" required/>
                             </div>
                             <div class="input-field col s4 m2 m-b-0 m-t-0">
                                 <label>
                                     <input type="checkbox" v-model="question.answers[index].isTrue" />
-                                    <span>Answer</span>
+                                    <span>@lang('app.Answer')</span>
                                 </label>
 
                             </div>
@@ -122,7 +122,7 @@
                     <div class="input-field col s4 m-b-0 m-t-0">
                         <label>
                             <input type="checkbox" v-model="answer.is_answer" disabled />
-                            <span>Answer</span>
+                            <span>@lang('app.Answer')</span>
                         </label>
                     </div>
                 </div>
@@ -134,7 +134,7 @@
     </div>
     <div class="fixed-action-btn">
         <a href="{{url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name.'/'.$pretest->id.'/statistic')}}" class="btn-floating btn-large orange tooltipped" data-position="left"
-           data-tooltip="Open Statistics">
+           data-tooltip="@lang('app.Open Statistics')">
             <i class="large material-icons">storage</i>
         </a>
     </div>

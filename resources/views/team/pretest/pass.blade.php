@@ -26,7 +26,7 @@
                             :key="index"
                             ripple
                     >
-                        Question @{{ index + 1 }}
+                        @lang('app.Question') @{{ index + 1 }}
                     </v-tab>
                     <v-tab-item
                             v-for="question in questions"
@@ -67,11 +67,11 @@
                                 class="headline orange center white-text"
                                 primary-title
                         >
-                            Pretest result
+                            @lang('app.Pretest result')
                         </v-card-title>
 
                         <v-card-text>
-                            Correct answers - @{{ countAnswers }} | @{{ Math.round(countAnswers / questions.length * 100) }} %
+                            @lang('app.Correct answers') - @{{ countAnswers }} | @{{ Math.round(countAnswers / questions.length * 100) }} %
                         </v-card-text>
 
                         <v-divider></v-divider>
@@ -83,7 +83,7 @@
                                     flat
                                     @click="accepted"
                             >
-                                Close
+                                @lang('app.Close')
                             </v-btn>
                         </v-card-actions>
                     </v-card>

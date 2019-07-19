@@ -14,15 +14,15 @@
                         <i class="material-icons prefix">date_range</i>
                         <input id="end_date" value="{{Carbon\Carbon::parse($pretest->end_date)->format('Y-m-d')}}" name="end_date" type="text"
                                class="datepickerDefault" required>
-                        <label for="end_date">End date</label>
+                        <label for="end_date">@lang('app.End date')</label>
                     </div>
                     <div class="input-field col s6">
                         <input id="end_time" value="{{Carbon\Carbon::parse($pretest->end_date)->format('H:i')}}" name="end_time" type="text"
                                class="timepicker" required>
-                        <label for="end_time">Time</label>
+                        <label for="end_time">@lang('app.Time')</label>
                     </div>
                 </div>
-                    <button type="submit" class="btn btn-small right orange">Update</button>
+                    <button type="submit" class="btn btn-small right orange">@lang('app.Update')</button>
                 {!! Form::close() !!}
             </div>
         </div>
@@ -32,9 +32,9 @@
                 <table>
                     <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Access</th>
-                        <th>Action</th>
+                        <th>@lang('app.Name')</th>
+                        <th>@lang('app.Access')</th>
+                        <th>@lang('app.Action')</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -54,7 +54,7 @@
                                 @else
                                     {!! Form::open(['url' => '/team/'.$team->name.'/pretest/discipline/'.$discipline->name.'/'.$pretest->id.'/setAccess']) !!}
                                         <input type="hidden" value="{{$student->id}}" name="student_id"/>
-                                        <button type="submit" class="waves-effect waves-light btn btn-small orange"><i class="material-icons right">lock_open</i>Open</button>
+                                        <button type="submit" class="waves-effect waves-light btn btn-small orange"><i class="material-icons right">lock_open</i>@lang('app.Open')</button>
                                     {!! Form::close() !!}
                                 @endif
                             </td>

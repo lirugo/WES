@@ -8,11 +8,11 @@
 {{--        All activity--}}
         <div class="col s12">
             <ul class="collection with-header hoverable">
-                <li class="collection-header"><h4>Activities</h4></li>
+                <li class="collection-header"><h4>@lang('app.Activities')</h4></li>
                 <div class="collection m-t-0 m-b-0">
                     @if(count($teamDiscipline->getActivities) <= 0)
                         <a href="#" class="collection-item disabled">
-                            No content yet...
+                            @lang('app.No content yet...')
                         </a>
                     @endif
                     @foreach($teamDiscipline->getActivities as $activity)
@@ -27,11 +27,11 @@
 {{--        All Pretests--}}
         <div class="col s12">
             <ul class="collection with-header hoverable">
-                <li class="collection-header"><h4>Pretests</h4></li>
+                <li class="collection-header"><h4>@lang('app.Pretests')</h4></li>
                 <div class="collection m-t-0 m-b-0">
                     @if(count($teamDiscipline->pretests) <= 0)
                         <a href="#" class="collection-item disabled">
-                            No content yet...
+                            @lang('app.No content yet...')
                         </a>
                     @endif
                     @foreach($teamDiscipline->pretests as $pretest)
@@ -46,11 +46,11 @@
 {{--        All Group Work--}}
         <div class="col s12">
             <ul class="collection with-header hoverable">
-                <li class="collection-header"><h4>Group Works</h4></li>
+                <li class="collection-header"><h4>@lang('app.Group Works')</h4></li>
                 <div class="collection m-t-0 m-b-0">
                     @if(count($groupWorks) <= 0)
                         <a href="#" class="collection-item disabled">
-                            No content yet...
+                            @lang('app.No content yet...')
                         </a>
                     @endif
                     @foreach($groupWorks as $work)

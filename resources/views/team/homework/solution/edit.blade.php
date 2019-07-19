@@ -11,7 +11,7 @@
                 <div class="input-field m-b-0">
                     <i class="material-icons prefix">title</i>
                     {!! Form::text('display_name', $homeWork->getSolution()->display_name, ['class' => 'validate', 'name' => 'display_name', 'id' => 'display_name', 'required']) !!}
-                    <label for="display_name">Display Name</label>
+                    <label for="display_name">@lang('app.Display Name')</label>
                 </div>
                 <div class="input-field">
                     <textarea name="description">{{$homeWork->getSolution()->description}}</textarea>
@@ -22,7 +22,7 @@
                             @foreach($homeWork->getSolution()->getFilesSolution($homeWork->getSolution()->student_id) as $file)
                                 <div class="input-field col s3 m-t-5 m-b-0">
                                     <a href="{{url('/team/'.$team->name.'/homework/'.$discipline->getDiscipline->name.'/file/'.$file->name)}}" download class="valign-wrapper">
-                                        <i class="material-icons m-r-5">cloud_download</i> Download *.{{pathinfo($file->name, PATHINFO_EXTENSION)}}
+                                        <i class="material-icons m-r-5">cloud_download</i> @lang('app.Download') *.{{pathinfo($file->name, PATHINFO_EXTENSION)}}
                                     </a>
                                 </div>
                             @endforeach
@@ -31,11 +31,11 @@
                 </div>
                 <div class="file-field">
                     <div class="btn indigo">
-                        <span>File</span>
+                        <span>@lang('app.File')</span>
                         <input type="file" name="file[]" multiple>
                     </div>
                     <div class="file-path-wrapper">
-                        <input class="file-path validate" type="text" placeholder="Upload new files">
+                        <input class="file-path validate" type="text" placeholder="@lang('app.Upload new files')">
                     </div>
                 </div>
             </div>
@@ -44,7 +44,7 @@
 
     {{--Floating button--}}
     <div class="fixed-action-btn">
-        <button type="submit" class="btn-floating btn-large green tooltipped" data-position="left" data-tooltip="Send My Solution">
+        <button type="submit" class="btn-floating btn-large green tooltipped" data-position="left" data-tooltip="@lang('app.Send My Solution')">
             <i class="large material-icons">save</i>
         </button>
         <ul>

@@ -12,7 +12,7 @@
                         <span class="card-title center-align">{{$discipline->getDiscipline->display_name}}</span>
                     </div>
                     <div class="card-action">
-                        <a href="{{url('team/'.$team->name.'/group-work/'.$discipline->getDiscipline->name)}}" class=" waves-effect waves-light btn-small right indigo">Open</a>
+                        <a href="{{url('team/'.$team->name.'/group-work/'.$discipline->getDiscipline->name)}}" class=" waves-effect waves-light btn-small right indigo">@lang('app.Open')</a>
                     </div>
                 </div>
             </div>

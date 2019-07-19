@@ -29,54 +29,54 @@
                             <i class="material-icons prefix">view_list</i>
                             @if(Auth::user()->hasRole('teacher'))
                                 <select name="discipline_id" required>
-                                    <option value="" disabled>Choose a discipline</option>
+                                    <option value="" disabled>@lang('app.Choose a discipline')</option>
                                     @foreach(Auth::user()->getTeacherDiscipline($team->name) as $discipline)
                                         <option value="{{$discipline->getDiscipline->id}}" {{ old('discipline_id') == $discipline->getDiscipline->id ? 'selected="selected"' : '' }}>{{$discipline->getDiscipline->display_name}} - {{$discipline->leftHours($team->id, Auth::user()->id, $discipline->getDiscipline->id)}} hours left</option>
                                     @endforeach
                                 </select>
                             @else
                                 <select name="discipline_id" required>
-                                    <option value="" disabled>Choose a discipline</option>
+                                    <option value="" disabled>@lang('app.Choose a discipline')</option>
                                     @foreach($team->disciplines as $discipline)
                                         <option value="{{$discipline->getDiscipline->id}}" {{ old('discipline_id') == $discipline->getDiscipline->id ? 'selected="selected"' : '' }}>{{$discipline->getDiscipline->display_name}}</option>
                                     @endforeach
                                 </select>
                             @endif
-                            <label for="discipline_id">Select Discipline</label>
+                            <label for="discipline_id">@lang('app.Select Discipline')</label>
                         </div>
                         {{--Start date&time picker--}}
                         <div class="input-field col s12 m6 l6">
                             <i class="material-icons prefix">date_range</i>
                             <input id="start_date" value="{{ old('start_date') }}" name="start_date" type="text" class="datepickerDefault" required>
-                            <label for="start_date">Select day</label>
+                            <label for="start_date">@lang('app.Select day')</label>
                         </div>
                         <div class="input-field col s12 m6 l6">
                             <i class="material-icons prefix">access_time</i>
                             <select name="lesson">
-                                <option value="" disabled selected>Select lecture</option>
+                                <option value="" disabled selected>@lang('app.Select lecture')</option>
                                 @foreach($team->lessonsTime as $time)
-                                <option value="{{$time->id}}">Lecture {{$time->position}} ({{\Carbon\Carbon::parse($time->start_time)->format('H:i')}} - {{\Carbon\Carbon::parse($time->end_time)->format('H:i')}})</option>
+                                <option value="{{$time->id}}">@lang('app.Lecture') {{$time->position}} ({{\Carbon\Carbon::parse($time->start_time)->format('H:i')}} - {{\Carbon\Carbon::parse($time->end_time)->format('H:i')}})</option>
                                 @endforeach
                             </select>
-                            <label>Time for lecture</label>
+                            <label>@lang('app.Time for lecture')</label>
                         </div>
                         <div class="input-field col s12 m6 l6">
                             <i class="material-icons prefix">devices_other</i>
                             <select multiple name="tools[]">
-                                <option value="" disabled selected>Select tools for lesson</option>
-                                <option value="Projector" selected>Projector</option>
-                                <option value="Laptop">Laptop</option>
-                                <option value="Markers">Markers</option>
-                                <option value="Board">Board</option>
-                                <option value="Flipcharts">Flipcharts</option>
-                                <option value="Sound speakers">Sound speakers</option>
+                                <option value="" disabled selected>@lang('app.Select tools for lesson')</option>
+                                <option value="Projector" selected>@lang('app.Projector')</option>
+                                <option value="Laptop">@lang('app.Laptop')</option>
+                                <option value="Markers">@lang('app.Markers')</option>
+                                <option value="Board">@lang('app.Board')</option>
+                                <option value="Flipcharts">@lang('app.Flipcharts')</option>
+                                <option value="Sound speakers">@lang('app.Sound speakers')</option>
                             </select>
-                            <label>Tools for lesson</label>
+                            <label>@lang('app.Tools for lesson')</label>
                         </div>
                         <div class="input-field col s12 m6 l6">
                             <i class="material-icons prefix">format_align_justify</i>
                             <input id="description" type="text" name="description" data-length="200">
-                            <label for="description">Title</label>
+                            <label for="description">@lang('app.Title')</label>
                         </div>
                     </div>
                 </div>

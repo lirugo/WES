@@ -14,7 +14,7 @@
                     <div class="row m-b-0">
                         <div class="input-field col s12 m8">
                             <select name="discipline_id" required>
-                                <option value="" disabled>Choose a discipline</option>
+                                <option value="" disabled>@lang('app.Choose a discipline')</option>
                                 @role('teacher')
                                 @foreach(Auth::user()->getTeacherDiscipline($team->name) as $discipline)
                                     <option value="{{$discipline->getDiscipline->id}}" {{ old('discipline_id') == $discipline->getDiscipline->id ? 'selected="selected"' : '' }}>{{$discipline->getDiscipline->display_name}}</option>
@@ -28,20 +28,20 @@
                             </select>
                         </div>
                         <div class="input-field col s12 m4">
-                            {!! Form::number('time', null, ['placeholder' => 'Minutes', 'min' => 0, 'max' => 480, 'required']) !!}
+                            {!! Form::number('time', null, ['placeholder' => trans('app.Minutes'), 'min' => 0, 'max' => 480, 'required']) !!}
                         </div>
                     </div>
                     <div class="input-field">
                         <i class="material-icons prefix">title</i>
-                        <input placeholder="Write name of pretest" name="name" id="name" type="text" class="validate"
+                        <input placeholder="@lang('app.Write name of pretest')" name="name" id="name" type="text" class="validate"
                                required>
-                        <label for="name">Name</label>
+                        <label for="name">@lang('app.Name')</label>
                     </div>
                     <div class="input-field">
                         <i class="material-icons prefix">format_align_justify</i>
                         <textarea placeholder="Write description of pretest" name="description" id="description" type="text"
                                   class="validate materialize-textarea" required></textarea>
-                        <label for="description">Description</label>
+                        <label for="description">@lang('app.Description')</label>
                     </div>
                     <div class="row">
                         {{--Start date&time picker--}}
@@ -49,43 +49,43 @@
                             <i class="material-icons prefix">date_range</i>
                             <input id="start_date" value="{{ old('start_date') }}" name="start_date" type="text"
                                    class="datepickerDefault" required>
-                            <label for="start_date">Start date</label>
+                            <label for="start_date">@lang('app.Start date')</label>
                         </div>
                         <div class="input-field col s12 m6 l6">
                             <i class="material-icons prefix">access_time</i>
                             <input id="start_time" value="{{ old('start_time') }}" name="start_time" type="text"
                                    class="timepicker" required>
-                            <label for="start_time">Start Time</label>
+                            <label for="start_time">@lang('app.Start Time')</label>
                         </div>
                         {{--End date&time picker--}}
                         <div class="input-field col s12 m6 l6">
                             <i class="material-icons prefix">date_range</i>
                             <input id="end_date" value="{{ old('end_date') }}" name="end_date" type="text"
                                    class="datepickerDefault" required>
-                            <label for="end_date">End date</label>
+                            <label for="end_date">@lang('app.End date')</label>
                         </div>
                         <div class="input-field col s12 m6 l6">
                             <i class="material-icons prefix">access_time</i>
                             <input id="end_time" value="{{ old('end_time') }}" name="end_time" type="text"
                                    class="timepicker" required>
-                            <label for="end_time">End Time</label>
+                            <label for="end_time">@lang('app.End Time')</label>
                         </div>
                     </div>
                     <p>
                         <label>
                             <input type="checkbox" name="mark_in_journal"/>
-                            <span>Mark in Journal</span>
+                            <span>@lang('app.Mark in Journal')</span>
                         </label>
                     </p>
                 </div>
             </div>
             <div class="col s12 l6">
                 <div class="card-panel">
-                    <h6 class="center-align">Upload Education Materials</h6>
+                    <h6 class="center-align">@lang('app.Upload Education Materials')</h6>
                     <div class="row m-b-0" v-for="(input, index) in inputs">
                         <div class="input-field col s10 m-b-0">
                             <i class="material-icons prefix">attachment</i>
-                            <input placeholder="Write name of education material" name="file" id="file" type="text"
+                            <input placeholder="@lang('app.Write name of education material')" name="file" id="file" type="text"
                                    v-model="input.file" class="validate" required>
                         </div>
                         <div class="input-field col s2">
@@ -93,11 +93,11 @@
                         </div>
                         <div class="col s12 file-field input-field">
                             <div class="btn indigo">
-                                <span>File</span>
+                                <span>@lang('app.File')</span>
                                 <input type="file" :id="'upload-'+index" required>
                             </div>
                             <div class="file-path-wrapper">
-                                <input class="file-path validate" placeholder="Upload file" @change="uploadFile(index)"
+                                <input class="file-path validate" placeholder="@lang('app.Upload file')" @change="uploadFile(index)"
                                        type="text">
                             </div>
                         </div>
@@ -113,7 +113,7 @@
         <div class="fixed-action-btn">
             <button type="submit" class="btn-floating btn-large green tooltipped"
                     data-position="left"
-                    data-tooltip="Save">
+                    data-tooltip="@lang('app.Save')">
                 <i class="large material-icons">save</i>
             </button>
         </div>

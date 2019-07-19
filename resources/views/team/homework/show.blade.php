@@ -8,18 +8,18 @@
             <div class="col s12 m6 l6">
                 <div class="card hoverable">
                     <div class="card-content p-b-0">
-                        <p class="right">Solutions - {{count($homeWork->solutions)}}</p>
+                        <p class="right">@lang('app.Solutions') - {{count($homeWork->solutions)}}</p>
                         <span class="card-title">{{$homeWork->display_name}}</span>
                         <p>{!!$homeWork->description!!}</p>
-                        <small><blockquote>Created - {{$homeWork->created_at->format('Y-m-d H:i')}} ({{$homeWork->created_at->diffForHumans()}})</blockquote></small>
-                        <small><blockquote>End date - {{Carbon\Carbon::parse($homeWork->assignment_date)->format('Y-m-d H:i')}} ({{Carbon\Carbon::parse($homeWork->assignment_date)->diffForHumans()}})</blockquote></small>
+                        <small><blockquote>@lang('app.Created') - {{$homeWork->created_at->format('Y-m-d H:i')}} ({{$homeWork->created_at->diffForHumans()}})</blockquote></small>
+                        <small><blockquote>@lang('app.End date') - {{Carbon\Carbon::parse($homeWork->assignment_date)->format('Y-m-d H:i')}} ({{Carbon\Carbon::parse($homeWork->assignment_date)->diffForHumans()}})</blockquote></small>
                             @if(count($homeWork->getFilesTask()) != 0)
                         <hr>
                         <div class="row">
                             @foreach($homeWork->getFilesTask() as $file)
                                 <div class="col s6 m-t-5">
                                     <a href="{{url('/team/'.$team->name.'/homework/'.$discipline->getDiscipline->name.'/file/'.$file->name.'/'.$homeWork->name)}}" download class="valign-wrapper">
-                                        <i class="material-icons m-r-5">cloud_download</i> Download *.{{pathinfo($file->name, PATHINFO_EXTENSION)}}
+                                        <i class="material-icons m-r-5">cloud_download</i> @lang('app.Download') *.{{pathinfo($file->name, PATHINFO_EXTENSION)}}
                                     </a>
                                 </div>
                             @endforeach
@@ -27,10 +27,10 @@
                             @endif
                     </div>
                     <div class="card-action">
-                        <a href="{{url('/team/'.$team->name.'/homework/'.$discipline->getDiscipline->name.'/'.$homeWork->name)}}" class="indigo waves-effect waves-light btn-small right">Open</a>
+                        <a href="{{url('/team/'.$team->name.'/homework/'.$discipline->getDiscipline->name.'/'.$homeWork->name)}}" class="indigo waves-effect waves-light btn-small right">@lang('app.Open')</a>
                         @if(Auth::user()->id == $homeWork->teacher_id || Auth::user()->id == $team->getOwner()->id)
                             {!! Form::open(['route' => ['team.homework.delete', $team->name, $homeWork->name]]) !!}
-                                <button type="submit" class="red waves-effect waves-light btn btn-small m-r-10"><i class="material-icons right">delete</i>Delete</button>
+                                <button type="submit" class="red waves-effect waves-light btn btn-small m-r-10"><i class="material-icons right">delete</i>@lang('app.Delete')</button>
                             {!! Form::close() !!}
                         @endif
                     </div>

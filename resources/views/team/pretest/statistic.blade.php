@@ -14,11 +14,11 @@
                 <table class="striped responsive-table">
                     <thead>
                     <tr>
-                        <th>Name</th>
+                        <th>@lang('app.Name')</th>
                         <th v-for="index in countQuestions">
-                            Quest @{{ index }}
+                            @lang('app.Quest') @{{ index }}
                         </th>
-                        <th>Total</th>
+                        <th>@lang('app.Total')</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -44,7 +44,7 @@
         @if(Auth::user()->hasRole('manager'))
             <div class="fixed-action-btn">
                 <a href="{{url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name.'/'.$pretest->id.'/access')}}" class="btn-floating btn-large orange tooltipped" data-position="left"
-                   data-tooltip="Access">
+                   data-tooltip="@lang('app.Access')">
                     <i class="large material-icons">lock</i>
                 </a>
             </div>

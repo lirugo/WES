@@ -18,7 +18,7 @@
                             </div>
                         </div>
                         <div class="card-action right-align">
-                            <a href="{{url('/team/'.$team->name.'/homework/'.$discipline->getDiscipline->name)}}" class="indigo waves-effect waves-light btn-small right">Open</a>
+                            <a href="{{url('/team/'.$team->name.'/homework/'.$discipline->getDiscipline->name)}}" class="indigo waves-effect waves-light btn-small right">@lang('app.Open')</a>
                         </div>
                     </div>
                 </div>
@@ -27,7 +27,7 @@
                 <div class="row">
                     <div class="col s12">
                         <div class="card-panel orange white-text">
-                            <h5 class="center-align m-t-0 m-b-0-">Sorry, but you do not have any discipline...</h5>
+                            <h5 class="center-align m-t-0 m-b-0-">@lang('app.Sorry, but you do not have any discipline...')</h5>
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                             </div>
                         </div>
                         <div class="card-action right-align">
-                            <a href="{{url('/team/'.$team->name.'/homework/'.$discipline->getDiscipline->name)}}" class="indigo waves-effect waves-light btn-small right">Open</a>
+                            <a href="{{url('/team/'.$team->name.'/homework/'.$discipline->getDiscipline->name)}}" class="indigo waves-effect waves-light btn-small right">@lang('app.Open')</a>
                         </div>
                     </div>
                 </div>

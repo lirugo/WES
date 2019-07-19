@@ -13,15 +13,15 @@
                 <ul class="collapsible popout">
                     {{--Disciplines--}}
                     <li class="active">
-                        <div class="collapsible-header"><i class="material-icons">access_time</i>Disciplines</div>
+                        <div class="collapsible-header"><i class="material-icons">access_time</i>@lang('app.Disciplines')</div>
                         <div class="collapsible-body p-t-0 p-b-0">
                             <div class="row">
                                 <table class="m-b-10 highlight">
                                     <thead>
                                     <tr>
-                                        <th>Disciplines</th>
-                                        <th>Hours</th>
-                                        <th>Active</th>
+                                        <th>@lang('app.Disciplines')</th>
+                                        <th>@lang('app.Hours')</th>
+                                        <th>@lang('app.Active')</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -54,12 +54,12 @@
                         </div>
                     </li>
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">group</i>Students</div>
-                        <div class="collapsible-body"><span>Nothing here yet</span></div>
+                        <div class="collapsible-header"><i class="material-icons">group</i>@lang('app.Students')</div>
+                        <div class="collapsible-body"><span>@lang('app.Nothing here yet')</span></div>
                     </li>
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">details</i>Other</div>
-                        <div class="collapsible-body"><span>Nothing here yet</span></div>
+                        <div class="collapsible-header"><i class="material-icons">details</i>@lang('app.Others')</div>
+                        <div class="collapsible-body"><span>@lang('app.Nothing here yet')</span></div>
                     </li>
                 </ul>
             </div>

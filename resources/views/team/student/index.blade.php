@@ -15,8 +15,8 @@
                         <span class="card-title center-align"></span>
                         <p></p>
                         <div class="divider m-t-10 m-b-10"></div>
-                        <blockquote class="m-b-0 m-t-5"><small>Email - {{$teacher->email}}</small></blockquote>
-                        <blockquote class="m-b-0 m-t-5"><small>Phone - {{$teacher->getPhone()}}</small></blockquote>
+                        <blockquote class="m-b-0 m-t-5"><small>@lang('app.Email') - {{$teacher->email}}</small></blockquote>
+                        <blockquote class="m-b-0 m-t-5"><small>@lang('app.Phone') - {{$teacher->getPhone()}}</small></blockquote>
                     </div>
                 </div>
             </div>
@@ -25,7 +25,7 @@
             <div class="row">
                 <div class="col s12">
                     <div class="card-panel orange white-text">
-                        <h5 class="center-align m-t-0 m-b-0-">Sorry, but this group don't have any teachers yet...</h5>
+                        <h5 class="center-align m-t-0 m-b-0-">@lang('app.Sorry, but this group don\'t have any teachers yet...')</h5>
                     </div>
                 </div>
             </div>

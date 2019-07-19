@@ -16,7 +16,7 @@
                             <p>{{$groupWork->description}}</p>
                             <div class="row m-b-0">
                                 @foreach($groupWork->files as $file)
-                                    <form action="{{url('/team/group-work/getFile/'.$file->filwe)}}" method="POST">
+                                    <form action="{{url('/team/group-work/getFile/'.$file->file)}}" method="POST">
                                         @csrf
                                         <button class="btn btn-small waves-effect waves-light indigo m-l-10" type="submit">
                                             {{$file->name}}
@@ -34,7 +34,7 @@
                             </div>
                             @if(Auth::user()->hasRole(['teacher', 'manager']))
                                 @if(!$groupWork->isFinished())
-                                    <button type="submit" class="waves-effect waves-light btn btn-small orange right">update</button>
+                                    <button type="submit" class="waves-effect waves-light btn btn-small orange right">@lang('app.update')</button>
                                 @endif
                             @endif
                             {!! Form::close() !!}
@@ -42,13 +42,13 @@
                             @role('teacher')
                             @if(!$groupWork->isFinished())
                                 {!! Form::open(['route' => ['team.group-work.finish', $team->name, $discipline->name, $groupWork->id]]) !!}
-                                <button type="submit" class="waves-effect waves-light btn btn-small red left tooltipped" data-position="bottom" data-tooltip="Press for closing group work">Finish</button>
+                                <button type="submit" class="waves-effect waves-light btn btn-small red left tooltipped" data-position="bottom" data-tooltip="@lang('app.Press for closing group work')">@lang('app.Finish')</button>
                                 {!! Form::close() !!}
                             @endif
                             @endrole
 
                             @if($groupWork->isFinished())
-                                <a href="#" class="waves-effect waves-light btn btn-small red left tooltipped" data-position="bottom" data-tooltip="That group work was be closed"><i class="material-icons">lock</i></a>
+                                <a href="#" class="waves-effect waves-light btn btn-small red left tooltipped" data-position="bottom" data-tooltip="@lang('app.That group work was be closed')"><i class="material-icons">lock</i></a>
                             @endif
                         </div>
                     </div>
@@ -63,7 +63,7 @@
                             <div class="row m-b-0">
                                 {{--Name--}}
                                 <div class="input-field col s12 m8">
-                                    <input placeholder="Team Name" id="name" name="name" type="text" v-model="subteam.name" class="validate">
+                                    <input placeholder="@lang('app.Team Name')" id="name" name="name" type="text" v-model="subteam.name" class="validate">
                                 </div>
                                 {{--Select members--}}
                                 <div class="input-field col s12 m4">
@@ -89,7 +89,7 @@
                                 </div>
                             </div>
                             {{--Create--}}
-                            <a class="waves-effect waves-light btn btn-small right green" @click="createSubTeam"><i class="material-icons right">add</i>Create</a>
+                            <a class="waves-effect waves-light btn btn-small right green" @click="createSubTeam"><i class="material-icons right">add</i>@lang('app.Create')</a>
                         </div>
                     </div>
                 </div>
@@ -102,7 +102,7 @@
                         <div class="row m-b-0">
                             {{--Name--}}
                             <div class="input-field col s12">
-                                <input placeholder="Team Name" id="name" name="name" type="text" :value="subteam.name" class="validate" disabled>
+                                <input placeholder="@lang('app.Team Name')" id="name" name="name" type="text" :value="subteam.name" class="validate" disabled>
                             </div>
                             {{--Show members--}}
                             <div class="chip m-l-10" v-for="(member, index) in subteam.members">
@@ -113,10 +113,10 @@
                         {{--Open--}}
                         @if(Auth::user()->hasRole('student'))
                             <div v-for="member in subteam.members">
-                                <a v-if="member.user.id == {{Auth::user()->id}}" :href="'/team/' + team.name + '/group-work/' + discipline.name + '/' + groupWork.id + '/' + subteam.id" class="waves-effect waves-light btn btn-small right indigo">Open</a>
+                                <a v-if="member.user.id == {{Auth::user()->id}}" :href="'/team/' + team.name + '/group-work/' + discipline.name + '/' + groupWork.id + '/' + subteam.id" class="waves-effect waves-light btn btn-small right indigo">@lang('app.Open')</a>
                             </div>
                         @else
-                            <a :href="'/team/' + team.name + '/group-work/' + discipline.name + '/' + groupWork.id + '/' + subteam.id" class="waves-effect waves-light btn btn-small right indigo">Open</a>
+                            <a :href="'/team/' + team.name + '/group-work/' + discipline.name + '/' + groupWork.id + '/' + subteam.id" class="waves-effect waves-light btn btn-small right indigo">@lang('app.Open')</a>
                         @endif
                     </div>
                 </div>

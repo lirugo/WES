@@ -12,20 +12,20 @@
                     <div class="input-field">
                         <i class="material-icons prefix">attachment</i>
                         {!! Form::text('name', $team->name, ['class' => 'validate', 'id' => 'name', 'required', 'disabled']) !!}
-                        <label for="name">Name</label>
+                        <label for="name">@lang('app.Name')</label>
                     </div>
                     <div class="input-field">
                         <i class="material-icons prefix">group</i>
                         {!! Form::text('display_name', $team->display_name, ['class' => 'validate', 'id' => 'display_name', 'required']) !!}
-                        <label for="display_name">Displaying Name</label>
+                        <label for="display_name">@lang('app.Displaying Name')</label>
                     </div>
                     <div class="input-field">
                         <i class="material-icons prefix">format_align_justify</i>
                         {!! Form::textarea('description', $team->description, ['class' => 'validate materialize-textarea', 'id' => 'description', 'required']) !!}
-                        <label for="description">Description</label>
+                        <label for="description">@lang('app.Description')</label>
                     </div>
                     @role('manager')
-                    <button type="submit" class="yellow darken-4 waves-effect waves-light btn"><i class="material-icons right">update</i>Update</button>
+                    <button type="submit" class="yellow darken-4 waves-effect waves-light btn"><i class="material-icons right">update</i>@lang('app.Update')</button>
                     @endrole
                 </div>
             </div>
@@ -33,7 +33,7 @@
             <div class="col s12 l6">
                 <div class="s12">
                     <div class="card-panel indigo white-text m-b-0">
-                        <h6 class="card-title m-t-0 m-b-0 center-align">Manager of this group.</h6>
+                        <h6 class="card-title m-t-0 m-b-0 center-align">@lang('app.Manager of this group.')</h6>
                     </div>
                 </div>
                 <div class="s12">
@@ -42,7 +42,7 @@
                         <p class="card-title m-b-0">{{$team->getOwner()->getShortName()}}</p>
                         <p class="card-title m-t-0 m-b-0">{{$team->getOwner()->email}}</p>
                         <p class="card-title m-t-0">{{$team->getOwner()->getPhone()}}</p>
-                        <a class="indigo waves-effect waves-light btn-small right"><i class="material-icons right">message</i>Have question?</a>
+                        <a class="indigo waves-effect waves-light btn-small right"><i class="material-icons right">message</i>@lang('app.Have question?')</a>
                     </div>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                         @foreach($team->lessonsTime as $time)
                             <div class="input-field col s6 m4 m-b-0 m-t-0">
                                 <input type="text" value="{{\Carbon\Carbon::parse($time->start_time)->format('H:i')}} - {{\Carbon\Carbon::parse($time->end_time)->format('H:i')}}" disabled>
-                                <span class="helper-text" data-error="wrong" data-success="right">Lecture {{$time->position}}</span>
+                                <span class="helper-text" data-error="wrong" data-success="right">@lang('app.Lecture') {{$time->position}}</span>
                             </div>
                         @endforeach
                     </div>
@@ -63,13 +63,13 @@
         <div class="row">
             <div class="col s12">
                 <div class="card-panel indigo white-text m-b-0">
-                    <h6 class="card-title m-t-0 m-b-0 center-align">Common files</h6>
+                    <h6 class="card-title m-t-0 m-b-0 center-align">@lang('app.Common files')</h6>
                 </div>
             </div>
             <div class="col s12">
                 <div class="card-panel m-b-0">
                     @if(count($team->commonFiles) == 0)
-                        <small>No any common file yet...</small>
+                        <small>@lang('app.No any common file yet...')</small>
                     @endif
                     @foreach($team->commonFiles as $file)
                         <a href="{{url('/team/'.$team->name.'/common/file/'.$file->file)}}" class="waves-effect waves-light btn indigo m-b-5">
@@ -89,7 +89,7 @@
         <div class="row">
             <div class="col s12">
                 <div class="card-panel indigo white-text m-b-0">
-                    <h6 class="card-title m-t-0 m-b-0 center-align">Students of this group</h6>
+                    <h6 class="card-title m-t-0 m-b-0 center-align">@lang('app.Students of this group')</h6>
                 </div>
             </div>
             @foreach($team->getStudents() as $student)
@@ -99,7 +99,7 @@
                             <div class="right">
                                 @if(!$team->isHeadman($student->id))
                                     {!! Form::open(['route' => ['team.setHeadman', $team->name], 'method' => 'POST', 'id' => 'headman-form']) !!}
-                                    <button type="submit" data-position="left" data-tooltip="Set like a headman" class="waves-effect waves-light btn btn-small indigo tooltipped"><i class="material-icons">add_circle_outline</i></button>
+                                    <button type="submit" data-position="left" data-tooltip="@lang('app.Set like a headman')" class="waves-effect waves-light btn btn-small indigo tooltipped"><i class="material-icons">add_circle_outline</i></button>
                                     <input type="hidden" name="student_id" value="{{$student->id}}"/>
                                     {!! Form::close() !!}
                                 @endif
@@ -132,7 +132,7 @@
         <div class="row">
             <div class="col s12">
                 <div class="card-panel indigo white-text m-b-0">
-                    <h6 class="card-title m-t-0 m-b-0 center-align">Disciplines of this group</h6>
+                    <h6 class="card-title m-t-0 m-b-0 center-align">@lang('app.Disciplines of this group')</h6>
                 </div>
             </div>
             @foreach($team->disciplines as $discipline)
@@ -152,9 +152,9 @@
                             <form action="{{url('/team/'.$team->name.'/discipline/'.$discipline->id.'/disable')}}" method="POST">
                                 @csrf
                                 @if($discipline->disabled)
-                                    <button type="submit" class="waves-effect waves-light btn btn-small red" ><i class="material-icons right">add</i>enable</button>
+                                    <button type="submit" class="waves-effect waves-light btn btn-small red" ><i class="material-icons right">add</i>@lang('app.enable')</button>
                                 @else
-                                    <button type="submit" class="waves-effect waves-light btn btn-small red" ><i class="material-icons right">close</i>disable</button>
+                                    <button type="submit" class="waves-effect waves-light btn btn-small red" ><i class="material-icons right">close</i>@lang('app.disable')</button>
                                 @endif
                             </form>
                         @endif
@@ -169,17 +169,17 @@
                     {{--Add new student--}}
                     <div class="card-panel hoverable">
                         {!! Form::open(['route' => ['team.student.store',$team->name], 'method' => 'POST']) !!}
-                        <h5 class="center-align m-b-30">Add a new student</h5>
+                        <h5 class="center-align m-b-30">@lang('app.Add a new student')</h5>
                         <div class="input-field">
                             <select class="icons" name="student" required>
-                                <option value="" disabled selected>Choose a new student</option>
+                                <option value="" disabled selected>@lang('app.Choose a new student')</option>
                                 @foreach($students as $student)
                                     <option value="{{$student->id}}" data-icon="{{asset('/uploads/avatars/'.$student->avatar)}}">{{$student->getShortName()}}</option>
                                 @endforeach
                             </select>
-                            <label>All students</label>
+                            <label>@lang('app.All students')</label>
                         </div>
-                        <button type="submit" class="indigo waves-effect waves-light btn right"><i class="material-icons right">add</i>New student</button>
+                        <button type="submit" class="indigo waves-effect waves-light btn right"><i class="material-icons right">add</i>@lang('app.New student')</button>
                         {!! Form::close() !!}
                     </div>
                 </div>
@@ -187,17 +187,17 @@
                 <div class="col s12 m6 l8">
                     <div class="card-panel hoverable">
                         {!! Form::open(['route' => ['team.discipline.store',$team->name], 'method' => 'POST']) !!}
-                        <h5 class="center-align m-b-30">Add a new discipline</h5>
+                        <h5 class="center-align m-b-30">@lang('app.Add a new discipline')</h5>
                         <div class="input-field">
                             <select class="icons" name="teamTemplateDisciplines" required>
-                                <option value="" disabled selected>Choose a new discipline</option>
+                                <option value="" disabled selected>@lang('app.Choose a new discipline')</option>
                                 @foreach($teamTemplateDisciplines as $discipline)
-                                    <option value="{{$discipline->id}}">{{$discipline->getTeacher->getShortName()}} - {{$discipline->getDiscipline->display_name}} {{$discipline->hours}} hours</option>
+                                    <option value="{{$discipline->id}}">{{$discipline->getTeacher->getShortName()}} - {{$discipline->getDiscipline->display_name}} {{$discipline->hours}} @lang('app.hours')</option>
                                 @endforeach
                             </select>
-                            <label>All disciplines</label>
+                            <label>@lang('app.All disciplines')</label>
                         </div>
-                        <button type="submit" class="indigo waves-effect waves-light btn right"><i class="material-icons right">add</i>New discipline</button>
+                        <button type="submit" class="indigo waves-effect waves-light btn right"><i class="material-icons right">add</i>@lang('app.New discipline')</button>
                         {!! Form::close() !!}
                     </div>
                 </div>
@@ -211,17 +211,17 @@
             </a>
             <ul>
                 @role('manager')
-                <li><a class="btn-floating green tooltipped" data-position="left" data-tooltip="Common file" href="{{url('/team/'.$team->name.'/common/file/create')}}"><i class="material-icons">attach_file</i></a></li>
+                <li><a class="btn-floating green tooltipped" data-position="left" data-tooltip="@lang('app.Common file')" href="{{url('/team/'.$team->name.'/common/file/create')}}"><i class="material-icons">attach_file</i></a></li>
                 @endrole
 
-                <li><a class="btn-floating green tooltipped" data-position="left" data-tooltip="Marks" href="{{url('/team/'.$team->name.'/mark')}}"><i class="material-icons">bookmark_border</i></a></li>
-                <li><a class="btn-floating green tooltipped" data-position="left" data-tooltip="Group Work" href="{{url('/team/'.$team->name.'/group-work')}}"><i class="material-icons">group</i></a></li>
-                <li><a class="btn-floating green tooltipped" data-position="left" data-tooltip="Activity" href="{{url('/team/'.$team->name.'/activity')}}"><i class="material-icons">home</i></a></li>
-                <li><a class="btn-floating green tooltipped" data-position="left" data-tooltip="Educational Materials" href="{{url('/team/'.$team->name.'/material')}}"><i class="material-icons">import_contacts</i></a></li>
-                <li><a class="btn-floating blue tooltipped" data-position="left" data-tooltip="Schedule" href="{{url('/team/'.$team->name.'/schedule')}}"><i class="material-icons">access_time</i></a></li>
-                <li><a class="btn-floating orange tooltipped" data-position="left" data-tooltip="Test" href="{{url('/team/'.$team->name.'/pretest')}}"><i class="material-icons">border_color</i></a></li>
+                <li><a class="btn-floating green tooltipped" data-position="left" data-tooltip="@lang('app.Marks')" href="{{url('/team/'.$team->name.'/mark')}}"><i class="material-icons">bookmark_border</i></a></li>
+                <li><a class="btn-floating green tooltipped" data-position="left" data-tooltip="@lang('app.Group Work')" href="{{url('/team/'.$team->name.'/group-work')}}"><i class="material-icons">group</i></a></li>
+                <li><a class="btn-floating green tooltipped" data-position="left" data-tooltip="@lang('app.Activity')" href="{{url('/team/'.$team->name.'/activity')}}"><i class="material-icons">home</i></a></li>
+                <li><a class="btn-floating green tooltipped" data-position="left" data-tooltip="@lang('app.Educational Materials')" href="{{url('/team/'.$team->name.'/material')}}"><i class="material-icons">import_contacts</i></a></li>
+                <li><a class="btn-floating blue tooltipped" data-position="left" data-tooltip="@lang('app.Schedule')" href="{{url('/team/'.$team->name.'/schedule')}}"><i class="material-icons">access_time</i></a></li>
+                <li><a class="btn-floating orange tooltipped" data-position="left" data-tooltip="@lang('app.Test')" href="{{url('/team/'.$team->name.'/pretest')}}"><i class="material-icons">border_color</i></a></li>
                 @if(Auth::user()->hasRole(['administrator', 'top-manager', 'manager']))
-                    <li><a class="btn-floating red tooltipped" data-position="left" data-tooltip="Settings" href="{{url('/team/'.$team->name.'/setting')}}"><i class="material-icons">settings</i></a></li>
+                    <li><a class="btn-floating red tooltipped" data-position="left" data-tooltip="@lang('app.Settings')" href="{{url('/team/'.$team->name.'/setting')}}"><i class="material-icons">settings</i></a></li>
                 @endif
             </ul>
         </div>
