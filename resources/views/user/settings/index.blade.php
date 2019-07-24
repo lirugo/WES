@@ -139,6 +139,10 @@
                                             <input class="with-gap" name="language" value="ua" type="radio" {{Session::get('locale') == 'ua' ? 'checked' : ''}}/>
                                             <span>UA</span>
                                         </label>
+                                        <label class="left m-r-10">
+                                            <input class="with-gap" name="language" value="ru" type="radio" {{Session::get('locale') == 'ru' ? 'checked' : ''}}/>
+                                            <span>RU</span>
+                                        </label>
                                     </div>
                                 </li>
                             </ul>
