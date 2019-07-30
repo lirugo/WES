@@ -136,11 +136,11 @@
                                             <span>EN</span>
                                         </label>
                                         <label class="left m-r-10">
-                                            <input class="with-gap" name="language" value="ua" type="radio" {{Session::get('locale') == 'ua' ? 'checked' : ''}}/>
+                                            <input class="with-gap" name="language" value="ua" type="radio" {{Session::get('locale') == 'ua' ? 'checked' : ''}} disabled/>
                                             <span>UA</span>
                                         </label>
                                         <label class="left m-r-10">
-                                            <input class="with-gap" name="language" value="ru" type="radio" {{Session::get('locale') == 'ru' ? 'checked' : ''}}/>
+                                            <input class="with-gap" name="language" value="ru" type="radio" {{Session::get('locale') == 'ru' ? 'checked' : ''}} disabled/>
                                             <span>RU</span>
                                         </label>
                                     </div>
