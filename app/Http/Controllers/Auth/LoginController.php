@@ -59,7 +59,8 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, User $user){
         //Check have two factor auth
-        return $this->logoutAndRedirectToTokenEntry($request, $user);
+        return redirect("/");
+//        return $this->logoutAndRedirectToTokenEntry($request, $user);
     }
 
     protected function logoutAndRedirectToTokenEntry($request, $user){
