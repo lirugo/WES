@@ -70,7 +70,7 @@
                 @if(!$pretest->isEditable())
                     <div class="chip red white-text">
                         <i class="material-icons chip-icon left">priority_high</i>
-                        @lang('Тест не может быть отредактированным, так как он начинается сегодня')
+                        @lang('Тест не может быть отредактированным, так как сегодня день старта')
                     </div>
                     <br/>
                     <small>*Вы можете изменить дату начала теста</small>
