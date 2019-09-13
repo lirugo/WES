@@ -67,6 +67,12 @@
 {{--                @if($pretest->isEditable())--}}
                     <button type="submit" class="btn btn-small right orange">@lang('app.Update Deadline')</button>
 {{--                @endif--}}
+                @if(!$pretest->isEditable())
+                    <div class="chip red white-text">
+                        <i class="material-icons chip-icon left">priority_high</i>
+                        @lang('Тест не может быть отредактированым, так как он начинается сегодня')
+                    </div>
+                @endif
             </div>
         </div>
     {!! Form::close() !!}
@@ -81,6 +87,7 @@
                 </div>
             @endforeach
         </div>
+
     </div>
 
     <div class="row" id="pretest-question">
