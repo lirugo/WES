@@ -94,7 +94,7 @@
                           data-position="right" data-tooltip="Add more files"
                           @click="addRow"><i
                                    class="material-icons">add</i></a>
-                       <button type="submit" class="btn btn-small right indigo waves-effect waves-light" @click="send">@lang('app.Send')</button>
+                       <button type="submit" class="btn btn-small right indigo waves-effect waves-light" @click="send" :disabled="isUploading">@lang('app.Send')</button>
                    </div>
                </div>
            </div>
