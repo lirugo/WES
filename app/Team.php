@@ -126,6 +126,28 @@ class Team extends LaratrustTeam
         return $students;
     }
 
+    public function getApiDescStudents(){
+        $users = User::with(['rolesTeams', 'name'])->whereRoleIs('student')->get();
+
+        //By ABC sort
+        $users = $users->sortBy('name.second_name');
+
+        $students = [];
+
+        foreach ($users as $key => $user){
+            $count = 0;
+            foreach ($user->rolesTeams as $t) {
+                if ($this->name == $t->name)
+                    $count++;
+            }
+            if($count == 0)
+                $users->forget($key);
+            else
+                array_push($students, $user->getShortName().' '.$user->jobs[0]->name.' '.$user->jobs[0]->position.' '.$user->jobs[0]->experience.' years');
+        }
+        return $students;
+    }
+
     /**
      * Get All Teachers of Team
      * @return mixed

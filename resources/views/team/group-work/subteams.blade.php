@@ -62,17 +62,16 @@
                         <div class="card-panel">
                             <div class="row m-b-0">
                                 {{--Name--}}
-                                <div class="input-field col s12 m8">
+                                <div class="input-field col s12 m6">
                                     <input placeholder="@lang('app.Team Name')" id="name" name="name" type="text" v-model="subteam.name" class="validate">
                                 </div>
                                 {{--Select members--}}
-                                <div class="input-field col s12 m4">
+                                <div class="input-field col s12 m6">
                                     <v-select
                                             v-model="newMember"
                                             :items="members"
                                             item-text="getName"
                                             return-object
-                                            item-avatar=""
                                             label="Students"
                                     >
                                     </v-select>
@@ -127,7 +126,7 @@
 @endsection
 
 @section('scripts')
-    <link href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@1.x/dist/vuetify.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/vuetify@1.x/dist/vuetify.js"></script>
     <script>
         new Vue({
@@ -138,7 +137,7 @@
                 discipline: {!! $discipline !!},
                 groupWork: {!! $groupWork !!},
                 newMember: null,
-                members: {!! json_encode($students) !!},
+                members: {!! json_encode($team->getApiDescStudents()) !!},
                 subteam: {
                     name: null,
                     members: []
