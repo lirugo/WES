@@ -62,7 +62,7 @@
                                                     size="88"
                                             >
                                                 <v-img
-                                                        :src="`https://avataaars.io/${avatar}`"
+                                                        :src="'/uploads/avatars/'+ selected.avatar"
                                                         class="mb-6"
                                                 ></v-img>
                                             </v-avatar>
