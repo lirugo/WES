@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Http\Resources\StudentApiResource;
 use App\Models\Team\CommonFile;
 use App\Models\Team\TeamHeadman;
 use App\Models\Team\TeamLessonTime;
@@ -100,6 +101,29 @@ class Team extends LaratrustTeam
         }
 
         return $users;
+    }
+
+    public function getApiStudents(){
+        $users = User::with(['rolesTeams', 'name'])->whereRoleIs('student')->get();
+
+        //By ABC sort
+        $users = $users->sortBy('name.second_name');
+
+        $students = [];
+
+        foreach ($users as $key => $user){
+            $count = 0;
+            foreach ($user->rolesTeams as $t) {
+                if ($this->name == $t->name)
+                    $count++;
+            }
+            if($count == 0)
+                $users->forget($key);
+            else
+                array_push($students, new StudentApiResource($user));
+        }
+
+        return $students;
     }
 
     /**

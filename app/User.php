@@ -42,7 +42,7 @@ class User extends Authenticatable
     }
 
     public function getShortName(){
-        $name = $this->names()->where('language', '=','en')->first();
+        $name = $this->names()->where('language', '=', Auth::user()->language)->first();
         if(is_null($name->middle_name))
             return $name->second_name.' '.mb_substr($name->name,0,1).'.';
         else
