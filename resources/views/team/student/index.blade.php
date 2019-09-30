@@ -8,7 +8,6 @@
     <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
 @endsection
 @section('content')
-
     <div id="students">
         <v-app>
             <v-content>
@@ -111,7 +110,7 @@
                 active: [],
                 avatar: null,
                 open: [],
-                users:{!! json_encode($team->getApiStudents())!!}
+                users: {!! json_encode($team->getApiStudents())!!}
             }),
 
             computed: {

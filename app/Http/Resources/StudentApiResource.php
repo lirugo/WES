@@ -23,9 +23,9 @@ class StudentApiResource extends JsonResource
             'phone' => $this->getPhone(),
             'email' => $this->email,
             'avatar' => $this->avatar,
-            'company' => $this->jobs != "" ? $this->jobs[0]->name : '',
-            'position' => $this->jobs ? $this->jobs[0]->position : '',
-            'experience' => $this->jobs ? $this->jobs[0]->experience : '',
+            'company' => count($this->jobs) > 0 != "" ? $this->jobs[0]->name : '',
+            'position' => count($this->jobs) > 0 ? $this->jobs[0]->position : '',
+            'experience' => count($this->jobs) > 0 ? $this->jobs[0]->experience : '',
         ];
     }
 }
