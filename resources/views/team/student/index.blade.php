@@ -74,9 +74,9 @@
                                         <v-divider></v-divider>
 
                                         <v-card-text>
-                                                <div class="blue--text mb-2">@{{ selected.company }}</div>
-                                                <div class="blue--text mb-2">@{{ selected.position }}</div>
-                                                <div class="blue--text mb-2">@{{ selected.experience }} years</div>
+                                                <div class="blue--text mb-2">Company - @{{ selected.company }}</div>
+                                                <div class="blue--text mb-2">Position - @{{ selected.position }}</div>
+                                                <div class="blue--text mb-2">Experience - @{{ selected.experience }} years</div>
                                         </v-card-text>
                                     </v-card>
                                 </v-scroll-y-transition>
