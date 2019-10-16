@@ -19,6 +19,7 @@ use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Session;
 
 class ActivityController extends Controller
@@ -124,7 +125,7 @@ class ActivityController extends Controller
     public function storeFile(Request $request, $name)
     {
         if ($request->hasFile('file')) {
-            $filePath = Storage::disk('activity')->put('/', $request->file);
+            $filePath = Storage::putFileAs('activity', $request->file, Str::random(40).'.'.$request->file->getClientOriginalExtension());
             return basename($filePath);
         } else
             return false;
