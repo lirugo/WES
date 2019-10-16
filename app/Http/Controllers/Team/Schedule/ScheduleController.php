@@ -33,11 +33,12 @@ class ScheduleController extends Controller
         foreach ($schedules as $schedule) {
             $startDate =  Carbon::parse($schedule->start_date);
             $endDate =  Carbon::parse($schedule->end_date);
+
             $events[] = (object) [
                 'title' => $schedule->title,
                 'date' => $startDate->format('Y-m-d'),
-                'start_time' => $startDate->format('H:m'),
-                'end_time' => $endDate->format('H:m'),
+                'start_time' => $startDate->format('H:i'),
+                'end_time' => $endDate->format('H:i'),
                 'duration' => Carbon::parse($startDate->format('Y-m-d H:m'))->diffInMinutes($endDate->format('Y-m-d H:m')),
                 'tools' => $schedule->getTools(),
                 'open' => false,
