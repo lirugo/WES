@@ -69,7 +69,8 @@
                                                 @{{ selected.name }}
                                             </h3>
                                             <div class="blue--text mb-2">@{{ selected.email }}</div>
-                                            <div class="blue--text subheading font-weight-bold">@{{ selected.phone }}</div>
+                                            <div class="blue--text mb-2 subheading font-weight-bold">@{{ selected.phone }}</div>
+                                            <div class="blue--text">@{{ selected.age }} years old</div>
                                         </v-card-text>
                                         <v-divider></v-divider>
 
@@ -77,6 +78,10 @@
                                                 <div class="blue--text mb-2">Company - @{{ selected.company }}</div>
                                                 <div class="blue--text mb-2">Position - @{{ selected.position }}</div>
                                                 <div class="blue--text mb-2">Experience - @{{ selected.experience }} years</div>
+                                                <div class="blue--text mb-2">Education - @{{ selected.education.name }}</div>
+                                                <div class="blue--text mb-2">Speciality - @{{ selected.education.speciality }}</div>
+                                                <div class="blue--text mb-2">English lvl - @{{ selected.english_lvl }}</div>
+                                                <div class="blue--text mb-2">Introductory score - @{{ selected.introductory_score }}</div>
                                         </v-card-text>
                                     </v-card>
                                 </v-scroll-y-transition>

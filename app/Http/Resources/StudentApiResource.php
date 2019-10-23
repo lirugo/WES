@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class StudentApiResource extends JsonResource
@@ -17,15 +18,19 @@ class StudentApiResource extends JsonResource
         $middle_name = is_null($this->name->middle_name) ? '' : ' '.$this->name->middle_name;
         return [
             'id' => $this->id,
-
             'name' => $this->getShortName(),
-            'dateOfBirth' => $this->date_of_birth,
-            'phone' => $this->getPhone(),
-            'email' => $this->email,
             'avatar' => $this->avatar,
+
+            'email' => $this->email,
+            'phone' => $this->getPhone(),
+            'age' => Carbon::parse($this->date_of_birth)->age,
+
             'company' => count($this->jobs) > 0 != "" ? $this->jobs[0]->name : '',
             'position' => count($this->jobs) > 0 ? $this->jobs[0]->position : '',
             'experience' => count($this->jobs) > 0 ? $this->jobs[0]->experience : '',
+            'education' => count($this->educations) > 0 ? $this->educations[0] : '',
+            'english_lvl' => $this->student != null ? $this->student->english_lvl : '',
+            'introductory_score' => $this->student != null ? $this->student->introductory_score : '',
         ];
     }
 }
