@@ -76,14 +76,17 @@ class ScheduleController extends Controller
         $start = Carbon::parse(date('Y-m-d H:i', strtotime("$request->start_date, $lesson->start_time")));
         $end = Carbon::parse(date('Y-m-d H:i', strtotime("$request->start_date, $lesson->end_time")));
 
+        // Find team
+        $team = Team::where('name', $name)->first();
+
         // Check time is free
-        $less = Schedule::where('start_date', $start)->count();
+        $less = Schedule::where('team_id', $team->id)->where('start_date', $start)->count();
+
         if($less > 0){
             return back()->withErrors('That time is busy. Select another lecture');
         }
 
-        // Find team
-        $team = Team::where('name', $name)->first();
+
 
         // Find teacher
         $teacher = User::find($request->teacher_id);
