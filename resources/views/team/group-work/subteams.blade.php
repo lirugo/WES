@@ -55,7 +55,7 @@
                 </div>
             </div>
             {{--Create team--}}
-            @role('teacher')
+            @role(['teacher', 'manager'])
             @if(!$groupWork->isFinished())
                 <div class="row m-b-0">
                     <div class="col s12">
