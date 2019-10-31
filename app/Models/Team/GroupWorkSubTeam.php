@@ -16,6 +16,10 @@ class GroupWorkSubTeam extends Model
         return $this->hasMany(GroupWorkSubTeamMembers::class, 'subteam_id', 'id')->with('user');
     }
 
+    public function isMember($studentId){
+        return $this->members()->where('user_id', $studentId)->get();
+    }
+
     //Get sub team deadline common or specific
     public function getDeadline(){
         if($this->hasOne(GroupWorkSubTeamDeadline::class, 'subteam_id', 'id')->first())
@@ -52,5 +56,9 @@ class GroupWorkSubTeam extends Model
             return $mark != 0;
         }else
             return false;
+    }
+
+    public function getMark($studentId){
+        return $this->hasMany(GroupWorkSubTeamMembers::class, 'subteam_id', 'id')->where('user_id', $studentId)->first();
     }
 }

@@ -14,15 +14,22 @@
                             <td class="center-align">@lang('app.Students') | @lang('app.Start date of activities and pretests')</td>
                             @foreach($activities as $act)
                                 <td class="center-align">
-                                    <a href="#" class="tooltipped" data-position="top" data-tooltip="{{$act->name}}">
+                                    <a href="#" class="tooltipped" data-position="top" data-tooltip="Activity - {{$act->name}}">
                                         <small>{{\Carbon\Carbon::parse($act->start_date)->format('d-m-Y')}}</small>
                                     </a>
                                 </td>
                             @endforeach
                             @foreach($pretests as $test)
                                 <td class="center-align">
-                                    <a href="#" class="tooltipped" data-position="top" data-tooltip="{{$test->name}}">
+                                    <a href="#" class="tooltipped" data-position="top" data-tooltip="Pretest - {{$test->name}}">
                                         <small>{{\Carbon\Carbon::parse($test->start_date)->format('d-m-Y')}}</small>
+                                    </a>
+                                </td>
+                            @endforeach
+                            @foreach($groupWorks as $work)
+                                <td class="center-align">
+                                    <a href="#" class="tooltipped" data-position="top" data-tooltip="Group Work - {{$work->name}}">
+                                        <small>{{\Carbon\Carbon::parse($work->start_date)->format('d-m-Y')}}</small>
                                     </a>
                                 </td>
                             @endforeach
@@ -59,6 +66,18 @@
                                             @if($test->getMark($student->id))
                                             <?php
                                                 $total += $test->getMark($student->id)->mark;
+                                            ?>
+                                            @endif
+                                        </a>
+                                    </td>
+                                @endforeach
+                                @foreach($groupWorks as $work)
+                                    <td class="center-align">
+                                        <a target="_blank" href="{{url('/team/'.$team->name.'/group-work/'.$discipline->name.'/'.$work->id)}}">
+                                            {{$work->getMark($student->id) ? $work->getMark($student->id)->mark : '-'}}
+                                            @if($work->getMark($student->id))
+                                            <?php
+                                                $total += $work->getMark($student->id)->mark;
                                             ?>
                                             @endif
                                         </a>

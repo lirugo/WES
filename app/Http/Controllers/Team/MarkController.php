@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Team;
 
 use App\Discipline;
+use App\Models\Team\GroupWork;
 use App\Models\Team\Pretest;
 use App\Models\Team\TeamActivity;
 use App\Team;
@@ -127,6 +128,11 @@ class MarkController extends Controller
             'discipline_id' => $discipline->id,
             'mark_in_journal' => true,
         ])->get();
+        // Get Group Works
+        $groupWorks = GroupWork::where([
+            'team_id' => $team->id,
+            'discipline_id' => $discipline->id,
+        ])->get();
 
         // Get Students
         $students = $team->getStudents();
@@ -186,6 +192,7 @@ class MarkController extends Controller
             'discipline' => $discipline,
             'activities' => $activities,
             'pretests' => $pretests,
+            'groupWorks' => $groupWorks,
             'students' => $students,
         ]);
     }
