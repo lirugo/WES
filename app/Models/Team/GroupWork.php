@@ -41,7 +41,10 @@ class GroupWork extends Model
                 $team = $subTeam;
         }
 
-        return $team->getMark($studentId);
+        if($team != null)
+            return $team->getMark($studentId);
+
+        return null;
     }
 
     public function team(){

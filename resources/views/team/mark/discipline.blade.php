@@ -59,6 +59,7 @@
                                         </a>
                                     </td>
                                 @endforeach
+                                
                                 @foreach($pretests as $test)
                                     <td class="center-align">
                                         <a target="_blank" href="{{url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name)}}">
@@ -71,6 +72,7 @@
                                         </a>
                                     </td>
                                 @endforeach
+
                                 @foreach($groupWorks as $work)
                                     <td class="center-align">
                                         <a target="_blank" href="{{url('/team/'.$team->name.'/group-work/'.$discipline->name.'/'.$work->id)}}">

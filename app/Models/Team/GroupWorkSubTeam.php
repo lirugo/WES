@@ -17,7 +17,7 @@ class GroupWorkSubTeam extends Model
     }
 
     public function isMember($studentId){
-        return $this->members()->where('user_id', $studentId)->get();
+        return count($this->members()->where('user_id', $studentId)->get()) > 0;
     }
 
     //Get sub team deadline common or specific
