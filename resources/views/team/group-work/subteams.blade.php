@@ -83,7 +83,7 @@
                                 {{--                        Show members--}}
                                 <div class="chip m-l-10" v-for="(member, index) in subteam.members">
                                     <img :src="'/uploads/avatars/' + member.avatar" alt="image">
-                                    @{{ member.name.second_name + ' ' + member.name.name }}
+                                    @{{ member.name.second_name ? member.name.second_name : '' + ' ' + member.name.name }}
 {{--                                    <i class="material-icons chip-icon" @click="excludeMember(index)">close</i>--}}
                                 </div>
                             </div>
@@ -137,7 +137,7 @@
                 discipline: {!! $discipline !!},
                 groupWork: {!! $groupWork !!},
                 newMember: null,
-                members: {!! json_encode($team->getApiDescStudents()) !!},
+                members: {!! json_encode($students) !!},
                 subteam: {
                     name: null,
                     members: []
