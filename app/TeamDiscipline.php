@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Team\GroupWork;
 use App\Models\Team\Pretest;
 use App\Models\Team\TeamActivity;
 use Illuminate\Database\Eloquent\Model;
@@ -37,6 +38,10 @@ class TeamDiscipline extends Model
             ['team_id', $this->team_id],
             ['discipline_id', $this->discipline_id]
         ])->orderBy('id', 'DESC')->get();
+    }
+
+    public function getGroupWorks(){
+        return $this->hasMany(GroupWork::class, 'discipline_id', 'discipline_id')->where('team_id', $this->team_id);
     }
 
     public function getCountPoints(){
@@ -95,6 +100,10 @@ class TeamDiscipline extends Model
         foreach ($this->pretests as $test){
             if($test->mark_in_journal)
                 $mark += $test->getMark($studentId) ? $test->getMark($studentId)->mark : 0;
+        }
+        //Mark from Group Work
+        foreach ($this->getGroupWorks as $work){
+            $mark += $work->getMark($studentId) ? $work->getMark($studentId)->mark : 0;
         }
 
         return $mark;
