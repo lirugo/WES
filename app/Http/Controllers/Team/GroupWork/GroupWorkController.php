@@ -117,6 +117,7 @@ class GroupWorkController extends Controller
 
         $students = [];
         foreach ($team->getStudents() as $student){
+            $student->getTitle = $student->getShortName().' '.$student->jobs[0]->name.' '.$student->jobs[0]->position.' '.$student->jobs[0]->experience.' years';
             array_push($students, $student);
         }
 

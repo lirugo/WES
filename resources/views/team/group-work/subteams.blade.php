@@ -70,7 +70,7 @@
                                     <v-select
                                             v-model="newMember"
                                             :items="members"
-                                            item-text="getName"
+                                            item-text="getTitle"
                                             return-object
                                             label="Students"
                                     >
