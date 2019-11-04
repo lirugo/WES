@@ -177,6 +177,14 @@
         $trail->parent('team-activity', $team);
         $trail->push($discipline->display_name, url('/team/'.$team->name.'/activity/'.$discipline->name));
     });
+    Breadcrumbs::for('team-activity-show-students', function ($trail, $team, $discipline, $activity) {
+        $trail->parent('team-activity-show', $team, $discipline);
+        $trail->push('Students', url('/team/'.$team->name.'/activity/'.$discipline->name.'/pass/'.$activity->id.'/students'));
+    });
+    Breadcrumbs::for('team-activity-show-students-pass', function ($trail, $team, $discipline, $activity, $student) {
+        $trail->parent('team-activity-show-students', $team, $discipline, $activity);
+        $trail->push($student->getShortName(), url('/team/'.$team->name.'/activity/'.$discipline->name.'/pass/'.$activity->id.'/students'));
+    });
     Breadcrumbs::for('team-activity-create', function ($trail, $team) {
         $trail->parent('team-activity', $team);
         $trail->push(@trans('breadcrumbs.Create'), url('/team/'.$team->name.'/activity/create'));

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('breadcrumbs')
-    {{ Breadcrumbs::render('team-activity', $team) }}
+    {{ Breadcrumbs::render('team-activity-show-students', $team, $discipline, $activity) }}
 @endsection
 @section('content')
     {{--Show type activity--}}
