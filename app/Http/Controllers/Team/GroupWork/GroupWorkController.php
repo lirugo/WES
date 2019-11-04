@@ -221,7 +221,7 @@ class GroupWorkController extends Controller
             GroupWorkFile::create([
                 'chat_id' => $message->id,
                 'file' => $file['file'],
-                'name' => $file['name'],
+                'name' => str_replace(['/', '\\'], [' ', ' '], $file['name']),
                 'type' => 'sub-team',
             ]);
 
