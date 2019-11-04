@@ -11,7 +11,7 @@
                     <h6 class="center-align">@lang('app.Upload Education Materials')</h6>
                     <div class="row m-b-0 m-t-0">
                     <div class="input-field col s12 m-b-0 m-t-0">
-                        <input placeholder="Enter education material name" name="name" type="text" class="validate" required>
+                        <input placeholder="Enter education material name" name="name" type="text" class="validate" required pattern="[^/\\]+" title="'\' '/' not allowed">
                     </div>
                         <div class="input-field col s12 m-b-0 m-t-0">
                             <select name="category_id" required>
