@@ -223,7 +223,7 @@ class ActivityController extends Controller
             TeamActivityFile::create([
                 'reply_id' => $message->id,
                 'type' => 'reply',
-                'name' => $file[$i]['name'],
+                'name' => str_replace(['/', '\\'], [' ', ' '], $file[$i]['name']),
                 'file' => $file[$i]['file'],
             ]);
         }
