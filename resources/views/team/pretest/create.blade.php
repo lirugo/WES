@@ -108,7 +108,7 @@
                 </div>
             </div>
         </div>
-        @role('teacher')
+        @role(['manager', 'teacher'])
         {{--Floating button--}}
         <div class="fixed-action-btn">
             <button type="submit" class="btn-floating btn-large green tooltipped"
