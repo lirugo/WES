@@ -77,7 +77,7 @@ class ActivityController extends Controller
             if($file->nameFormServer != null)
                 TeamActivityFile::create([
                     'activity_id' => $activity->id,
-                    'name' => $file->file,
+                    'name' => str_replace(['/', '\\'], [' ', ' '], $file->file),
                     'file' => $file->nameFormServer,
                 ]);
 

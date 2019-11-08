@@ -36,7 +36,7 @@
                                 @endforeach
                             @endif
                         </div>
-                        @if(Auth()->user()->hasRole('teacher'))
+                        @if(Auth()->user()->hasRole(['manager','teacher']))
                             <form action="{{ url('team/'.$team->name.'/activity/'.$discipline->name.'/pass/'.$activity->id.'/update')}}" method="POST">
                                 @csrf
                                 <div class="row m-b-0">

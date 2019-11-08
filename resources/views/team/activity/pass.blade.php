@@ -40,7 +40,7 @@
                            <small><blockquote class="m-b-0 m-t-15">@lang('app.Start date') - {{$activity->start_date}}</blockquote></small>
                            <small><blockquote class="m-b-0 m-t-5">@lang('app.End date') - {{$activity->end_date}}</blockquote></small>
                            @if($activity->getMark($student->id) == null)
-                               @role('teacher')
+                               @role(['manager','teacher'])
                                {!! Form::open(['route' => ['team.activity.pass.mark', $team->name, $discipline->name, $activity->id, $student->id]]) !!}
                                    <div class="row m-b-0">
                                        <div class="input-field col s6 m3">
@@ -58,7 +58,7 @@
                </div>
            </div>
            {{--New message--}}
-           @role(['teacher', 'student'])
+           @role(['teacher', 'student', 'manager'])
            <div class="row m-b-0">
                <div class="col s12">
                    <div class="card-panel">
