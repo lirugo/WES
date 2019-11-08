@@ -39,7 +39,7 @@
                             @endif
                             {!! Form::close() !!}
 
-                            @role('teacher')
+                            @role(['manager','teacher'])
                             @if(!$groupWork->isFinished())
                                 {!! Form::open(['route' => ['team.group-work.finish', $team->name, $discipline->name, $groupWork->id]]) !!}
                                 <button type="submit" class="waves-effect waves-light btn btn-small red left tooltipped" data-position="bottom" data-tooltip="@lang('app.Press for closing group work')">@lang('app.Finish')</button>

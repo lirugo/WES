@@ -26,7 +26,7 @@
                             <span class="helper-text" data-error="wrong" data-success="right">@lang('app.End Date')</span>
                         </div>
                         {{--Add new member--}}
-                        @role('teacher')
+                        @role(['manager','teacher'])
                         @if(!$subTeam->isFinished())
                         <div class="input-field col s12 m4">
                             <select v-model="newMember">
@@ -54,13 +54,13 @@
                                         <div class="hoverable chip m-l-10">
                                         <img :src="'/uploads/avatars/' + member.user.avatar" alt="image">
                                         @{{member.user.name.second_name + ' ' + member.user.name.name}}
-                                        @role('teacher')
+                                        @role(['manager','teacher'])
                                             <i class="chip-icon material-icons" @click="removeMember(member.user.id)">close</i>
                                         @endrole
                                         </div>
                                     </td>
                                     <td>
-                                        @if(Auth::user()->hasRole('teacher'))
+                                        @if(Auth::user()->hasRole(['manager','teacher']))
                                             @if(!$subTeam->isFinished())
                                                 <input type="number" placeholder="@lang('app.Set mark')" v-model="member.mark" @change="updateMark(member)"/>
                                             @else

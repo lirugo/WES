@@ -64,7 +64,7 @@ class GroupWorkController extends Controller
             GroupWorkFile::create([
                 'group_work_id' => $groupWork->id,
                 'file' => $file['file'],
-                'name' => $file['name'],
+                'name' => str_replace(['/', '\\'], [' ', ' '], $file['name']),
                 'type' => 'group-work',
             ]);
 
