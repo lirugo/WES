@@ -69,7 +69,7 @@ class PretestController extends Controller
         foreach (json_decode($request->inputs) as $file)
             PretestFile::create([
             'pretest_id' => $pretest->id,
-            'name' => $file->file,
+            'name' => str_replace(['/', '\\'], [' ', ' '], $file->file),
             'file' => $file->nameFormServer,
         ]);
 
@@ -99,13 +99,13 @@ class PretestController extends Controller
         $pretest = Pretest::find($pretestId);
 
         // TODO:: Remake checking Access
-        $access = 0;
-        foreach ($team->getTeachers() as $teacher){
-           if($teacher->id == Auth::user()->id)
-               $access++;
-        }
-        if($access == 0)
-           return back();
+//        $access = 0;
+//        foreach ($team->getTeachers() as $teacher){
+//           if($teacher->id == Auth::user()->id)
+//               $access++;
+//        }
+//        if($access == 0)
+//           return back();
 
         return view('team.pretest.show')
             ->withTeam($team)

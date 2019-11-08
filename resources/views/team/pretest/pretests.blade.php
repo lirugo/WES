@@ -40,14 +40,13 @@
                             <a class="waves-effect waves-light btn btn-small right disabled"><i class="material-icons right">lock</i>@lang('app.locked')</a>
                         @endif
                         @endrole
-                        @role('manager')
-                        {!! Form::open(['route' => ['team.pretest.delete', $team->name, $discipline->name, $pretest->id], 'method' => 'DELETE']) !!}
-                            <button type="submit" class="waves-effect waves-light btn btn-small red left"><i class="material-icons">delete</i></button>
-                            <a href="{{url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name.'/'.$pretest->id.'/statistic')}}" class="indigo waves-effect waves-light btn-small right">@lang('app.Statistic')</a>
-                        {!! Form::close() !!}
-                        @endrole
-                        @role('teacher')
-                        <a href="{{url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name.'/'.$pretest->id)}}" class="indigo waves-effect waves-light btn-small right">@lang('app.Open')</a>
+                        @role(['teacher','manager'])
+                            {!! Form::open(['route' => ['team.pretest.delete', $team->name, $discipline->name, $pretest->id], 'method' => 'DELETE']) !!}
+                                <button type="submit" class="waves-effect waves-light btn btn-small red left"><i class="material-icons">delete</i></button>
+                                <a href="{{url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name.'/'.$pretest->id.'/statistic')}}" class="indigo waves-effect waves-light btn-small right">@lang('app.Statistic')</a>
+                            {!! Form::close() !!}
+
+                            <a href="{{url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name.'/'.$pretest->id)}}" class="indigo waves-effect waves-light btn-small right m-r-5">@lang('app.Open')</a>
                         @endrole
                     </div>
                 </div>
