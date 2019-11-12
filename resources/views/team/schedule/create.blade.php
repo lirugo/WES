@@ -55,7 +55,7 @@
                             <select name="lesson">
                                 <option value="" disabled selected>@lang('app.Select lecture')</option>
                                 @foreach($team->lessonsTime as $time)
-                                <option value="{{$time->id}}">@lang('app.Lecture') {{$time->position}} ({{\Carbon\Carbon::parse($time->start_time)->format('H:i')}} - {{\Carbon\Carbon::parse($time->end_time)->format('H:i')}})</option>
+                                <option value="{{$time->id}}">{{\Carbon\Carbon::parse($time->start_time)->format('H:i')}} - {{\Carbon\Carbon::parse($time->end_time)->format('H:i')}}</option>
                                 @endforeach
                             </select>
                             <label>@lang('app.Time for lecture')</label>

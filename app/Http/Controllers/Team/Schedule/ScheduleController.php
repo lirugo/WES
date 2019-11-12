@@ -112,7 +112,7 @@ class ScheduleController extends Controller
                 'team_id' => $team->id,
                 'teacher_id' => $request->teacher_id,
                 'discipline_id' => $request->discipline_id,
-                'title' => 'Lecture '.$lesson->position.' '.$discipline->display_name.' '.$request->description,
+                'title' => $discipline->display_name.' '.$request->description,
                 'start_date' => $start,
                 'end_date' => $end,
             ]);
