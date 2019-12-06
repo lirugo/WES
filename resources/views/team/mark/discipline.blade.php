@@ -102,7 +102,7 @@
                                             <input type="number" class="validate" style="max-width: 50px; text-align:center;"  value="{{$work->getMark($student->id) ? $work->getMark($student->id)->mark : ''}}"/>
                                         @endrole
                                         <a target="_blank" href="{{url('/team/'.$team->name.'/group-work/'.$discipline->name.'/'.$work->id)}}">
-                                            <i class="material-icons">arrow_forward</i>s
+                                            <i class="material-icons">arrow_forward</i>
                                             @if($work->getMark($student->id))
                                                 <?php
                                                 $total += $work->getMark($student->id)->mark;
