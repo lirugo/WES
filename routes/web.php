@@ -332,6 +332,12 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'User', 'prefix' => 'user
         Route::post('/{name}/teacher/store', 'StoreController@teacher')->name('team.teacher.store');
         Route::post('/template/{name}/teacher/store', 'Template\TemplateController@teacher')->name('team.template.teacher.store');
         Route::post('/template/{teamId}/teacher/{disciplineId}/delete', 'Template\TemplateController@disciplineDelete')->name('team.template.discipline.delete');
+
+
+        //NEW UPDATE API
+        Route::post('/api/updateActivityMark', 'TeamApiController@updateActivityMark');
+        Route::post('/api/updatePretestMark', 'TeamApiController@updatePretestMark');
+        Route::post('/api/updateGroupWorkMark', 'TeamApiController@updateGroupWorkMark');
     });
 
 /*
@@ -410,3 +416,9 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'User', 'prefix' => 'user
 Route::post('/avatar/{studentId}/update', 'Store\AvatarController@update')->name('avatar.update');
 
 Route::post('/feedback/send', 'FeedbackController@send')->name('feedback.send');
+
+/*
+|--------------------------------------------------------------------------
+| Team API
+|--------------------------------------------------------------------------
+*/

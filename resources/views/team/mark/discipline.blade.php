@@ -49,12 +49,21 @@
                                 </td>
                                 @foreach($activities as $act)
                                     <td class="center-align">
-                                        <a target="_blank" href="{{url('/team/'.$team->name.'/activity/'.$discipline->name.'/pass/'.$act->id.'/'.$student->id)}}">
-                                            {{$act->getMark($student->id) ? $act->getMark($student->id)->mark : '-'}}
+                                        @role(['manager','teacher'])
+                                            <input type="number" class="validate" style="max-width: 50px; text-align:center;"  value="{{$act->getMark($student->id) ? $act->getMark($student->id)->mark : ''}}"
+                                                   onchange="updateActivityMark(this.value, {{$team->id}}, {{$act->id}}, {{$student->id}})"/>
+                                        @endrole
+
+                                        @role('student')
+                                            <input type="number" class="validate" style="max-width: 50px; text-align:center;"  value="{{$act->getMark($student->id) ? $act->getMark($student->id)->mark : ''}}"/>
+                                        @endrole
+                                        <a target="_blank" class="tooltipped" data-position="top" data-tooltip="Open" href="{{url('/team/'.$team->name.'/activity/'.$discipline->name.'/pass/'.$act->id.'/'.$student->id)}}">
+                                            <i class="material-icons">arrow_forward</i>
+
                                             @if($act->getMark($student->id))
                                                 <?php
-                                                $total += $act->getMark($student->id)->mark;
-                                                ?>
+                                                    $total += $act->getMark($student->id)->mark;
+                                                    ?>
                                             @endif
                                         </a>
                                     </td>
@@ -62,12 +71,20 @@
                                 
                                 @foreach($pretests as $test)
                                     <td class="center-align">
+                                        @role(['manager','teacher'])
+                                        <input type="number" class="validate" style="max-width: 50px; text-align:center;"  value="{{$test->getMark($student->id) ? $test->getMark($student->id)->mark : ''}}"
+                                               onchange="updatePretestMark(this.value, {{$team->id}}, {{$test->id}}, {{$student->id}})"/>
+                                        @endrole
+
+                                        @role('student')
+                                            <input type="number" class="validate" style="max-width: 50px; text-align:center;"  value="{{$test->getMark($student->id) ? $test->getMark($student->id)->mark : ''}}"/>
+                                        @endrole
                                         <a target="_blank" href="{{url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name)}}">
-                                            {{$test->getMark($student->id) ? $test->getMark($student->id)->mark : '-'}}
+                                            <i class="material-icons">arrow_forward</i>
                                             @if($test->getMark($student->id))
-                                            <?php
+                                                <?php
                                                 $total += $test->getMark($student->id)->mark;
-                                            ?>
+                                                ?>
                                             @endif
                                         </a>
                                     </td>
@@ -75,12 +92,21 @@
 
                                 @foreach($groupWorks as $work)
                                     <td class="center-align">
+                                        @role(['manager','teacher'])
+                                            <input type="number" class="validate" style="max-width: 50px; text-align:center;"  value="{{$work->getMark($student->id) ? $work->getMark($student->id)->mark : ''}}"
+                                                   onchange="updateGroupWorkMark(this.value, {{$team->id}}, {{$work->id}}, {{$student->id}})"
+                                                    {{!$work->getMark($student->id) ? 'disabled' : ''}}
+                                            />
+                                        @endrole
+                                        @role('student')
+                                            <input type="number" class="validate" style="max-width: 50px; text-align:center;"  value="{{$work->getMark($student->id) ? $work->getMark($student->id)->mark : ''}}"/>
+                                        @endrole
                                         <a target="_blank" href="{{url('/team/'.$team->name.'/group-work/'.$discipline->name.'/'.$work->id)}}">
-                                            {{$work->getMark($student->id) ? $work->getMark($student->id)->mark : '-'}}
+                                            <i class="material-icons">arrow_forward</i>s
                                             @if($work->getMark($student->id))
-                                            <?php
+                                                <?php
                                                 $total += $work->getMark($student->id)->mark;
-                                            ?>
+                                                ?>
                                             @endif
                                         </a>
                                     </td>
@@ -97,4 +123,41 @@
 @endsection
 
 @section('scripts')
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+        function updateActivityMark(mark, teamId, activityId, studentId) {
+            axios.post('/team/api/updateActivityMark', {
+                'mark': mark,
+                'teamId': teamId,
+                'activityId': activityId,
+                'studentId': studentId,
+            })
+            .then(res => {
+                M.toast({html: 'Mark updated', classes: 'green'})
+            })
+        }
+        function updatePretestMark(mark, teamId, activityId, studentId) {
+            axios.post('/team/api/updatePretestMark', {
+                'mark': mark,
+                'teamId': teamId,
+                'activityId': activityId,
+                'studentId': studentId,
+            })
+            .then(res => {
+                M.toast({html: 'Mark updated', classes: 'green'})
+            })
+        }
+        function updateGroupWorkMark(mark, teamId, activityId, studentId) {
+            axios.post('/team/api/updateGroupWorkMark', {
+                'mark': mark,
+                'teamId': teamId,
+                'activityId': activityId,
+                'studentId': studentId,
+            })
+            .then(res => {
+                M.toast({html: 'Mark updated', classes: 'green'})
+            })
+        }
+    </script>
 @endsection

@@ -7,7 +7,7 @@
         <div class="col s12">
             <div class="card">
                 <div class="card-content">
-                    <table class="responsive-table">
+                    <table class="responsive-table highlight">
                         <col width="150px">
                         @foreach($commonStudents as $s)
                             <col width="50px">

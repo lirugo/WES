@@ -33,6 +33,17 @@ class GroupWork extends Model
         return GroupWorkSubTeam::where('group_work_id', $this->id)->get();
     }
 
+    public function getSubTeam($studentId){
+        $subTeams = $this->getSubTeams();
+        $team = null;
+        foreach ($subTeams as $subTeam){
+            if($subTeam->isMember($studentId))
+                return $subTeam;
+        }
+
+        return null;
+    }
+
     public function getMark($studentId){
         $subTeams = $this->getSubTeams();
         $team = null;
