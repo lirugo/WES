@@ -33,9 +33,7 @@
                                 <input name="end_date" type="text" value="{{ \Carbon\Carbon::parse($groupWork->end_date)->format('Y-m-d') }}" class="datepickerDefault">
                             </div>
                             @if(Auth::user()->hasRole(['teacher', 'manager']))
-                                @if(!$groupWork->isFinished())
-                                    <button type="submit" class="waves-effect waves-light btn btn-small orange right">@lang('app.update')</button>
-                                @endif
+                                <button type="submit" class="waves-effect waves-light btn btn-small orange right">@lang('app.update')</button>
                             @endif
                             {!! Form::close() !!}
 

@@ -27,7 +27,6 @@
                         </div>
                         {{--Add new member--}}
                         @role(['manager','teacher'])
-                        @if(!$subTeam->isFinished())
                         <div class="input-field col s12 m4">
                             <select v-model="newMember">
                                 <option value="" disabled selected>@lang('app.Add members')</option>
@@ -35,7 +34,6 @@
                             </select>
                             <span class="helper-text" data-error="@lang('app.wrong')" data-success="@lang('app.All is OK')"></span>
                         </div>
-                        @endif
                         @endrole
                     </div>
                     <div class="row m-b-0">
@@ -61,11 +59,7 @@
                                     </td>
                                     <td>
                                         @if(Auth::user()->hasRole(['manager','teacher']))
-                                            @if(!$subTeam->isFinished())
-                                                <input type="number" placeholder="@lang('app.Set mark')" v-model="member.mark" @change="updateMark(member)"/>
-                                            @else
-                                            <input type="number" placeholder="@lang('app.Set mark')" v-model="member.mark" disabled/>
-                                            @endif
+                                            <input type="number" placeholder="@lang('app.Set mark')" v-model="member.mark" @change="updateMark(member)"/>
                                         @else
                                             <input type="number" placeholder="@lang('app.Set mark')" v-model="member.mark" disabled/>
                                         @endif
@@ -76,9 +70,7 @@
                         </div>
                     </div>
                     @if(Auth::user()->hasRole(['teacher', 'manager']))
-                        @if(!$subTeam->isFinished())
-                            <button type="submit" class="waves-effect waves-light btn btn-small orange right">@lang('app.update')</button>
-                        @endif
+                        <button type="submit" class="waves-effect waves-light btn btn-small orange right">@lang('app.update')</button>
                     @endif
                     {!! Form::close() !!}
 
@@ -101,7 +93,6 @@
         {{--Chat--}}
         <div class="row">
             <div class="col s12">
-                @if(!$subTeam->isFinished() && !$subTeam->hasMark(Auth::user()->id))
                 {{--Create message--}}
                 <div class="card-panel m-b-20">
                     <div class="input-field m-b-0">
@@ -136,7 +127,7 @@
                                 class="material-icons">add</i></a>
                     <a class="waves-effect waves-light btn btn-small indigo right" @click="sendMessage">@lang('app.send')</a>
                 </div>
-                @endif
+
                 {{--Show Chat--}}
                 <div class="card-panel" v-for="message in sortedMessages">
                     <div class="chip">
