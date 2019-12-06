@@ -55,7 +55,7 @@
                                         @endrole
 
                                         @role('student')
-                                            <input type="number" class="validate" style="max-width: 50px; text-align:center;"  value="{{$act->getMark($student->id) ? $act->getMark($student->id)->mark : ''}}"/>
+                                            <input type="number" class="validate" style="max-width: 50px; text-align:center;"  value="{{$act->getMark($student->id) ? $act->getMark($student->id)->mark : ''}}" disabled/>
                                         @endrole
                                         <a target="_blank" class="tooltipped" data-position="top" data-tooltip="Open" href="{{url('/team/'.$team->name.'/activity/'.$discipline->name.'/pass/'.$act->id.'/'.$student->id)}}">
                                             <i class="material-icons">arrow_forward</i>
@@ -77,7 +77,7 @@
                                         @endrole
 
                                         @role('student')
-                                            <input type="number" class="validate" style="max-width: 50px; text-align:center;"  value="{{$test->getMark($student->id) ? $test->getMark($student->id)->mark : ''}}"/>
+                                            <input type="number" class="validate" style="max-width: 50px; text-align:center;"  value="{{$test->getMark($student->id) ? $test->getMark($student->id)->mark : ''}}" disabled/>
                                         @endrole
                                         <a target="_blank" href="{{url('/team/'.$team->name.'/pretest/discipline/'.$discipline->name)}}">
                                             <i class="material-icons">arrow_forward</i>
@@ -99,7 +99,7 @@
                                             />
                                         @endrole
                                         @role('student')
-                                            <input type="number" class="validate" style="max-width: 50px; text-align:center;"  value="{{$work->getMark($student->id) ? $work->getMark($student->id)->mark : ''}}"/>
+                                            <input type="number" class="validate" style="max-width: 50px; text-align:center;"  value="{{$work->getMark($student->id) ? $work->getMark($student->id)->mark : ''}}" disabled/>
                                         @endrole
                                         <a target="_blank" href="{{url('/team/'.$team->name.'/group-work/'.$discipline->name.'/'.$work->id)}}">
                                             <i class="material-icons">arrow_forward</i>
