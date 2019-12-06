@@ -192,12 +192,24 @@ class ActivityController extends Controller
     }
 
     public function setMark(Request $request, $team, $discipline, $activityId, $studentId){
-        TeamActivityMark::create([
-            'type' => 'activity',
-            'student_id' => $studentId,
-            'activity_id' => $activityId,
-            'mark' => $request->mark
-        ]);
+        $activityMark = TeamActivityMark::
+            where('type', 'activity')
+            ->where('student_id', $studentId)
+            ->where('activity_id', $activityId)
+            ->first();
+
+        if($activityMark == null) {
+            TeamActivityMark::create([
+                'type' => 'activity',
+                'student_id' => $studentId,
+                'activity_id' => $activityId,
+                'mark' => $request->mark
+            ]);
+        }else{
+            $activityMark->mark = $request->mark;
+            $activityMark->save();
+        }
+
         $student = User::find($studentId);
         $activity = TeamActivity::find($activityId);
 
