@@ -62,7 +62,7 @@ class ActivityController extends Controller
         $activity = TeamActivity::create([
             'team_id' => $team->id,
             'discipline_id' => $discipline->id,
-            'teacher_id' => Auth::user()->id,
+            'teacher_id' => $teamDiscipline->getTeacher->id,
             'name' => $request->name,
             'description' => $request->description,
             'type_name' => $request->type == 'other' ? $request->type_name : null,
