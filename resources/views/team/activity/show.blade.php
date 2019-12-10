@@ -40,6 +40,12 @@
                             <form action="{{ url('team/'.$team->name.'/activity/'.$discipline->name.'/pass/'.$activity->id.'/update')}}" method="POST">
                                 @csrf
                                 <div class="row m-b-0">
+                                    @if($activity->mark_in_journal)
+                                        <div class="input-field col s12 p-b-0 m-b-0">
+                                            <input id="max_mark" value="{{$activity->max_mark}}" name="max_mark" type="text" required>
+                                            <label>Max Mark For Activity</label>
+                                        </div>
+                                    @endif
                                     {{--Start date&time picker--}}
                                     <div class="input-field col s12 m6 l6 p-b-0 m-b-0">
                                         <i class="material-icons prefix">date_range</i>

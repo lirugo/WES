@@ -185,6 +185,7 @@ class ActivityController extends Controller
         $activity->start_date = $startDate;
         $endDate = Carbon::parse($request->end_date.' '.$request->end_time);
         $activity->end_date = $endDate;
+        $activity->max_mark = $request->max_mark;
         $activity->save();
 
         Session::flash('success', 'Activity was be updated');
