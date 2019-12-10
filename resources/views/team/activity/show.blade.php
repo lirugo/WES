@@ -72,14 +72,18 @@
                     </div>
                     <div class="card-action p-l-0">
                         @role(['teacher', 'manager'])
-                            {!! Form::open(['route' => ['team.activity.delete', $activity->id], 'method' => 'POST']) !!}
-                            <button type="submit" class="waves-effect waves-light btn btn-small red right"><i class="material-icons">delete</i></button>
-                            {!! Form::close() !!}
+                        {!! Form::open(['route' => ['team.activity.delete', $activity->id], 'method' => 'POST']) !!}
+                        <button type="submit" class="waves-effect waves-light btn btn-small red right"><i class="material-icons">delete</i></button>
+                        {!! Form::close() !!}
 
-                            <a href="{{ url('team/'.$team->name.'/activity/'.$discipline->name.'/pass/'.$activity->id.'/students') }}" class="btn btn-small indigo left m-l-20 waves-effect waves-light">@lang('app.Students')</a>
+                        <a href="{{ url('team/'.$team->name.'/activity/'.$discipline->name.'/pass/'.$activity->id.'/students') }}" class="btn btn-small indigo left m-l-20 waves-effect waves-light">@lang('app.Students')</a>
                         @endrole
                         @role('student')
+                        @if($activity->start_date < now())
                             <a href="{{ url('team/'.$team->name.'/activity/'.$discipline->name.'/pass/'.$activity->id.'/'.Auth::user()->id) }}" class="btn btn-small indigo right waves-effect waves-light">@lang('app.Open')</a>
+                        @else
+                            <a class="btn btn-small red right waves-effect waves-light" disabled="">Not active yet...</a>
+                        @endif
                         @endrole
                     </div>
                 </div>
