@@ -11,7 +11,10 @@
                     <div>
                         <span data-badge-caption="" class="new badge left m-l-0">{{$activity->getType()}}</span>
                         @if($activity->mark_in_journal)
+                            <span data-badge-caption="" class="new badge orange left">Mark will be set in gradebook</span>
                             <span data-badge-caption="" class="new badge orange left">@lang('app.Max') {{$activity->max_mark}} @lang('app.balls')</span>
+                        @else
+                            <span data-badge-caption="" class="new badge orange left">Mark will be not set in gradebook</span>
                         @endif
                         @role('student')
                         @if($activity->getMark(auth()->id()))
