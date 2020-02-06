@@ -116,7 +116,8 @@ class PretestController extends Controller
     public function pretests($team, $discipline){
         $team = Team::where('name', $team)->first();
         $discipline = Discipline::where('name', $discipline)->first();
-        $pretests = $team->getDiscipline($discipline->id)->pretests;
+        $pretests = $team->pretests($discipline->id)->get();
+
         return view('team.pretest.pretests')
             ->withTeam($team)
             ->withDiscipline($discipline)

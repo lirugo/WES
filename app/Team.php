@@ -4,6 +4,7 @@ namespace App;
 
 use App\Http\Resources\StudentApiResource;
 use App\Models\Team\CommonFile;
+use App\Models\Team\Pretest;
 use App\Models\Team\TeamHeadman;
 use App\Models\Team\TeamLessonTime;
 use Auth;
@@ -77,6 +78,13 @@ class Team extends LaratrustTeam
         }
 
         return $users;
+    }
+    /**
+     * Get All Members of Group
+     * @return User[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function pretests($disciplineId){
+        return $this->hasMany(Pretest::class, 'team_id', 'id')->where('discipline_id', $disciplineId);
     }
 
     /**
