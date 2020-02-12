@@ -57,10 +57,10 @@ class NotifNewSchedule extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-                    ->line('Your schedule was updated')
-                    ->action('Open page', url('/team/'.$this->schedule->team->name.'/schedule'))
-                    ->line('Thank you for using our application!');
+//        return (new MailMessage)
+//                    ->line('Your schedule was updated')
+//                    ->action('Open page', url('/team/'.$this->schedule->team->name.'/schedule'))
+//                    ->line('Thank you for using our application!');
     }
 
     /**
@@ -71,10 +71,10 @@ class NotifNewSchedule extends Notification
      */
     public function toArray($notifiable)
     {
-        return [
-            'title' => 'Your schedule was be updated',
-            'body' => $this->schedule->title.' '.$this->schedule->start_date.' - '.$this->schedule->end_date,
-            'url' => url('/team/'.$this->schedule->team->name.'/schedule'),
-        ];
+//        return [
+//            'title' => 'Your schedule was be updated',
+//            'body' => $this->schedule->title.' '.$this->schedule->start_date.' - '.$this->schedule->end_date,
+//            'url' => url('/team/'.$this->schedule->team->name.'/schedule'),
+//        ];
     }
 }
