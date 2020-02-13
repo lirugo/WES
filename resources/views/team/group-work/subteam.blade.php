@@ -134,6 +134,9 @@
                         <img :src="'/uploads/avatars/' + message.author.avatar" alt="image">
                         @{{ message.author.name.second_name + ' ' + message.author.name.name }}
                     </div>
+                    <div class="chip">
+                        @{{ message.created_at }}
+                    </div>
                     <p class="card-text">@{{ message.text }}</p>
                     {{--Files--}}
                     <div class="m-b-25" v-if="message.files != 0">
