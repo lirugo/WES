@@ -55,6 +55,9 @@ class ActivityController extends Controller
             ->where('disabled', 0)
             ->orderBy('id', 'DESC')->first();
 
+        if(is_null($teamDiscipline))
+            return back()->withErrors('Team dont have active teacher for this subject.');
+
 //        Validate if have free points
         $leftMarks = $teamDiscipline->leftMarks() - $request->max_mark;
         if($leftMarks < 0)
