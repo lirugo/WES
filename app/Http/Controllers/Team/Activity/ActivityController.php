@@ -52,7 +52,8 @@ class ActivityController extends Controller
         $discipline = Discipline::find($request->discipline_id);
         $teamDiscipline = TeamDiscipline::where('team_id', $team->id)
             ->where('discipline_id', $discipline->id)
-            ->first();
+            ->where('disabled', 0)
+            ->orderBy('id', 'DESC')->first();
 
 //        Validate if have free points
         $leftMarks = $teamDiscipline->leftMarks() - $request->max_mark;
@@ -62,7 +63,7 @@ class ActivityController extends Controller
         $activity = TeamActivity::create([
             'team_id' => $team->id,
             'discipline_id' => $discipline->id,
-            'teacher_id' => $teamDiscipline->getTeacher->id,
+            'teacher_id' => $teamDiscipline->teacher_id,
             'name' => $request->name,
             'description' => $request->description,
             'type_name' => $request->type == 'other' ? $request->type_name : null,
