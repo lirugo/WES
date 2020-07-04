@@ -179,9 +179,9 @@ class MarkController extends Controller
         //    "mark" => 22
         // ]
 
-        if(empty($common)){
-            return back()->withErrors('Dont have any activity for that discipline yet...');
-        }
+//        if(empty($common)){
+//            return back()->withErrors('Dont have any activity for that discipline yet...');
+//        }
 
         // Return view
         return view('team.mark.discipline')->with([
