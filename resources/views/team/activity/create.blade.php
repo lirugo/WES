@@ -54,7 +54,7 @@
                         </label>
                     </div>
                     <div class="input-field col s12 m6" v-if="mark_in_journal">
-                        <input id="max_mark" name="max_mark" type="number" min="1" max="50" class="validate" required>
+                        <input id="max_mark" name="max_mark" type="number" min="1" max="101" class="validate" required>
                         <label for="max_mark">@lang('app.Max Mark')</label>
                     </div>
                 </div>
