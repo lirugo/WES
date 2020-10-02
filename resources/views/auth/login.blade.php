@@ -25,13 +25,16 @@
                                 {{--<div class="g-recaptcha right" data-sitekey="{{env('GOOGLE_CAPTCHA_KEY')}}"></div>--}}
                             {{--</div>--}}
                             <div class="col s12">
+                                <button class="btn waves-effect waves-light grey lighten-5 indigo-text right" type="submit" name="action">@lang('app.Sign in')
+                                    <i class="material-icons right">send</i>
+                                </button>
+                                <a class="btn waves-effect waves-light grey lighten-5 indigo-text right m-r-5" href="/reset-password">
+                                    Forgot password?
+                                </a>
                                 {{--<label>--}}
                                     {{--<input type="checkbox" />--}}
                                     {{--<span>Remember Me?</span>--}}
                                 {{--</label>--}}
-                                <button class="btn waves-effect waves-light grey lighten-5 indigo-text right" type="submit" name="action">@lang('app.Sign in')
-                                    <i class="material-icons right">send</i>
-                                </button>
                             </div>
                             {!! Form::close() !!}
                         </div>

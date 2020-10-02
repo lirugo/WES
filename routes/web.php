@@ -13,6 +13,10 @@ Route::get('/phpinfo', function () {
         Route::post('/login', 'LoginController@login')->name('login');
         Route::get('/auth/token', 'TokenController@index');
         Route::post('/auth/token', 'TokenController@token')->name('auth.token');
+
+        // Password Reset Routes...
+        Route::get('/reset-password', 'ResetPasswordController@resetPasswordForm');
+        Route::post('/reset-password', 'ResetPasswordController@reset');
     });
     Route::group(['middleware' => ['auth'], 'namespace' => 'Auth'], function () {
         Route::post('/logout', 'LoginController@logout')->name('logout');

@@ -34,5 +34,8 @@
     <script src="{{ asset('js/app.js') }}"></script>
     @yield('scripts')
 
+    <!-- Toasts -->
+    @include('_includes.notification.message')
+
 </body>
 </html>
