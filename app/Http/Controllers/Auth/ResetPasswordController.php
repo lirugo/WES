@@ -8,10 +8,12 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 use Session;
+use Auth;
 
 class ResetPasswordController extends Controller
 {
@@ -50,7 +52,12 @@ class ResetPasswordController extends Controller
         return view('auth.reset-password');
     }
 
-    public function reset(Request $request)
+    public function resetPasswordEmailForm()
+    {
+        return view('auth.reset-password-email');
+    }
+
+    public function resetMail(Request $request)
     {
         $user = User::where('email', '=', $request->email)->first();
 
@@ -76,6 +83,45 @@ class ResetPasswordController extends Controller
             return redirect('/login')->withErrors(['error' => trans('A Network Error occurred. Please try again.')]);
         }
     }
+
+    public function resetPassword(Request $request)
+    {
+        //Validate input
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|exists:users,email',
+            'password' => 'required|min:8',
+            'token' => 'required']);
+
+        //check if payload is valid before moving on
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors(['error' => $validator->errors()->first()]);
+        }
+
+        $password = $request->password;
+        // Validate the token
+        $tokenData = DB::table('password_resets')
+            ->where('token', $request->token)->first();
+
+        // Redirect the user back to the password reset request form if the token is invalid
+        if (!$tokenData) return view('auth.passwords.email');
+
+        $user = User::where('email', $tokenData->email)->first();
+        // Redirect the user back if the email is invalid
+        if (!$user) return redirect()->back()->withErrors(['email' => 'Email not found']);
+        // Hash and update the new password
+        $user->password = Hash::make($password);
+        $user->update(); //or $user->save();
+
+        //login the user immediately they change password successfully
+        Auth::login($user);
+
+        //Delete the token
+        DB::table('password_resets')->where('email', $user->email)
+            ->delete();
+
+        return redirect('/login')->with(['success' => 'Password was changed']);
+    }
+
 
     private function sendResetEmail($email, $token)
     {
