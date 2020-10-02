@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ResetPasswordMail;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Session;
 
 class ResetPasswordController extends Controller
@@ -42,11 +45,13 @@ class ResetPasswordController extends Controller
         $this->middleware('guest');
     }
 
-    public function resetPasswordForm(){
+    public function resetPasswordForm()
+    {
         return view('auth.reset-password');
     }
 
-    public function reset(Request $request){
+    public function reset(Request $request)
+    {
         $user = User::where('email', '=', $request->email)->first();
 
         //Check if the user exists
@@ -54,13 +59,14 @@ class ResetPasswordController extends Controller
             return redirect('/login')->withErrors(['email' => trans('User does not exist')]);
         }
 
-//Create Password Reset Token
+        //Create Password Reset Token
         DB::table('password_resets')->insert([
             'email' => $request->email,
             'token' => str_random(60),
             'created_at' => Carbon::now()
         ]);
-//Get the token just created above
+
+        //Get the token just created above
         $tokenData = DB::table('password_resets')
             ->where('email', $request->email)->first();
 
@@ -71,7 +77,20 @@ class ResetPasswordController extends Controller
         }
     }
 
-    private function sendResetEmail($email, $token){
-        return true;
+    private function sendResetEmail($email, $token)
+    {
+        //Retrieve the user from the database
+        $user = User::where('email', $email)->select('email')->first();
+        //Generate, the password reset link. The token generated is embedded in the link
+        $link = url('/reset-password/' . $token . '?email=' . urlencode($user->email));
+
+        Mail::to($user)->send(new ResetPasswordMail($user, $link));
+
+        try {
+            //Here send the link with CURL with an external email API
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 }
