@@ -479,6 +479,9 @@ class User extends Authenticatable
     }
 
     public function updateStudent($request){
+        $this->date_of_birth = $request->date_of_birth;
+        $this->email = $request->email;
+        $this->save();
         $this->student->english_lvl = $request->english_lvl;
         $this->student->introductory_score = $request->introductory_score;
         $this->student->save();

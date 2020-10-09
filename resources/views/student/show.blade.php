@@ -110,14 +110,14 @@
                 {{--Date of birth--}}
                 <div class="input-field">
                     <i class="material-icons prefix">date_range</i>
-                    {!! Form::text('date_of_birth', $student->date_of_birth, ['class' => 'validate datepicker', 'id' => 'date_of_birth', 'required', 'disabled']) !!}
+                    {!! Form::text('date_of_birth', $student->date_of_birth, ['class' => 'validate datepicker', 'id' => 'date_of_birth', 'required']) !!}
                     <label for="date_of_birth">@lang('app.Date of Birthday')</label>
                     <span class="helper-text" data-error="@lang('app.wrong')" data-success="@lang('app.All is Ok')"></span>
                 </div>
                 {{--Email--}}
                 <div class="input-field">
                     <i class="material-icons prefix">email</i>
-                    {!! Form::email('email', $student->email, ['class' => 'validate', 'id' => 'email', 'required', 'disabled']) !!}
+                    {!! Form::email('email', $student->email, ['class' => 'validate', 'id' => 'email', 'required']) !!}
                     <label for="email">@lang('app.Email')</label>
                 </div>
                 {{--Phone--}}
