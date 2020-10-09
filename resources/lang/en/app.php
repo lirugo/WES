@@ -13,6 +13,7 @@ return [
 
     //Footer
     'All rights reserved' => 'All rights reserved',
+    'Number Of Contract' => 'Number Of Contract',
 
     //Navigation
         //Left

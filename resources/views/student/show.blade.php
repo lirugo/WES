@@ -120,6 +120,12 @@
                     {!! Form::email('email', $student->email, ['class' => 'validate', 'id' => 'email', 'required']) !!}
                     <label for="email">@lang('app.Email')</label>
                 </div>
+                {{--Number of Contract--}}
+                <div class="input-field">
+                    <i class="material-icons prefix">copyright</i>
+                    {!! Form::text('number_of_contract', $student->number_of_contract, ['class' => 'validate', 'id' => 'number_of_contract', 'required']) !!}
+                    <label for="number_of_contract">@lang('app.Number Of Contract')</label>
+                </div>
                 {{--Phone--}}
                 <div class="row m-b-0 m-t-0">
                     <div class="col s4">

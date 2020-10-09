@@ -479,6 +479,7 @@ class User extends Authenticatable
     }
 
     public function updateStudent($request){
+        $this->number_of_contract = $request->number_of_contract;
         $this->date_of_birth = $request->date_of_birth;
         $this->email = $request->email;
         $this->save();

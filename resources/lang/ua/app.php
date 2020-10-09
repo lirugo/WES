@@ -13,6 +13,7 @@ return [
 
     //Footer
     'All rights reserved' => 'Всі права захищені',
+    'Number Of Contract' => 'Номер договору',
 
     //Navigation
         //Left
