@@ -479,6 +479,21 @@ class User extends Authenticatable
     }
 
     public function updateStudent($request){
+        $changeLog = new ChangeLog();
+        $changeLog->author_id = Auth::user()->id;
+        $changeLog->target_id = $request->id;
+        $changeLog->title = "UPDATE_STUDENT";
+        $changeLog->target_id = $request->id;
+        $changeLogBody = "";
+
+//        //convert the obtained stdclass object to an array
+//        $array1 = (array) $request->all();
+//        $array2 = (array) json_decode($this);
+//        $result_array = array_diff($array1,$array2);
+//
+//        dd($array1);
+
+
         $this->number_of_contract = $request->number_of_contract;
         $this->date_of_birth = $request->date_of_birth;
         $this->email = $request->email;
@@ -517,6 +532,9 @@ class User extends Authenticatable
         $this->names->where('language', '=', 'en')->first()->middle_name = $request->middle_name_en;
         $this->names->where('language', '=', 'en')->first()->save();
 
+
+        $changeLog->body = $changeLogBody;
+        $changeLog->save();
         return true;
     }
 
