@@ -12,6 +12,7 @@ use Illuminate\Support\Collection;
 use Image;
 use Laratrust\Traits\LaratrustUserTrait;
 use MongoDB\Driver\Exception\Exception;
+use function MongoDB\BSON\toJSON;
 
 class User extends Authenticatable
 {
@@ -479,20 +480,21 @@ class User extends Authenticatable
     }
 
     public function updateStudent($request){
+        $oldData = (object) [];
+        $oldData->attributes = $this->attributes;
+        $oldData->student = $this->student->attributes;
+        $oldData->educations = $this->educations->first()->attributes;
+        $oldData->jobs = $this->jobs->first()->attributes;
+        $oldData->phones = $this->phones->first()->attributes;
+        $oldData->names = $this->names;
+
         $changeLog = new ChangeLog();
         $changeLog->author_id = Auth::user()->id;
         $changeLog->target_id = $request->id;
-        $changeLog->title = "UPDATE_STUDENT";
+        $changeLog->title = "Student profile was updated";
+        $changeLog->type = "UPDATE_STUDENT";
         $changeLog->target_id = $request->id;
         $changeLogBody = "";
-
-//        //convert the obtained stdclass object to an array
-//        $array1 = (array) $request->all();
-//        $array2 = (array) json_decode($this);
-//        $result_array = array_diff($array1,$array2);
-//
-//        dd($array1);
-
 
         $this->number_of_contract = $request->number_of_contract;
         $this->date_of_birth = $request->date_of_birth;
@@ -533,7 +535,44 @@ class User extends Authenticatable
         $this->names->where('language', '=', 'en')->first()->save();
 
 
-        $changeLog->body = $changeLogBody;
+        //Save history
+        $old = array();
+        $new = array();
+
+        //attributes
+        $diff1 = array_diff($oldData->attributes, $this->attributes);
+        $diff2 = array_diff($this->attributes, $oldData->attribures);
+        $old = array_merge($old, $diff1);
+        $new = array_merge($new, $diff2);
+        //student
+        $diff1 = array_diff($oldData->student, $this->student->attributes);
+        $diff2 = array_diff($this->student->attributes, $oldData->student);
+        $old = array_merge($old, $diff1);
+        $new = array_merge($new, $diff2);
+        //educations
+        $diff1 = array_diff($oldData->educations, $this->educations->first()->attributes);
+        $diff2 = array_diff($this->educations->first()->attributes, $oldData->educations);
+        $old = array_merge($old, $diff1);
+        $new = array_merge($new, $diff2);
+        //jobs
+        $diff1 = array_diff($oldData->jobs, $this->jobs->first()->attributes);
+        $diff2 = array_diff($this->jobs->first()->attributes, $oldData->jobs);
+        $old = array_merge($old, $diff1);
+        $new = array_merge($new, $diff2);
+        //phones
+        $diff1 = array_diff($oldData->phones, $this->phones->first()->attributes);
+        $diff2 = array_diff($this->phones->first()->attributes, $oldData->phones);
+        $old = array_merge($old, $diff1);
+        $new = array_merge($new, $diff2);
+        //names
+//        $diff1 = array_diff($oldData->names, $this->names);
+//        $diff2 = array_diff($this->names, $oldData->names);
+//        array_merge($old, $diff1);
+//        array_merge($new, $diff2);
+
+        $changeLog->body = "";
+        $changeLog->old = json_encode($old);
+        $changeLog->new = json_encode($new);
         $changeLog->save();
         return true;
     }
