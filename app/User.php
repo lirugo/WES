@@ -541,7 +541,7 @@ class User extends Authenticatable
 
         //attributes
         $diff1 = array_diff($oldData->attributes, $this->attributes);
-        $diff2 = array_diff($this->attributes, $oldData->attribures);
+        $diff2 = array_diff($this->attributes, $oldData->attributes);
         $old = array_merge($old, $diff1);
         $new = array_merge($new, $diff2);
         //student

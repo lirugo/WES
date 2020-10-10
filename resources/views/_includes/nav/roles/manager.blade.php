@@ -1,4 +1,5 @@
 @if(Auth::user()->hasRole('manager'))
+    <li><a href="{{url('/changelog')}}"><i class="material-icons">turned_in</i>@lang('app.Change Log')</a></li>
     <li><div class="divider"></div></li>
     <li><a class="subheader">@lang('app.Manager')</a></li>
     <li>
