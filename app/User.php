@@ -487,6 +487,48 @@ class User extends Authenticatable
         $oldData->jobs = $this->jobs->first()->attributes;
         $oldData->phones = $this->phones->first()->attributes;
         $oldData->names = $this->names;
+        //Save history
+        $old = array();
+        $new = array();
+
+        //names
+        if($this->names->where('language', '=', 'ua')->first()->second_name != $request->second_name_ua){
+            $old["second_name_ua"] = $this->names->where('language', '=', 'ua')->first()->second_name;
+            $new["second_name_ua"] = $request->second_name_ua;
+        }
+        if($this->names->where('language', '=', 'ua')->first()->name != $request->name_ua){
+            $old["name_ua"] = $this->names->where('language', '=', 'ua')->first()->name;
+            $new["name_ua"] = $request->name_ua;}
+        if($this->names->where('language', '=', 'ua')->first()->middle_name != $request->middle_name_ua){
+            $old["middle_name_ua"] = $this->names->where('language', '=', 'ua')->first()->middle_name;
+            $new["middle_name_ua"] = $request->middle_name_ua;
+        }
+
+        if($this->names->where('language', '=', 'ru')->first()->second_name != $request->second_name_ru){
+            $old["second_name_ru"] = $this->names->where('language', '=', 'ru')->first()->second_name;
+            $new["second_name_ru"] = $request->second_name_ru;
+        }
+        if($this->names->where('language', '=', 'ru')->first()->name != $request->name_ru){
+            $old["name_ru"] = $this->names->where('language', '=', 'ru')->first()->name;
+            $new["name_ru"] = $request->name_ru;}
+        if($this->names->where('language', '=', 'ru')->first()->middle_name != $request->middle_name_ru){
+            $old["middle_name_ru"] = $this->names->where('language', '=', 'ru')->first()->middle_name;
+            $new["middle_name_ru"] = $request->middle_name_ru;
+        }
+
+        if($this->names->where('language', '=', 'en')->first()->second_name != $request->second_name_en){
+            $old["second_name_en"] = $this->names->where('language', '=', 'en')->first()->second_name;
+            $new["second_name_en"] = $request->second_name_en;
+        }
+        if($this->names->where('language', '=', 'en')->first()->name != $request->name_en){
+            $old["name_en"] = $this->names->where('language', '=', 'en')->first()->name;
+            $new["name_en"] = $request->name_en;}
+        if($this->names->where('language', '=', 'en')->first()->middle_name != $request->middle_name_en){
+            $old["middle_name_en"] = $this->names->where('language', '=', 'en')->first()->middle_name;
+            $new["middle_name_en"] = $request->middle_name_en;
+        }
+
+
 
         $changeLog = new ChangeLog();
         $changeLog->author_id = Auth::user()->id;
@@ -535,10 +577,6 @@ class User extends Authenticatable
         $this->names->where('language', '=', 'en')->first()->save();
 
 
-        //Save history
-        $old = array();
-        $new = array();
-
         //attributes
         $diff1 = array_diff($oldData->attributes, $this->attributes);
         $diff2 = array_diff($this->attributes, $oldData->attributes);
@@ -564,11 +602,7 @@ class User extends Authenticatable
         $diff2 = array_diff($this->phones->first()->attributes, $oldData->phones);
         $old = array_merge($old, $diff1);
         $new = array_merge($new, $diff2);
-        //names
-//        $diff1 = array_diff($oldData->names, $this->names);
-//        $diff2 = array_diff($this->names, $oldData->names);
-//        array_merge($old, $diff1);
-//        array_merge($new, $diff2);
+
 
         $changeLog->body = "";
         $changeLog->old = json_encode($old);
