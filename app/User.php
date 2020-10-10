@@ -527,6 +527,11 @@ class User extends Authenticatable
             $old["middle_name_en"] = $this->names->where('language', '=', 'en')->first()->middle_name;
             $new["middle_name_en"] = $request->middle_name_en;
         }
+        //Other
+        if($this->jobs->first()->experience != $request->job_experience){
+            $old["experience"] = $this->jobs->first()->experience;
+            $new["experience"] = $request->job_experience;
+        }
 
 
 
