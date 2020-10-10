@@ -532,6 +532,10 @@ class User extends Authenticatable
             $old["experience"] = $this->jobs->first()->experience;
             $new["experience"] = $request->job_experience;
         }
+        if($this->student->english_lvl = $request->english_lvl){
+            $old["english_lvl"] = $this->student->english_lvl;
+            $new["english_lvl"] = $request->english_lvl;
+        }
 
 
 

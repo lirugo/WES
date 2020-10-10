@@ -123,7 +123,7 @@
                 {{--Number of Contract--}}
                 <div class="input-field">
                     <i class="material-icons prefix">copyright</i>
-                    {!! Form::text('number_of_contract', $student->number_of_contract, ['class' => 'validate', 'id' => 'number_of_contract', 'required']) !!}
+                    {!! Form::text('number_of_contract', $student->number_of_contract, ['class' => 'validate', 'id' => 'number_of_contract']) !!}
                     <label for="number_of_contract">@lang('app.Number Of Contract')</label>
                 </div>
                 {{--Phone--}}
