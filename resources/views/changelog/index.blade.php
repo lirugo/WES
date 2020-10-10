@@ -12,6 +12,10 @@
                         <div class="divider m-b-10"></div>
                         <p>{!! $log->body !!}</p>
 
+                        Кто: {!! $log->author->getShortName() !!}
+                        <br/>
+                        Кому: {!! $log->target->getShortName() !!}
+
                         <div class="row">
                             <div class="col s6">
                                 <table>
