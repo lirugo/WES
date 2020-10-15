@@ -12,6 +12,7 @@ use Illuminate\Support\Collection;
 use Image;
 use Laratrust\Traits\LaratrustUserTrait;
 use MongoDB\Driver\Exception\Exception;
+use function MongoDB\BSON\toJSON;
 
 class User extends Authenticatable
 {
@@ -479,20 +480,72 @@ class User extends Authenticatable
     }
 
     public function updateStudent($request){
+        $oldData = (object) [];
+        $oldData->attributes = $this->attributes;
+        $oldData->student = $this->student->attributes;
+        $oldData->educations = $this->educations->first()->attributes;
+        $oldData->jobs = $this->jobs->first()->attributes;
+        $oldData->phones = $this->phones->first()->attributes;
+        $oldData->names = $this->names;
+        //Save history
+        $old = array();
+        $new = array();
+
+        //names
+        if($this->names->where('language', '=', 'ua')->first()->second_name != $request->second_name_ua){
+            $old["second_name_ua"] = $this->names->where('language', '=', 'ua')->first()->second_name;
+            $new["second_name_ua"] = $request->second_name_ua;
+        }
+        if($this->names->where('language', '=', 'ua')->first()->name != $request->name_ua){
+            $old["name_ua"] = $this->names->where('language', '=', 'ua')->first()->name;
+            $new["name_ua"] = $request->name_ua;}
+        if($this->names->where('language', '=', 'ua')->first()->middle_name != $request->middle_name_ua){
+            $old["middle_name_ua"] = $this->names->where('language', '=', 'ua')->first()->middle_name;
+            $new["middle_name_ua"] = $request->middle_name_ua;
+        }
+
+        if($this->names->where('language', '=', 'ru')->first()->second_name != $request->second_name_ru){
+            $old["second_name_ru"] = $this->names->where('language', '=', 'ru')->first()->second_name;
+            $new["second_name_ru"] = $request->second_name_ru;
+        }
+        if($this->names->where('language', '=', 'ru')->first()->name != $request->name_ru){
+            $old["name_ru"] = $this->names->where('language', '=', 'ru')->first()->name;
+            $new["name_ru"] = $request->name_ru;}
+        if($this->names->where('language', '=', 'ru')->first()->middle_name != $request->middle_name_ru){
+            $old["middle_name_ru"] = $this->names->where('language', '=', 'ru')->first()->middle_name;
+            $new["middle_name_ru"] = $request->middle_name_ru;
+        }
+
+        if($this->names->where('language', '=', 'en')->first()->second_name != $request->second_name_en){
+            $old["second_name_en"] = $this->names->where('language', '=', 'en')->first()->second_name;
+            $new["second_name_en"] = $request->second_name_en;
+        }
+        if($this->names->where('language', '=', 'en')->first()->name != $request->name_en){
+            $old["name_en"] = $this->names->where('language', '=', 'en')->first()->name;
+            $new["name_en"] = $request->name_en;}
+        if($this->names->where('language', '=', 'en')->first()->middle_name != $request->middle_name_en){
+            $old["middle_name_en"] = $this->names->where('language', '=', 'en')->first()->middle_name;
+            $new["middle_name_en"] = $request->middle_name_en;
+        }
+        //Other
+        if($this->jobs->first()->experience != $request->job_experience){
+            $old["experience"] = $this->jobs->first()->experience;
+            $new["experience"] = $request->job_experience;
+        }
+        if($this->student->english_lvl = $request->english_lvl){
+            $old["english_lvl"] = $this->student->english_lvl;
+            $new["english_lvl"] = $request->english_lvl;
+        }
+
+
+
         $changeLog = new ChangeLog();
         $changeLog->author_id = Auth::user()->id;
         $changeLog->target_id = $request->id;
-        $changeLog->title = "UPDATE_STUDENT";
+        $changeLog->title = "Student profile was updated";
+        $changeLog->type = "UPDATE_STUDENT";
         $changeLog->target_id = $request->id;
         $changeLogBody = "";
-
-//        //convert the obtained stdclass object to an array
-//        $array1 = (array) $request->all();
-//        $array2 = (array) json_decode($this);
-//        $result_array = array_diff($array1,$array2);
-//
-//        dd($array1);
-
 
         $this->number_of_contract = $request->number_of_contract;
         $this->date_of_birth = $request->date_of_birth;
@@ -533,7 +586,36 @@ class User extends Authenticatable
         $this->names->where('language', '=', 'en')->first()->save();
 
 
-        $changeLog->body = $changeLogBody;
+        //attributes
+        $diff1 = array_diff($oldData->attributes, $this->attributes);
+        $diff2 = array_diff($this->attributes, $oldData->attributes);
+        $old = array_merge($old, $diff1);
+        $new = array_merge($new, $diff2);
+        //student
+        $diff1 = array_diff($oldData->student, $this->student->attributes);
+        $diff2 = array_diff($this->student->attributes, $oldData->student);
+        $old = array_merge($old, $diff1);
+        $new = array_merge($new, $diff2);
+        //educations
+        $diff1 = array_diff($oldData->educations, $this->educations->first()->attributes);
+        $diff2 = array_diff($this->educations->first()->attributes, $oldData->educations);
+        $old = array_merge($old, $diff1);
+        $new = array_merge($new, $diff2);
+        //jobs
+        $diff1 = array_diff($oldData->jobs, $this->jobs->first()->attributes);
+        $diff2 = array_diff($this->jobs->first()->attributes, $oldData->jobs);
+        $old = array_merge($old, $diff1);
+        $new = array_merge($new, $diff2);
+        //phones
+        $diff1 = array_diff($oldData->phones, $this->phones->first()->attributes);
+        $diff2 = array_diff($this->phones->first()->attributes, $oldData->phones);
+        $old = array_merge($old, $diff1);
+        $new = array_merge($new, $diff2);
+
+
+        $changeLog->body = "";
+        $changeLog->old = json_encode($old);
+        $changeLog->new = json_encode($new);
         $changeLog->save();
         return true;
     }
