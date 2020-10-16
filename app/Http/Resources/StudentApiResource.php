@@ -18,7 +18,7 @@ class StudentApiResource extends JsonResource
         $middle_name = is_null($this->name->middle_name) ? '' : ' '.$this->name->middle_name;
         return [
             'id' => $this->id,
-            'name' => $this->getShortName(),
+            'name' => $this->getFullName(),
             'avatar' => $this->avatar,
 
             'email' => $this->email,

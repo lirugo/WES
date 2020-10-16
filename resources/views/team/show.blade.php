@@ -39,7 +39,7 @@
                 <div class="s12">
                     <div class="card-panel hoverable">
                         <a href="#user"><img class="circle left m-r-10" width="100px" src="{{asset('/uploads/avatars/'.$team->getOwner()->avatar)}}"></a>
-                        <p class="card-title m-b-0">{{$team->getOwner()->getShortName()}}</p>
+                        <p class="card-title m-b-0">{{$team->getOwner()->getFullName()}}</p>
                         <p class="card-title m-t-0 m-b-0">{{$team->getOwner()->email}}</p>
                         <p class="card-title m-t-0">{{$team->getOwner()->getPhone()}}</p>
                         <a class="indigo waves-effect waves-light btn-small right"><i class="material-icons right">message</i>@lang('app.Have question?')</a>
@@ -111,7 +111,7 @@
                             @endif
                             <img class="circle left m-r-10" width="100px" src="{{asset('/uploads/avatars/'.$student->avatar)}}">
                         </a>
-                        <p class="card-title m-t-0 m-b-0">{{$student->getShortName()}}</p>
+                        <p class="card-title m-t-0 m-b-0">{{$student->getFullName()}}</p>
                         <p class="card-title m-t-0 m-b-0">{{$student->email}}</p>
                         <p class="card-title m-t-0 m-b-0">{{$student->getPhone()}}</p>
                         @if(Auth::user()->hasRole(['administrator', 'top-manager', 'manager', 'teacher']))
@@ -140,7 +140,7 @@
                     <div class="card-panel {{$discipline->disabled ? 'card-disabled' : 'hoverable'}}">
                         <blockquote class="m-t-0">{{$discipline->getDiscipline->display_name}}</blockquote>
                         <a href="#user"><img class="circle left m-r-10" width="100px" src="{{asset('/uploads/avatars/'.$discipline->getTeacher->avatar)}}"></a>
-                        <p class="card-title m-t-10 m-b-0">{{$discipline->getTeacher->getShortName()}}</p>
+                        <p class="card-title m-t-10 m-b-0">{{$discipline->getTeacher->getFullName()}}</p>
                         <p class="card-title m-t-0 m-b-0">{{$discipline->getTeacher->email}}</p>
                         <p class="card-title m-t-0 m-b-0">{{$discipline->getTeacher->getPhone()}}</p>
                         <p class="card-title m-t-0 m-b-0">Hours - {{$discipline->hours}}</p>
@@ -174,7 +174,7 @@
                             <select class="icons" name="student" required>
                                 <option value="" disabled selected>@lang('app.Choose a new student')</option>
                                 @foreach($students as $student)
-                                    <option value="{{$student->id}}" data-icon="{{asset('/uploads/avatars/'.$student->avatar)}}">{{$student->getShortName()}}</option>
+                                    <option value="{{$student->id}}" data-icon="{{asset('/uploads/avatars/'.$student->avatar)}}">{{$student->getFullName()}}</option>
                                 @endforeach
                             </select>
                             <label>@lang('app.All students')</label>
@@ -192,7 +192,7 @@
                             <select class="icons" name="teamTemplateDisciplines" required>
                                 <option value="" disabled selected>@lang('app.Choose a new discipline')</option>
                                 @foreach($teamTemplateDisciplines as $discipline)
-                                    <option value="{{$discipline->id}}">{{$discipline->getTeacher->getShortName()}} - {{$discipline->getDiscipline->display_name}} {{$discipline->hours}} @lang('app.hours')</option>
+                                    <option value="{{$discipline->id}}">{{$discipline->getTeacher->getFullName()}} - {{$discipline->getDiscipline->display_name}} {{$discipline->hours}} @lang('app.hours')</option>
                                 @endforeach
                             </select>
                             <label>@lang('app.All disciplines')</label>

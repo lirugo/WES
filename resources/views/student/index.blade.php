@@ -8,7 +8,7 @@
             <div class="col s12 m6 l4">
                 <div class="card hoverable">
                     <div class="card-content">
-                        <span class="card-title">{{$student->getShortName()}}</span>
+                        <span class="card-title">{{$student->getFullName()}}</span>
                         <span class="card-title center-align"></span>
                         <p></p>
                         <div class="divider m-t-10 m-b-10"></div>

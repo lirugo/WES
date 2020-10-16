@@ -39,7 +39,7 @@ class User extends Authenticatable
     ];
 
     public function name(){
-        return $this->hasOne(UserName::class)->where('language','en');
+        return $this->hasOne(UserName::class)->where('language',Auth::user()->language);
     }
 
     public function getShortName(){

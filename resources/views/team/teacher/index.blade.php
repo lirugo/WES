@@ -9,7 +9,7 @@
                 <div class="card hoverable">
                     <div class="card-image">
                         <img src="{{asset('/uploads/avatars/'.$teacher->avatar)}}">
-                        <span class="card-title">{{$teacher->getShortName()}}</span>
+                        <span class="card-title">{{$teacher->getFullName()}}</span>
                     </div>
                     <div class="card-content">
                         <span class="card-title center-align"></span>

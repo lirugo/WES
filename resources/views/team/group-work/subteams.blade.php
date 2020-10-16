@@ -102,7 +102,7 @@
                                 {{--Show members--}}
                                 <div class="chip m-l-10" v-for="(member, index) in subteam.members">
                                     <img :src="'/uploads/avatars/' + member.user.avatar" alt="image">
-                                    @{{ member.user.name.second_name + ' ' + member.user.name.name }}
+                                    @{{ member.user.name.second_name + ' ' + member.user.name.name + ' ' + (member.user.name.middle_name ? member.user.name.middle_name : '') }}
                                 </div>
                             </div>
                             {{--Open--}}
