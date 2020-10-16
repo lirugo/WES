@@ -64,7 +64,7 @@ class MarkController extends Controller
                 $common[] = [
                     'studentId' => $student->id,
                     'disciplineId' => $disc->id,
-                    'student' => $student->getShortName(),
+                    'student' => $student->getFullName(),
                     'discipline' => $disc->getDiscipline->display_name,
                     'disciplineName' => $disc->getDiscipline->name,
                     'mark' => $disc->getMark($student->id),

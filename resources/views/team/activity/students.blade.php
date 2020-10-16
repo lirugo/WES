@@ -14,7 +14,7 @@
                         <span data-badge-caption="" class="new badge orange right">No mark</span>
                     @endif
                     <div class="card-content">
-                        <span class="card-title center-align">{{$student->getShortName()}}</span>
+                        <span class="card-title center-align">{{$student->getFullName()}}</span>
 
                     </div>
                     <div class="card-action">
