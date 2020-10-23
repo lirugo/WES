@@ -39,11 +39,11 @@ class User extends Authenticatable
     ];
 
     public function name(){
-        return $this->hasOne(UserName::class)->where('language',Auth::user()->language);
+        return $this->hasOne(UserName::class)->where('language', Auth::user() ? Auth::user()->language : 'en');
     }
 
     public function getShortName(){
-        $name = $this->names()->where('language', '=', Auth::user()->language)->first();
+        $name = $this->names()->where('language', '=', Auth::user() ? Auth::user()->language : 'en')->first();
         if(is_null($name->middle_name))
             return $name->second_name.' '.mb_substr($name->name,0,1).'.';
         else
@@ -51,7 +51,7 @@ class User extends Authenticatable
     }
 
     public function getFullName(){
-        $name = $this->names()->where('language', '=',Auth::user()->language)->first();
+        $name = $this->names()->where('language', '=',Auth::user() ? Auth::user()->language : 'en')->first();
         if(is_null($name->middle_name))
             return $name->second_name.' '.$name->name;
         else
