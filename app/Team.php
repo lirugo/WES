@@ -41,6 +41,10 @@ class Team extends LaratrustTeam
         return $this->hasMany(TeamDiscipline::class)->with('getTeacher', 'getDiscipline');
     }
 
+    public function disciplinesForTeam($teamId){
+        return $this->hasMany(TeamDiscipline::class)->where('team_id', $teamId)->where('disabled', false)->with('getTeacher', 'getDiscipline')->get();
+    }
+
     public function getDisciplines($userId){
         return $this->disciplines()->where('teacher_id', '=', $userId)->get();
     }

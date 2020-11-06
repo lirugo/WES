@@ -34,7 +34,7 @@ class ActivityController extends Controller
         if(Auth::user()->hasRole('teacher'))
             $disciplines = Auth::user()->getTeacherDiscipline($team->name);
         else
-            $disciplines = $team->disciplines;
+            $disciplines = $team->disciplinesForTeam($team->id);
 
         return view('team.activity.index')
             ->withTeam($team)
