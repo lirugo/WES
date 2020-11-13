@@ -170,6 +170,10 @@ class ActivityController extends Controller
     }
 
     public function students($team, $discipline, $activityId){
+        if(Auth::user()->hasRole('student')){
+            return abort('403');
+        }
+
         $team = Team::where('name', $team)->first();
         $discipline = Discipline::where('name', $discipline)->first();
         $activity = TeamActivity::find($activityId);
