@@ -423,6 +423,8 @@ Route::post('/avatar/{studentId}/update', 'Store\AvatarController@update')->name
 
 Route::post('/feedback/send', 'FeedbackController@send')->name('feedback.send');
 
+Route::get('/test-video', 'VideoController@streamVideo');
+
 /*
 |--------------------------------------------------------------------------
 | Team API

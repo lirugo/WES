@@ -4,6 +4,11 @@
 @endsection
 
 @section('content')
+{{--    <div class="row m-b-0 m-t-0">--}}
+{{--        <div class="col s12">--}}
+{{--            <video controls preload="auto" src="/test-video" width="400px"></video>--}}
+{{--        </div>--}}
+{{--    </div>--}}
     {{--    OLD EDUCATION MATERIALS--}}
     @if(count($materials) > 0)
         <div class="row m-b-0 m-t-0">
