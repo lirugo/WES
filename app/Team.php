@@ -38,7 +38,20 @@ class Team extends LaratrustTeam
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function disciplines(){
-        return $this->hasMany(TeamDiscipline::class)->with('getTeacher', 'getDiscipline');
+        return $this->hasMany(TeamDiscipline::class)->with('getTeacher', 'getDiscipline', 'discipline');
+    }
+
+    /**
+     * Relationship to discipline list
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function disciplinesAsc(){
+        $disciplines = $this->hasMany(TeamDiscipline::class)->with('getTeacher', 'getDiscipline', 'discipline')->get();
+
+        //By ABC sort
+        $disciplines = $disciplines->sortBy('discipline.display_name');
+
+        return $disciplines;
     }
 
     public function disciplinesForTeam($teamId){
@@ -178,6 +191,9 @@ class Team extends LaratrustTeam
 
         }
 
+        //By ABC sort
+        $users = $users->sortBy('name.second_name');
+
         return $users;
     }
 
@@ -186,7 +202,7 @@ class Team extends LaratrustTeam
      * @return array
      */
     public function getSchedule(){
-         return $this->schedules;
+        return $this->schedules;
     }
 
     /**
@@ -206,7 +222,7 @@ class Team extends LaratrustTeam
     public function isMember($user){
         foreach($this->getMembers() as $member)
             if($user->id == $member->id)
-               // Allow
+                // Allow
                 return true;
         // Deny
         return false;

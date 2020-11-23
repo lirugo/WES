@@ -135,7 +135,7 @@
                     <h6 class="card-title m-t-0 m-b-0 center-align">@lang('app.Disciplines of this group')</h6>
                 </div>
             </div>
-            @foreach($team->disciplines as $discipline)
+            @foreach($team->disciplinesAsc() as $discipline)
                 <div class="col s12 l6">
                     <div class="card-panel {{$discipline->disabled ? 'card-disabled' : 'hoverable'}}">
                         <blockquote class="m-t-0">{{$discipline->getDiscipline->display_name}}</blockquote>
