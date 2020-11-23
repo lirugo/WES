@@ -49,7 +49,7 @@ class Team extends LaratrustTeam
         $disciplines = $this->hasMany(TeamDiscipline::class)->with('getTeacher', 'getDiscipline', 'discipline')->get();
 
         //By ABC sort
-        $disciplines = $disciplines->sortBy('discipline.display_name');
+        $disciplines = $disciplines->sortBy('discipline.name');
 
         return $disciplines;
     }
