@@ -18,10 +18,8 @@ class CreateVideoLessonsTable extends Migration
 
             $table->unsignedInteger('owner_id');
             $table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');
-            $table->unsignedInteger('team_id');
-            $table->foreign('team_id')->references('id')->on('teams')->onDelete('cascade');
-            $table->unsignedInteger('discipline_id');
-            $table->foreign('discipline_id')->references('id')->on('disciplines')->onDelete('cascade');
+            $table->unsignedInteger('team_discipline_id');
+            $table->foreign('team_discipline_id')->references('id')->on('teams_disciplines')->onDelete('cascade');
 
             $table->string('file_name');
             $table->text('description');

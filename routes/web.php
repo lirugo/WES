@@ -198,6 +198,10 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'User', 'prefix' => 'user
         'prefix' => 'team',
         'namespace' => 'Team'
     ], function () {
+        //Video lessons
+        Route::get('/{teamName}/video-lesson', 'VideoLesson\VideoLessonController@disciplines');
+        Route::get('/{teamName}/video-lesson/{teamDisciplineId}', 'VideoLesson\VideoLessonController@index');
+
         Route::get('/', 'TeamController@index');
         Route::get('/create', 'TeamController@create');
         Route::get('/template', 'Template\TemplateController@index');

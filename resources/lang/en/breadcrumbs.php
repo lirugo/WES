@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'Video Lessons' => 'Video Lessons',
     'Manage Panel' => 'Manage Panel',
     'Chat' => 'Chat',
     'Change Log' => 'Change Log',

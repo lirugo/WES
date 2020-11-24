@@ -140,6 +140,16 @@
         $trail->push(@trans('breadcrumbs.Students'), url('/team/'.$team->name.'/students'));
     });
 
+    //Video lessons
+    Breadcrumbs::for('team-video-lesson', function ($trail, $team) {
+        $trail->parent('team-show', $team);
+        $trail->push(@trans('breadcrumbs.Video Lessons'), url('/team/'.$team->name.'/video-lesson'));
+    });
+    Breadcrumbs::for('team-video-lesson-show', function ($trail, $team, $teamDiscipline) {
+        $trail->parent('team-video-lesson', $team);
+        $trail->push($teamDiscipline->getDiscipline->display_name, url('/team/'.$team->name.'/video-lesson/'.$teamDiscipline->id));
+    });
+
     //Group Work
     Breadcrumbs::for('team-group-work', function ($trail, $team) {
         $trail->parent('team-show', $team);
