@@ -10,7 +10,7 @@ use Response;
 class VideoController extends Controller
 {
     public function streamVideo($fileName) {
-        $path = storage_path('app/public/'.$fileName);
+        $path = storage_path('app/video-lesson/'.$fileName);
         $stream = new VideoStream($path);
         $stream->start();
     }
