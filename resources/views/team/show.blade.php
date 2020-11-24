@@ -136,30 +136,32 @@
                 </div>
             </div>
             @foreach($team->disciplinesAsc() as $discipline)
-                <div class="col s12 l6">
-                    <div class="card-panel {{$discipline->disabled ? 'card-disabled' : 'hoverable'}}">
-                        <blockquote class="m-t-0">{{$discipline->getDiscipline->display_name}}</blockquote>
-                        <a href="#user"><img class="circle left m-r-10" width="100px" src="{{asset('/uploads/avatars/'.$discipline->getTeacher->avatar)}}"></a>
-                        <p class="card-title m-t-10 m-b-0">{{$discipline->getTeacher->getFullName()}}</p>
-                        <p class="card-title m-t-0 m-b-0">{{$discipline->getTeacher->email}}</p>
-                        <p class="card-title m-t-0 m-b-0">{{$discipline->getTeacher->getPhone()}}</p>
-                        <p class="card-title m-t-0 m-b-0">Hours - {{$discipline->hours}}</p>
-                        @if(Auth::user()->hasRole(['top-manager', 'manager', 'teacher']))
-                            <p class="card-title m-t-0">{{$discipline->getTeacher->getCountOfYear()}} years old</p>
-                        @endif
-                        {{--Actions with discipline--}}
-                        @if(Auth::user()->hasRole('manager'))
-                            <form action="{{url('/team/'.$team->name.'/discipline/'.$discipline->id.'/disable')}}" method="POST">
-                                @csrf
-                                @if($discipline->disabled)
-                                    <button type="submit" class="waves-effect waves-light btn btn-small red" ><i class="material-icons right">add</i>@lang('app.enable')</button>
-                                @else
-                                    <button type="submit" class="waves-effect waves-light btn btn-small red" ><i class="material-icons right">close</i>@lang('app.disable')</button>
-                                @endif
-                            </form>
-                        @endif
+                @if(Auth::user()->hasRole('student') && !$discipline->disabled || !Auth::user()->hasRole('student'))
+                    <div class="col s12 l6">
+                        <div class="card-panel {{$discipline->disabled ? 'card-disabled' : 'hoverable'}}">
+                            <blockquote class="m-t-0">{{$discipline->getDiscipline->display_name}}</blockquote>
+                            <a href="#user"><img class="circle left m-r-10" width="100px" src="{{asset('/uploads/avatars/'.$discipline->getTeacher->avatar)}}"></a>
+                            <p class="card-title m-t-10 m-b-0">{{$discipline->getTeacher->getFullName()}}</p>
+                            <p class="card-title m-t-0 m-b-0">{{$discipline->getTeacher->email}}</p>
+                            <p class="card-title m-t-0 m-b-0">{{$discipline->getTeacher->getPhone()}}</p>
+                            <p class="card-title m-t-0 m-b-0">Hours - {{$discipline->hours}}</p>
+                            @if(Auth::user()->hasRole(['top-manager', 'manager', 'teacher']))
+                                <p class="card-title m-t-0">{{$discipline->getTeacher->getCountOfYear()}} years old</p>
+                            @endif
+                            {{--Actions with discipline--}}
+                            @if(Auth::user()->hasRole('manager'))
+                                <form action="{{url('/team/'.$team->name.'/discipline/'.$discipline->id.'/disable')}}" method="POST">
+                                    @csrf
+                                    @if($discipline->disabled)
+                                        <button type="submit" class="waves-effect waves-light btn btn-small red" ><i class="material-icons right">add</i>@lang('app.enable')</button>
+                                    @else
+                                        <button type="submit" class="waves-effect waves-light btn btn-small red" ><i class="material-icons right">close</i>@lang('app.disable')</button>
+                                    @endif
+                                </form>
+                            @endif
+                        </div>
                     </div>
-                </div>
+                @endif
             @endforeach
         </div>
 
