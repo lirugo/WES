@@ -93,6 +93,12 @@
                         <label for="email">@lang('app.Email')</label>
                         <span class="helper-text" data-error="@lang('app.Wrong')" data-success="@lang('app.All is Ok')">example@domain.com</span>
                     </div>
+                    {{--Number of Contract--}}
+                    <div class="input-field">
+                        <i class="material-icons prefix">copyright</i>
+                        {!! Form::text('number_of_contract', null, ['class' => 'validate', 'id' => 'number_of_contract']) !!}
+                        <label for="number_of_contract">@lang('app.Number Of Contract')</label>
+                    </div>
                     {{--Password--}}
                     <div class="input-field">
                         <i class="material-icons prefix">vpn_key</i>

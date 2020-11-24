@@ -224,6 +224,9 @@ class User extends Authenticatable
             'password' => bcrypt($request->password),
         ]);
 
+        $user->number_of_contract =  $request->number_of_contract;
+        $user->save();
+
         // Handle the user student of avatar
         if($request->avatar){
             $user->avatar = $request->avatar;
