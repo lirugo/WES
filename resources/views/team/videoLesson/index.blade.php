@@ -9,6 +9,13 @@
                 <div class="card hoverable">
                     <div class="card-content">
                         <span class="card-title center-align">{{$video->module}} #{{$video->part}}</span>
+
+                        <div class="row m-b-0 m-t-0">
+                            <div class="col s12 center">
+                                <video controls preload="auto" src="{{url('/video-stream/'.$video->file_name)}}" width="100%"></video>
+                            </div>
+                        </div>
+
                         <p>{{$video->description}}</p>
                         <blockquote class="m-b-0 m-t-5"><small>@lang('app.Time'): {{$video->start_time}} - {{$video->end_time}}</small></blockquote>
                         <blockquote class="m-b-0 m-t-5"><small>@lang('app.Date') - {{$video->date}}</small></blockquote>

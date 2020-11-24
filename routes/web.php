@@ -188,6 +188,9 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'User', 'prefix' => 'user
         Route::post('/{id}/update', 'StudentController@update')->name('student.update');
     });
 
+
+//Video stream
+Route::get('/video-stream/{fileName}', 'Team\VideoLesson\VideoController@streamVideo');
 /*
 |--------------------------------------------------------------------------
 | Team route
