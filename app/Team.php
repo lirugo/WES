@@ -49,7 +49,11 @@ class Team extends LaratrustTeam
         $disciplines = $this->hasMany(TeamDiscipline::class)->with('getTeacher', 'getDiscipline', 'discipline')->get();
 
         //By ABC sort
-        $disciplines = $disciplines->sortBy('discipline.name');
+        $disciplines = $disciplines->sortBy(function($discipline){
+            $str = mb_strtolower($discipline->discipline->name, 'UTF-8');
+            $str = str_replace('і', 'и', $str);
+            return $str;
+        });
 
         return $disciplines;
     }
@@ -112,7 +116,11 @@ class Team extends LaratrustTeam
         $users = User::with(['rolesTeams', 'name'])->whereRoleIs('student')->get();
 
         //By ABC sort
-        $users = $users->sortBy('name.second_name');
+        $users = $users->sortBy(function($user){
+            $str = mb_strtolower($user->name->second_name, 'UTF-8');
+            $str = str_replace('і', 'и', $str);
+            return $str;
+        });
 
         foreach ($users as $key => $user){
             $count = 0;
