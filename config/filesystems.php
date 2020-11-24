@@ -83,6 +83,13 @@ return [
             'visibility' => 'private',
         ],
 
+        'video-lesson' => [
+            'driver' => 'local',
+            'root' => storage_path('app'.DIRECTORY_SEPARATOR.'video-lesson'.DIRECTORY_SEPARATOR),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'private',
+        ],
+
         'activity' => [
             'driver' => 'local',
             'root' => storage_path('app/activity/'),

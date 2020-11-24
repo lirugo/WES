@@ -205,6 +205,7 @@ Route::get('/video-stream/{fileName}', 'Team\VideoLesson\VideoController@streamV
         Route::get('/{teamName}/video-lesson/create', 'VideoLesson\VideoLessonController@create');
         Route::get('/{teamName}/video-lesson', 'VideoLesson\VideoLessonController@disciplines');
         Route::get('/{teamName}/video-lesson/{teamDisciplineId}', 'VideoLesson\VideoLessonController@index');
+        Route::post('/{teamName}/video-lesson/store', 'VideoLesson\VideoLessonController@store')->name('team.video-lesson.store');
 
         Route::get('/', 'TeamController@index');
         Route::get('/create', 'TeamController@create');
