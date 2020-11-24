@@ -5,6 +5,7 @@ namespace App;
 use App\Models\Team\GroupWork;
 use App\Models\Team\Pretest;
 use App\Models\Team\TeamActivity;
+use App\Models\Team\TeamVideoLesson;
 use Illuminate\Database\Eloquent\Model;
 
 class TeamDiscipline extends Model
@@ -27,6 +28,10 @@ class TeamDiscipline extends Model
 
     public function getActivities(){
         return $this->hasMany(TeamActivity::class, 'discipline_id', 'discipline_id')->where('team_id', $this->team_id);
+    }
+
+    public function getVideoLessons(){
+        return $this->hasMany(TeamVideoLesson::class, 'team_discipline_id', 'id');
     }
 
     public function team(){

@@ -5,6 +5,8 @@ return [
     'Feedback' => 'Feedback',
     'We’ll be very grateful to know about problems in the work of the educational platform!' => 'We’ll be very grateful to know about problems in the work of the educational platform!',
     'Title' => 'Title',
+    'Date' => 'Date',
+    'Author' => 'Author',
     'Body' => 'Body',
     'Close' => 'Close',
     'Send' => 'Send',

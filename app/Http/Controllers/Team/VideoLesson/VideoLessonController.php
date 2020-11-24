@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers\Team\VideoLesson;
 
-use App\Discipline;
-use App\Models\Team\GroupWork;
+use App\Http\Controllers\Controller;
 use App\Team;
 use App\TeamDiscipline;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class VideoLessonController extends Controller
 {
@@ -24,7 +21,7 @@ class VideoLessonController extends Controller
         $teamDiscipline = TeamDiscipline::where('id', $teamDisciplineId)->first();
         $team = $teamDiscipline->team;
         $discipline = $teamDiscipline->getDiscipline();
-        $videoLessons = [];
+        $videoLessons = $teamDiscipline->getVideoLessons()->get();
 
         return view('team.videoLesson.index')
             ->withTeam($team)
