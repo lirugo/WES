@@ -202,6 +202,7 @@ Route::get('/video-stream/{fileName}', 'Team\VideoLesson\VideoController@streamV
         'namespace' => 'Team'
     ], function () {
         //Video lessons
+        Route::get('/{teamName}/video-lesson/create', 'VideoLesson\VideoLessonController@create');
         Route::get('/{teamName}/video-lesson', 'VideoLesson\VideoLessonController@disciplines');
         Route::get('/{teamName}/video-lesson/{teamDisciplineId}', 'VideoLesson\VideoLessonController@index');
 

@@ -145,6 +145,10 @@
         $trail->parent('team-show', $team);
         $trail->push(@trans('breadcrumbs.Video Lessons'), url('/team/'.$team->name.'/video-lesson'));
     });
+    Breadcrumbs::for('team-video-lesson-create', function ($trail, $team) {
+        $trail->parent('team-video-lesson', $team);
+        $trail->push(@trans('breadcrumbs.Create'), url('/team/'.$team->name.'/video-lesson'));
+    });
     Breadcrumbs::for('team-video-lesson-show', function ($trail, $team, $teamDiscipline) {
         $trail->parent('team-video-lesson', $team);
         $trail->push($teamDiscipline->getDiscipline->display_name, url('/team/'.$team->name.'/video-lesson/'.$teamDiscipline->id));

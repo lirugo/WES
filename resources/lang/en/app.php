@@ -7,6 +7,8 @@ return [
     'Title' => 'Title',
     'Date' => 'Date',
     'Author' => 'Author',
+    'Module' => 'Module',
+    'Part' => 'Part',
     'Body' => 'Body',
     'Close' => 'Close',
     'Send' => 'Send',

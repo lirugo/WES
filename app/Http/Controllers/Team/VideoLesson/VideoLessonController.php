@@ -8,6 +8,15 @@ use App\TeamDiscipline;
 
 class VideoLessonController extends Controller
 {
+    public function create($team){
+        $team = Team::where('name', $team)->first();
+        $disciplines = $team->disciplines;
+
+        return view('team.videoLesson.create')
+            ->withTeam($team)
+            ->withDisciplines($disciplines);
+    }
+
     public function disciplines($team){
         $team = Team::where('name', $team)->first();
         $disciplines = $team->disciplines;

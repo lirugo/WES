@@ -2,6 +2,7 @@
 
 return [
     'Video Lessons' => 'Video Lessons',
+    'Video Lessons Create' => 'Video Lessons Create',
     'Manage Panel' => 'Manage Panel',
     'Chat' => 'Chat',
     'Change Log' => 'Change Log',
