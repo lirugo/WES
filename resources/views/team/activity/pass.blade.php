@@ -61,6 +61,7 @@
             <div class="col s12">
                 <div class="card-panel">
                     {{--Text of answer--}}
+                    <label id="new-message-label" class="red-text"></label>
                     <div class="input-field m-b-0">
                         <textarea id="text" name="text" class="materialize-textarea" v-model="message.text" required></textarea>
                         <label for="text">@lang('app.Write your answer here')</label>
@@ -160,7 +161,7 @@
             },
             methods: {
                 send(){
-                    if(this.message.text)
+                    if(this.message.text) {
                         axios.post('/team/{!! $team->name !!}/activity/api/send/{!! $activity->id !!}/{!! $student->id !!}', this.message)
                             .then(response => {
                                 this.messages.unshift(response.data)
@@ -170,6 +171,10 @@
                             .catch(e => {
                                 this.errors.push(e)
                             })
+                        document.getElementById('new-message-label').innerText = ''
+                    }else{
+                        document.getElementById('new-message-label').innerText = 'Field is required'
+                    }
                 },
                 addRow() {
                     this.message.files.push({
