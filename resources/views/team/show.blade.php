@@ -219,6 +219,9 @@
                 <i class="large material-icons">mode_edit</i>
             </a>
             <ul>
+                @if($team->video_lessons)
+                <li><a class="btn-floating green tooltipped" data-position="left" data-tooltip="@lang('app.Video Lessons')" href="{{url('/team/'.$team->name.'/video-lesson')}}"><i class="material-icons">ondemand_video</i></a></li>
+                @endif
                 @role('manager')
                 <li><a class="btn-floating green tooltipped" data-position="left" data-tooltip="@lang('app.Common file')" href="{{url('/team/'.$team->name.'/common/file/create')}}"><i class="material-icons">attach_file</i></a></li>
                 @endrole
