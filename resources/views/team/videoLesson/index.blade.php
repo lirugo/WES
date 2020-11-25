@@ -17,6 +17,7 @@
                         </div>
 
                         <p>{{$video->description}}</p>
+                        <blockquote class="m-b-0 m-t-5"><small>{{$video->public ? 'Public' : 'Private'}}</small></blockquote>
                         <blockquote class="m-b-0 m-t-5"><small>@lang('app.Time'): {{$video->start_time}} - {{$video->end_time}}</small></blockquote>
                         <blockquote class="m-b-0 m-t-5"><small>@lang('app.Date') - {{$video->date}}</small></blockquote>
                         <blockquote class="m-b-0 m-t-5"><small>@lang('app.Created at') - {{$video->created_at->format('Y-m-d')}}</small></blockquote>
