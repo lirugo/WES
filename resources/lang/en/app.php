@@ -9,6 +9,8 @@ return [
     'Author' => 'Author',
     'Module' => 'Module',
     'Part' => 'Part',
+    'Active' => 'Active',
+    'Video Lessons' => 'Video Lessons',
     'Body' => 'Body',
     'Close' => 'Close',
     'Send' => 'Send',

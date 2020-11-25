@@ -25,6 +25,13 @@
                         <label for="description">@lang('app.Description')</label>
                     </div>
                     @role('manager')
+                    <div class="input-field">
+                        <input disabled/>
+                        <label>
+                            <input type="checkbox" name="video_lessons" {{$team->video_lessons ? 'checked' : ''}} />
+                            <span>@lang('app.Video Lessons')</span>
+                        </label>
+                    </div>
                     <button type="submit" class="yellow darken-4 waves-effect waves-light btn"><i class="material-icons right">update</i>@lang('app.Update')</button>
                     @endrole
                 </div>
@@ -235,6 +242,9 @@
             el: '#team-dashboard',
             mounted(){
                 console.log('Team dashboard mounted')
+            },
+            data: {
+                video_lessons: {!! $team->video_lessons !!},
             },
             methods: {
                 removeCommonFile(file){

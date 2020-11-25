@@ -179,6 +179,7 @@ class TeamController extends Controller
         $team->update([
             'display_name' => $request->display_name,
             'description' => $request->description,
+            'video_lessons' => $request->video_lessons == 'on' ? 1 : 0,
         ]);
 
         // Show flash msg

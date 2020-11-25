@@ -13,7 +13,7 @@ use Laratrust\Models\LaratrustTeam;
 class Team extends LaratrustTeam
 {
     protected $fillable = [
-        'name', 'display_name', 'description'
+        'name', 'display_name', 'description', 'video_lessons'
     ];
 
     /**
