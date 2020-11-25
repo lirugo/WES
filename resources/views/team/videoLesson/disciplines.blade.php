@@ -19,9 +19,11 @@
         @endforeach
     </div>
 
+    @role(['teacher', 'manager'])
     <div class="fixed-action-btn">
         <a class="btn-floating btn-large green" href="{{url('/team/'.$team->name.'/video-lesson/create')}}">
             <i class="large material-icons">add</i>
         </a>
     </div>
+    @endrole
 @endsection
