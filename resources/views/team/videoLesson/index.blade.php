@@ -5,6 +5,7 @@
 @section('content')
     <div class="row">
         @foreach($videoLessons as $video)
+            @if((Auth()->user()->hasRole(['student']) && $video->public ) || !Auth()->user()->hasRole(['student']))
             <div class="col s12 m6 l4">
                 <div class="card hoverable">
                     <div class="card-content">
@@ -31,6 +32,7 @@
                     </div>
                 </div>
             </div>
+            @endif
         @endforeach
         @if($videoLessons == null)
             <div class="row">

@@ -12,6 +12,11 @@ use Session;
 
 class VideoLessonController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('role:administrator|top-manager|manager|teacher|student');
+    }
+
     public function create($team){
         $team = Team::where('name', $team)->first();
         $disciplines = $team->disciplines;
