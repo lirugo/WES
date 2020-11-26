@@ -82,4 +82,18 @@ class VideoLessonController extends Controller
         return redirect()->back();
     }
 
+    public function update(Request $request, $teamName, $videoLessonId){
+        $videoLesson = TeamVideoLesson::where('id', $videoLessonId)->first();
+
+        $videoLesson->module = $request->module;
+        $videoLesson->part = $request->part;
+        $videoLesson->start_time = $request->start_time;
+        $videoLesson->end_time = $request->end_time;
+        $videoLesson->public = $request->public == 'on' ? true : false;
+        $videoLesson->save();
+
+        Session::flash('success', 'Video lesson was be successfully updated');
+        return redirect()->back();
+    }
+
 }
