@@ -67,4 +67,14 @@ class VideoLessonController extends Controller
             ->withVideoLessons($videoLessons);
     }
 
+    public function delete($teamName, $videoLessonId){
+        $videoLesson = TeamVideoLesson::where('id', $videoLessonId)->first();
+
+        Storage::disk('video-lesson')->delete($videoLesson->file_name);
+        $videoLesson->delete();
+
+        Session::flash('success', 'Video lesson was be successfully deleted');
+        return redirect()->back();
+    }
+
 }

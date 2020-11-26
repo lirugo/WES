@@ -22,6 +22,12 @@
                         <blockquote class="m-b-0 m-t-5"><small>@lang('app.Date') - {{$video->date}}</small></blockquote>
                         <blockquote class="m-b-0 m-t-5"><small>@lang('app.Created at') - {{$video->created_at->format('Y-m-d')}}</small></blockquote>
                         <blockquote class="m-b-0 m-t-5"><small>@lang('app.Author') - {{$video->getOwner->getShortName()}}</small></blockquote>
+
+                        @role(['teacher', 'manager'])
+                        {!! Form::open(['route' => ['team.video-lesson.delete', $team->name, $video->id], 'method' => 'DELETE']) !!}
+                        <button type="submit" class="waves-effect waves-light btn btn-small red right"><i class="material-icons">delete</i></button>
+                        {!! Form::close() !!}
+                        @endrole
                     </div>
                 </div>
             </div>
