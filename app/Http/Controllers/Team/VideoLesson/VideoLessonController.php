@@ -63,7 +63,7 @@ class VideoLessonController extends Controller
         $teamDiscipline = TeamDiscipline::where('id', $teamDisciplineId)->first();
         $team = $teamDiscipline->team;
         $discipline = $teamDiscipline->getDiscipline();
-        $videoLessons = $teamDiscipline->getVideoLessons()->get();
+        $videoLessons = $teamDiscipline->getVideoLessons()->orderBy('module')->orderBy('part')->get();
 
         return view('team.videoLesson.index')
             ->withTeam($team)
