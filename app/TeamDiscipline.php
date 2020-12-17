@@ -65,7 +65,7 @@ class TeamDiscipline extends Model
     }
 
     public function pretests(){
-        return $this->hasMany(Pretest::class, 'discipline_id', 'discipline_id');
+        return $this->hasMany(Pretest::class, 'discipline_id', 'discipline_id')->where('team_id', $this->team_id);
     }
 
     /**
