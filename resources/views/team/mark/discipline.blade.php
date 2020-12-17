@@ -14,6 +14,8 @@
                             <td class="center-align">@lang('app.Students') | @lang('app.Start date of activities and pretests')</td>
                             @foreach($activities as $act)
                                 <td class="center-align">
+                                    <span data-badge-caption="" class="new badge orange">@lang('app.Max') {{$act->max_mark}}</span>
+                                    <br/>
                                     <a href="#" class="tooltipped" data-position="top" data-tooltip="Activity - {{$act->name}}">
                                         <small>{{\Carbon\Carbon::parse($act->start_date)->format('d-m-Y')}}</small>
                                     </a>
@@ -68,7 +70,7 @@
                                         </a>
                                     </td>
                                 @endforeach
-                                
+
                                 @foreach($pretests as $test)
                                     <td class="center-align">
                                         @role(['manager','teacher'])
