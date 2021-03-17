@@ -40,7 +40,7 @@
                                         :value="question.name"
                                         hint="Hint text"
                                         disabled
-                                        style="color: black;"
+                                        style="color: black !important;"
                                 ></v-textarea>
 
                                 <v-checkbox class="ma-0"
