@@ -33,7 +33,7 @@
                             :key="question.id"
                     >
                         <v-card flat>
-                            <v-card-text>
+                            <v-card-text style="color: black !important;">
                                 <v-textarea
                                         name="input-7-1"
                                         label="Question"
