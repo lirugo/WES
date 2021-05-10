@@ -6,6 +6,11 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.3.16/vuetify.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <style>
+        #question-field {
+            color: black !important;
+        }
+    </style>
 @endsection
 @section('content')
     <widget-countdown
@@ -35,6 +40,7 @@
                         <v-card flat>
                             <v-card-text style="color: black !important;">
                                 <v-textarea
+                                        id="question-field"
                                         name="input-7-1"
                                         label="Question"
                                         :value="question.name"
