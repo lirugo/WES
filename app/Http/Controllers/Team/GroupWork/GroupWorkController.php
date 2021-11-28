@@ -55,6 +55,7 @@ class GroupWorkController extends Controller
             'discipline_id' => $discipline->id,
             'teacher_id' => Auth::user()->id,
             'name' => $request->title,
+            'max_mark' => $request->max_mark,
             'description' => $request->description,
             'start_date' => $request->start_date['time'].' 00:00:00',
             'end_date' => $request->end_date['time'].' 00:00:00',

@@ -30,6 +30,10 @@
                     <div class="input-field col s12">
                         <textarea id="description" name="description" placeholder="Write description here" v-model="groupWork.description" class="materialize-textarea" required></textarea>
                     </div>
+                    <!--Max mark-->
+                    <div class="input-field col s12 m-b-0">
+                      <input placeholder="Set max mark here" id="max_mark" name="max_mark" type="number" class="validate" v-model="groupWork.max_mark" required>
+                    </div>
                 </div>
                 <!--Date picker-->
                 <div class="row m-b-0 valign-wrapper">
