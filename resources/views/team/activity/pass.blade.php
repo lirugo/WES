@@ -12,7 +12,7 @@
             <div class="col s12">
                 <div class="card">
                     <div>
-                        <span data-badge-caption="" class="new badge left m-l-0">{{$activity->getType()}} фыв</span>
+                        <span data-badge-caption="" class="new badge left m-l-0">{{$activity->getType()}}</span>
                         @if($activity->mark_in_journal)
                             <span data-badge-caption="" class="new badge orange left">@lang('app.Max') {{$activity->max_mark}} @lang('app.balls')</span>
                         @endif
