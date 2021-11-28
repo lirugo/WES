@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateTeamTable extends Migration
+class AddedColumnMaxMarkToTeamGroupWork extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class UpdateTeamTable extends Migration
      */
     public function up()
     {
-        Schema::table('teams', function (Blueprint $table) {
-            $table->boolean('video_lessons')->default(0)->change();
+        Schema::table('teams_group_works', function (Blueprint $table) {
+            $table->integer('max_mark')->default(0)->after("finished");
         });
     }
 
@@ -25,5 +25,8 @@ class UpdateTeamTable extends Migration
      */
     public function down()
     {
+        Schema::table('teams_group_works', function (Blueprint $table) {
+            $table->dropColumn('max_mark');
+        });
     }
 }
