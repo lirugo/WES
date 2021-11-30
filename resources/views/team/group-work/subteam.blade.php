@@ -59,9 +59,9 @@
                                     </td>
                                     <td>
                                         @if(Auth::user()->hasRole(['manager','teacher']))
-                                            <input type="number" placeholder="@lang('app.Set mark')" v-model="member.mark" @change="updateMark(member)"/>
+                                            <input type="number" placeholder="@lang('app.Set mark')" min="1" max="{{$groupWork->max_mark}}" v-model="member.mark" @change="updateMark(member)"/>
                                         @else
-                                            <input type="number" placeholder="@lang('app.Set mark')" v-model="member.mark" disabled/>
+                                            <input type="number" placeholder="@lang('app.Set mark')" min="1" max="{{$groupWork->max_mark}}" v-model="member.mark" disabled/>
                                         @endif
                                     </td>
                                 </tr>
