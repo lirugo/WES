@@ -30,6 +30,8 @@
                             @endforeach
                             @foreach($groupWorks as $work)
                                 <td class="center-align">
+                                    <span data-badge-caption="" class="new badge orange">@lang('app.Max') {{$work->max_mark}}</span>
+                                    <br/>
                                     <a href="#" class="tooltipped" data-position="top" data-tooltip="Group Work - {{$work->name}}">
                                         <small>{{\Carbon\Carbon::parse($work->start_date)->format('d-m-Y')}}</small>
                                     </a>
@@ -53,7 +55,7 @@
                                     <td class="center-align">
                                         @role(['manager','teacher'])
                                             <input type="number" class="validate" style="max-width: 50px; text-align:center;"  value="{{$act->getMark($student->id) ? $act->getMark($student->id)->mark : ''}}"
-                                                   onchange="updateActivityMark(this.value, {{$team->id}}, {{$act->id}}, {{$student->id}})"/>
+                                                   onchange="updateActivityMark(this.value, {{$team->id}}, {{$act->id}}, {{$student->id}}, {{$act->max_mark}})"/>
                                         @endrole
 
                                         @role('student')
@@ -96,7 +98,7 @@
                                     <td class="center-align">
                                         @role(['manager','teacher'])
                                             <input type="number" class="validate" style="max-width: 50px; text-align:center;"  value="{{$work->getMark($student->id) ? $work->getMark($student->id)->mark : ''}}"
-                                                   onchange="updateGroupWorkMark(this.value, {{$team->id}}, {{$work->id}}, {{$student->id}})"
+                                                   onchange="updateGroupWorkMark(this.value, {{$team->id}}, {{$work->id}}, {{$student->id}}, {{$work->max_mark}})"
                                                     {{!$work->getMark($student->id) ? 'disabled' : ''}}
                                             />
                                         @endrole
@@ -128,16 +130,20 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script>
-        function updateActivityMark(mark, teamId, activityId, studentId) {
-            axios.post('/team/api/updateActivityMark', {
-                'mark': mark,
-                'teamId': teamId,
-                'activityId': activityId,
-                'studentId': studentId,
-            })
-            .then(res => {
-                M.toast({html: 'Mark updated', classes: 'green'})
-            })
+        function updateActivityMark(mark, teamId, activityId, studentId, maxMark) {
+            if(mark > maxMark || mark < 1){
+                M.toast({html: 'Mark should be >= 1 < ' + maxMark, classes: 'orange'})
+            }else {
+                axios.post('/team/api/updateActivityMark', {
+                    'mark': mark,
+                    'teamId': teamId,
+                    'activityId': activityId,
+                    'studentId': studentId,
+                })
+                    .then(res => {
+                        M.toast({html: 'Mark updated', classes: 'green'})
+                    })
+            }
         }
         function updatePretestMark(mark, teamId, activityId, studentId) {
             axios.post('/team/api/updatePretestMark', {
@@ -150,16 +156,20 @@
                 M.toast({html: 'Mark updated', classes: 'green'})
             })
         }
-        function updateGroupWorkMark(mark, teamId, activityId, studentId) {
-            axios.post('/team/api/updateGroupWorkMark', {
-                'mark': mark,
-                'teamId': teamId,
-                'activityId': activityId,
-                'studentId': studentId,
-            })
-            .then(res => {
-                M.toast({html: 'Mark updated', classes: 'green'})
-            })
+        function updateGroupWorkMark(mark, teamId, activityId, studentId, maxMark) {
+            if(mark > maxMark || mark < 1){
+                M.toast({html: 'Mark should be >= 1 < ' + maxMark, classes: 'orange'})
+            }else {
+                axios.post('/team/api/updateGroupWorkMark', {
+                    'mark': mark,
+                    'teamId': teamId,
+                    'activityId': activityId,
+                    'studentId': studentId,
+                })
+                .then(res => {
+                    M.toast({html: 'Mark updated', classes: 'green'})
+                })
+            }
         }
     </script>
 @endsection

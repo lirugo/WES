@@ -32,6 +32,9 @@
                                 <div class="input-field col s12 m6">
                                     <input name="end_date" type="text" value="{{ \Carbon\Carbon::parse($groupWork->end_date)->format('Y-m-d') }}" class="datepickerDefault">
                                 </div>
+                                <div class="input-field col s12 m6">
+                                    <input placeholder="@lang('app.Max')" id="max_mark" name="max_mark" type="number" min="1" class="validate" value="{{ $groupWork->max_mark }}">
+                                </div>
                                 @if(Auth::user()->hasRole(['teacher', 'manager']))
                                     <button type="submit" class="waves-effect waves-light btn btn-small orange right">@lang('app.update')</button>
                                 @endif

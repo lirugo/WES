@@ -257,6 +257,7 @@ class GroupWorkController extends Controller
 
         $groupWork->start_date = $request->start_date.' 00:00:00';
         $groupWork->end_date = $request->end_date.' 00:00:00';
+        $groupWork->max_mark = $request->max_mark;
         $groupWork->save();
 
         Session::flash('success', 'Group Work was updated');
