@@ -59,7 +59,7 @@
                                     </td>
                                     <td>
                                         @if(Auth::user()->hasRole(['manager','teacher']))
-                                            <input type="number" placeholder="@lang('app.Set mark')" min="1" max="{{$groupWork->max_mark}}" v-model="member.mark" @change="updateMark(member)"/>
+                                            <input type="number" placeholder="@lang('app.Set mark')" min="1" max="{{$groupWork->max_mark}}" v-model="member.mark" @change="updateMark(member, {{$groupWork->max_mark}})"/>
                                         @else
                                             <input type="number" placeholder="@lang('app.Set mark')" min="1" max="{{$groupWork->max_mark}}" v-model="member.mark" disabled/>
                                         @endif
@@ -236,12 +236,15 @@
                             console.log('FAILURE!!');
                         });
                 },
-                updateMark(member){
-                    axios.post('/team/{!! $team->name !!}/group-work/{!! $discipline->name !!}/{!! $groupWork->id !!}/{!! $subTeam->id !!}/subTeamUpdateMark/' + member.user.id, {'mark': member.mark})
-                        .finally(() => {
-                            M.toast({html: 'Mark was be updated', classes: 'green'})
-                        })
-
+                updateMark(member, maxMark){
+                    if(member.mark > maxMark || member.mark < 1){
+                        M.toast({html: 'Mark should be >= 1 < ' + maxMark, classes: 'orange'})
+                    }else{
+                        axios.post('/team/{!! $team->name !!}/group-work/{!! $discipline->name !!}/{!! $groupWork->id !!}/{!! $subTeam->id !!}/subTeamUpdateMark/' + member.user.id, {'mark': member.mark})
+                            .finally(() => {
+                                M.toast({html: 'Mark was be updated', classes: 'green'})
+                            })
+                    }
                 },
             }
         })
