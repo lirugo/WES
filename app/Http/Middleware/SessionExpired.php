@@ -9,7 +9,7 @@ class SessionExpired
 {
 
     protected $session;
-    protected $timeout = 1200;
+    protected $timeout = 3600;
 
     public function __construct(Store $session){
         $this->session = $session;
