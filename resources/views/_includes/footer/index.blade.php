@@ -18,7 +18,7 @@
                 <span><small>{{env('APP_NAME')}}</small> | <small>@version</small></span>
                 <span class="right">
                     <small>Laravel - {{app()::VERSION}}</small> |
-                    <small>Node.js - 10.3.0</small> |
+                    <small>Node.js - 10.3.1</small> |
                     <small>PHP - {{phpversion() }}</small>
                 </span>
             </div>

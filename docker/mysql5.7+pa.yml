@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  # database
+  db:
+    image: mysql:5.7
+    restart: always
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - /opt/docker/data/data_mysql_5.7:/var/lib/mysql
+
+  # phpmyadmin
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - '7979:80'
+    volumes:
+      - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
