@@ -2,8 +2,7 @@
     <ul id="slide-out" class="sidenav sidenav-fixed" >
         {{-- Header --}}
         <li><div class="user-view">
-                <div class="background">
-                    <img src="https://www.gettyimages.ca/gi-resources/images/Homepage/Hero/UK/CMS_Creative_164657191_Kingfisher.jpg">
+                <div class="background indigo darken-2">
                 </div>
                 <a href="#user"><img class="circle" src="{{asset('/uploads/avatars/'.Auth::user()->avatar)}}"></a>
                 <a href="#name"><span class="white-text name">{{Auth::user()->getShortName()}}</span></a>
