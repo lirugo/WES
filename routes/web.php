@@ -184,6 +184,7 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'User', 'prefix' => 'user
         Route::get('/create', 'StudentController@create');
         Route::get('/{id}', 'StudentController@show');
 
+        Route::post('/{id}/export', 'StudentController@export')->name('student.export');
         Route::post('/store', 'StudentController@store')->name('student.store');
         Route::post('/{id}/update', 'StudentController@update')->name('student.update');
     });

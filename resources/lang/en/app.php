@@ -375,4 +375,6 @@ return [
     'Choose your option' => 'Choose your option',
     'All' => 'All',
     'Team' => 'Team',
+    'Export' => 'Export',
+    'Mark Export' => 'Mark Export',
 ];

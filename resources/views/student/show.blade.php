@@ -7,6 +7,33 @@
     <div class="row">
         <div class="col s12 m8">
             <div class="card-panel small hoverable">
+                <h5 class="m-t-0 m-b-20 center-align">@lang('app.Mark Export')</h5>
+                <div class="row m-b-0">
+                    @foreach($teams as $team)
+                    {!! Form::open(['route' => ['student.export', $student->id], 'method' => 'POST']) !!}
+                        <div class="col s4 xl3">
+                            <label>{{$team->display_name}}</label>
+                            <input type="hidden" name="team_id" value="{{ $team->id }}">
+                            <input type="hidden" name="student_id" value="{{ $student->id }}">
+                            <select id="discipline_name" name="discipline_name" >
+                                <option value="-1">@lang('app.All')</option>
+                                @foreach($team->disciplines as $discipline)
+                                {{$discipline->get_discipline}}
+                                    <option value="{{$discipline->getDiscipline->name}}">{{$discipline->getDiscipline->display_name}}</option>
+                                @endforeach
+                            </select>
+                            <label>{{ $team->display_name }}</label>
+                        </div>
+                        <div class="input-field col s3">
+                            <button class="btn waves-effect waves-light green" type="submit">@lang('app.Export')
+                                <i class="material-icons right">cloud_download</i>
+                            </button>
+                        </div>
+                    {!! Form::close() !!}
+                    @endforeach
+                </div>
+            </div>
+            <div class="card-panel small hoverable">
                 <h5 class="m-t-0 m-b-20 center-align">@lang('app.Social networks')</h5>
                 <div class="row m-b-0">
                     @foreach($student->socials as $social)

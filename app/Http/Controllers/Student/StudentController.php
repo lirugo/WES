@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Student;
 
+use App\Http\Requests\ExportStudentMarkRequest;
 use App\Http\Requests\StoreUserStudent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateUserStudent;
 use App\Role;
 use App\User;
-use Illuminate\Http\Request;
 use Session;
 use Auth;
 
@@ -34,7 +34,10 @@ class StudentController extends Controller
 
     public function show($id){
         $student = User::find($id);
-        return view('student.show')->withStudent($student);
+        $teams = $student->teams();
+        return view('student.show')
+            ->withStudent($student)
+            ->withTeams($teams);
     }
 
     public function store(StoreUserStudent $request){
@@ -49,6 +52,10 @@ class StudentController extends Controller
         Session::flash('success', 'Student was successfully created.');
         // Redirect to manage page
         return redirect(url('/student'));
+    }
+
+    public function export(ExportStudentMarkRequest $request){
+        dd($request->request); // TODO
     }
 
     public function update(UpdateUserStudent $request, $id){

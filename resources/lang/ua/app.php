@@ -368,4 +368,6 @@ return [
     'No' => 'Ні',
     'Choose your option' => 'Зробіть вибір',
     'All' => 'Усі',
+    'Export' => 'Експорт',
+    'Mark Export' => 'Експорт оцінок',
 ];
