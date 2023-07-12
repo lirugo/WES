@@ -68,12 +68,10 @@
         </div>
 
         <div class="row">
-            <div class="col s12">
+            <div class="col s12 m6">
                 <div class="card-panel indigo white-text m-b-0">
                     <h6 class="card-title m-t-0 m-b-0 center-align">@lang('app.Common files')</h6>
                 </div>
-            </div>
-            <div class="col s12">
                 <div class="card-panel m-b-0">
                     @if(count($team->commonFiles) == 0)
                         <small>@lang('app.No any common file yet...')</small>
@@ -91,6 +89,44 @@
                     @endforeach
                 </div>
             </div>
+            @if(Auth::user()->hasRole(['administrator', 'top-manager', 'manager']))
+            <div class="col s12 m6">
+                <div class="card-panel indigo white-text m-b-0">
+                    <h6 class="card-title m-t-0 m-b-0 center-align">@lang('app.Mark Export')</h6>
+                </div>
+                <div class="card-panel m-b-0">
+                    <div class="row m-b-0">
+                        {!! Form::open(['route' => ['team.export', $team->name], 'method' => 'POST']) !!}
+                        <input type="hidden" name="team_id" value="{{ $team->id }}">
+                        <div class="col s4">
+                            <label>@lang('app.Discipline')</label>
+                            <select id="discipline_id" name="discipline_id" >
+                                <option value="-1">@lang('app.All')</option>
+                                @foreach($team->disciplines as $discipline)
+                                <option value="{{$discipline->getDiscipline->id}}">{{$discipline->getDiscipline->display_name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="col s4">
+                            <label>@lang('app.Student')</label>
+                            <select id="student_id" name="student_id" >
+                                <option value="-1">@lang('app.All')</option>
+                                @foreach($team->getStudents() as $student)
+                                <option value="{{$student->id}}">{{$student->getFullName()}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="input-field col s3">
+                            <button class="btn waves-effect waves-light green" type="submit">@lang('app.Export')
+                                <i class="material-icons right">cloud_download</i>
+                            </button>
+                        </div>
+                        {!! Form::close() !!}
+                    </div>
+                </div>
+            </div>
+            @endif
         </div>
         {{--Display students of this group--}}
         <div class="row">

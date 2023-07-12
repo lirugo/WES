@@ -73,16 +73,15 @@ class StudentController extends Controller
             $activities = TeamActivity::where([
                 'team_id' => $team->id,
                 'mark_in_journal' => true,
-            ])->orderBy('name', 'ASC')->get();
+            ])->orderBy('discipline_id', 'ASC')->get();
         } else {
             $activities = TeamActivity::where([
                 'team_id' => $team->id,
                 'discipline_id' => $request->discipline_id,
                 'mark_in_journal' => true,
-            ])->orderBy('name', 'ASC')->get();
+            ])->orderBy('discipline_id', 'ASC')->get();
         }
         return Excel::download(new StudentMarkDisciplineExport($team, $user, $discipline_name, $activities), $file_name);
-//        dd($request->request); // TODO
     }
 
     public function update(UpdateUserStudent $request, $id)

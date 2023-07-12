@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Team;
 
 use App\Discipline;
+use App\Exports\TeamMarkExport;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\ExportStudentMarkRequest;
 use App\Http\Requests\StoreTeam;
 use App\Http\Requests\UpdateTeam;
+use App\Models\Team\TeamActivity;
 use App\Models\Team\TeamHeadman;
 use App\Models\Team\TeamLessonTime;
 use App\Models\Team\TeamTeacherLessonHour;
@@ -15,12 +19,11 @@ use App\Team;
 use App\TeamDiscipline;
 use App\TeamTemplate;
 use App\TeamTemplateDiscipline;
-use App\TeamTemplateLessonTime;
 use App\User;
-use Illuminate\Http\Request;
-use Session;
-use App\Http\Controllers\Controller;
 use Auth;
+use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use Session;
 
 class TeamController extends Controller
 {
@@ -29,22 +32,47 @@ class TeamController extends Controller
         $this->middleware('role:administrator|top-manager|manager|teacher|student');
     }
 
-    public function index(){
+    public function index()
+    {
         $teams = Auth::user()->teams();
 
-        if(Auth::user()->hasRole('top-manager'))
+        if (Auth::user()->hasRole('top-manager'))
             $teams = Team::all();
 
         return view('team.index')->withTeams($teams);
     }
 
-    public function create(){
+    public function export(ExportStudentMarkRequest $request)
+    {
+        $team = Team::find($request->team_id);
+        $users = $request->student_id != -1 ? User::where('id', $request->student_id)->get() : $team->getStudents();
+        $student_name = $request->student_id != -1 ? User::find($request->student_id)->getFullName() : 'All-students';
+        $discipline_name = $request->discipline_id != -1 ? Discipline::find($request->discipline_id)->display_name : 'All-disciplines';
+        $file_name = $team->display_name . '-' . $student_name . '-' . $discipline_name . '.xlsx';
+        if ($request->discipline_id == -1) {
+            $activities = TeamActivity::where([
+                'team_id' => $team->id,
+                'mark_in_journal' => true,
+            ])->orderBy('discipline_id', 'ASC')->get();
+        } else {
+            $activities = TeamActivity::where([
+                'team_id' => $team->id,
+                'discipline_id' => $request->discipline_id,
+                'mark_in_journal' => true,
+            ])->orderBy('discipline_id', 'ASC')->get();
+        }
+        return Excel::download(new TeamMarkExport($team, $users, $activities), $file_name);
+    }
+
+    public function create()
+    {
         $templates = TeamTemplate::all();
         return view('team.create')
             ->withTemplates($templates);
     }
 
-    public function store(StoreTeam $request){
+    public function store(StoreTeam $request)
+    {
         // Get Template
         $template = TeamTemplate::where('name', $request->template)->first();
 
@@ -56,7 +84,7 @@ class TeamController extends Controller
         ]);
 
         //Set lesson time from template
-        foreach ($template->lessonsTime as $time){
+        foreach ($template->lessonsTime as $time) {
             TeamLessonTime::create([
                 'team_id' => $team->id,
                 'position' => $time->position,
@@ -65,7 +93,7 @@ class TeamController extends Controller
             ]);
         }
 
-        foreach($template->disciplines as $discipline){
+        foreach ($template->disciplines as $discipline) {
             // Find teacher
             $user = User::find($discipline->teacher_id);
 
@@ -76,7 +104,7 @@ class TeamController extends Controller
             $readAcl = Permission::where('name', 'read-acl')->first();
             $updateAcl = Permission::where('name', 'update-acl')->first();
             // Attach permission for student to team
-            $user->attachPermissions([$readAcl,$updateAcl], $team);
+            $user->attachPermissions([$readAcl, $updateAcl], $team);
             $user->attachRole($teacher, $team);
             // Add discipline to team
             TeamDiscipline::create([
@@ -94,13 +122,13 @@ class TeamController extends Controller
 
         // Attach manager to new team
         Auth::user()->attachRole($ownerGroup, $team);
-        Auth::user()->attachPermissions([$createAcl,$readAcl,$updateAcl], $team);
+        Auth::user()->attachPermissions([$createAcl, $readAcl, $updateAcl], $team);
 
 
         $topManagers = User::whereHas(
-            'roles', function($q){
+            'roles', function ($q) {
             $q->where('name', 'top-manager');
-            }
+        }
         )->get();
 
         // Send notification
@@ -112,18 +140,19 @@ class TeamController extends Controller
         Session::flash('success', 'Team was successfully created. You owner this team');
 
         // Return to manage
-        return redirect(url('/team/'.$team->name));
+        return redirect(url('/team/' . $team->name));
     }
 
-    public function show($name){
+    public function show($name)
+    {
         // Get Team
         $team = Team::where('name', $name)->first();
 
         // Get all students not in the current group
         $students = User::whereRoleIs('student')->with('rolesTeams')->get();
-        foreach ($students as $sk => $student){
-            foreach($student->rolesTeams as $key => $t){
-                if($t->id == $team->id)
+        foreach ($students as $sk => $student) {
+            foreach ($student->rolesTeams as $key => $t) {
+                if ($t->id == $team->id)
                     $students->forget($sk);
             }
         }
@@ -144,7 +173,8 @@ class TeamController extends Controller
             ->withTeamTemplateDisciplines($teamTemplateDisciplines);
     }
 
-    public function studentDelete($teamId, $studentId){
+    public function studentDelete($teamId, $studentId)
+    {
         // Validate access
 
         // Find user
@@ -171,7 +201,8 @@ class TeamController extends Controller
         return back();
     }
 
-    public function update(UpdateTeam $request, $team){
+    public function update(UpdateTeam $request, $team)
+    {
         // Find team
         $team = Team::where('name', $team)->first();
 
@@ -189,7 +220,8 @@ class TeamController extends Controller
         return back();
     }
 
-    public function setHeadman(Request $request, $team){
+    public function setHeadman(Request $request, $team)
+    {
         $team = Team::where('name', $team)->first();
         TeamHeadman::where('team_id', $team->id)->delete();
         TeamHeadman::create([
@@ -200,7 +232,8 @@ class TeamController extends Controller
         return back();
     }
 
-    public function disciplineDisable($team, $teamDisciplineId){
+    public function disciplineDisable($team, $teamDisciplineId)
+    {
         $teamDiscipline = TeamDiscipline::find($teamDisciplineId);
         $disabled = $teamDiscipline->disabled;
         $teamDiscipline->disabled = $disabled ? false : true;

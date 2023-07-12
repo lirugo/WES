@@ -202,6 +202,9 @@ Route::get('/video-stream/{fileName}', 'Team\VideoLesson\VideoController@streamV
         'prefix' => 'team',
         'namespace' => 'Team'
     ], function () {
+
+        Route::post('/{teamName}/export', 'TeamController@export')->name('team.export');
+
         //Video lessons
         Route::get('/{teamName}/video-lesson/create', 'VideoLesson\VideoLessonController@create');
         Route::get('/{teamName}/video-lesson', 'VideoLesson\VideoLessonController@disciplines');
