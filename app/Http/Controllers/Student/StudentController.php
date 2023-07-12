@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers\Student;
 
+use App\Discipline;
+use App\Exports\StudentMarkDisciplineExport;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ExportStudentMarkRequest;
 use App\Http\Requests\StoreUserStudent;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateUserStudent;
+use App\Models\Team\TeamActivity;
 use App\Role;
+use App\Team;
 use App\User;
-use Session;
 use Auth;
+use Maatwebsite\Excel\Facades\Excel;
+use Session;
 
 class StudentController extends Controller
 {
@@ -18,21 +23,24 @@ class StudentController extends Controller
         $this->middleware('role:administrator|top-manager|manager');
     }
 
-    public function index(){
+    public function index()
+    {
         $students = User::whereRoleIs('student')->get();
-        foreach ($students as $key => $student){
-            if(count($student->teams()) != 0)
+        foreach ($students as $key => $student) {
+            if (count($student->teams()) != 0)
                 unset($students[$key]);
         }
 
         return view('student.index')->withStudents($students);
     }
 
-    public function create(){
+    public function create()
+    {
         return view('student.create');
     }
 
-    public function show($id){
+    public function show($id)
+    {
         $student = User::find($id);
         $teams = $student->teams();
         return view('student.show')
@@ -40,7 +48,8 @@ class StudentController extends Controller
             ->withTeams($teams);
     }
 
-    public function store(StoreUserStudent $request){
+    public function store(StoreUserStudent $request)
+    {
         // Persist to db
         $user = new User();
         $user = $user->storeStudent($request);
@@ -54,11 +63,30 @@ class StudentController extends Controller
         return redirect(url('/student'));
     }
 
-    public function export(ExportStudentMarkRequest $request){
-        dd($request->request); // TODO
+    public function export(ExportStudentMarkRequest $request)
+    {
+        $user = User::find($request->student_id);
+        $team = Team::find($request->team_id);
+        $discipline_name = $request->discipline_id != -1 ? Discipline::find($request->discipline_id)->display_name : 'All';
+        $file_name = $user->getFullName() . '-' . $team->display_name . '-' . $discipline_name . '.xlsx';
+        if ($request->discipline_id == -1) {
+            $activities = TeamActivity::where([
+                'team_id' => $team->id,
+                'mark_in_journal' => true,
+            ])->orderBy('name', 'ASC')->get();
+        } else {
+            $activities = TeamActivity::where([
+                'team_id' => $team->id,
+                'discipline_id' => $request->discipline_id,
+                'mark_in_journal' => true,
+            ])->orderBy('name', 'ASC')->get();
+        }
+        return Excel::download(new StudentMarkDisciplineExport($team, $user, $discipline_name, $activities), $file_name);
+//        dd($request->request); // TODO
     }
 
-    public function update(UpdateUserStudent $request, $id){
+    public function update(UpdateUserStudent $request, $id)
+    {
         //Find student
         $student = User::find($id);
         $student->updateStudent($request);

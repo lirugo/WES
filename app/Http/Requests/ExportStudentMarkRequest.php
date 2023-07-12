@@ -26,7 +26,7 @@ class ExportStudentMarkRequest extends FormRequest
         return [
             'team_id' => 'required',
             'student_id' => 'required',
-            'discipline_name' => 'required',
+            'discipline_id' => 'required',
         ];
     }
 }

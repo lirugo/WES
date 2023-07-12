@@ -15,11 +15,11 @@
                             <label>{{$team->display_name}}</label>
                             <input type="hidden" name="team_id" value="{{ $team->id }}">
                             <input type="hidden" name="student_id" value="{{ $student->id }}">
-                            <select id="discipline_name" name="discipline_name" >
+                            <select id="discipline_id" name="discipline_id" >
                                 <option value="-1">@lang('app.All')</option>
                                 @foreach($team->disciplines as $discipline)
                                 {{$discipline->get_discipline}}
-                                    <option value="{{$discipline->getDiscipline->name}}">{{$discipline->getDiscipline->display_name}}</option>
+                                    <option value="{{$discipline->getDiscipline->id}}">{{$discipline->getDiscipline->display_name}}</option>
                                 @endforeach
                             </select>
                             <label>{{ $team->display_name }}</label>
