@@ -1,7 +1,7 @@
 @extends('layouts.welcome')
 
 @section('content')
-    <img src="{{url('/images/logo.svg')}}" width="250px" alt="IIB">
+    <img src="{{url('/images/logo.png')}}" width="250px" alt="IIB">
     {!! Form::open(['route' => 'login', 'method' => 'POST']) !!}
         {!! Form::email('email', null, ['class' => 'validate', 'id' => 'email', 'required', 'autofocus', 'placeholder' => 'Email']) !!}
         {!! Form::password('password', ['id' => 'password', 'required', 'placeholder' => 'Password']) !!}
