@@ -42,7 +42,7 @@
                             <th>@lang('app.Activity name')</th>
                             <th>@lang('app.Start Date')</th>
                             <th>@lang('app.End Date')</th>
-                            <th class="center">@lang('app.Mark in Journal')</th>
+<!--                            <th class="center">@lang('app.Mark in Journal')</th>-->
                             <th class="center">@lang('app.Mark')</th>
                             <th class="center">@lang('app.Max Mark')</th>
                         </tr>
@@ -56,7 +56,7 @@
                             <td><a :href="activity.link">@{{activity.name}}</a></td>
                             <td>@{{activity.start_date}}</td>
                             <td>@{{activity.end_date}}</td>
-                            <td class="center">@{{activity.mark_in_journal}}</td>
+<!--                            <td class="center">@{{activity.mark_in_journal}}</td>-->
                             <td class="center">@{{activity.mark}}</td>
                             <td class="center">@{{activity.max_mark}}</td>
                         </tr>
