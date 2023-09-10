@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ExportStudentMarkRequest;
 use App\Http\Requests\StoreTeam;
 use App\Http\Requests\UpdateTeam;
+use App\Models\Team\GroupWork;
+use App\Models\Team\Pretest;
 use App\Models\Team\TeamActivity;
 use App\Models\Team\TeamHeadman;
 use App\Models\Team\TeamLessonTime;
@@ -27,219 +29,233 @@ use Session;
 
 class TeamController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('role:administrator|top-manager|manager|teacher|student');
+  public function __construct()
+  {
+    $this->middleware('role:administrator|top-manager|manager|teacher|student');
+  }
+
+  public function index()
+  {
+    $teams = Auth::user()->teams();
+
+    if (Auth::user()->hasRole('top-manager'))
+      $teams = Team::all();
+
+    return view('team.index')->withTeams($teams);
+  }
+
+  public function export(ExportStudentMarkRequest $request)
+  {
+    $team = Team::find($request->team_id);
+    $users = $request->student_id != -1 ? User::where('id', $request->student_id)->get() : $team->getStudents();
+    $student_name = $request->student_id != -1 ? User::find($request->student_id)->getFullName() : 'All-students';
+    $discipline_name = $request->discipline_id != -1 ? Discipline::find($request->discipline_id)->display_name : 'All-disciplines';
+    $file_name = $team->display_name . '-' . $student_name . '-' . $discipline_name . '.xlsx';
+    if ($request->discipline_id == -1) {
+      $activities = TeamActivity::where([
+        'team_id' => $team->id,
+        'mark_in_journal' => true,
+      ])->orderBy('discipline_id', 'ASC')->get();
+      $groupWorks = GroupWork::where([
+        'team_id' => $team->id,
+      ])->orderBy('discipline_id', 'ASC')->get();
+      $preTests = Pretest::where([
+        'team_id' => $team->id,
+      ])->orderBy('discipline_id', 'ASC')->get();
+    } else {
+      $activities = TeamActivity::where([
+        'team_id' => $team->id,
+        'discipline_id' => $request->discipline_id,
+        'mark_in_journal' => true,
+      ])->orderBy('discipline_id', 'ASC')->get();
+      $groupWorks = GroupWork::where([
+        'team_id' => $team->id,
+        'discipline_id' => $request->discipline_id
+      ])->orderBy('discipline_id', 'ASC')->get();
+      $preTests = Pretest::where([
+        'team_id' => $team->id,
+        'discipline_id' => $request->discipline_id
+      ])->orderBy('discipline_id', 'ASC')->get();
+    }
+    return Excel::download(new TeamMarkExport($team, $users, $activities, $groupWorks, $preTests), $file_name);
+  }
+
+  public function create()
+  {
+    $templates = TeamTemplate::all();
+    return view('team.create')
+      ->withTemplates($templates);
+  }
+
+  public function store(StoreTeam $request)
+  {
+    // Get Template
+    $template = TeamTemplate::where('name', $request->template)->first();
+
+    // Persist
+    $team = Team::create([
+      'name' => $request->name,
+      'display_name' => $request->display_name,
+      'description' => $request->description,
+    ]);
+
+    //Set lesson time from template
+    foreach ($template->lessonsTime as $time) {
+      TeamLessonTime::create([
+        'team_id' => $team->id,
+        'position' => $time->position,
+        'start_time' => $time->start_time,
+        'end_time' => $time->end_time,
+      ]);
     }
 
-    public function index()
-    {
-        $teams = Auth::user()->teams();
+    foreach ($template->disciplines as $discipline) {
+      // Find teacher
+      $user = User::find($discipline->teacher_id);
 
-        if (Auth::user()->hasRole('top-manager'))
-            $teams = Team::all();
+      // Find role teacher
+      $teacher = Role::where('name', 'teacher')->first();
 
-        return view('team.index')->withTeams($teams);
+      // Get ACL permission for teacher
+      $readAcl = Permission::where('name', 'read-acl')->first();
+      $updateAcl = Permission::where('name', 'update-acl')->first();
+      // Attach permission for student to team
+      $user->attachPermissions([$readAcl, $updateAcl], $team);
+      $user->attachRole($teacher, $team);
+      // Add discipline to team
+      TeamDiscipline::create([
+        'team_id' => $team->id,
+        'teacher_id' => $user->id,
+        'discipline_id' => $discipline->discipline_id,
+        'hours' => $discipline->hours,
+      ]);
+    }
+    // Get ACL permission for manager
+    $ownerGroup = Role::where('name', 'owner')->first();
+    $createAcl = Permission::where('name', 'create-acl')->first();
+    $readAcl = Permission::where('name', 'read-acl')->first();
+    $updateAcl = Permission::where('name', 'update-acl')->first();
+
+    // Attach manager to new team
+    Auth::user()->attachRole($ownerGroup, $team);
+    Auth::user()->attachPermissions([$createAcl, $readAcl, $updateAcl], $team);
+
+
+    $topManagers = User::whereHas(
+      'roles', function ($q) {
+      $q->where('name', 'top-manager');
+    }
+    )->get();
+
+    // Send notification
+    foreach ($topManagers as $top)
+      $top->notify(new NotifNewTeam($team));
+
+
+    // Show flash msg
+    Session::flash('success', 'Team was successfully created. You owner this team');
+
+    // Return to manage
+    return redirect(url('/team/' . $team->name));
+  }
+
+  public function show($name)
+  {
+    // Get Team
+    $team = Team::where('name', $name)->first();
+
+    // Get all students not in the current group
+    $students = User::whereRoleIs('student')->with('rolesTeams')->get();
+    foreach ($students as $sk => $student) {
+      foreach ($student->rolesTeams as $key => $t) {
+        if ($t->id == $team->id)
+          $students->forget($sk);
+      }
     }
 
-    public function export(ExportStudentMarkRequest $request)
-    {
-        $team = Team::find($request->team_id);
-        $users = $request->student_id != -1 ? User::where('id', $request->student_id)->get() : $team->getStudents();
-        $student_name = $request->student_id != -1 ? User::find($request->student_id)->getFullName() : 'All-students';
-        $discipline_name = $request->discipline_id != -1 ? Discipline::find($request->discipline_id)->display_name : 'All-disciplines';
-        $file_name = $team->display_name . '-' . $student_name . '-' . $discipline_name . '.xlsx';
-        if ($request->discipline_id == -1) {
-            $activities = TeamActivity::where([
-                'team_id' => $team->id,
-                'mark_in_journal' => true,
-            ])->orderBy('discipline_id', 'ASC')->get();
-        } else {
-            $activities = TeamActivity::where([
-                'team_id' => $team->id,
-                'discipline_id' => $request->discipline_id,
-                'mark_in_journal' => true,
-            ])->orderBy('discipline_id', 'ASC')->get();
-        }
-        return Excel::download(new TeamMarkExport($team, $users, $activities), $file_name);
-    }
+    // Get all teachers
+    $teachers = User::whereRoleIs('teacher')->get();
 
-    public function create()
-    {
-        $templates = TeamTemplate::all();
-        return view('team.create')
-            ->withTemplates($templates);
-    }
+    // Get all disciplines
+    $disciplines = Discipline::all();
+    $teamTemplateDisciplines = TeamTemplateDiscipline::all();
 
-    public function store(StoreTeam $request)
-    {
-        // Get Template
-        $template = TeamTemplate::where('name', $request->template)->first();
+    // Render View
+    return view('team.show')
+      ->withTeam($team)
+      ->withStudents($students)
+      ->withTeachers($teachers)
+      ->withDisciplines($disciplines)
+      ->withTeamTemplateDisciplines($teamTemplateDisciplines);
+  }
 
-        // Persist
-        $team = Team::create([
-            'name' => $request->name,
-            'display_name' => $request->display_name,
-            'description' => $request->description,
-        ]);
+  public function studentDelete($teamId, $studentId)
+  {
+    // Validate access
 
-        //Set lesson time from template
-        foreach ($template->lessonsTime as $time) {
-            TeamLessonTime::create([
-                'team_id' => $team->id,
-                'position' => $time->position,
-                'start_time' => $time->start_time,
-                'end_time' => $time->end_time,
-            ]);
-        }
+    // Find user
+    $user = User::find($studentId);
 
-        foreach ($template->disciplines as $discipline) {
-            // Find teacher
-            $user = User::find($discipline->teacher_id);
+    // Find team
+    $team = Team::find($teamId);
 
-            // Find role teacher
-            $teacher = Role::where('name', 'teacher')->first();
+    // Find role student
+    $student = Role::where('name', 'student')->first();
 
-            // Get ACL permission for teacher
-            $readAcl = Permission::where('name', 'read-acl')->first();
-            $updateAcl = Permission::where('name', 'update-acl')->first();
-            // Attach permission for student to team
-            $user->attachPermissions([$readAcl, $updateAcl], $team);
-            $user->attachRole($teacher, $team);
-            // Add discipline to team
-            TeamDiscipline::create([
-                'team_id' => $team->id,
-                'teacher_id' => $user->id,
-                'discipline_id' => $discipline->discipline_id,
-                'hours' => $discipline->hours,
-            ]);
-        }
-        // Get ACL permission for manager
-        $ownerGroup = Role::where('name', 'owner')->first();
-        $createAcl = Permission::where('name', 'create-acl')->first();
-        $readAcl = Permission::where('name', 'read-acl')->first();
-        $updateAcl = Permission::where('name', 'update-acl')->first();
+    // Get ACL permission for student
+    $readAcl = Permission::where('name', 'read-acl')->first();
+    $updateAcl = Permission::where('name', 'update-acl')->first();
 
-        // Attach manager to new team
-        Auth::user()->attachRole($ownerGroup, $team);
-        Auth::user()->attachPermissions([$createAcl, $readAcl, $updateAcl], $team);
+    // Detach permission for student to team
+    $user->detachPermissions([$readAcl->id, $updateAcl->id]);
+    $user->detachRole($student, $team);
 
+    // Show flash msg
+    Session::flash('success', 'Student was successfully deleted from group.');
 
-        $topManagers = User::whereHas(
-            'roles', function ($q) {
-            $q->where('name', 'top-manager');
-        }
-        )->get();
+    // Return to manage
+    return back();
+  }
 
-        // Send notification
-        foreach ($topManagers as $top)
-            $top->notify(new NotifNewTeam($team));
+  public function update(UpdateTeam $request, $team)
+  {
+    // Find team
+    $team = Team::where('name', $team)->first();
 
+    // Update
+    $team->update([
+      'display_name' => $request->display_name,
+      'description' => $request->description,
+      'video_lessons' => $request->video_lessons == 'on' ? 1 : 0,
+    ]);
 
-        // Show flash msg
-        Session::flash('success', 'Team was successfully created. You owner this team');
+    // Show flash msg
+    Session::flash('success', 'Team was successfully updated.');
 
-        // Return to manage
-        return redirect(url('/team/' . $team->name));
-    }
+    // Return to manage
+    return back();
+  }
 
-    public function show($name)
-    {
-        // Get Team
-        $team = Team::where('name', $name)->first();
+  public function setHeadman(Request $request, $team)
+  {
+    $team = Team::where('name', $team)->first();
+    TeamHeadman::where('team_id', $team->id)->delete();
+    TeamHeadman::create([
+      'team_id' => $team->id,
+      'student_id' => $request->student_id
+    ]);
+    Session::flash('success', 'Headman was been successfully updated');
+    return back();
+  }
 
-        // Get all students not in the current group
-        $students = User::whereRoleIs('student')->with('rolesTeams')->get();
-        foreach ($students as $sk => $student) {
-            foreach ($student->rolesTeams as $key => $t) {
-                if ($t->id == $team->id)
-                    $students->forget($sk);
-            }
-        }
+  public function disciplineDisable($team, $teamDisciplineId)
+  {
+    $teamDiscipline = TeamDiscipline::find($teamDisciplineId);
+    $disabled = $teamDiscipline->disabled;
+    $teamDiscipline->disabled = $disabled ? false : true;
+    $teamDiscipline->save();
 
-        // Get all teachers
-        $teachers = User::whereRoleIs('teacher')->get();
-
-        // Get all disciplines
-        $disciplines = Discipline::all();
-        $teamTemplateDisciplines = TeamTemplateDiscipline::all();
-
-        // Render View
-        return view('team.show')
-            ->withTeam($team)
-            ->withStudents($students)
-            ->withTeachers($teachers)
-            ->withDisciplines($disciplines)
-            ->withTeamTemplateDisciplines($teamTemplateDisciplines);
-    }
-
-    public function studentDelete($teamId, $studentId)
-    {
-        // Validate access
-
-        // Find user
-        $user = User::find($studentId);
-
-        // Find team
-        $team = Team::find($teamId);
-
-        // Find role student
-        $student = Role::where('name', 'student')->first();
-
-        // Get ACL permission for student
-        $readAcl = Permission::where('name', 'read-acl')->first();
-        $updateAcl = Permission::where('name', 'update-acl')->first();
-
-        // Detach permission for student to team
-        $user->detachPermissions([$readAcl->id, $updateAcl->id]);
-        $user->detachRole($student, $team);
-
-        // Show flash msg
-        Session::flash('success', 'Student was successfully deleted from group.');
-
-        // Return to manage
-        return back();
-    }
-
-    public function update(UpdateTeam $request, $team)
-    {
-        // Find team
-        $team = Team::where('name', $team)->first();
-
-        // Update
-        $team->update([
-            'display_name' => $request->display_name,
-            'description' => $request->description,
-            'video_lessons' => $request->video_lessons == 'on' ? 1 : 0,
-        ]);
-
-        // Show flash msg
-        Session::flash('success', 'Team was successfully updated.');
-
-        // Return to manage
-        return back();
-    }
-
-    public function setHeadman(Request $request, $team)
-    {
-        $team = Team::where('name', $team)->first();
-        TeamHeadman::where('team_id', $team->id)->delete();
-        TeamHeadman::create([
-            'team_id' => $team->id,
-            'student_id' => $request->student_id
-        ]);
-        Session::flash('success', 'Headman was been successfully updated');
-        return back();
-    }
-
-    public function disciplineDisable($team, $teamDisciplineId)
-    {
-        $teamDiscipline = TeamDiscipline::find($teamDisciplineId);
-        $disabled = $teamDiscipline->disabled;
-        $teamDiscipline->disabled = $disabled ? false : true;
-        $teamDiscipline->save();
-
-        Session::flash('success', 'Discipline updated');
-        return back();
-    }
+    Session::flash('success', 'Discipline updated');
+    return back();
+  }
 }
