@@ -19,12 +19,14 @@ class StudentMarkDisciplineExport implements FromArray, WithHeadings, ShouldAuto
 {
   use Exportable;
 
-  public function __construct(Team $team, User $user, string $discipline_name, Collection $activities)
+  public function __construct(Team $team, User $user, string $discipline_name, Collection $activities, Collection $groupWorks, Collection $preTests)
   {
     $this->user = $user;
     $this->team = $team;
     $this->discipline_name = $discipline_name;
     $this->activities = $activities;
+    $this->groupWorks = $groupWorks;
+    $this->preTests = $preTests;
   }
 
   public function styles(Worksheet $sheet)
@@ -39,7 +41,8 @@ class StudentMarkDisciplineExport implements FromArray, WithHeadings, ShouldAuto
   {
     return [
       'A' => 60,
-      'B' => 60,
+      'B' => 20,
+      'C' => 60,
     ];
   }
 
@@ -48,7 +51,7 @@ class StudentMarkDisciplineExport implements FromArray, WithHeadings, ShouldAuto
     return [
       AfterSheet::class => function (AfterSheet $event) {
 
-        $event->sheet->getDelegate()->getStyle('C')
+        $event->sheet->getDelegate()->getStyle('D')
           ->getAlignment()
           ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
@@ -59,8 +62,8 @@ class StudentMarkDisciplineExport implements FromArray, WithHeadings, ShouldAuto
   public function headings(): array
   {
     return [
-      [$this->user->getFullName(), '', 'Оцінка'],
-      ['Дисципліна', 'Активність']
+      [$this->user->getFullName()],
+      ['Дисципліна', 'Тип', 'Назва', 'Оцінка']
     ];
   }
 
@@ -68,8 +71,22 @@ class StudentMarkDisciplineExport implements FromArray, WithHeadings, ShouldAuto
   {
     $output = [];
     foreach ($this->activities as $activity) {
-      $row = [$activity->discipline->display_name, $activity->name];
+      $row = [$activity->discipline->display_name, 'Активність', $activity->name];
       $mark = $activity->getMark($this->user->id) ? $activity->getMark($this->user->id)->mark : '';
+      array_push($row, $mark);
+      array_push($output, $row);
+    }
+
+    foreach ($this->groupWorks as $groupWork) {
+      $row = [$groupWork->discipline->display_name, 'Группова робота', $groupWork->name];
+      $mark = $groupWork->getMark($this->user->id) ? $groupWork->getMark($this->user->id)->mark : '';
+      array_push($row, $mark);
+      array_push($output, $row);
+    }
+
+    foreach ($this->preTests as $preTest) {
+      $row = [$preTest->discipline->display_name, 'Претест', $preTest->name];
+      $mark = $preTest->getMark($this->user->id) ? $preTest->getMark($this->user->id)->mark : '';
       array_push($row, $mark);
       array_push($output, $row);
     }
