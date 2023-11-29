@@ -39,10 +39,12 @@ class UserFileController extends Controller
            $userFile->name_ua = $request->name_ua;
            $userFile->name_en = $request->name_en;
            $userFile->size = $request->file->getSize();
+           $userFile->extension = $request->file->getClientOriginalExtension();
 
-           $filePath = Storage::disk('user-file')->put('/', $request->file);
-           $userFile->file_name = basename($filePath);
-           $userFile->extension = "";
+           $fileHash = str_replace('.' . $request->file->extension(), '', $request->file->hashName());
+           $fileName = $fileHash . '.' . $request->file->getClientOriginalExtension();
+           Storage::putFileAs('user/file', $request->file, $fileName);
+           $userFile->file_name = $fileName;
            $userFile->save();
 
            Session::flash('success', "File was be saved");

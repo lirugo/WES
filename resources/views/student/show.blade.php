@@ -90,6 +90,7 @@
                         <thead>
                           <tr>
                               <th>@lang('app.File Name')</th>
+                              <th>@lang('app.Extension')</th>
                               <th>@lang('app.Size')</th>
                               <th>@lang('app.Upload Date')</th>
                               <th>@lang('app.Uploader')</th>
@@ -106,6 +107,7 @@
                             @else
                               <td>{{$file->name_en}}</td>
                             @endif
+                            <td>{{$file->extension}}</td>
                             <td>{{ceil($file->size / 1024 )}} kb</td>
                             <td>{{$file->created_at}}</td>
                             <td>{{$file->uploader->getShortName()}}</td>
