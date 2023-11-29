@@ -115,7 +115,7 @@
                                   {!! Form::open(['method' => 'DELETE', 'route' => ['user.file.delete', $file->id]]) !!}
                                       <button type="submit" class="red darken-1 waves-effect waves-light btn"><i class="material-icons ">delete</i></button>
                                   {!! Form::close() !!}
-                                  <a class="btn waves-effect waves-light green" style="margin-left: 1em;" href="{{url('/app/user/file/'.$file->file_name)}}" download>
+                                  <a class="btn waves-effect waves-light green" style="margin-left: 1em;" href="{{url('/user/get-file/'.$file->id)}}" download>
                                    <i class="material-icons ">cloud_download</i></a>
                                 </div>
                               </td>

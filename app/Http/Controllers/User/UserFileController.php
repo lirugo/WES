@@ -58,7 +58,7 @@ class UserFileController extends Controller
     public function get($fileId)
     {
        $file = UserFile::where('id', $fileId)->first();
-       $path = storage_path('/app/user/file/'.$name);
+       $path = storage_path('/app/user/file/'.$file->file_name);
        $info = pathinfo($path);
 
        return response()->download($path, $file->name_en.'.'.$info['extension']);

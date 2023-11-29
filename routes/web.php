@@ -105,7 +105,7 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'User', 'prefix' => 'user
     //Profile
     Route::get('/profile', 'ProfileController@index');
     Route::post('/file', 'UserFileController@store')->name('user.store.file');
-    Route::post('/get-file', 'UserFileController@get')->name('user.get.file');
+    Route::get('/get-file/{fileId}', 'UserFileController@get')->name('user.get.file');
     Route::delete('/delete-file/{fileId}', 'UserFileController@destroy')->name('user.file.delete');
     Route::post('/profile/update', 'ProfileController@update')->name('user.profile.update');
     Route::post('/profile/setAvatar', 'ProfileController@setAvatar')->name('user.profile.setAvatar');
