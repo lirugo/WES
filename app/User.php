@@ -744,4 +744,8 @@ class User extends Authenticatable
     public function isInConversation(Conversation $conversation){
         return $this->conversations->contains($conversation);
     }
+
+    public function files(){
+        return $this->hasMany(UserFile::class, 'user_id', 'id');
+    }
 }

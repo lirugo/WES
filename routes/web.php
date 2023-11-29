@@ -104,6 +104,9 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'User', 'prefix' => 'user
     Route::post('/settings', 'SettingsController@update');
     //Profile
     Route::get('/profile', 'ProfileController@index');
+    Route::post('/file', 'UserFileController@store')->name('user.store.file');
+    Route::post('/get-file', 'UserFileController@get')->name('user.get.file');
+    Route::delete('/delete-file/{fileId}', 'UserFileController@destroy')->name('user.file.delete');
     Route::post('/profile/update', 'ProfileController@update')->name('user.profile.update');
     Route::post('/profile/setAvatar', 'ProfileController@setAvatar')->name('user.profile.setAvatar');
     Route::post('/profile/resetPassword', 'ProfileController@resetPassword')->name('user.profile.resetPassword');

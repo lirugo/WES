@@ -80,6 +80,78 @@
                     </div>
                 @endif
             </div>
+            @if(Auth::user()->hasRole(['top-manager', 'manager']))
+            <div class="card-panel small hoverable">
+                <h5 class="m-t-0 m-b-20 center-align">
+                @lang('app.Files')
+                </h5>
+                    <div class="row m-b-0">
+                       <table>
+                        <thead>
+                          <tr>
+                              <th>@lang('app.File Name')</th>
+                              <th>@lang('app.Size')</th>
+                              <th>@lang('app.Upload Date')</th>
+                              <th>@lang('app.Uploader')</th>
+                              <th>@lang('app.Action')</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                        @foreach($student->files as $file)
+                          <tr>
+
+                            @if(auth()->user()->language == "ua")
+                              <td>{{$file->name_ua}}</td>
+                            @else
+                              <td>{{$file->name_en}}</td>
+                            @endif
+                            <td>{{ceil($file->size / 1024 )}} kb</td>
+                            <td>{{$file->created_at}}</td>
+                            <td>{{$file->uploader->getShortName()}}</td>
+                            @if(Auth::user()->hasRole(['top-manager', 'manager']))
+                              <td>
+                                <div class="valign-wrapper">
+                                  {!! Form::open(['method' => 'DELETE', 'route' => ['user.file.delete', $file->id]]) !!}
+                                      <button type="submit" class="red darken-1 waves-effect waves-light btn"><i class="material-icons ">delete</i></button>
+                                  {!! Form::close() !!}
+                                  <a class="btn waves-effect waves-light green" style="margin-left: 1em;" href="{{url('/app/user/file/'.$file->file_name)}}" download>
+                                   <i class="material-icons ">cloud_download</i></a>
+                                </div>
+                              </td>
+                            @endif
+                          </tr>
+                          @endforeach
+                        </tbody>
+                      </table>
+                       {!! Form::open(['route' => ['user.store.file', $student->id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+                           <input type="hidden" name="user_id" value="{{$student->id}}"/>
+                           <div class="input-field col s3">
+                               <input id="title" name="name_ua" type="text" class="validate" required>
+                               <label for="title">@lang('app.File Name') UA</label>
+                           </div>
+                           <div class="input-field col s3">
+                               <input id="title" name="name_en" type="text" class="validate" required>
+                               <label for="title">@lang('app.File Name') EN</label>
+                           </div>
+                            <div class="file-field input-field col s3">
+                                 <div class="btn indigo">
+                                     <span>@lang('app.File')</span>
+                                     <input type="file" name="file" accept="application/pdf, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document" required>
+                                 </div>
+                                 <div class="file-path-wrapper">
+                                     <input class="file-path validate" type="text" placeholder="@lang('app.File')">
+                                 </div>
+                            </div>
+                        <div class="input-field col s3">
+                            <button class="btn waves-effect waves-light green" type="submit">@lang('app.Upload file')
+                                <i class="material-icons right">add</i>
+                            </button>
+                        </div>
+                        {!! Form::close() !!}
+                    </div>
+            </div>
+            @endif
         </div>
         <div class="col s12 m4">
             <div class="card hoverable" id="avatar">

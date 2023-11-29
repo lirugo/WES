@@ -377,4 +377,12 @@ return [
     'Team' => 'Team',
     'Export' => 'Export',
     'Mark Export' => 'Mark Export',
+    'Files' => 'Files',
+    'File Name' => 'File Name',
+    'Extension' => 'Extension',
+    'Size' => 'Size',
+    'Upload Date' => 'Upload Date',
+    'Uploader' => 'Uploader',
+    'Action' => 'Action',
+    'Upload' => 'Upload',
 ];
