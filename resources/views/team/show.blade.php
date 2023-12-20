@@ -67,6 +67,45 @@
             </div>
         </div>
 
+        @if(Auth::user()->hasRole(['administrator', 'top-manage', 'manager']))
+            <div class="row">
+                <div class="col s12 m6 l4">
+                    {{--Add new student--}}
+                    <div class="card-panel hoverable">
+                        {!! Form::open(['route' => ['team.student.store',$team->name], 'method' => 'POST']) !!}
+                        <h5 class="center-align m-b-30">@lang('app.Add a new student')</h5>
+
+                        <div class="input-field">
+                            <i class="material-icons prefix">account_circle</i>
+                            <input type="text" id="autocomplete-input" class="autocompleteNewStudent">
+                            <input type="hidden" id="studentId" name="studentId">
+                            <label for="autocomplete-input">@lang('app.Choose a new student')</label>
+                        </div>
+
+                        <button type="submit" class="indigo waves-effect waves-light btn right"><i class="material-icons right">add</i>@lang('app.New student')</button>
+                        {!! Form::close() !!} 
+                    </div>
+                </div>
+                {{--Add new discipline--}}
+                <div class="col s12 m6 l8">
+                    <div class="card-panel hoverable">
+                        {!! Form::open(['route' => ['team.discipline.store',$team->name], 'method' => 'POST']) !!}
+                        <h5 class="center-align m-b-30">@lang('app.Add a new discipline')</h5>
+                        
+                        <div class="input-field">
+                            <i class="material-icons prefix">account_circle</i>
+                            <input type="text" id="autocomplete-input-discipline" class="autocompleteNewDiscipline">
+                            <input type="hidden" id="teamTemplateDisciplines" name="teamTemplateDisciplines">
+                            <label for="autocomplete-input-discipline">@lang('app.Choose a new discipline')</label>
+                        </div>
+
+                        <button type="submit" class="indigo waves-effect waves-light btn right"><i class="material-icons right">add</i>@lang('app.New discipline')</button>
+                        {!! Form::close() !!}
+                    </div>
+                </div>
+            </div>
+        @endif
+
         <div class="row">
             <div class="col s12 m6">
                 <div class="card-panel indigo white-text m-b-0">
@@ -208,47 +247,6 @@
             @endforeach
         </div>
 
-        @if(Auth::user()->hasRole(['administrator', 'top-manage', 'manager']))
-            <div class="row">
-                <div class="col s12 m6 l4">
-                    {{--Add new student--}}
-                    <div class="card-panel hoverable">
-                        {!! Form::open(['route' => ['team.student.store',$team->name], 'method' => 'POST']) !!}
-                        <h5 class="center-align m-b-30">@lang('app.Add a new student')</h5>
-                        <div class="input-field">
-                            <select class="icons" name="student" required>
-                                <option value="" disabled selected>@lang('app.Choose a new student')</option>
-                                @foreach($students as $student)
-                                    <option value="{{$student->id}}" data-icon="{{asset('/uploads/avatars/'.$student->avatar)}}">{{$student->getFullName()}}</option>
-                                @endforeach
-                            </select>
-                            <label>@lang('app.All students')</label>
-                        </div>
-                        <button type="submit" class="indigo waves-effect waves-light btn right"><i class="material-icons right">add</i>@lang('app.New student')</button>
-                        {!! Form::close() !!}
-                    </div>
-                </div>
-                {{--Add new discipline--}}
-                <div class="col s12 m6 l8">
-                    <div class="card-panel hoverable">
-                        {!! Form::open(['route' => ['team.discipline.store',$team->name], 'method' => 'POST']) !!}
-                        <h5 class="center-align m-b-30">@lang('app.Add a new discipline')</h5>
-                        <div class="input-field">
-                            <select class="icons" name="teamTemplateDisciplines" required>
-                                <option value="" disabled selected>@lang('app.Choose a new discipline')</option>
-                                @foreach($teamTemplateDisciplines as $discipline)
-                                    <option value="{{$discipline->id}}">{{$discipline->getTeacher->getFullName()}} - {{$discipline->getDiscipline->display_name}} {{$discipline->hours}} @lang('app.hours')</option>
-                                @endforeach
-                            </select>
-                            <label>@lang('app.All disciplines')</label>
-                        </div>
-                        <button type="submit" class="indigo waves-effect waves-light btn right"><i class="material-icons right">add</i>@lang('app.New discipline')</button>
-                        {!! Form::close() !!}
-                    </div>
-                </div>
-            </div>
-        @endif
-
         {{--Floating button--}}
         <div class="fixed-action-btn">
             <a class="btn-floating btn-large red pulse">
@@ -277,6 +275,35 @@
 @endsection
 @section('scripts')
     <script>
+          document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.autocompleteNewStudent');
+            var instances = M.Autocomplete.init(elems, {
+                data: {
+                    @foreach($students as $student)
+                        "{{$student->getFullName()}}": "{{$student->id}}",
+                    @endforeach
+                },
+                limit: 15,
+                onAutocomplete: function(txt) {
+                    document.getElementById('studentId').value = this.options.data[txt];
+                }
+            });
+        });
+          document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.autocompleteNewDiscipline');
+            var instances = M.Autocomplete.init(elems, {
+                data: {
+                    @foreach($teamTemplateDisciplines as $discipline)
+                        "{{$discipline->getTeacher->getFullName()}} - {{$discipline->getDiscipline->display_name}} {{$discipline->hours}} @lang('app.hours')": "{{$discipline->id}}",
+                    @endforeach
+                },
+                limit: 15,
+                onAutocomplete: function(txt) {
+                    document.getElementById('teamTemplateDisciplines').value = this.options.data[txt];
+                }
+            });
+        });
+
         new Vue({
             el: '#team-dashboard',
             mounted(){

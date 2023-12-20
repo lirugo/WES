@@ -23,7 +23,7 @@ class StoreController extends Controller
         // Validate access
 
         // Find user
-        $user = User::find($request->student);
+        $user = User::find($request->studentId);
 
         // Find team
         $team = Team::where('name', $teamName)->first();

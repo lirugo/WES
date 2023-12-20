@@ -385,4 +385,5 @@ return [
     'Uploader' => 'Uploader',
     'Action' => 'Action',
     'Upload' => 'Upload',
+    'New student' => 'New student',
 ];
