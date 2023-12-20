@@ -2,6 +2,15 @@
 @section('breadcrumbs')
     {{ Breadcrumbs::render('team-show', $team) }}
 @endsection
+
+@section('style')
+<style>
+   li img {
+        display: none;
+    }
+</style>
+@endsection
+
 @section('content')
     <div id="team-dashboard">
         {{--Name and Manager block--}}
@@ -93,7 +102,7 @@
                         <h5 class="center-align m-b-30">@lang('app.Add a new discipline')</h5>
                         
                         <div class="input-field">
-                            <i class="material-icons prefix">account_circle</i>
+                            <i class="material-icons prefix">subject</i>
                             <input type="text" id="autocomplete-input-discipline" class="autocompleteNewDiscipline">
                             <input type="hidden" id="teamTemplateDisciplines" name="teamTemplateDisciplines">
                             <label for="autocomplete-input-discipline">@lang('app.Choose a new discipline')</label>
