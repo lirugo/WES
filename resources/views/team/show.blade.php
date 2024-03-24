@@ -146,7 +146,7 @@
                     <div class="row m-b-0">
                         {!! Form::open(['route' => ['team.export', $team->name], 'method' => 'POST']) !!}
                         <input type="hidden" name="team_id" value="{{ $team->id }}">
-                        <div class="col s4">
+                        <div class="col s5">
                             <label>@lang('app.Discipline')</label>
                             <select id="discipline_id" name="discipline_id" >
                                 <option value="-1">@lang('app.All')</option>
@@ -165,12 +165,23 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="input-field col s3">
-                            <button class="btn waves-effect waves-light green" type="submit">@lang('app.Export')
-                                <i class="material-icons right">cloud_download</i>
+                        <div class="input-field col">
+                            <button class="btn waves-effect waves-light green" type="submit">
+                                <i class="material-icons">cloud_download</i>
                             </button>
                         </div>
                         {!! Form::close() !!}
+
+                        {!! Form::open(['route' => ['team.exportTotal', $team->name], 'method' => 'POST']) !!}
+                        <input type="hidden" name="team_id" value="{{ $team->id }}">
+                            <div class="input-field col">
+                                <button class="btn waves-effect waves-light green" type="submit">
+                                    <i class="material-icons ">format_list_numbered</i>
+                                </button>
+                            </div>
+
+                        {!! Form::close() !!}
+                        </div>
                     </div>
                 </div>
             </div>

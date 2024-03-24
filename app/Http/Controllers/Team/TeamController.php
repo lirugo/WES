@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Team;
 
 use App\Discipline;
 use App\Exports\TeamMarkExport;
+use App\Exports\TeamTotalMarkExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ExportStudentMarkRequest;
 use App\Http\Requests\StoreTeam;
@@ -78,6 +79,26 @@ class TeamController extends Controller
       ])->orderBy('discipline_id', 'ASC')->get();
     }
     return Excel::download(new TeamMarkExport($team, $users, $activities, $groupWorks, $preTests), $file_name);
+  }
+  public function exportTotal(ExportStudentMarkRequest $request)
+  {
+    $team = Team::find($request->team_id);
+    $users = $team->getStudents();
+    $student_name = 'All-students';
+    $discipline_name = 'All-disciplines';
+    $file_name = $team->display_name . '-' . $student_name . '-' . $discipline_name . '-total.xlsx';
+    $activities = TeamActivity::where([
+      'team_id' => $team->id,
+      'mark_in_journal' => true,
+    ])->orderBy('discipline_id', 'ASC')->get();
+    $groupWorks = GroupWork::where([
+      'team_id' => $team->id,
+    ])->orderBy('discipline_id', 'ASC')->get();
+    $preTests = Pretest::where([
+      'team_id' => $team->id,
+    ])->orderBy('discipline_id', 'ASC')->get();
+
+    return Excel::download(new TeamTotalMarkExport($team, $users, $activities, $groupWorks, $preTests), $file_name);
   }
 
   public function create()
